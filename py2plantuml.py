@@ -53,10 +53,18 @@ class PyAnalysis:
         pass
 
     @staticmethod
-    def __get_file_name_from_class_name(detailed: bool, class_name: str, want_svg_file: bool) -> str:
-        file_name: str = f'{class_name}-diagram-simplified.puml'
+    def __get_file_name_from_class_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
+        file_name: str = ''
         if detailed:
-            file_name = f'{class_name}-diagram-detailed.puml'
+            if grouped_per_ns:
+                file_name = f'{class_name}-diagram-detailed-per-ns.puml'
+            else:
+                file_name = f'{class_name}-diagram-detailed.puml'
+        else:
+            if grouped_per_ns:
+                file_name = f'{class_name}-diagram-simplified-per-ns.puml'
+            else:
+                file_name = f'{class_name}-diagram-simplified.puml'            
 
         if want_svg_file:
             file_name = re.sub('puml$', 'svg', file_name)
@@ -64,23 +72,32 @@ class PyAnalysis:
         return file_name
     
     @staticmethod
-    def __get_file_name(detailed: bool, class_name: str = None) -> Tuple[str, str, str]:
+    def __get_file_name(detailed: bool, grouped_per_ns: bool, class_name: str = None) -> Tuple[str, str, str]:
 
-        full_file_name_simplified: str = re.sub('puml$', 'svg', PyAnalysis.FULL_SIMPLIFIED_FILE_NAME)
-        full_file_name_detailed: str = re.sub('puml$', 'svg', PyAnalysis.FULL_DETAILED_FILE_NAME)
+        puml2svg = lambda file_name :  re.sub('puml$', 'svg', file_name)
+        full_file_name_simplified: str = puml2svg(PyAnalysis.FULL_SIMPLIFIED_FILE_NAME)
+        full_file_name_detailed: str = puml2svg(PyAnalysis.FULL_DETAILED_FILE_NAME)
+        full_file_name_detailed_per_ns: str = puml2svg(PyAnalysis.FULL_DETAILED_PER_NS_FILE_NAME)
+        full_file_name_simplified_per_ns: str = puml2svg(PyAnalysis.FULL_SIMPLIFIED_PER_NS_FILE_NAME)
 
         if class_name is None:
             if detailed:
-                return PyAnalysis.FULL_DETAILED_FILE_NAME, full_file_name_simplified, None
+                if grouped_per_ns:
+                    return PyAnalysis.FULL_DETAILED_PER_NS_FILE_NAME, full_file_name_detailed, full_file_name_simplified_per_ns
+                else:
+                    return PyAnalysis.FULL_DETAILED_FILE_NAME, full_file_name_detailed_per_ns, full_file_name_simplified
             else:
-                return PyAnalysis.FULL_SIMPLIFIED_FILE_NAME, full_file_name_detailed, None
+                if grouped_per_ns:
+                    return PyAnalysis.FULL_SIMPLIFIED_PER_NS_FILE_NAME, full_file_name_simplified, full_file_name_detailed_per_ns
+                else:
+                    return PyAnalysis.FULL_SIMPLIFIED_FILE_NAME, full_file_name_simplified_per_ns, full_file_name_detailed
 
-        puml_file: str = PyAnalysis.__get_file_name_from_class_name(detailed, class_name, False)
-        svg_file_name_opposite_detailed: str = PyAnalysis.__get_file_name_from_class_name(not detailed, class_name, True)
-        full_file_name: str = full_file_name_simplified
+        puml_file: str = PyAnalysis.__get_file_name_from_class_name(detailed, grouped_per_ns, class_name, False)
+        svg_file_name_opposite_detailed: str = PyAnalysis.__get_file_name_from_class_name(not detailed, grouped_per_ns, class_name, True)
+        full_file_name: str = full_file_name_simplified_per_ns
 
         if detailed:
-            full_file_name: str = full_file_name_detailed
+            full_file_name: str = full_file_name_detailed_per_ns
 
         return puml_file, svg_file_name_opposite_detailed, full_file_name
 
@@ -226,20 +243,21 @@ class PyAnalysis:
             saver.append(opening_namespace(namespace))
           
     @staticmethod
-    def __create_puml_classes(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, saver: Saver, from_dir: str) -> None:
+    def __create_puml_classes(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, grouped_per_ns: bool, saver: Saver, from_dir: str) -> None:
         previous_sub_namespace_list: List[str] = []
         list_file_names = sorted(class_tree.keys())
         for file_name in list_file_names:
             classes = class_tree[file_name]
             current_sub_space_list = PyAnalysis.__get_package_name_from_filename(file_name, from_dir).split('.')[0:-1]
-            PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, current_sub_space_list, saver, False)
+            if grouped_per_ns:
+                PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, current_sub_space_list, saver, False)
 
             empty_spaces = '  ' * (max(len(current_sub_space_list) - 1, 0))
             for class_name, class_content in classes.items():
                 is_abstract: str = ''
                 if 'isabstract' in class_content.keys() and class_content['isabstract']:
                     is_abstract = 'abstract '
-                saver.append(f'{empty_spaces}{is_abstract}class {class_name} [[{PyAnalysis.__get_file_name_from_class_name(detailed, class_name, True)}]]{{')
+                saver.append(f'{empty_spaces}{is_abstract}class {class_name} [[{PyAnalysis.__get_file_name_from_class_name(detailed, grouped_per_ns, class_name, True)}]]{{')
                 if detailed:
                     if 'statics' in class_content:
                         for static_name, static_type in class_content['statics']:
@@ -256,7 +274,8 @@ class PyAnalysis:
                             saver.append(f'{empty_spaces}  {visible} {method_name}({member_type})' )
 
                 saver.append('}')
-        PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, None, saver, True)
+        if grouped_per_ns:
+            PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, None, saver, True)
 
         saver.append(' \' *************************************** ')
         saver.append(' \' *************************************** ')
@@ -301,24 +320,26 @@ class PyAnalysis:
             
 
     @staticmethod
-    def __create_full_diagram(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, initial_saver: Saver, from_dir: str, class_name: str = None) -> None:
+    def __create_full_diagram(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, grouped_per_ns: bool, initial_saver: Saver, from_dir: str, class_name: str = None) -> None:
         saver: Saver = initial_saver.clone()
-        filename, link_path_1, link_path_2 = PyAnalysis.__get_file_name(detailed, class_name)
+        filename, link_path_1, link_path_2 = PyAnalysis.__get_file_name(detailed, grouped_per_ns, class_name)
 
         link_path: str = f'[[{link_path_1}]]'
         if link_path_2 is not None:
             link_path=f'{link_path} - [[{link_path_2}]]'
 
         saver.append(f'note "{link_path}" as Unused')
-        PyAnalysis.__create_puml_classes(class_tree, detailed, saver, from_dir)
+        PyAnalysis.__create_puml_classes(class_tree, detailed, grouped_per_ns, saver, from_dir)
         create_all_relation: bool = class_name == None
         PyAnalysis.__create_puml_classes_relations(class_tree, saver, create_all_relation)
         saver.append('@enduml')
         saver.save(filename)
 
     def __create_puml_files(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], saver: Saver, from_dir: str, class_name: str = None) -> None:
-        PyAnalysis.__create_full_diagram(class_tree, True, saver, from_dir, class_name)
-        PyAnalysis.__create_full_diagram(class_tree, False, saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(class_tree, True, False, saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(class_tree, True, True, saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(class_tree, False, False, saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(class_tree, False, True, saver, from_dir, class_name)
         
     @staticmethod
     def __get_class_list(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]]) -> List[str]:
