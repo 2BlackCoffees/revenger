@@ -34,12 +34,20 @@ class Saver:
     def clone(self) -> Saver:
         return Saver(self.out_dir, self)
 
+    def removed_last_line_if_same(self, line: str) -> bool:
+        if len(self.lines_to_save) > 0 and line == self.lines_to_save[-1]:
+            self.lines_to_save.pop()
+            return True
+        return False
+
 
 class PyAnalysis:
     NOT_EXTRACTED: str = '** Not extracted **'
     SKIP_TYPES: List[str] = ['int', 'str', 'float', 'bool', 'abc.ABC', NOT_EXTRACTED]
     FULL_DETAILED_FILE_NAME: str = 'full-diagram-detailed.puml'
     FULL_SIMPLIFIED_FILE_NAME: str = 'full-diagram-simplified.puml'
+    FULL_DETAILED_PER_NS_FILE_NAME: str = 'full-diagram-detailed-per-ns.puml'
+    FULL_SIMPLIFIED_PER_NS_FILE_NAME: str = 'full-diagram-simplified-per-ns.puml'
 
     def __init__(self):
         pass
@@ -86,11 +94,17 @@ class PyAnalysis:
             member_sub_type = filemodule + member_sub_type 
         return member_sub_type
 
+    @staticmethod
+    def __get_package_name_from_filename(filename: str, from_dir: str = None) -> str:
+        if from_dir is not None:
+            filename = filename.replace(from_dir, '')
+        return re.sub('^\.', '', re.sub('py$', '', filename.replace('/', '.')))
+
     def __read_python_ast(self, filename: str, from_dir: str, saver: Saver) -> any:
         with open(filename, encoding="utf-8") as file:
             tree: any = ast.parse(file.read())
         classes: Dict[str, List[Dict[str, any]]] = {}
-        filemodule = re.sub('^\.', '', re.sub('py$', '', filename.replace(from_dir, '').replace('/', '.')))
+        filemodule = PyAnalysis.__get_package_name_from_filename(filename, from_dir)
         from_import: dict = {}
         for node in tree.body:
             if isinstance(node, ast.ImportFrom):
@@ -161,32 +175,89 @@ class PyAnalysis:
         # pprint(classes)
         return classes
 
-    @staticmethod
-    def __create_puml_classes(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, saver: Saver) -> None:
-        for file_name, classes in class_tree.items():
-            saver.append(f'\' Classes extracted from file:\n\' {file_name}')
 
+    def __sub_namespace_handler(previous_sub_namespace_list: List[str], current_sub_namespace_list: List[str], saver: Saver, ending_file: bool) -> None:
+        
+        opening_namespace = lambda namespace: f'namespace {namespace} {{'
+        if ending_file:
+            if len(previous_sub_namespace_list) > 0 and \
+                saver.removed_last_line_if_same(opening_namespace(previous_sub_namespace_list[-1])):
+                previous_sub_namespace_list.pop()
+            while len(previous_sub_namespace_list) > 0:
+                namespace = previous_sub_namespace_list.pop()
+                saver.append(f'\' Closing namespace {namespace}\n}}' )    
+            return   
+
+        if len(previous_sub_namespace_list) == 0:
+            previous_sub_namespace_list.extend(current_sub_namespace_list)
+            for namespace in current_sub_namespace_list:
+                saver.append(opening_namespace(namespace))
+            return          
+        
+        root_index: int = 0
+        index: int = 0
+        if len(current_sub_namespace_list) == 0 or current_sub_namespace_list[0] not in previous_sub_namespace_list:
+            if saver.removed_last_line_if_same(opening_namespace(previous_sub_namespace_list[-1])):
+                previous_sub_namespace_list.pop()
+            while len(previous_sub_namespace_list) > 0:
+                namespace = previous_sub_namespace_list.pop()
+                saver.append(f'\' Closing namespace {namespace}\n}}' )  
+        else:
+            # This assumes all elements defining a namespace are unique
+            root_index = previous_sub_namespace_list.index(current_sub_namespace_list[0])
+            found: bool = True
+            for index in range(root_index, len(previous_sub_namespace_list)):
+                if index - root_index >= len(current_sub_namespace_list) or \
+                    previous_sub_namespace_list[index] != current_sub_namespace_list[index - root_index]:
+                    found = False
+                    break
+            
+            if not found:
+                if saver.removed_last_line_if_same(opening_namespace(previous_sub_namespace_list[-1])):
+                    previous_sub_namespace_list.pop()
+                    index -= 1
+                while len(previous_sub_namespace_list) > index:
+                    namespace = previous_sub_namespace_list.pop()
+                    saver.append(f'\' Closing namespace {namespace}\n}}' )
+        
+        for sub_index in range(index - root_index, len(current_sub_namespace_list)):
+            namespace = current_sub_namespace_list[sub_index]
+            previous_sub_namespace_list.append(namespace)
+            saver.append(opening_namespace(namespace))
+          
+    @staticmethod
+    def __create_puml_classes(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, saver: Saver, from_dir: str) -> None:
+        previous_sub_namespace_list: List[str] = []
+        list_file_names = sorted(class_tree.keys())
+        for file_name in list_file_names:
+            classes = class_tree[file_name]
+            current_sub_space_list = PyAnalysis.__get_package_name_from_filename(file_name, from_dir).split('.')[0:-1]
+            PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, current_sub_space_list, saver, False)
+
+            empty_spaces = '  ' * (max(len(current_sub_space_list) - 1, 0))
             for class_name, class_content in classes.items():
                 is_abstract: str = ''
                 if 'isabstract' in class_content.keys() and class_content['isabstract']:
                     is_abstract = 'abstract '
-                saver.append(f'{is_abstract}class {class_name} [[{PyAnalysis.__get_file_name_from_class_name(detailed, class_name, True)}]]{{')
+                saver.append(f'{empty_spaces}{is_abstract}class {class_name} [[{PyAnalysis.__get_file_name_from_class_name(detailed, class_name, True)}]]{{')
                 if detailed:
                     if 'statics' in class_content:
                         for static_name, static_type in class_content['statics']:
-                            saver.append(f'  + {{static}} {static_name}: {static_type}')
+                            saver.append(f'{empty_spaces}  + {{static}} {static_name}: {static_type}')
                         #pprint(class_content['members'])
                     if 'members' in class_content:
                         for member_name, member_type in class_content['members']:
-                            saver.append(f'  - {member_name}: {member_type}' )
+                            saver.append(f'{empty_spaces}  - {member_name}: {member_type}' )
                     if 'methods' in class_content:
                         for method_name, member_type in class_content['methods']:
                             visible = '+'
                             if method_name.startswith('_'):
                                 visible = '-'
-                            saver.append(f'  {visible} {method_name}({member_type})' )
+                            saver.append(f'{empty_spaces}  {visible} {method_name}({member_type})' )
 
                 saver.append('}')
+        PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, None, saver, True)
+
         saver.append(' \' *************************************** ')
         saver.append(' \' *************************************** ')
         saver.append(' \' *************************************** ')
@@ -230,7 +301,7 @@ class PyAnalysis:
             
 
     @staticmethod
-    def __create_full_diagram(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, initial_saver: Saver, class_name: str = None) -> None:
+    def __create_full_diagram(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, initial_saver: Saver, from_dir: str, class_name: str = None) -> None:
         saver: Saver = initial_saver.clone()
         filename, link_path_1, link_path_2 = PyAnalysis.__get_file_name(detailed, class_name)
 
@@ -239,15 +310,15 @@ class PyAnalysis:
             link_path=f'{link_path} - [[{link_path_2}]]'
 
         saver.append(f'note "{link_path}" as Unused')
-        PyAnalysis.__create_puml_classes(class_tree, detailed, saver)
+        PyAnalysis.__create_puml_classes(class_tree, detailed, saver, from_dir)
         create_all_relation: bool = class_name == None
         PyAnalysis.__create_puml_classes_relations(class_tree, saver, create_all_relation)
         saver.append('@enduml')
         saver.save(filename)
 
-    def __create_puml_files(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], saver: Saver, class_name: str = None) -> None:
-        PyAnalysis.__create_full_diagram(class_tree, True, saver, class_name)
-        PyAnalysis.__create_full_diagram(class_tree, False, saver, class_name)
+    def __create_puml_files(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], saver: Saver, from_dir: str, class_name: str = None) -> None:
+        PyAnalysis.__create_full_diagram(class_tree, True, saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(class_tree, False, saver, from_dir, class_name)
         
     @staticmethod
     def __get_class_list(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]]) -> List[str]:
@@ -325,18 +396,12 @@ class PyAnalysis:
         for file in list(Path(from_dir).rglob("*.py")):
             file_name: str = os.path.join(from_dir, file)
             class_tree[file_name] = self.__read_python_ast(file_name, from_dir, saver)
-        PyAnalysis.__create_puml_files(class_tree, saver, None)
+        PyAnalysis.__create_puml_files(class_tree, saver, from_dir, None)
 
         class_list: List[str] = PyAnalysis.__get_class_list(class_tree)
         for class_name in class_list:
              reduced_class_list = PyAnalysis.__get_reduced_class_list_from_class_name(class_tree, class_name, class_list)
-             PyAnalysis.__create_puml_files(reduced_class_list, saver, class_name)
-
-        
-
-
-# See here for links: https://plantuml.com/de/link
-# class Car [[http://plantuml.com/link]]
+             PyAnalysis.__create_puml_files(reduced_class_list, saver, from_dir, class_name)
 
 
 def main(from_dir: str, out_dir: str) -> None:
