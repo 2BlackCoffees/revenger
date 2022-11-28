@@ -200,24 +200,28 @@ class PyAnalysis:
                         for fun_body in class_body.body:
                             if isinstance(fun_body, ast.AnnAssign):
                                 target = fun_body.target
-                                if isinstance(target, ast.Attribute):
-                                    if target.value.id == 'self':
-                                        member_name: str = target.attr
+                                if isinstance(target, ast.Attribute) or isinstance(target, ast.Name):
+                                    if isinstance(target, ast.Attribute):
+                                        member_name: str = 'self.'+target.attr
                                         member_type: str = ""
                                         annotation = fun_body.annotation
-                                        if isinstance(annotation, ast.Subscript):
-                                            if isinstance(annotation.value, ast.Name) and \
-                                                isinstance(annotation.slice, ast.Name) and \
-                                                    hasattr(annotation, 'slice'):
-                                                member_sub_type = PyAnalysis.get_type(\
-                                                    annotation.slice.id, from_import, filemodule)                                                    
+                                    else:
+                                        member_name: str = target.id
+                                        member_type: str = ""
+                                        annotation = fun_body.annotation
+                                    if isinstance(annotation, ast.Subscript):
+                                        if isinstance(annotation.value, ast.Name) and \
+                                            isinstance(annotation.slice, ast.Name) and \
+                                                hasattr(annotation, 'slice'):
+                                            member_sub_type = PyAnalysis.get_type(\
+                                                annotation.slice.id, from_import, filemodule)                                                    
 
-                                                member_type = annotation.value.id + '[' + member_sub_type + ']'
-                                        elif isinstance(annotation, ast.Name):
-                                            member_type = PyAnalysis.get_type(\
-                                                annotation.id, from_import, filemodule)                                                
-                                        else:
-                                            saver.append(f'\'WARNING: Will not import member named {member_name}')
+                                            member_type = annotation.value.id + '[' + member_sub_type + ']'
+                                    elif isinstance(annotation, ast.Name):
+                                        member_type = PyAnalysis.get_type(\
+                                            annotation.id, from_import, filemodule)                                                
+                                    else:
+                                        saver.append(f'\'WARNING: Will not import member named {member_name}')
                                     if len(member_type) > 0:
                                         properties['members'].append((member_name, member_type ))
                 classes[class_name] = properties
@@ -510,6 +514,10 @@ def main(from_dir: str, out_dir: str) -> None:
     if args.from_dir: from_dir = args.from_dir
     if args.out_dir: out_dir = args.out_dir
     PyAnalysis().read_all_python_files(from_dir, out_dir)
+
+    file_name: str = os.path.join(os.getcwd(), out_dir, re.sub('puml$', 'svg', f'full{PyAnalysis.DETAILED_FILENAME_SUFFIX}'))
+    print(f'Please open {file_name} in your browser')
+
 
 
 if __name__ == "__main__":
