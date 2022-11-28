@@ -28,6 +28,7 @@ class Saver:
 
     def save(self, filename) -> None:
         filename = os.path.join(self.out_dir, filename)
+        print(f'INFO: Creating file {filename}')
         with open(filename, 'w', encoding="utf-8") as file:
             file.write('\n'.join(self.lines_to_save))
 
@@ -35,36 +36,41 @@ class Saver:
         return Saver(self.out_dir, self)
 
     def removed_last_line_if_same(self, line: str) -> bool:
+        return_value = False
+        old_value = None if len(self.lines_to_save) == 0 else self.lines_to_save[-1]
+
         if len(self.lines_to_save) > 0 and line == self.lines_to_save[-1]:
             self.lines_to_save.pop()
-            return True
-        return False
+            return_value = True
+        self.lines_to_save.append(f'\'Compared {line} with last element of {old_value}' )
+        return return_value
 
 
 class PyAnalysis:
     NOT_EXTRACTED: str = '** Not extracted **'
     SKIP_TYPES: List[str] = ['int', 'str', 'float', 'bool', 'abc.ABC', NOT_EXTRACTED]
-    FULL_DETAILED_FILE_NAME: str = 'full-diagram-detailed.puml'
-    FULL_SIMPLIFIED_FILE_NAME: str = 'full-diagram-simplified.puml'
-    FULL_DETAILED_PER_NS_FILE_NAME: str = 'full-diagram-detailed-per-ns.puml'
-    FULL_SIMPLIFIED_PER_NS_FILE_NAME: str = 'full-diagram-simplified-per-ns.puml'
+    DETAILED_FILENAME_SUFFIX: str           = '-diagram-detailed.puml'
+    SIMPLIFIED_FILENAME_SUFFIX: str         = '-diagram-simplified.puml'
+    DETAILED_PER_NS_FILE_NAME_SUFFIX: str   = '-diagram-detailed-grouped-per-namespace.puml'
+    SIMPLIFIED_PER_NS_FILE_NAME_SUFFIX: str = '-diagram-simplified-grouped-per-namespace.puml'
+
 
     def __init__(self):
         pass
-
+        
     @staticmethod
-    def __get_file_name_from_class_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
+    def __get_file_name_from_class_namespace_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
         file_name: str = ''
         if detailed:
             if grouped_per_ns:
-                file_name = f'{class_name}-diagram-detailed-per-ns.puml'
+                file_name = f'{class_name}{PyAnalysis.DETAILED_PER_NS_FILE_NAME_SUFFIX}'
             else:
-                file_name = f'{class_name}-diagram-detailed.puml'
+                file_name = f'{class_name}{PyAnalysis.DETAILED_FILENAME_SUFFIX}'
         else:
             if grouped_per_ns:
-                file_name = f'{class_name}-diagram-simplified-per-ns.puml'
+                file_name = f'{class_name}{PyAnalysis.SIMPLIFIED_PER_NS_FILE_NAME_SUFFIX}'
             else:
-                file_name = f'{class_name}-diagram-simplified.puml'            
+                file_name = f'{class_name}{PyAnalysis.SIMPLIFIED_FILENAME_SUFFIX}'            
 
         if want_svg_file:
             file_name = re.sub('puml$', 'svg', file_name)
@@ -72,34 +78,61 @@ class PyAnalysis:
         return file_name
     
     @staticmethod
-    def __get_file_name(detailed: bool, grouped_per_ns: bool, class_name: str = None) -> Tuple[str, str, str]:
+    def __get_user_info(detailed: bool, grouped_per_ns: bool, class_namespace_name: str) -> str:
+        user_info_detailed = 'simplified' if not detailed else 'detailed'
+        user_info_svg_grouped = 'and **grouped per namespace**' if grouped_per_ns else ''
+        return f'{class_namespace_name} **{user_info_detailed}** {user_info_svg_grouped}'
+
+    @staticmethod
+    def __get_file_name(detailed: bool, grouped_per_ns: bool, class_namespace_name: str = None) -> Tuple[str, str, str]:
 
         puml2svg = lambda file_name :  re.sub('puml$', 'svg', file_name)
-        full_file_name_simplified: str = puml2svg(PyAnalysis.FULL_SIMPLIFIED_FILE_NAME)
-        full_file_name_detailed: str = puml2svg(PyAnalysis.FULL_DETAILED_FILE_NAME)
-        full_file_name_detailed_per_ns: str = puml2svg(PyAnalysis.FULL_DETAILED_PER_NS_FILE_NAME)
-        full_file_name_simplified_per_ns: str = puml2svg(PyAnalysis.FULL_SIMPLIFIED_PER_NS_FILE_NAME)
+        full_detailed_file_name: str            = f'full{PyAnalysis.DETAILED_FILENAME_SUFFIX}'
+        full_simplified_file_name: str          = f'full{PyAnalysis.SIMPLIFIED_FILENAME_SUFFIX}'
+        full_detailed_file_name_per_ns: str     = f'full{PyAnalysis.DETAILED_PER_NS_FILE_NAME_SUFFIX}'
+        full_simplified_file_name_per_ns: str   = f'full{PyAnalysis.SIMPLIFIED_PER_NS_FILE_NAME_SUFFIX}'
+        
+        full_file_name_simplified: str = puml2svg(full_simplified_file_name)
+        full_file_name_detailed: str = puml2svg(full_detailed_file_name)
+        full_file_name_detailed_per_ns: str = puml2svg(full_detailed_file_name_per_ns)
+        full_file_name_simplified_per_ns: str = puml2svg(full_simplified_file_name_per_ns)
 
-        if class_name is None:
+        if class_namespace_name is None:
             if detailed:
                 if grouped_per_ns:
-                    return PyAnalysis.FULL_DETAILED_PER_NS_FILE_NAME, full_file_name_detailed, full_file_name_simplified_per_ns
+                    return "Full diagram **detailed** and **grouped per namespace**", full_detailed_file_name_per_ns, \
+                        "Full diagram **detailed**", full_file_name_detailed, \
+                            "Full diagram **simplified** and **grouped per namespace**", full_file_name_simplified_per_ns
                 else:
-                    return PyAnalysis.FULL_DETAILED_FILE_NAME, full_file_name_detailed_per_ns, full_file_name_simplified
+                    return "Full diagram **detailed**", full_detailed_file_name, \
+                        "Full diagram **detailed** and **grouped per namespace**", full_file_name_detailed_per_ns, \
+                            "Full diagram **simplified**", full_file_name_simplified
             else:
                 if grouped_per_ns:
-                    return PyAnalysis.FULL_SIMPLIFIED_PER_NS_FILE_NAME, full_file_name_simplified, full_file_name_detailed_per_ns
+                    return "Full diagram **simplified** and **grouped per namespace**", full_simplified_file_name_per_ns, \
+                        "Full diagram **simplified**", full_file_name_simplified, \
+                            "Full diagram **detailed** and **grouped per namespace**", full_file_name_detailed_per_ns
                 else:
-                    return PyAnalysis.FULL_SIMPLIFIED_FILE_NAME, full_file_name_simplified_per_ns, full_file_name_detailed
+                    return "Full diagram **simplified**", full_simplified_file_name, \
+                        "Full diagram **simplified** and **grouped per namespace**", full_file_name_simplified_per_ns, \
+                            "Full diagram **detailed**", full_file_name_detailed
 
-        puml_file: str = PyAnalysis.__get_file_name_from_class_name(detailed, grouped_per_ns, class_name, False)
-        svg_file_name_opposite_detailed: str = PyAnalysis.__get_file_name_from_class_name(not detailed, grouped_per_ns, class_name, True)
+        user_info_puml_file: str = PyAnalysis.__get_user_info(detailed, grouped_per_ns, class_namespace_name)
+        puml_file: str = PyAnalysis.__get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_namespace_name, False)
+
+        user_info_opposite_detailed_svg: str = PyAnalysis.__get_user_info(not detailed, grouped_per_ns, class_namespace_name)
+        svg_file_name_opposite_detailed: str = PyAnalysis.__get_file_name_from_class_namespace_name(not detailed, grouped_per_ns, class_namespace_name, True)
+
         full_file_name: str = full_file_name_simplified_per_ns
+        user_info_full_file_name: str = f"Full diagram **simplified** and **grouped per namespace**"
 
         if detailed:
             full_file_name: str = full_file_name_detailed_per_ns
+            user_info_full_file_name = f"Full diagram **detailed** and **grouped per namespace**"
 
-        return puml_file, svg_file_name_opposite_detailed, full_file_name
+        return user_info_puml_file, puml_file, \
+            user_info_opposite_detailed_svg, svg_file_name_opposite_detailed, \
+                user_info_full_file_name, full_file_name
 
 
     @staticmethod
@@ -192,14 +225,23 @@ class PyAnalysis:
         # pprint(classes)
         return classes
 
+    @staticmethod
+    def __get_namespace_name(namespace_list: List[str], index: int, detailed: bool, grouped_per_ns: bool) -> str:
+        namespace_name: str = '.'.join([ namespace for namespace in namespace_list[0: index]])
 
-    def __sub_namespace_handler(previous_sub_namespace_list: List[str], current_sub_namespace_list: List[str], saver: Saver, ending_file: bool) -> None:
+        namespace_filtered_filename: str = PyAnalysis.__get_file_name_from_class_namespace_name(detailed, grouped_per_ns, namespace_name, True)
+
+        return f'namespace {namespace_name} [[{namespace_filtered_filename}]] {{'
+
+    @staticmethod
+    def __sub_namespace_handler(previous_sub_namespace_list: List[str], current_sub_namespace_list: List[str], detailed: bool, grouped_per_ns: bool, saver: Saver, ending_file: bool) -> None:
         
-        opening_namespace = lambda namespace: f'namespace {namespace} {{'
         if ending_file:
+
             if len(previous_sub_namespace_list) > 0 and \
-                saver.removed_last_line_if_same(opening_namespace(previous_sub_namespace_list[-1])):
+                saver.removed_last_line_if_same(PyAnalysis.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
                 previous_sub_namespace_list.pop()
+            saver.append(f'\' Closing all previous_sub_namespace_list namespace {current_sub_namespace_list} because file analysis is finished.' )  
             while len(previous_sub_namespace_list) > 0:
                 namespace = previous_sub_namespace_list.pop()
                 saver.append(f'\' Closing namespace {namespace}\n}}' )    
@@ -207,15 +249,17 @@ class PyAnalysis:
 
         if len(previous_sub_namespace_list) == 0:
             previous_sub_namespace_list.extend(current_sub_namespace_list)
-            for namespace in current_sub_namespace_list:
-                saver.append(opening_namespace(namespace))
+            #saver.append(f'\' Creating namespaces {current_sub_namespace_list} because previous_sub_namespace_list is empty' )  
+            for index in range(0, len(current_sub_namespace_list)):
+                saver.append(PyAnalysis.__get_namespace_name(current_sub_namespace_list, index + 1, detailed, grouped_per_ns))
             return          
         
         root_index: int = 0
         index: int = 0
         if len(current_sub_namespace_list) == 0 or current_sub_namespace_list[0] not in previous_sub_namespace_list:
-            if saver.removed_last_line_if_same(opening_namespace(previous_sub_namespace_list[-1])):
+            if saver.removed_last_line_if_same(PyAnalysis.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
                 previous_sub_namespace_list.pop()
+            saver.append(f'\' Closing all previous_sub_namespace_list namespace because previous_ns: {current_sub_namespace_list} and current_ns: {current_sub_namespace_list})' )  
             while len(previous_sub_namespace_list) > 0:
                 namespace = previous_sub_namespace_list.pop()
                 saver.append(f'\' Closing namespace {namespace}\n}}' )  
@@ -230,17 +274,18 @@ class PyAnalysis:
                     break
             
             if not found:
-                if saver.removed_last_line_if_same(opening_namespace(previous_sub_namespace_list[-1])):
+                if saver.removed_last_line_if_same(PyAnalysis.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
                     previous_sub_namespace_list.pop()
                     index -= 1
+                saver.append(f'\' Closing previous_sub_namespace_list namespace from index {index} because previous_ns: {current_sub_namespace_list} and current_ns: {current_sub_namespace_list})' )  
                 while len(previous_sub_namespace_list) > index:
                     namespace = previous_sub_namespace_list.pop()
                     saver.append(f'\' Closing namespace {namespace}\n}}' )
-        
+        #saver.append(f'\' Creating namespaces {current_sub_namespace_list} reduced to {current_sub_namespace_list[max(1, index - root_index):]}' )  
         for sub_index in range(index - root_index, len(current_sub_namespace_list)):
             namespace = current_sub_namespace_list[sub_index]
             previous_sub_namespace_list.append(namespace)
-            saver.append(opening_namespace(namespace))
+            saver.append(PyAnalysis.__get_namespace_name(current_sub_namespace_list, sub_index + 1, detailed, grouped_per_ns))
           
     @staticmethod
     def __create_puml_classes(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, grouped_per_ns: bool, saver: Saver, from_dir: str) -> None:
@@ -248,16 +293,16 @@ class PyAnalysis:
         list_file_names = sorted(class_tree.keys())
         for file_name in list_file_names:
             classes = class_tree[file_name]
-            current_sub_space_list = PyAnalysis.__get_package_name_from_filename(file_name, from_dir).split('.')[0:-1]
+            current_sub_namespace_list = PyAnalysis.__get_package_name_from_filename(file_name, from_dir).split('.')[0:-1]
             if grouped_per_ns:
-                PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, current_sub_space_list, saver, False)
+                PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, current_sub_namespace_list, detailed, grouped_per_ns, saver, False)
 
-            empty_spaces = '  ' * (max(len(current_sub_space_list) - 1, 0))
+            empty_spaces = '  ' * (max(len(current_sub_namespace_list) - 1, 0))
             for class_name, class_content in classes.items():
                 is_abstract: str = ''
                 if 'isabstract' in class_content.keys() and class_content['isabstract']:
                     is_abstract = 'abstract '
-                saver.append(f'{empty_spaces}{is_abstract}class {class_name} [[{PyAnalysis.__get_file_name_from_class_name(detailed, grouped_per_ns, class_name, True)}]]{{')
+                saver.append(f'{empty_spaces}{is_abstract}class {class_name} [[{PyAnalysis.__get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_name, True)}]]{{')
                 if detailed:
                     if 'statics' in class_content:
                         for static_name, static_type in class_content['statics']:
@@ -273,9 +318,9 @@ class PyAnalysis:
                                 visible = '-'
                             saver.append(f'{empty_spaces}  {visible} {method_name}({member_type})' )
 
-                saver.append('}')
-        if grouped_per_ns:
-            PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, None, saver, True)
+                saver.append(f'{empty_spaces}}}')
+            if grouped_per_ns:
+                PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, None, detailed, grouped_per_ns, saver, True)
 
         saver.append(' \' *************************************** ')
         saver.append(' \' *************************************** ')
@@ -320,27 +365,50 @@ class PyAnalysis:
             
 
     @staticmethod
-    def __create_full_diagram(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, grouped_per_ns: bool, initial_saver: Saver, from_dir: str, class_name: str = None) -> None:
+    def __create_full_diagram(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, grouped_per_ns: bool, initial_saver: Saver, from_dir: str, class_namespace_name: str = None) -> None:
         saver: Saver = initial_saver.clone()
-        filename, link_path_1, link_path_2 = PyAnalysis.__get_file_name(detailed, grouped_per_ns, class_name)
-
-        link_path: str = f'[[{link_path_1}]]'
-        if link_path_2 is not None:
-            link_path=f'{link_path} - [[{link_path_2}]]'
-
-        saver.append(f'note "{link_path}" as Unused')
+        user_info_filename, filename, user_info_link_1, link_path_1, user_info_link_2, link_path_2 = \
+            PyAnalysis.__get_file_name(detailed, grouped_per_ns, class_namespace_name)
+        saver.append(f'title <size:20>{user_info_filename}</size>')
+        saver.append( f'note "Your are analyzing:\\n{user_info_filename}\\n\\n' +
+                      '==Filter==\\n' +
+                      'You can click either the namespaces \\n' + 
+                      'or class names for filtering them and their\\n' +
+                      'direct dependencies.\\n\\n' +
+                      '==Select other==\\n' +
+                      f'* {user_info_link_1}:\\n   [[{link_path_1}]]\\n* {user_info_link_2}:\\n   [[{link_path_2}]]" as FloatingNote')
         PyAnalysis.__create_puml_classes(class_tree, detailed, grouped_per_ns, saver, from_dir)
-        create_all_relation: bool = class_name == None
+        create_all_relation: bool = class_namespace_name == None
         PyAnalysis.__create_puml_classes_relations(class_tree, saver, create_all_relation)
         saver.append('@enduml')
         saver.save(filename)
 
     def __create_puml_files(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], saver: Saver, from_dir: str, class_name: str = None) -> None:
-        PyAnalysis.__create_full_diagram(class_tree, True, False, saver, from_dir, class_name)
-        PyAnalysis.__create_full_diagram(class_tree, True, True, saver, from_dir, class_name)
-        PyAnalysis.__create_full_diagram(class_tree, False, False, saver, from_dir, class_name)
-        PyAnalysis.__create_full_diagram(class_tree, False, True, saver, from_dir, class_name)
-        
+        PyAnalysis.__create_full_diagram(class_tree, True,  False,  saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(class_tree, True,  True,   saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(class_tree, False, False,  saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(class_tree, False, True,   saver, from_dir, class_name)
+
+
+    @staticmethod
+    def __get_class_name_list_grouped_by_namespaces(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]]) -> Dict[List[str]]:
+        class_name_list_grouped_by_namespaces: Dict[List[str]] = {}
+        for classes in class_tree.values():
+            for class_name in classes.keys():
+                namespace_list = class_name.split('.')[0: -1]
+                full_name_space = ''
+                for namespace in namespace_list:
+                    if len(full_name_space) > 0: full_name_space += '.'
+                    full_name_space += namespace
+                    if full_name_space not in class_name_list_grouped_by_namespaces.keys():
+                       class_name_list_grouped_by_namespaces[full_name_space] = []
+        for namespace in class_name_list_grouped_by_namespaces.keys():
+            for classes in class_tree.values():
+                for class_name in classes.keys():
+                    if class_name.startswith(namespace):
+                        class_name_list_grouped_by_namespaces[namespace].append(class_name)
+        return class_name_list_grouped_by_namespaces
+                    
     @staticmethod
     def __get_class_list(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]]) -> List[str]:
         class_list: List[str] = []
@@ -379,34 +447,35 @@ class PyAnalysis:
                     reduced_class_tree[file_name][class_name] = classes[class_name].copy()
     
     @staticmethod
-    def __get_reduced_class_list_from_class_name(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], class_name: str, class_list: List[str]) -> Dict[str, Dict[str, List[Dict[str, any]]]]:
+    def __get_reduced_class_list_from_class_name_list(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], class_name_list: List[str]) -> Dict[str, Dict[str, List[Dict[str, any]]]]:
         reduced_class_tree: Dict[str, Dict[str, List[Dict[str, any]]]] = {}
         for file_name, classes in class_tree.items():
-            if PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, class_name, reduced_class_tree):
-                class_content = classes[class_name]
-                for base in class_content['bases']:
-                    PyAnalysis.__add_class_to_tree(class_tree, base, reduced_class_tree)
-                for _, member_type in class_content['statics']:
-                    _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
-                    PyAnalysis.__add_class_to_tree(class_tree, reduced_member_type, reduced_class_tree)
+            for class_name in class_name_list:
+                if PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, class_name, reduced_class_tree):
+                    class_content = classes[class_name]
+                    for base in class_content['bases']:
+                        PyAnalysis.__add_class_to_tree(class_tree, base, reduced_class_tree)
+                    for _, member_type in class_content['statics']:
+                        _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
+                        PyAnalysis.__add_class_to_tree(class_tree, reduced_member_type, reduced_class_tree)
 
-                for _, member_type in class_content['members']:
-                    _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
-                    PyAnalysis.__add_class_to_tree(class_tree, reduced_member_type, reduced_class_tree)
+                    for _, member_type in class_content['members']:
+                        _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
+                        PyAnalysis.__add_class_to_tree(class_tree, reduced_member_type, reduced_class_tree)
 
-            for iterated_class_name, class_content in classes.items():
-                for base in class_content['bases']:
-                    if base == class_name:
-                        PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
-                for _, member_type in class_content['statics']:
-                    _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
-                    if reduced_member_type == class_name:
-                        PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
+                for iterated_class_name, class_content in classes.items():
+                    for base in class_content['bases']:
+                        if base == class_name:
+                            PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
+                    for _, member_type in class_content['statics']:
+                        _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
+                        if reduced_member_type == class_name:
+                            PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
 
-                for _, member_type in class_content['members']:
-                    _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
-                    if reduced_member_type == class_name:
-                        PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
+                    for _, member_type in class_content['members']:
+                        _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
+                        if reduced_member_type == class_name:
+                            PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
 
         return reduced_class_tree
 
@@ -421,8 +490,13 @@ class PyAnalysis:
 
         class_list: List[str] = PyAnalysis.__get_class_list(class_tree)
         for class_name in class_list:
-             reduced_class_list = PyAnalysis.__get_reduced_class_list_from_class_name(class_tree, class_name, class_list)
+             reduced_class_list = PyAnalysis.__get_reduced_class_list_from_class_name_list(class_tree, [class_name])
              PyAnalysis.__create_puml_files(reduced_class_list, saver, from_dir, class_name)
+
+        class_name_list_grouped_by_namespaces: Dict[List[str]] = PyAnalysis.__get_class_name_list_grouped_by_namespaces(class_tree)
+        for namespace_name, class_name_list in class_name_list_grouped_by_namespaces.items():
+             reduced_namespace_list = PyAnalysis.__get_reduced_class_list_from_class_name_list(class_tree, class_name_list)
+             PyAnalysis.__create_puml_files(reduced_namespace_list, saver, from_dir, namespace_name)
 
 
 def main(from_dir: str, out_dir: str) -> None:
@@ -432,7 +506,6 @@ def main(from_dir: str, out_dir: str) -> None:
     parser = argparse.ArgumentParser(prog=program_name)
     parser.add_argument('--from_dir', type=str, help='Specify where to read the python files from')
     parser.add_argument('--out_dir', type=str, help='Specify where to store all puml files')
-    #parser.add_argument('--verbose', action='store_true', help='Detailed logging')
     args = parser.parse_args()
     if args.from_dir: from_dir = args.from_dir
     if args.out_dir: out_dir = args.out_dir
@@ -441,5 +514,3 @@ def main(from_dir: str, out_dir: str) -> None:
 
 if __name__ == "__main__":
     main('/Users/jean-philippe.ulpiano/development/pygame/candy_cat', '/Users/jean-philippe.ulpiano/development/pygame/tmp-out')
-
-#PyAnalysis().read_all_python_files('/Users/jean-philippe.ulpiano/development/pygame/candy_cat')
