@@ -1,5 +1,7 @@
 from __future__ import annotations
+from dataclasses import dataclass
 from typing import List, Dict, Tuple
+from abc import ABC, abstractmethod
 import os
 import re
 import ast
@@ -7,10 +9,15 @@ import sys
 import os
 import re
 import argparse
+import traceback
 from pathlib import Path
 from pprint import pprint
 
 
+class Logger:
+    @staticmethod
+    def log(line: str) -> None:
+        print(f'{line}')
 
 class Saver:
     def __init__(self, out_dir: str, saver: Saver = None):
@@ -28,7 +35,7 @@ class Saver:
 
     def save(self, filename) -> None:
         filename = os.path.join(self.out_dir, filename)
-        print(f'INFO: Creating file {filename}')
+        Logger.log(f'INFO: Creating file {filename}')
         with open(filename, 'w', encoding="utf-8") as file:
             file.write('\n'.join(self.lines_to_save))
 
@@ -45,18 +52,302 @@ class Saver:
         self.lines_to_save.append(f'\'Compared {line} with last element of {old_value}' )
         return return_value
 
+class Common:
+    @staticmethod
+    def reduce_member_type(member_type: str) -> Tuple[str, str, str]:
+        connection: str = '*--'
+        note: str = ''
+        if member_type.startswith('List['):
+            member_type=member_type[5:-1]
+            connection = f'"many" {connection} "1"'
+            note = ': (list)'
+        if member_type.startswith('Set['):
+            member_type=member_type[4:-1]
+            connection = f'"many" {connection} "1"'
+            note = ': (set)'
+        return connection, member_type, note
+
+class LanguageDependent(ABC):
+    @abstractmethod
+    def get_skip_types(self) -> List[str]:
+        """
+        """
+
+class PythonLanguage(LanguageDependent):
+    def __init__(self):
+        pass
+
+    def get_skip_types(self) -> List[str]:
+        return ['int', 'str', 'float', 'bool', 'abc.ABC']
+
+
+class Datastructure:
+    NOT_EXTRACTED: str = '** Not extracted **'
+
+    STATICS: str = 'statics'
+    METHODS: str = 'methods'
+    VARIABLES: str = 'variables'
+
+    @dataclass
+    class Method:
+        method_name: str
+        @dataclass
+        class ParameterType:
+            parameter: str
+            user_type: str
+        parameters: List[ParameterType]
+
+    @dataclass
+    class Static:
+        static_name: str
+        static_type: str
+
+    @dataclass
+    class Variable:
+        variable_name: str
+        variable_type: str
+        is_member: bool
+
+    class SubDataStructure:
+        def __init__(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str):
+            self.fqdn_class_name: str = fqdn_class_name
+            self.filename: str = filename
+            self.from_imports: str = from_imports.copy()
+            self.filemodule: str = filemodule
+
+            self.bases: List[str] = []
+            self.inner_classes: List[str] = []
+            self.is_abstract_field: bool = False
+            self.statics: List[Datastructure.Static] = []
+            self.variables: List[Datastructure.Variable] = []
+            self.methods: List[Datastructure.Method] = []
+        
+        def set_abstract(self) -> None:
+            self.is_abstract_field = True
+    
+        def add_base_class(self, base_class: str) -> None:
+            if base_class in self.from_imports.keys():
+                base_class = self.from_imports[base_class]
+            else:
+                base_class = self.filemodule + base_class
+            self.bases.append(base_class)
+ 
+        def add_static(self, static_name: str, static_type: str) -> None:
+            self.statics.append(Datastructure.Static(static_name, static_type))
+        def add_method(self, method_name: str, arguments: List[Datastructure.Method.ParameterType]) -> None:
+            self.methods.append(Datastructure.Method(method_name, arguments))
+        def add_variable(self, variable_name: str, variable_type: str, is_member: bool) -> None:
+            self.variables.append(Datastructure.Variable(variable_name, variable_type, is_member))
+        def add_inner_class(self, inner_class_name: str) -> None:
+            self.inner_classes.append(inner_class_name)
+
+        def is_abstract(self) -> bool:
+            return self.is_abstract_field
+        def has_static_fields(self) -> bool:
+            return len(self.statics) > 0
+        def has_method_fields(self) -> bool:
+            return len(self.methods) > 0
+        def has_variables_fields(self) -> bool:
+            return len(self.variables) > 0
+
+        def get_fqdn_class_name(self) -> str:
+            return self.fqdn_class_name
+        def get_base_classes(self) -> List[str]:
+            return self.bases
+        def get_static_fields(self) -> List[Datastructure.Static]:
+            return self.statics
+        def get_method_fields(self) -> List[Datastructure.Method]:
+            return self.methods
+        def get_variable_fields(self) -> List[Datastructure.Variable]:
+            return self.variables
+        def get_inner_class_name(self) -> List[str]:
+            return self.inner_classes
+        def get_filename(self) -> str:
+            return self.filename
+        def get_filename(self) -> str:
+            return self.filename
+        def get_filemodule(self) -> str:
+            return self.filemodule
+
+
+        def clone(self) -> Datastructure.SubDataStructure:
+            sub_datastructure: Datastructure.SubDataStructure = \
+                Datastructure.SubDataStructure(self.filename, self.filemodule, self.from_imports.copy(), self.fqdn_class_name)
+
+            sub_datastructure.is_abstract_field = self.is_abstract_field
+            sub_datastructure.bases = self.bases[:]
+            sub_datastructure.statics = self.statics[:]
+            sub_datastructure.methods = self.methods[:]
+            sub_datastructure.variables = self.variables[:]
+            sub_datastructure.inner_classes = self.inner_classes[:]
+            
+            return sub_datastructure
+
+    def __init__(self, language_dependent: LanguageDependent):
+        self.class_to_datastructure: Dict[str, Datastructure.SubDataStructure] = {}
+        self.filename_to_datastructure: Dict[str, List[Datastructure.SubDataStructure]] = {}
+        self.language_dependent = language_dependent
+        self.skip_types = language_dependent.get_skip_types()
+        self.skip_types.append(self.NOT_EXTRACTED)
+
+    def get_skip_types(self):
+        return self.skip_types
+
+    def get_language_dependent(self) -> LanguageDependent:
+        return self.language_dependent
+
+    def append_class(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str) -> Datastructure.SubDataStructure:
+        sub_datastructure = Datastructure.SubDataStructure(filename, filemodule, from_imports, fqdn_class_name)
+        self.append_sub_datastructure(sub_datastructure)
+        return sub_datastructure
+
+    def get_sorted_list_filenames(self) -> List[str]:
+        return sorted(self.filename_to_datastructure.keys())
+
+    def get_classname_list(self) -> List[str]:
+        return self.class_to_datastructure.keys()
+
+    def get_datastructures_from_filename(self, filename: str) -> List[Datastructure.SubDataStructure]:
+        return self.filename_to_datastructure[filename]
+
+    def get_datastructures_from_class_name(self, class_name: str) -> Datastructure.SubDataStructure:
+        if class_name in self.class_to_datastructure:
+            return self.class_to_datastructure[class_name]
+        return None
+
+    def class_exists(self, class_name) -> bool:
+        return class_name in self.class_to_datastructure.keys()
+
+    def filename_exists(self, filename) -> bool:
+        return filename in self.filename_to_datastructure.keys()
+
+    def append_sub_datastructure(self, sub_datastructure: Datastructure.SubDataStructure) -> None:
+        filename = sub_datastructure.get_filename()
+        fqdn_class_name = sub_datastructure.get_fqdn_class_name()
+        if fqdn_class_name not in self.class_to_datastructure.keys():
+            self.class_to_datastructure[fqdn_class_name] = sub_datastructure
+            if filename not in self.filename_to_datastructure.keys():
+                self.filename_to_datastructure[filename] = []
+            self.filename_to_datastructure[filename].append(self.class_to_datastructure[fqdn_class_name])
+        else:
+            Logger.log(f'WARNING: Class {fqdn_class_name} is being registered a second time \n' + \
+                  f'   -> First time content is from file {self.class_to_datastructure[fqdn_class_name].get_filename()}, from class: {self.class_to_datastructure[fqdn_class_name].get_fqdn_class_name()}: Ignoring.')
+            #traceback.print_stack()
+
+class DatastructureHandler:
+    @staticmethod
+    def __append_sub_datastructures_from_classname(\
+                from_datastructure: Datastructure, classname: str, \
+                reduced_datastructure: Datastructure) -> Datastructure.SubDataStructure:
+        #type_wo_namespace: str = re.sub('^.*\.', '', classname)
+        if classname not in from_datastructure.get_skip_types():
+            sub_datastructure: Datastructure.SubDataStructure = from_datastructure.get_datastructures_from_class_name(classname)
+            if sub_datastructure is not None:
+                reduced_datastructure.append_sub_datastructure(sub_datastructure.clone())
+                Logger.log(f'  Appended sub datastructure of {sub_datastructure.get_fqdn_class_name()}')
+                return sub_datastructure
+            else:
+                Logger.log(f'  Could not find sub_datastructure for class {classname}')
+                traceback.print_stack()
+        Logger.log(f'  {classname} was skipped because it belongs to the skipped types {from_datastructure.get_skip_types()}')
+        
+        return None
+
+    @staticmethod
+    def __add_class_to_reduced_datastructure_if_not_exist(from_datastructure: Datastructure, \
+               class_name: str, reduced_datastructure: Datastructure) -> Datastructure.SubDataStructure:
+        if from_datastructure.class_exists(class_name):
+            return DatastructureHandler.__append_sub_datastructures_from_classname(\
+                from_datastructure, class_name, reduced_datastructure)
+        return None
+
+    @staticmethod
+    def create_reduced_class_list_from_class_name_list(from_datastructure: Datastructure, class_name_list: List[str]) -> Datastructure:
+        reduced_datastructure: Datastructure = Datastructure(from_datastructure.get_language_dependent())
+        Logger.log(f'create_reduced_class_list_from_class_name_list(class_name_list = {class_name_list})')
+
+        for class_name in class_name_list:
+            Logger.log(f' Adding class {class_name}')
+            sub_datastructure: Datastructure.SubDataStructure = \
+                DatastructureHandler.__add_class_to_reduced_datastructure_if_not_exist(\
+                            from_datastructure, class_name, reduced_datastructure)
+            if sub_datastructure is not None:
+                for base_class_name in sub_datastructure.get_base_classes():
+                    DatastructureHandler.__append_sub_datastructures_from_classname(\
+                        from_datastructure, base_class_name, reduced_datastructure)
+                    Logger.log(f' Adding parent class {base_class_name} of {class_name}')
+                    Logger.log(f'  All reduced base classes for {class_name}: {reduced_datastructure.get_datastructures_from_class_name(class_name).get_base_classes()})')
+
+                static_field: Datastructure.Static
+                for static_field in sub_datastructure.get_static_fields():
+                    _, reduced_member_type, _ = Common.reduce_member_type(static_field.static_type)
+                    DatastructureHandler.__append_sub_datastructures_from_classname(\
+                        from_datastructure, reduced_member_type, reduced_datastructure)
+                    Logger.log(f' Adding static related class {reduced_member_type} of {class_name}')
+
+                variable_field: Datastructure.Variable
+                for variable_field in sub_datastructure.get_variable_fields():
+                    _, reduced_member_type, _ = Common.reduce_member_type(variable_field.variable_type)
+                    DatastructureHandler.__append_sub_datastructures_from_classname(\
+                        from_datastructure, reduced_member_type, reduced_datastructure)
+                    Logger.log(f' Adding variable related class {reduced_member_type} of {class_name}')
+
+        for filename in from_datastructure.get_sorted_list_filenames():
+            for sub_datastructure in from_datastructure.get_datastructures_from_filename(filename):
+
+                for base_classname in sub_datastructure.get_base_classes():
+                    if base_classname in class_name_list:
+                        DatastructureHandler.__append_sub_datastructures_from_classname(\
+                            from_datastructure, sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
+                        Logger.log(f' Adding child related class {sub_datastructure.get_fqdn_class_name()} of {base_classname}')
+
+                static_field: Datastructure.Static
+                for static_field in sub_datastructure.get_static_fields():
+                    _, reduced_member_type, _ = Common.reduce_member_type(static_field.static_type)
+                    if reduced_member_type in class_name_list:
+                        DatastructureHandler.__append_sub_datastructures_from_classname(\
+                            from_datastructure, sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
+                        Logger.log(f' {reduced_member_type} is a static related class of {sub_datastructure.get_fqdn_class_name()} ')
+
+                variable_field: Datastructure.Variable
+                for variable_field in sub_datastructure.get_variable_fields():
+                    _, reduced_member_type, _ = Common.reduce_member_type(variable_field.variable_type)
+                    if reduced_member_type in class_name_list:
+                        DatastructureHandler.__append_sub_datastructures_from_classname(\
+                            from_datastructure, sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
+                        Logger.log(f' {reduced_member_type} is a variable related class of {sub_datastructure.get_fqdn_class_name()} ')
+
+        return reduced_datastructure
+
+    @staticmethod
+    def get_class_name_list_grouped_by_namespaces(from_datastructure: Datastructure) -> Dict[List[str]]:
+        class_name_list_grouped_by_namespaces: Dict[List[str]] = {}
+        for filename in from_datastructure.get_sorted_list_filenames():
+            for sub_datastructure in from_datastructure.get_datastructures_from_filename(filename):
+                classname: str = sub_datastructure.get_fqdn_class_name()
+                namespace_list = classname.split('.')[0: -1]
+                full_name_space = ''
+                for namespace in namespace_list:
+                    if len(full_name_space) > 0: full_name_space += '.'
+                    full_name_space += namespace
+                    if full_name_space not in class_name_list_grouped_by_namespaces.keys():
+                       class_name_list_grouped_by_namespaces[full_name_space] = []
+        for namespace in class_name_list_grouped_by_namespaces.keys():
+            for classname in from_datastructure.get_classname_list():
+                if classname.startswith(namespace):
+                    class_name_list_grouped_by_namespaces[namespace].append(classname)
+        return class_name_list_grouped_by_namespaces
 
 class PyAnalysis:
-    NOT_EXTRACTED: str = '** Not extracted **'
-    SKIP_TYPES: List[str] = ['int', 'str', 'float', 'bool', 'abc.ABC', NOT_EXTRACTED]
     DETAILED_FILENAME_SUFFIX: str           = '-diagram-detailed.puml'
     SIMPLIFIED_FILENAME_SUFFIX: str         = '-diagram-simplified.puml'
     DETAILED_PER_NS_FILE_NAME_SUFFIX: str   = '-diagram-detailed-grouped-per-namespace.puml'
     SIMPLIFIED_PER_NS_FILE_NAME_SUFFIX: str = '-diagram-simplified-grouped-per-namespace.puml'
 
 
-    def __init__(self):
-        pass
+
+    def __init__(self, datastructure: Datastructure):
+        self.datastructure: Datastructure = datastructure
         
     @staticmethod
     def __get_file_name_from_class_namespace_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
@@ -140,8 +431,10 @@ class PyAnalysis:
         member_sub_type = initial_type
         if member_sub_type in type_dict.keys():
             member_sub_type = type_dict[member_sub_type]
+            Logger.log(f'  Type {member_sub_type} *** found *** in {type_dict.keys()} saving as type from module {member_sub_type}')
         elif member_sub_type not in ['int', 'float', 'str', 'bool']:
             member_sub_type = filemodule + member_sub_type 
+            Logger.log(f'  Type {member_sub_type} not found in {type_dict.keys()} saving as type from module {member_sub_type}')
         return member_sub_type
 
     @staticmethod
@@ -149,13 +442,14 @@ class PyAnalysis:
         if from_dir is not None:
             filename = filename.replace(from_dir, '')
         return re.sub('^\.', '', re.sub('py$', '', filename.replace('/', '.')))
-
-    def __read_python_ast(self, filename: str, from_dir: str, saver: Saver) -> any:
+    
+    @staticmethod
+    def __read_python_ast(datastructure: Datastructure, filename: str, from_dir: str, saver: Saver) -> any:
         with open(filename, encoding="utf-8") as file:
             tree: any = ast.parse(file.read())
-        classes: Dict[str, List[Dict[str, any]]] = {}
         filemodule = PyAnalysis.__get_package_name_from_filename(filename, from_dir)
         from_import: dict = {}
+        Logger.log(f'Analyzing fine: {filename}')
         for node in tree.body:
             if isinstance(node, ast.ImportFrom):
                 module_path = node.module
@@ -165,25 +459,24 @@ class PyAnalysis:
         for node in tree.body:    
             if isinstance(node, ast.ClassDef):
                 class_name = f'{filemodule}{node.name}'
-                properties: dict = {'bases': [], 'statics': [], 'methods': [], 'members': [], 'isabstract': False}
+                class_datastructure: Datastructure.SubDataStructure = \
+                    datastructure.append_class(filename, filemodule, from_import, class_name)
+                Logger.log(f' Creating class {class_name} from file {filename}, filemodule: {filemodule}, from_import: {from_import}')
                 for base in node.bases:
                     if isinstance(base, ast.Name):
                         base_class = base.id
                         if base_class == 'ABC':
-                            properties['isabstract'] = True
-                        if base_class in from_import.keys():
-                            base_class = from_import[base_class]
+                            class_datastructure.set_abstract()
                         else:
-                            base_class = filemodule + base_class
-
-                        properties['bases'].append(base_class)
+                            class_datastructure.add_base_class(base_class)
                 for class_body in node.body:
                     if isinstance(class_body, ast.AnnAssign):
                         static_name: str = class_body.target.id
-                        static_type: str = PyAnalysis.NOT_EXTRACTED
+                        static_type: str = Datastructure.NOT_EXTRACTED
                         if isinstance(class_body.annotation, ast.Name):
                             static_type = PyAnalysis.get_type(\
                                 class_body.annotation.id, from_import, filemodule)
+                            Logger.log(f' Analyzing static type from file {filename}')
                         elif isinstance(class_body.annotation, ast.Subscript):
                             if isinstance(class_body.annotation.value, ast.Name) and \
                                 isinstance(class_body.annotation.slice, ast.Name):
@@ -191,20 +484,26 @@ class PyAnalysis:
                                     class_body.annotation.slice.id, from_import, filemodule)
                                 static_type = class_body.annotation.value.id + '[' + \
                                         member_sub_type + ']'
-                        properties['statics'].append((static_name, static_type ))
+                                Logger.log(f' Analyzing Subscript static type from file {filename}')
+                        Logger.log(f'   Static type from file {filename} found {static_name}, static_type: {static_type}')
+                        class_datastructure.add_static(static_name, static_type)
+
                     if isinstance(class_body, ast.FunctionDef):
-                        name: str = class_body.name
+                        method_name: str = class_body.name
                         arguments: list = [a.arg for a in class_body.args.args if a.arg != 'self']
-                        if name != '':
-                            properties['methods'].append((name, ', '.join(arguments) ))
+                        if method_name != '':
+                            class_datastructure.add_method(method_name,\
+                                [ Datastructure.Method.ParameterType(argument_name, None) for argument_name in arguments])
                         for fun_body in class_body.body:
                             if isinstance(fun_body, ast.AnnAssign):
                                 target = fun_body.target
                                 if isinstance(target, ast.Attribute) or isinstance(target, ast.Name):
+                                    is_member: bool = False
                                     if isinstance(target, ast.Attribute):
                                         member_name: str = 'self.'+target.attr
                                         member_type: str = ""
                                         annotation = fun_body.annotation
+                                        is_member = True
                                     else:
                                         member_name: str = target.id
                                         member_type: str = ""
@@ -213,21 +512,21 @@ class PyAnalysis:
                                         if isinstance(annotation.value, ast.Name) and \
                                             isinstance(annotation.slice, ast.Name) and \
                                                 hasattr(annotation, 'slice'):
+                                            Logger.log(f' Subscript function type from file {filename}')
                                             member_sub_type = PyAnalysis.get_type(\
                                                 annotation.slice.id, from_import, filemodule)                                                    
 
                                             member_type = annotation.value.id + '[' + member_sub_type + ']'
                                     elif isinstance(annotation, ast.Name):
+                                        Logger.log(f' Name function type from file {filename}')
                                         member_type = PyAnalysis.get_type(\
                                             annotation.id, from_import, filemodule)                                                
                                     else:
                                         saver.append(f'\'WARNING: Will not import member named {member_name}')
                                     if len(member_type) > 0:
-                                        properties['members'].append((member_name, member_type ))
-                classes[class_name] = properties
-        
-        # pprint(classes)
-        return classes
+                                        Logger.log(f'   Function type from file {filename} method {method_name}, member_type: {member_type}, is_member: {is_member}')
+                                        class_datastructure.add_variable(member_name, member_type, is_member)
+
 
     @staticmethod
     def __get_namespace_name(namespace_list: List[str], index: int, detailed: bool, grouped_per_ns: bool) -> str:
@@ -290,37 +589,39 @@ class PyAnalysis:
             namespace = current_sub_namespace_list[sub_index]
             previous_sub_namespace_list.append(namespace)
             saver.append(PyAnalysis.__get_namespace_name(current_sub_namespace_list, sub_index + 1, detailed, grouped_per_ns))
-          
+
     @staticmethod
-    def __create_puml_classes(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, grouped_per_ns: bool, saver: Saver, from_dir: str) -> None:
+    def __create_puml_classes(datastructure: Datastructure, detailed: bool, grouped_per_ns: bool, saver: Saver, from_dir: str) -> None:
         previous_sub_namespace_list: List[str] = []
-        list_file_names = sorted(class_tree.keys())
+        list_file_names = datastructure.get_sorted_list_filenames()
         for file_name in list_file_names:
-            classes = class_tree[file_name]
+            classes: List[Datastructure.SubDataStructure] = datastructure.get_datastructures_from_filename(file_name)
             current_sub_namespace_list = PyAnalysis.__get_package_name_from_filename(file_name, from_dir).split('.')[0:-1]
             if grouped_per_ns:
                 PyAnalysis.__sub_namespace_handler(previous_sub_namespace_list, current_sub_namespace_list, detailed, grouped_per_ns, saver, False)
 
             empty_spaces = '  ' * (max(len(current_sub_namespace_list) - 1, 0))
-            for class_name, class_content in classes.items():
-                is_abstract: str = ''
-                if 'isabstract' in class_content.keys() and class_content['isabstract']:
-                    is_abstract = 'abstract '
-                saver.append(f'{empty_spaces}{is_abstract}class {class_name} [[{PyAnalysis.__get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_name, True)}]]{{')
+            for sub_datastructure in classes:
+                fqdn_class_name: str = sub_datastructure.get_fqdn_class_name()
+                is_abstract: str = 'abstract ' if sub_datastructure.is_abstract() else ''
+                    
+                saver.append(f'{empty_spaces}{is_abstract}class {fqdn_class_name} [[{PyAnalysis.__get_file_name_from_class_namespace_name(detailed, grouped_per_ns, fqdn_class_name, True)}]]{{')
                 if detailed:
-                    if 'statics' in class_content:
-                        for static_name, static_type in class_content['statics']:
-                            saver.append(f'{empty_spaces}  + {{static}} {static_name}: {static_type}')
-                        #pprint(class_content['members'])
-                    if 'members' in class_content:
-                        for member_name, member_type in class_content['members']:
-                            saver.append(f'{empty_spaces}  - {member_name}: {member_type}' )
-                    if 'methods' in class_content:
-                        for method_name, member_type in class_content['methods']:
-                            visible = '+'
-                            if method_name.startswith('_'):
-                                visible = '-'
-                            saver.append(f'{empty_spaces}  {visible} {method_name}({member_type})' )
+                    static_field: Datastructure.Static
+                    for static_field in sub_datastructure.get_static_fields():
+                        saver.append(f'{empty_spaces}  + {{static}} {static_field.static_name}: {static_field.static_type}')
+                    #pprint(class_content['members'])
+                    variable_field: Datastructure.Variable
+                    for variable_field in sub_datastructure.get_variable_fields():
+                        saver.append(f'{empty_spaces}  - {variable_field.variable_name}: {variable_field.variable_type}' )
+                    method_field: Datastructure.Method
+                    for method_field in sub_datastructure.get_method_fields():
+                        visible = '+'
+                        method_name: str = method_field.method_name
+                        parameters: str = ','.join([parameter.parameter for parameter in method_field.parameters])
+                        if method_name.startswith('_'):
+                            visible = '-'
+                        saver.append(f'{empty_spaces}  {visible} {method_name}({parameters})' )
 
                 saver.append(f'{empty_spaces}}}')
             if grouped_per_ns:
@@ -330,46 +631,46 @@ class PyAnalysis:
         saver.append(' \' *************************************** ')
         saver.append(' \' *************************************** ')
 
-    @staticmethod
-    def __reduce_member_type(member_type: str) -> Tuple[str, str, str]:
-        connection: str = '*--'
-        note: str = ''
-        if member_type.startswith('List['):
-            member_type=member_type[5:-1]
-            connection = f'"many" {connection} "1"'
-            note = ': (list)'
-        if member_type.startswith('Set['):
-            member_type=member_type[4:-1]
-            connection = f'"many" {connection} "1"'
-            note = ': (set)'
-        return connection, member_type, note
 
     @staticmethod
-    def __create_puml_connection(class_name: str, member_type: str, saver: Saver) -> None:
-        connection, member_type, note = PyAnalysis.__reduce_member_type(member_type)
-        if member_type not in PyAnalysis.SKIP_TYPES and class_name not in PyAnalysis.SKIP_TYPES:
+    def __create_puml_connection(datastructure: Datastructure, class_name: str, full_member_type: str, saver: Saver) -> None:
+        connection, member_type, note = Common.reduce_member_type(full_member_type)
+        if member_type not in datastructure.get_skip_types() and \
+                class_name not in datastructure.get_skip_types():
             saver.append(f'{class_name} {connection} {member_type} {note}')
 
     @staticmethod
-    def __create_puml_classes_relations(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], saver: Saver, create_all_relation: bool) -> None:
-        for file_name, classes in class_tree.items():
+    def __create_puml_classes_relations(datastructure: Datastructure, saver: Saver, create_all_relation: bool) -> None:
+        for file_name in datastructure.get_sorted_list_filenames():
             saver.append(f'\' Class relations extracted from file:\n\' {file_name}')
-            for class_name, class_content in classes.items():
-                for base in class_content['bases']:
-                    if base not in PyAnalysis.SKIP_TYPES and class_name not in PyAnalysis.SKIP_TYPES:
-                        if create_all_relation or PyAnalysis.__class_exists(class_tree, base):
+            sub_datastructure: Datastructure.SubDataStructure
+            for sub_datastructure in datastructure.get_datastructures_from_filename(file_name):
+                class_name = sub_datastructure.get_fqdn_class_name()
+                Logger.log(f' Creation relations for class {class_name} (create_all_relation: {create_all_relation}, File {file_name})')
+                for base in sub_datastructure.get_base_classes():
+                    if base not in datastructure.get_skip_types() and \
+                        class_name not in datastructure.get_skip_types():
+                        if create_all_relation or datastructure.class_exists(base):
                             saver.append(f'{base} <-- {class_name}')
-                for _, member_type in class_content['statics']:
-                    if create_all_relation or PyAnalysis.__class_exists(class_tree, member_type):
-                        PyAnalysis.__create_puml_connection(class_name, member_type, saver)
+                        else:
+                            Logger.log(f'  Relation skipped: {base} <-- {class_name} (create_all_relation: {create_all_relation}, datastructure.class_exists({base}): {datastructure.class_exists(base)})')
+                static_field: Datastructure.Static
+                for static_field in sub_datastructure.get_static_fields():
+                    _, naked_type, _ = Common.reduce_member_type(static_field.static_type)
+                    if create_all_relation or datastructure.class_exists(naked_type):
+                        PyAnalysis.__create_puml_connection(datastructure, class_name, static_field.static_type, saver)
+                    else:
+                        Logger.log(f'  Relation skipped: {class_name} ?-- {naked_type} (create_all_relation: {create_all_relation}, datastructure.class_exists({naked_type}): {datastructure.class_exists(naked_type)})')
+                variable_field: Datastructure.Variable
+                for variable_field in sub_datastructure.get_variable_fields():
+                    _, naked_type, _ = Common.reduce_member_type(variable_field.variable_type)
+                    if create_all_relation or datastructure.class_exists(naked_type):
+                        PyAnalysis.__create_puml_connection(datastructure, class_name, variable_field.variable_type, saver)
+                    else:
+                        Logger.log(f'  Relation skipped: {class_name} ?-- {naked_type} (create_all_relation: {create_all_relation}, datastructure.class_exists({naked_type}): {datastructure.class_exists(naked_type)})')
             
-                for _, member_type in class_content['members']:
-                    if create_all_relation or PyAnalysis.__class_exists(class_tree, member_type):
-                        PyAnalysis.__create_puml_connection(class_name, member_type, saver)
-            
-
     @staticmethod
-    def __create_full_diagram(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], detailed: bool, grouped_per_ns: bool, initial_saver: Saver, from_dir: str, class_namespace_name: str = None) -> None:
+    def __create_full_diagram(datastructure: Datastructure, detailed: bool, grouped_per_ns: bool, initial_saver: Saver, from_dir: str, class_namespace_name: str = None) -> None:
         saver: Saver = initial_saver.clone()
         user_info_filename, filename, user_info_link_1, link_path_1, user_info_link_2, link_path_2 = \
             PyAnalysis.__get_file_name(detailed, grouped_per_ns, class_namespace_name)
@@ -381,125 +682,36 @@ class PyAnalysis:
                       'direct dependencies.\\n\\n' +
                       '==Select other==\\n' +
                       f'* {user_info_link_1}:\\n   [[{link_path_1}]]\\n* {user_info_link_2}:\\n   [[{link_path_2}]]" as FloatingNote')
-        PyAnalysis.__create_puml_classes(class_tree, detailed, grouped_per_ns, saver, from_dir)
+        PyAnalysis.__create_puml_classes(datastructure, detailed, grouped_per_ns, saver, from_dir)
         create_all_relation: bool = class_namespace_name == None
-        PyAnalysis.__create_puml_classes_relations(class_tree, saver, create_all_relation)
+        PyAnalysis.__create_puml_classes_relations(datastructure, saver, create_all_relation)
         saver.append('@enduml')
         saver.save(filename)
 
-    def __create_puml_files(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], saver: Saver, from_dir: str, class_name: str = None) -> None:
-        PyAnalysis.__create_full_diagram(class_tree, True,  False,  saver, from_dir, class_name)
-        PyAnalysis.__create_full_diagram(class_tree, True,  True,   saver, from_dir, class_name)
-        PyAnalysis.__create_full_diagram(class_tree, False, False,  saver, from_dir, class_name)
-        PyAnalysis.__create_full_diagram(class_tree, False, True,   saver, from_dir, class_name)
-
-
     @staticmethod
-    def __get_class_name_list_grouped_by_namespaces(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]]) -> Dict[List[str]]:
-        class_name_list_grouped_by_namespaces: Dict[List[str]] = {}
-        for classes in class_tree.values():
-            for class_name in classes.keys():
-                namespace_list = class_name.split('.')[0: -1]
-                full_name_space = ''
-                for namespace in namespace_list:
-                    if len(full_name_space) > 0: full_name_space += '.'
-                    full_name_space += namespace
-                    if full_name_space not in class_name_list_grouped_by_namespaces.keys():
-                       class_name_list_grouped_by_namespaces[full_name_space] = []
-        for namespace in class_name_list_grouped_by_namespaces.keys():
-            for classes in class_tree.values():
-                for class_name in classes.keys():
-                    if class_name.startswith(namespace):
-                        class_name_list_grouped_by_namespaces[namespace].append(class_name)
-        return class_name_list_grouped_by_namespaces
-                    
-    @staticmethod
-    def __get_class_list(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]]) -> List[str]:
-        class_list: List[str] = []
-        for classes in class_tree.values():
-            class_list.extend(classes.keys())
-        # print("Debug here !!!")
-        # class_list.append('services.create_scene_service.CreateSceneService')
-        return class_list
-
-    @staticmethod
-    def __class_exists(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], class_name: str) -> bool:
-        for classes in class_tree.values():
-            if class_name in classes.keys():
-                return True
-        return False
-
-    @staticmethod
-    def __add_class_to_tree_if_not_exist(classes: Dict[str, List[Dict[str, any]]], file_name: str, class_name: str, reduced_class_tree: Dict[str, Dict[str, List[Dict[str, any]]]]) -> bool:
-        if class_name in classes.keys():
-
-            if file_name not in reduced_class_tree.keys():
-                reduced_class_tree[file_name] = {}
-            if class_name not in reduced_class_tree[file_name].keys():
-                reduced_class_tree[file_name][class_name] = classes[class_name].copy()
-            return True
-
-        return False
-    
-    @staticmethod
-    def __add_class_to_tree(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], class_name: str, reduced_class_tree: Dict[str, Dict[str, List[Dict[str, any]]]]) -> None:
-        for file_name, classes in class_tree.items():
-            if class_name in classes.keys():
-                if file_name not in reduced_class_tree.keys():
-                    reduced_class_tree[file_name] = {}
-                if class_name not in reduced_class_tree[file_name].keys():
-                    reduced_class_tree[file_name][class_name] = classes[class_name].copy()
-    
-    @staticmethod
-    def __get_reduced_class_list_from_class_name_list(class_tree: Dict[str, Dict[str, List[Dict[str, any]]]], class_name_list: List[str]) -> Dict[str, Dict[str, List[Dict[str, any]]]]:
-        reduced_class_tree: Dict[str, Dict[str, List[Dict[str, any]]]] = {}
-        for file_name, classes in class_tree.items():
-            for class_name in class_name_list:
-                if PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, class_name, reduced_class_tree):
-                    class_content = classes[class_name]
-                    for base in class_content['bases']:
-                        PyAnalysis.__add_class_to_tree(class_tree, base, reduced_class_tree)
-                    for _, member_type in class_content['statics']:
-                        _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
-                        PyAnalysis.__add_class_to_tree(class_tree, reduced_member_type, reduced_class_tree)
-
-                    for _, member_type in class_content['members']:
-                        _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
-                        PyAnalysis.__add_class_to_tree(class_tree, reduced_member_type, reduced_class_tree)
-
-                for iterated_class_name, class_content in classes.items():
-                    for base in class_content['bases']:
-                        if base == class_name:
-                            PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
-                    for _, member_type in class_content['statics']:
-                        _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
-                        if reduced_member_type == class_name:
-                            PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
-
-                    for _, member_type in class_content['members']:
-                        _, reduced_member_type, _ = PyAnalysis.__reduce_member_type(member_type)
-                        if reduced_member_type == class_name:
-                            PyAnalysis.__add_class_to_tree_if_not_exist(classes, file_name, iterated_class_name, reduced_class_tree)
-
-        return reduced_class_tree
-
+    def __create_puml_files(datastructure: Datastructure, saver: Saver, from_dir: str, class_name: str = None) -> None:
+        PyAnalysis.__create_full_diagram(datastructure, True,  False,  saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(datastructure, True,  True,   saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(datastructure, False, False,  saver, from_dir, class_name)
+        PyAnalysis.__create_full_diagram(datastructure, False, True,   saver, from_dir, class_name)
+                        
     def read_all_python_files(self, from_dir: str, out_dir: str) -> Dict[str, List[str]]:
-        class_tree: Dict[str, Dict[str, List[Dict[str, any]]]] = {}
         saver: Saver = Saver(out_dir)
         saver.append('@startuml')
         for file in list(Path(from_dir).rglob("*.py")):
             file_name: str = os.path.join(from_dir, file)
-            class_tree[file_name] = self.__read_python_ast(file_name, from_dir, saver)
-        PyAnalysis.__create_puml_files(class_tree, saver, from_dir, None)
+            PyAnalysis.__read_python_ast(self.datastructure, file_name, from_dir, saver)
+        PyAnalysis.__create_puml_files(self.datastructure, saver, from_dir, None)
 
-        class_list: List[str] = PyAnalysis.__get_class_list(class_tree)
+        class_list: List[str] = self.datastructure.get_classname_list()
         for class_name in class_list:
-             reduced_class_list = PyAnalysis.__get_reduced_class_list_from_class_name_list(class_tree, [class_name])
+             reduced_class_list = DatastructureHandler.create_reduced_class_list_from_class_name_list(\
+                self.datastructure, [class_name])
              PyAnalysis.__create_puml_files(reduced_class_list, saver, from_dir, class_name)
 
-        class_name_list_grouped_by_namespaces: Dict[List[str]] = PyAnalysis.__get_class_name_list_grouped_by_namespaces(class_tree)
+        class_name_list_grouped_by_namespaces: Dict[List[str]] = DatastructureHandler.get_class_name_list_grouped_by_namespaces(self.datastructure)
         for namespace_name, class_name_list in class_name_list_grouped_by_namespaces.items():
-             reduced_namespace_list = PyAnalysis.__get_reduced_class_list_from_class_name_list(class_tree, class_name_list)
+             reduced_namespace_list = DatastructureHandler.create_reduced_class_list_from_class_name_list(self.datastructure, class_name_list)
              PyAnalysis.__create_puml_files(reduced_namespace_list, saver, from_dir, namespace_name)
 
 
@@ -513,7 +725,9 @@ def main(from_dir: str, out_dir: str) -> None:
     args = parser.parse_args()
     if args.from_dir: from_dir = args.from_dir
     if args.out_dir: out_dir = args.out_dir
-    PyAnalysis().read_all_python_files(from_dir, out_dir)
+
+    py_analysis: PyAnalysis = PyAnalysis(Datastructure(PythonLanguage()))
+    py_analysis.read_all_python_files(from_dir, out_dir)
 
     file_name: str = os.path.join(os.getcwd(), out_dir, re.sub('puml$', 'svg', f'full{PyAnalysis.DETAILED_FILENAME_SUFFIX}'))
     print(f'Please open {file_name} in your browser')
