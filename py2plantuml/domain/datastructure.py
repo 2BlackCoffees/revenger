@@ -80,9 +80,17 @@ class Datastructure(GenericDatastructure):
             self.methods: List[Datastructure.Method] = []
 
             self.logger = logger
+            self.color = None
         
         def set_abstract(self) -> None:
             self.is_abstract_field = True
+
+        def set_color(self, color: str) -> None:
+            self.color = f'#{color}'
+        def clear_color(self) -> None:
+            self.color = None
+        def get_color(self) -> str:
+            return self.color
     
         def add_base_class(self, base_class: str) -> None:
             if base_class in self.from_imports.keys():
@@ -139,6 +147,15 @@ class Datastructure(GenericDatastructure):
         self.skip_types.append(Common.COMPLEX_TYPE)
         self.skip_types.append(CommonInfrastructure.NOT_PROVIDED_TYPE)
         self.logger = logger
+
+    def clear_color(self) -> None:
+        for sub_datastructure in self.class_to_datastructure.values():
+            sub_datastructure.clear_color()
+
+    def set_color_class_name_list(self, class_name_list: List[str], color: str) -> None:
+        for class_name in class_name_list:
+            sub_datastructure = self.get_datastructures_from_class_name(class_name)
+            sub_datastructure.set_color(color)
 
     def get_skip_types(self) -> List[str]:
         return self.skip_types
@@ -215,6 +232,7 @@ class DatastructureHandler:
         return None
 
     def create_reduced_class_list_from_class_name_list(self, class_name_list: List[str]) -> Datastructure:
+        self.datastructure.clear_color()
         reduced_datastructure: Datastructure = Datastructure(self.datastructure.get_language_dependent(), self.logger)
         self.logger.log_debug(f'create_reduced_class_list_from_class_name_list(class_name_list = {class_name_list})')
 
@@ -223,6 +241,7 @@ class DatastructureHandler:
             sub_datastructure: Datastructure.SubDataStructure = \
                 self.__add_class_to_reduced_datastructure_if_not_exist(class_name, reduced_datastructure)
             if sub_datastructure is not None:
+                sub_datastructure.set_color('yellow')
                 for base_class_name in sub_datastructure.get_base_classes():
                     self.__append_sub_datastructures_from_classname(\
                         base_class_name, reduced_datastructure)

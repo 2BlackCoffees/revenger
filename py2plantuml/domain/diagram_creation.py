@@ -171,7 +171,10 @@ class DiagramCreation:
         is_abstract: str = 'abstract ' if sub_datastructure.is_abstract() else ''
         class_link: str = DiagramCreation.__get_file_name_from_class_namespace_name(\
             detailed, grouped_per_ns, fqdn_class_name, True)
-        saver.append(f'{empty_spaces}{is_abstract}class {fqdn_class_name} [[{class_link}]]{{')
+        color: str = sub_datastructure.get_color()
+        if color is None:
+            color = ''
+        saver.append(f'{empty_spaces}{is_abstract}class {fqdn_class_name} [[{class_link}]] {color} {{')
         # for inner_class in sub_datastructure.get_inner_class_name():
         #     self.logger.log_debug(f'{empty_spaces} - Analyzing inner class {inner_class}')
         #     inner_sub_datastructure: Datastructure.SubDataStructure = \
