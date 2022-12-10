@@ -304,7 +304,9 @@ class DiagramCreation:
         saver.save(filename)
 
     def create_puml_files(self, from_dir: str, skip_uses_relation: bool, class_namespace_name: str = None) -> None:
-        self.__create_full_diagram(True,  False,  from_dir, skip_uses_relation, class_namespace_name)
-        self.__create_full_diagram(True,  True,   from_dir, skip_uses_relation, class_namespace_name)
-        self.__create_full_diagram(False, False,  from_dir, skip_uses_relation, class_namespace_name)
-        self.__create_full_diagram(False, True,   from_dir, skip_uses_relation, class_namespace_name)
+        detailed: bool = True
+        grouped_per_ns: bool = True
+        self.__create_full_diagram(detailed,     not grouped_per_ns,  from_dir, skip_uses_relation, class_namespace_name)
+        self.__create_full_diagram(detailed,     grouped_per_ns,      from_dir, skip_uses_relation, class_namespace_name)
+        self.__create_full_diagram(not detailed, not grouped_per_ns,  from_dir, skip_uses_relation, class_namespace_name)
+        self.__create_full_diagram(not detailed, grouped_per_ns,      from_dir, skip_uses_relation, class_namespace_name)

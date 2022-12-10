@@ -243,6 +243,20 @@ class DatastructureHandler:
                         reduced_member_type, reduced_datastructure)
                     self.logger.log_debug(f' Adding variable related class {reduced_member_type} of {class_name}')
 
+                method_field: Datastructure.Method
+                for method_field in sub_datastructure.get_method_fields():
+                    for parameter in method_field.parameters:
+                        _, reduced_member_type, _ = Common.reduce_member_type(parameter.user_type)
+                        self.__append_sub_datastructures_from_classname(\
+                            reduced_member_type, reduced_datastructure)
+                        self.logger.log_debug(f' {reduced_member_type} is a parameter from method {method_field.method_name} from class {sub_datastructure.get_fqdn_class_name()} ')
+
+                for inner_class_name in sub_datastructure.get_inner_class_name():
+                    _, reduced_member_type, _ = Common.reduce_member_type(inner_class_name)
+                    self.__append_sub_datastructures_from_classname(\
+                        reduced_member_type, reduced_datastructure)
+                    self.logger.log_debug(f' Adding inner class {reduced_member_type} of {class_name}')
+
         for filename in self.datastructure.get_sorted_list_filenames():
             for sub_datastructure in self.datastructure.get_datastructures_from_filename(filename):
 
@@ -267,6 +281,22 @@ class DatastructureHandler:
                         self.__append_sub_datastructures_from_classname(\
                             sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
                         self.logger.log_debug(f' {reduced_member_type} is a variable related class of {sub_datastructure.get_fqdn_class_name()} ')
+
+                method_field: Datastructure.Method
+                for method_field in sub_datastructure.get_method_fields():
+                    for parameter in method_field.parameters:
+                        _, reduced_member_type, _ = Common.reduce_member_type(parameter.user_type)
+                        if reduced_member_type in class_name_list:
+                            self.__append_sub_datastructures_from_classname(\
+                                sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
+                            self.logger.log_debug(f' {reduced_member_type} is a parameter from method {method_field.method_name} related class of {sub_datastructure.get_fqdn_class_name()} ')
+
+                for inner_class_name in sub_datastructure.get_inner_class_name():
+                    _, reduced_member_type, _ = Common.reduce_member_type(inner_class_name)
+                    if reduced_member_type in class_name_list:
+                        self.__append_sub_datastructures_from_classname(\
+                            sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
+                        self.logger.log_debug(f' {reduced_member_type} contains class of {sub_datastructure.get_fqdn_class_name()} ')
 
         return reduced_datastructure
 
