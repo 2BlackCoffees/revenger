@@ -57,3 +57,7 @@ class GenericLogger(ABC):
     def log_debug(self, line: str):
         """
         """
+    @abstractmethod
+    def log_trace(self, line: str):
+        """
+        """

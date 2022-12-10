@@ -30,7 +30,7 @@ class PythonLanguage(LanguageDependent):
     def __get_package_name_from_filename(self, filename: str, from_dir: str) -> str:
         if from_dir is not None:
             filename = filename.replace(from_dir, '')
-        return re.sub('^\.', '', re.sub('py$', '', filename.replace('/', '.')))
+        return re.sub('^\.', '', re.sub('\.py$', '', filename.replace('/', '.')))
 
     def get_package_name(self, parameters: List[str]) -> str:
         if len(parameters) != 2:
@@ -66,7 +66,7 @@ class Datastructure(GenericDatastructure):
         is_member: bool
 
     class SubDataStructure(GenericSubDataStructure):
-        def __init__(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str):
+        def __init__(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str, logger: Logger):
             self.fqdn_class_name: str = fqdn_class_name
             self.filename: str = filename
             self.from_imports: str = from_imports.copy()
@@ -78,6 +78,8 @@ class Datastructure(GenericDatastructure):
             self.statics: List[Datastructure.Static] = []
             self.variables: List[Datastructure.Variable] = []
             self.methods: List[Datastructure.Method] = []
+
+            self.logger = logger
         
         def set_abstract(self) -> None:
             self.is_abstract_field = True
@@ -86,7 +88,8 @@ class Datastructure(GenericDatastructure):
             if base_class in self.from_imports.keys():
                 base_class = self.from_imports[base_class]
             else:
-                base_class = self.filemodule + base_class
+                base_class = f'{self.filemodule}.{base_class}'
+                self.logger.log_debug(f'  Created base class name {base_class} from filemodule: >{self.filemodule}< and >{base_class}<')
             self.bases.append(base_class)
  
         def add_static(self, static_name: str, static_type: str) -> None:
@@ -147,7 +150,7 @@ class Datastructure(GenericDatastructure):
         return self.language_dependent
 
     def append_class(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str) -> Datastructure.SubDataStructure:
-        sub_datastructure = Datastructure.SubDataStructure(filename, filemodule, from_imports, fqdn_class_name)
+        sub_datastructure = Datastructure.SubDataStructure(filename, filemodule, from_imports, fqdn_class_name, self.logger)
         self.append_sub_datastructure(sub_datastructure)
         return sub_datastructure
 
@@ -163,6 +166,7 @@ class Datastructure(GenericDatastructure):
     def get_datastructures_from_class_name(self, class_name: str) -> Datastructure.SubDataStructure:
         if class_name in self.class_to_datastructure:
             return self.class_to_datastructure[class_name]
+        self.logger.log_debug(f"Requested class {class_name} was not found in the datastructure")
         return None
 
     def class_exists(self, class_name) -> bool:

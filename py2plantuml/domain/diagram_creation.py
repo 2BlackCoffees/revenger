@@ -164,39 +164,55 @@ class DiagramCreation:
             previous_sub_namespace_list.append(namespace)
             saver.append(DiagramCreation.__get_namespace_name(current_sub_namespace_list, sub_index + 1, detailed, grouped_per_ns))
 
+    def __create_puml_class(self, sub_datastructure: Datastructure.SubDataStructure, saver: Saver,\
+            detailed: bool, grouped_per_ns: bool, empty_spaces: str):
+        fqdn_class_name: str = sub_datastructure.get_fqdn_class_name()
+        self.logger.log_debug(f'{empty_spaces}- Analyzing class {fqdn_class_name}')
+        is_abstract: str = 'abstract ' if sub_datastructure.is_abstract() else ''
+        class_link: str = DiagramCreation.__get_file_name_from_class_namespace_name(\
+            detailed, grouped_per_ns, fqdn_class_name, True)
+        saver.append(f'{empty_spaces}{is_abstract}class {fqdn_class_name} [[{class_link}]]{{')
+        # for inner_class in sub_datastructure.get_inner_class_name():
+        #     self.logger.log_debug(f'{empty_spaces} - Analyzing inner class {inner_class}')
+        #     inner_sub_datastructure: Datastructure.SubDataStructure = \
+        #         self.datastructure.get_datastructures_from_class_name(inner_class)
+        #     if inner_sub_datastructure is not None:
+        #         self.__create_puml_class(inner_sub_datastructure, saver, detailed, grouped_per_ns, empty_spaces + '    ')
+        #     else:
+        #         self.logger.log_warn(f'{empty_spaces}  - {inner_class} was not found in the data structure !!!')
+
+
+        if detailed:
+            static_field: Datastructure.Static
+            for static_field in sub_datastructure.get_static_fields():
+                saver.append(f'{empty_spaces}  + {{static}} {static_field.static_name}: {static_field.static_type}')
+            #pprint(class_content['members'])
+            variable_field: Datastructure.Variable
+            for variable_field in sub_datastructure.get_variable_fields():
+                saver.append(f'{empty_spaces}  - {variable_field.variable_name}: {variable_field.variable_type}' )
+            method_field: Datastructure.Method
+            for method_field in sub_datastructure.get_method_fields():
+                visible = '+'
+                method_name: str = method_field.method_name
+                parameters: str = ', '.join([f'{parameter.parameter}:{parameter.user_type}' for parameter in method_field.parameters])
+                if method_name.startswith('_'):
+                    visible = '-'
+                saver.append(f'{empty_spaces}  {visible} {method_name}({parameters})' )
+        saver.append(f'{empty_spaces}}}')
+    
     def __create_puml_classes(self, detailed: bool, grouped_per_ns: bool, saver: Saver, from_dir: str) -> None:
         previous_sub_namespace_list: List[str] = []
         list_file_names = self.datastructure.get_sorted_list_filenames()
         for file_name in list_file_names:
             classes: List[Datastructure.SubDataStructure] = self.datastructure.get_datastructures_from_filename(file_name)
-            current_sub_namespace_list = self.datastructure.get_language_dependent().get_package_name([file_name, from_dir]).split('.')[0:-1]
+            current_sub_namespace_list = self.datastructure.get_language_dependent().get_package_name([file_name, from_dir]).split('.')
             if grouped_per_ns:
                 self.__sub_namespace_handler(previous_sub_namespace_list, current_sub_namespace_list, detailed, grouped_per_ns, saver, False)
 
             empty_spaces = '  ' * (max(len(current_sub_namespace_list) - 1, 0))
             for sub_datastructure in classes:
-                fqdn_class_name: str = sub_datastructure.get_fqdn_class_name()
-                is_abstract: str = 'abstract ' if sub_datastructure.is_abstract() else ''
-                    
-                saver.append(f'{empty_spaces}{is_abstract}class {fqdn_class_name} [[{DiagramCreation.__get_file_name_from_class_namespace_name(detailed, grouped_per_ns, fqdn_class_name, True)}]]{{')
-                if detailed:
-                    static_field: Datastructure.Static
-                    for static_field in sub_datastructure.get_static_fields():
-                        saver.append(f'{empty_spaces}  + {{static}} {static_field.static_name}: {static_field.static_type}')
-                    #pprint(class_content['members'])
-                    variable_field: Datastructure.Variable
-                    for variable_field in sub_datastructure.get_variable_fields():
-                        saver.append(f'{empty_spaces}  - {variable_field.variable_name}: {variable_field.variable_type}' )
-                    method_field: Datastructure.Method
-                    for method_field in sub_datastructure.get_method_fields():
-                        visible = '+'
-                        method_name: str = method_field.method_name
-                        parameters: str = ', '.join([f'{parameter.parameter}:{parameter.user_type}' for parameter in method_field.parameters])
-                        if method_name.startswith('_'):
-                            visible = '-'
-                        saver.append(f'{empty_spaces}  {visible} {method_name}({parameters})' )
+                self.__create_puml_class(sub_datastructure, saver, detailed, grouped_per_ns, empty_spaces)
 
-                saver.append(f'{empty_spaces}}}')
             if grouped_per_ns:
                 self.__sub_namespace_handler(previous_sub_namespace_list, None, detailed, grouped_per_ns, saver, True)
 
@@ -205,8 +221,8 @@ class DiagramCreation:
         saver.append(' \' *************************************** ')
 
 
-    def __create_puml_connection(self, class_name: str, full_member_type: str, is_member: bool, saver: Saver) -> None:
-        connection, member_type, note = Common.reduce_member_type(full_member_type, is_member)
+    def __create_puml_connection(self, class_name: str, full_member_type: str, connection_type: Common.ConnectionType, saver: Saver) -> None:
+        connection, member_type, note = Common.reduce_member_type(full_member_type, connection_type)
         if member_type not in self.datastructure.get_skip_types() and \
                 class_name not in self.datastructure.get_skip_types():
             saver.append(f'{class_name} {connection} {member_type} {note}')
@@ -227,34 +243,43 @@ class DiagramCreation:
                             self.logger.log_debug(\
                                 f'  Relation skipped: {base} <|-- {class_name} ' + \
                                     f'(create_all_relation: {create_all_relation}, ' + \
-                                        'datastructure.class_exists({base}): {self.datastructure.class_exists(base)})')
+                                        f'datastructure.class_exists({base}): {self.datastructure.class_exists(base)})')
+                for inner_class_name in sub_datastructure.get_inner_class_name():
+                    if create_all_relation or self.datastructure.class_exists(inner_class_name):
+                        self.__create_puml_connection(class_name, inner_class_name, Common.ConnectionType.IS_INNER_CLASS, saver)
+                    else:
+                        self.logger.log_debug(f'  Relation skipped: {class_name} +-- {inner_class_name} ' + \
+                            f'(create_all_relation: {create_all_relation}, datastructure.class_exists({inner_class_name}): ' + \
+                                f'{self.datastructure.class_exists(inner_class_name)})')
+                
                 static_field: Datastructure.Static
                 for static_field in sub_datastructure.get_static_fields():
                     _, naked_type, _ = Common.reduce_member_type(static_field.static_type)
                     if create_all_relation or self.datastructure.class_exists(naked_type):
-                        self.__create_puml_connection(class_name, static_field.static_type, True, saver)
+                        self.__create_puml_connection(class_name, static_field.static_type, Common.ConnectionType.IS_MEMBER, saver)
                     else:
-                        self.logger.log_debug(f'  Relation skipped: {class_name} ?-- {naked_type} ' + \
-                            '(create_all_relation: {create_all_relation}, datastructure.class_exists({naked_type}): ' + \
-                                '{self.datastructure.class_exists(naked_type)})')
+                        self.logger.log_debug(f'  Relation skipped: {class_name} *-- {naked_type} ' + \
+                            f'(create_all_relation: {create_all_relation}, datastructure.class_exists({naked_type}): ' + \
+                                f'{self.datastructure.class_exists(naked_type)})')
                 variable_field: Datastructure.Variable
                 for variable_field in sub_datastructure.get_variable_fields():
                     _, naked_type, _ = Common.reduce_member_type(variable_field.variable_type)
                     if create_all_relation or self.datastructure.class_exists(naked_type):
-                        self.__create_puml_connection(class_name, variable_field.variable_type, variable_field.is_member, saver)
+                        connection_type: str = Common.ConnectionType.IS_MEMBER if variable_field.is_member else Common.ConnectionType.USES
+                        self.__create_puml_connection(class_name, variable_field.variable_type, connection_type, saver)
                     else:
                         self.logger.log_debug(f'  Relation skipped: {class_name} ?-- {naked_type} ' + \
-                            '(create_all_relation: {create_all_relation}, datastructure.class_exists({naked_type}): ' + \
-                                '{self.datastructure.class_exists(naked_type)})')
+                            f'(create_all_relation: {create_all_relation}, datastructure.class_exists({naked_type}): ' + \
+                                f'{self.datastructure.class_exists(naked_type)})')
                 for method_field in sub_datastructure.get_method_fields():
                     for parameter in method_field.parameters:
                         _, naked_type, _ = Common.reduce_member_type(parameter.user_type)
                         if create_all_relation or self.datastructure.class_exists(naked_type):
-                            self.__create_puml_connection(class_name, parameter.user_type, False, saver)
+                            self.__create_puml_connection(class_name, parameter.user_type, Common.ConnectionType.USES, saver)
                         else:
-                            self.logger.log_debug(f'  Relation skipped: {class_name} ?-- {naked_type} ' + \
-                                '(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
-                                    '{self.datastructure.class_exists(naked_type)})')
+                            self.logger.log_debug(f'  Relation skipped: {class_name} --> {naked_type} ' + \
+                                f'(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
+                                    f'{self.datastructure.class_exists(naked_type)})')
             
     def __create_full_diagram(self, detailed: bool, grouped_per_ns: bool, from_dir: str, class_namespace_name: str = None) -> None:
         saver: Saver = self.saver.clone()
