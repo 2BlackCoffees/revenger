@@ -1,14 +1,20 @@
 
-class Logger:
-    DEBUG = False
-    @staticmethod
-    def set_debug() -> None:
-        Logger.DEBUG = True
-    @staticmethod
-    def log_info(line: str) -> None:
-        print(line)
+from infrastructure.generic_classes import GenericLogger
 
-    @staticmethod
-    def log_debug(line: str) -> None:
-        if Logger.DEBUG:
-            print(f'{line}')
+class Logger(GenericLogger):
+    def __init__(self, debug: bool = False):
+        self.debug = debug
+
+    def set_debug(self) -> None:
+        self.debug = True
+
+    def log_info(self, line: str) -> None:
+        print(f'INFO: {line}')
+
+    def log_error(self, line: str) -> None:
+        print(f'ERROR: {line}')
+
+
+    def log_debug(self, line: str) -> None:
+        if self.debug:
+            print(f'DEBUG: {line}')

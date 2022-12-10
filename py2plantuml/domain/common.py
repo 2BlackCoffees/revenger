@@ -2,7 +2,6 @@ from typing import List, Dict, Tuple
 
 class Common:
     COMPLEX_TYPE: str = '*** TYPE NOT DECODED ***'
-    NOT_PROVIDED_TYPE: str = '**???**'
     @staticmethod
     def reduce_member_type(member_type: str, is_member: bool = True) -> Tuple[str, str, str]:
         connection: str = '*--' if is_member else '-->'

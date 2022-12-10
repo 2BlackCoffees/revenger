@@ -1,12 +1,15 @@
 from __future__ import annotations
 from typing import List, Dict, Tuple
 import os
+
+from infrastructure.generic_classes import GenericSaver
 from domain.logger import Logger
 
-class Saver:
-    def __init__(self, out_dir: str, saver: Saver = None):
+class Saver(GenericSaver):
+    def __init__(self, out_dir: str, logger: Logger, saver: Saver = None):
         self.lines_to_save: List[str] = []
         self.out_dir: str = out_dir
+        self.logger = logger
         if saver is not None:
             self.lines_to_save = saver.copy_content()
 
@@ -19,12 +22,12 @@ class Saver:
 
     def save(self, filename) -> None:
         filename = os.path.join(self.out_dir, filename)
-        Logger.log_info(f'INFO: Creating file {filename}')
+        self.logger.log_info(f'Creating file {filename}')
         with open(filename, 'w', encoding="utf-8") as file:
             file.write('\n'.join(self.lines_to_save))
 
     def clone(self) -> Saver:
-        return Saver(self.out_dir, self)
+        return Saver(self.out_dir, self.logger, self)
 
     def removed_last_line_if_same(self, line: str) -> bool:
         return_value = False

@@ -5,6 +5,7 @@ import argparse
 
 from domain.datastructure import PythonLanguage
 from domain.diagram_creation import DiagramCreation
+from domain.logger import Logger
 from services.application_service import ApplicationService
 
                         
@@ -19,8 +20,10 @@ def main(from_dir: str, out_dir: str) -> None:
     args = parser.parse_args()
     if args.from_dir: from_dir = args.from_dir
     if args.out_dir: out_dir = args.out_dir
+    debug: bool = False
+    logger: Logger = Logger(debug)
 
-    ApplicationService.read_all_python_files(from_dir, out_dir, PythonLanguage())
+    ApplicationService.read_all_python_files(from_dir, out_dir, logger, PythonLanguage(logger))
 
     file_name: str = os.path.join(os.getcwd(), out_dir, re.sub('puml$', 'svg', f'full{DiagramCreation.DETAILED_FILENAME_SUFFIX}'))
     print(f'Please open {file_name} in your browser')
