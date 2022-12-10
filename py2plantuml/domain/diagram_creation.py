@@ -227,7 +227,7 @@ class DiagramCreation:
                 class_name not in self.datastructure.get_skip_types():
             saver.append(f'{class_name} {connection} {member_type} {note}')
 
-    def __create_puml_classes_relations(self, saver: Saver, create_all_relation: bool) -> None:
+    def __create_puml_classes_relations(self, saver: Saver, create_all_relation: bool, skip_uses_relation: bool) -> None:
         for file_name in self.datastructure.get_sorted_list_filenames():
             saver.append(f'\' Class relations extracted from file:\n\' {file_name}')
             sub_datastructure: Datastructure.SubDataStructure
@@ -266,7 +266,11 @@ class DiagramCreation:
                     _, naked_type, _ = Common.reduce_member_type(variable_field.variable_type)
                     if create_all_relation or self.datastructure.class_exists(naked_type):
                         connection_type: str = Common.ConnectionType.IS_MEMBER if variable_field.is_member else Common.ConnectionType.USES
-                        self.__create_puml_connection(class_name, variable_field.variable_type, connection_type, saver)
+                        if (not skip_uses_relation) or connection_type == Common.ConnectionType.IS_MEMBER:
+                            self.__create_puml_connection(class_name, variable_field.variable_type, connection_type, saver)
+                        else:
+                            self.logger.log_debug(f'  Relation skipped: {class_name} --> {naked_type} ' + \
+                                f'(skip_uses_relation: {skip_uses_relation}, connection_type: {connection_type})')
                     else:
                         self.logger.log_debug(f'  Relation skipped: {class_name} ?-- {naked_type} ' + \
                             f'(create_all_relation: {create_all_relation}, datastructure.class_exists({naked_type}): ' + \
@@ -274,14 +278,14 @@ class DiagramCreation:
                 for method_field in sub_datastructure.get_method_fields():
                     for parameter in method_field.parameters:
                         _, naked_type, _ = Common.reduce_member_type(parameter.user_type)
-                        if create_all_relation or self.datastructure.class_exists(naked_type):
+                        if (not skip_uses_relation) and (create_all_relation or self.datastructure.class_exists(naked_type)):
                             self.__create_puml_connection(class_name, parameter.user_type, Common.ConnectionType.USES, saver)
                         else:
                             self.logger.log_debug(f'  Relation skipped: {class_name} --> {naked_type} ' + \
                                 f'(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
-                                    f'{self.datastructure.class_exists(naked_type)})')
+                                    f'{self.datastructure.class_exists(naked_type)}, skip_uses_relation: {skip_uses_relation})')
             
-    def __create_full_diagram(self, detailed: bool, grouped_per_ns: bool, from_dir: str, class_namespace_name: str = None) -> None:
+    def __create_full_diagram(self, detailed: bool, grouped_per_ns: bool, from_dir: str, skip_uses_relation: bool, class_namespace_name: str = None) -> None:
         saver: Saver = self.saver.clone()
         user_info_filename, filename, user_info_link_1, link_path_1, user_info_link_2, link_path_2 = \
             DiagramCreation.__get_file_name(detailed, grouped_per_ns, class_namespace_name)
@@ -295,12 +299,12 @@ class DiagramCreation:
                       f'* {user_info_link_1}:\\n   [[{link_path_1}]]\\n* {user_info_link_2}:\\n   [[{link_path_2}]]" as FloatingNote')
         self.__create_puml_classes(detailed, grouped_per_ns, saver, from_dir)
         create_all_relation: bool = class_namespace_name == None
-        self.__create_puml_classes_relations(saver, create_all_relation)
+        self.__create_puml_classes_relations(saver, create_all_relation, skip_uses_relation)
         saver.append('@enduml')
         saver.save(filename)
 
-    def create_puml_files(self, from_dir: str, class_namespace_name: str = None) -> None:
-        self.__create_full_diagram(True,  False,  from_dir, class_namespace_name)
-        self.__create_full_diagram(True,  True,   from_dir, class_namespace_name)
-        self.__create_full_diagram(False, False,  from_dir, class_namespace_name)
-        self.__create_full_diagram(False, True,   from_dir, class_namespace_name)
+    def create_puml_files(self, from_dir: str, skip_uses_relation: bool, class_namespace_name: str = None) -> None:
+        self.__create_full_diagram(True,  False,  from_dir, skip_uses_relation, class_namespace_name)
+        self.__create_full_diagram(True,  True,   from_dir, skip_uses_relation, class_namespace_name)
+        self.__create_full_diagram(False, False,  from_dir, skip_uses_relation, class_namespace_name)
+        self.__create_full_diagram(False, True,   from_dir, skip_uses_relation, class_namespace_name)
