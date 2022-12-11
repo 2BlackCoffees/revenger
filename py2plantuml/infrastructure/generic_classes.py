@@ -18,7 +18,7 @@ class GenericSubDataStructure(ABC):
         """
 
     @abstractmethod
-    def add_method(self, method_name: str, arguments: List[Tuple[str, str]]) -> None:
+    def add_method(self, method_name: str, arguments: List[Tuple[str, str]], is_private: bool) -> None:
         """
         """
 
@@ -33,10 +33,6 @@ class GenericSubDataStructure(ABC):
         """
 
 class GenericDatastructure(ABC):
-    @abstractmethod
-    def get_package_name(self, parameters: List[str]):
-        """
-        """
     @abstractmethod
     def append_class(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str) -> GenericSubDataStructure:
         """

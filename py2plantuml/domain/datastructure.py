@@ -15,10 +15,6 @@ class LanguageDependent(ABC):
     def get_skip_types(self) -> List[str]:
         """
         """
-    @abstractmethod
-    def get_package_name(self, parameters: List[str]) -> str:
-        """
-        """
 
 class PythonLanguage(LanguageDependent):
     def __init__(self, logger: Logger):
@@ -26,17 +22,6 @@ class PythonLanguage(LanguageDependent):
 
     def get_skip_types(self) -> List[str]:
         return ['int', 'str', 'float', 'bool', 'abc.ABC']
-
-    def __get_package_name_from_filename(self, filename: str, from_dir: str) -> str:
-        if from_dir is not None:
-            filename = filename.replace(from_dir, '')
-        return re.sub('^\.', '', re.sub('\.py$', '', filename.replace('/', '.')))
-
-    def get_package_name(self, parameters: List[str]) -> str:
-        if len(parameters) != 2:
-            self.logger.log_error("get_package_name for Python requires 2 parameters: filename and from_dir.")
-            exit(1)
-        return self.__get_package_name_from_filename(parameters[0], parameters[1])
 
 class Datastructure(GenericDatastructure):
     NOT_EXTRACTED: str = '** Not extracted **'
@@ -53,6 +38,7 @@ class Datastructure(GenericDatastructure):
             parameter: str
             user_type: str
         parameters: List[ParameterType]
+        is_private: bool
 
     @dataclass
     class Static:
@@ -66,11 +52,13 @@ class Datastructure(GenericDatastructure):
         is_member: bool
 
     class SubDataStructure(GenericSubDataStructure):
-        def __init__(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str, logger: Logger):
+        def __init__(self, filename: str, filemodule: str, from_imports: Dict[str, str], \
+                fqdn_class_name: str, name_space_list: List[str], logger: Logger):
             self.fqdn_class_name: str = fqdn_class_name
             self.filename: str = filename
             self.from_imports: str = from_imports.copy()
             self.filemodule: str = filemodule
+            self.name_space_list: List[str] = name_space_list
 
             self.bases: List[str] = []
             self.inner_classes: List[str] = []
@@ -78,7 +66,6 @@ class Datastructure(GenericDatastructure):
             self.statics: List[Datastructure.Static] = []
             self.variables: List[Datastructure.Variable] = []
             self.methods: List[Datastructure.Method] = []
-
             self.logger = logger
             self.color = None
         
@@ -102,9 +89,9 @@ class Datastructure(GenericDatastructure):
  
         def add_static(self, static_name: str, static_type: str) -> None:
             self.statics.append(Datastructure.Static(static_name, static_type))
-        def add_method(self, method_name: str, arguments_tuple: List[Tuple[str, str]]) -> None:
+        def add_method(self, method_name: str, arguments_tuple: List[Tuple[str, str]], is_private: bool) -> None:
             arguments = [Datastructure.Method.ParameterType(parameter, user_type) for parameter, user_type in arguments_tuple]
-            self.methods.append(Datastructure.Method(method_name, arguments))
+            self.methods.append(Datastructure.Method(method_name, arguments, is_private))
         def add_variable(self, variable_name: str, variable_type: str, is_member: bool) -> None:
             self.variables.append(Datastructure.Variable(variable_name, variable_type, is_member))
         def add_inner_class(self, inner_class_name: str) -> None:
@@ -137,10 +124,14 @@ class Datastructure(GenericDatastructure):
             return self.filename
         def get_filemodule(self) -> str:
             return self.filemodule
+        def get_name_space_list(self) -> None:
+            return self.name_space_list
 
     def __init__(self, language_dependent: LanguageDependent, logger: Logger):
         self.class_to_datastructure: Dict[str, Datastructure.SubDataStructure] = {}
         self.filename_to_datastructure: Dict[str, List[Datastructure.SubDataStructure]] = {}
+        self.namespace_to_datastructures: Dict[str, List[Datastructure.SubDataStructure]] = {}
+        self.namespace_to_namespace_list: Dict[str, List[str]] = {}
         self.language_dependent = language_dependent
         self.skip_types = language_dependent.get_skip_types()
         self.skip_types.append(self.NOT_EXTRACTED)
@@ -160,31 +151,33 @@ class Datastructure(GenericDatastructure):
     def get_skip_types(self) -> List[str]:
         return self.skip_types
 
-    def get_package_name(self, parameters: List[str]):
-        return self.language_dependent.get_package_name(parameters)
-
     def get_language_dependent(self) -> LanguageDependent:
         return self.language_dependent
 
-    def append_class(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str) -> Datastructure.SubDataStructure:
-        sub_datastructure = Datastructure.SubDataStructure(filename, filemodule, from_imports, fqdn_class_name, self.logger)
+    def append_class(self, filename: str, filemodule: str, \
+          from_imports: Dict[str, str], fqdn_class_name: str,\
+            name_space_list: List[str]) -> Datastructure.SubDataStructure:
+        sub_datastructure = Datastructure.SubDataStructure(filename, filemodule, from_imports, fqdn_class_name, name_space_list, self.logger)
         self.append_sub_datastructure(sub_datastructure)
         return sub_datastructure
 
-    def get_sorted_list_filenames(self) -> List[str]:
-        return sorted(self.filename_to_datastructure.keys())
-
     def get_classname_list(self) -> List[str]:
         return self.class_to_datastructure.keys()
-
-    def get_datastructures_from_filename(self, filename: str) -> List[Datastructure.SubDataStructure]:
-        return self.filename_to_datastructure[filename]
 
     def get_datastructures_from_class_name(self, class_name: str) -> Datastructure.SubDataStructure:
         if class_name in self.class_to_datastructure:
             return self.class_to_datastructure[class_name]
         self.logger.log_debug(f"Requested class {class_name} was not found in the datastructure")
         return None
+
+    def get_sorted_name_spaces(self) -> List[str]:
+        return sorted(self.namespace_to_datastructures.keys())
+
+    def get_datastructures_from_namespace(self, namespace: str) -> List[Datastructure.SubDataStructure]:
+        return self.namespace_to_datastructures[namespace]
+
+    def get_namespace_list_from_namespace_name(self, namespace_name: str) -> List[str]:
+        return self.namespace_to_namespace_list[namespace_name]
 
     def class_exists(self, class_name) -> bool:
         return class_name in self.class_to_datastructure.keys()
@@ -193,13 +186,14 @@ class Datastructure(GenericDatastructure):
         return filename in self.filename_to_datastructure.keys()
 
     def append_sub_datastructure(self, sub_datastructure: Datastructure.SubDataStructure) -> None:
-        filename = sub_datastructure.get_filename()
         fqdn_class_name = sub_datastructure.get_fqdn_class_name()
         if fqdn_class_name not in self.class_to_datastructure.keys():
             self.class_to_datastructure[fqdn_class_name] = sub_datastructure
-            if filename not in self.filename_to_datastructure.keys():
-                self.filename_to_datastructure[filename] = []
-            self.filename_to_datastructure[filename].append(self.class_to_datastructure[fqdn_class_name])
+            namespace = '.'.join(sub_datastructure.get_name_space_list())
+            if namespace not in self.namespace_to_datastructures:
+                self.namespace_to_datastructures[namespace] = []
+            self.namespace_to_datastructures[namespace].append(sub_datastructure)
+            self.namespace_to_namespace_list[namespace] = sub_datastructure.get_name_space_list()
         else:
             self.logger.log_debug(f'WARNING: Class {fqdn_class_name} is being registered a second time \n' + \
                   f'   -> First time content is from file {self.class_to_datastructure[fqdn_class_name].get_filename()}, from class: {self.class_to_datastructure[fqdn_class_name].get_fqdn_class_name()}: Ignoring.')
@@ -276,8 +270,8 @@ class DatastructureHandler:
                         reduced_member_type, reduced_datastructure)
                     self.logger.log_debug(f' Adding inner class {reduced_member_type} of {class_name}')
 
-        for filename in self.datastructure.get_sorted_list_filenames():
-            for sub_datastructure in self.datastructure.get_datastructures_from_filename(filename):
+        for namespace_name in self.datastructure.get_sorted_name_spaces():
+            for sub_datastructure in self.datastructure.get_datastructures_from_namespace(namespace_name):
 
                 for base_classname in sub_datastructure.get_base_classes():
                     if base_classname in class_name_list:
@@ -321,8 +315,8 @@ class DatastructureHandler:
 
     def get_class_name_list_grouped_by_namespaces(self) -> Dict[List[str]]:
         class_name_list_grouped_by_namespaces: Dict[List[str]] = {}
-        for filename in self.datastructure.get_sorted_list_filenames():
-            for sub_datastructure in self.datastructure.get_datastructures_from_filename(filename):
+        for namespace_name in self.datastructure.get_sorted_name_spaces():
+            for sub_datastructure in self.datastructure.get_datastructures_from_namespace(namespace_name):
                 classname: str = sub_datastructure.get_fqdn_class_name()
                 namespace_list = classname.split('.')[0: -1]
                 full_name_space = ''

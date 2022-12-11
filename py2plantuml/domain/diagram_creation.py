@@ -175,15 +175,6 @@ class DiagramCreation:
         if color is None:
             color = ''
         saver.append(f'{empty_spaces}{is_abstract}class {fqdn_class_name} [[{class_link}]] {color} {{')
-        # for inner_class in sub_datastructure.get_inner_class_name():
-        #     self.logger.log_debug(f'{empty_spaces} - Analyzing inner class {inner_class}')
-        #     inner_sub_datastructure: Datastructure.SubDataStructure = \
-        #         self.datastructure.get_datastructures_from_class_name(inner_class)
-        #     if inner_sub_datastructure is not None:
-        #         self.__create_puml_class(inner_sub_datastructure, saver, detailed, grouped_per_ns, empty_spaces + '    ')
-        #     else:
-        #         self.logger.log_warn(f'{empty_spaces}  - {inner_class} was not found in the data structure !!!')
-
 
         if detailed:
             static_field: Datastructure.Static
@@ -198,17 +189,17 @@ class DiagramCreation:
                 visible = '+'
                 method_name: str = method_field.method_name
                 parameters: str = ', '.join([f'{parameter.parameter}:{parameter.user_type}' for parameter in method_field.parameters])
-                if method_name.startswith('_'):
+                if method_field.is_private:
                     visible = '-'
                 saver.append(f'{empty_spaces}  {visible} {method_name}({parameters})' )
         saver.append(f'{empty_spaces}}}')
     
     def __create_puml_classes(self, detailed: bool, grouped_per_ns: bool, saver: Saver, from_dir: str) -> None:
         previous_sub_namespace_list: List[str] = []
-        list_file_names = self.datastructure.get_sorted_list_filenames()
-        for file_name in list_file_names:
-            classes: List[Datastructure.SubDataStructure] = self.datastructure.get_datastructures_from_filename(file_name)
-            current_sub_namespace_list = self.datastructure.get_language_dependent().get_package_name([file_name, from_dir]).split('.')
+        list_file_namespaces = self.datastructure.get_sorted_name_spaces()
+        for namespace_name in list_file_namespaces:
+            classes: List[Datastructure.SubDataStructure] = self.datastructure.get_datastructures_from_namespace(namespace_name)
+            current_sub_namespace_list = self.datastructure.get_namespace_list_from_namespace_name(namespace_name)
             if grouped_per_ns:
                 self.__sub_namespace_handler(previous_sub_namespace_list, current_sub_namespace_list, detailed, grouped_per_ns, saver, False)
 
@@ -231,12 +222,12 @@ class DiagramCreation:
             saver.append(f'{class_name} {connection} {member_type} {note}')
 
     def __create_puml_classes_relations(self, saver: Saver, create_all_relation: bool, skip_uses_relation: bool) -> None:
-        for file_name in self.datastructure.get_sorted_list_filenames():
-            saver.append(f'\' Class relations extracted from file:\n\' {file_name}')
+        for namespace_name in self.datastructure.get_sorted_name_spaces():
+            saver.append(f'\' Class relations extracted from namespace:\n\' {namespace_name}')
             sub_datastructure: Datastructure.SubDataStructure
-            for sub_datastructure in self.datastructure.get_datastructures_from_filename(file_name):
+            for sub_datastructure in self.datastructure.get_datastructures_from_namespace(namespace_name):
                 class_name = sub_datastructure.get_fqdn_class_name()
-                self.logger.log_debug(f' Creation relations for class {class_name} (create_all_relation: {create_all_relation}, File {file_name})')
+                self.logger.log_debug(f' Creation relations for class {class_name} (create_all_relation: {create_all_relation}, Namespace {namespace_name})')
                 for base in sub_datastructure.get_base_classes():
                     if base not in self.datastructure.get_skip_types() and \
                         class_name not in self.datastructure.get_skip_types():
