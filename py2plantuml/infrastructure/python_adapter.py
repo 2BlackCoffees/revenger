@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import List, Dict, Tuple
 import ast
-
+import re
 from infrastructure.generic_classes import GenericSubDataStructure
 from infrastructure.generic_classes import GenericDatastructure
 from infrastructure.generic_classes import GenericSaver
@@ -25,13 +25,19 @@ class PythonAdapter:
             self.logger.log_debug(f'  Type {member_sub_type} not found in {type_dict.keys()} saving as type from module {member_sub_type}')
         return member_sub_type
     
+    @staticmethod
+    def __get_namespace_name_from_filename(filename: str, from_dir: str) -> str:
+        if from_dir is not None:
+            filename = filename.replace(from_dir, '')
+        return re.sub('^\.', '', re.sub('\.py$', '', filename.replace('/', '.')))
+
     def read_python_ast(self, datastructure: GenericDatastructure, filename: str, from_dir: str) -> any:
         with open(filename, encoding="utf-8") as file:
             tree: any = ast.parse(file.read())
             self.logger.log_trace(f"Filename: {filename}")
             self.logger.log_trace(ast.dump(tree, indent=4))
             self.logger.log_trace("\n\n\n\n")
-        filemodule: str = datastructure.get_package_name([filename, from_dir])
+        filemodule: str = PythonAdapter.__get_namespace_name_from_filename(filename, from_dir)
         from_import: Dict[str, str] = {}
         self.logger.log_debug(f'Analyzing file: {filename}')
         for node in tree.body:
@@ -53,8 +59,9 @@ class PythonAdapter:
         else:
             class_name: str = f'{filemodule}.{parent_class_name}.{node.name}'
             self.logger.log_debug(f'Created class_name {class_name} from filemodule: >{filemodule}<, parent_class_name: >{parent_class_name}< and >{node.name}<')
+
         class_datastructure: GenericSubDataStructure = \
-            datastructure.append_class(filename, filemodule, from_import, class_name)
+            datastructure.append_class(filename, filemodule, from_import, class_name, filemodule.split('.'))
         self.logger.log_debug(f' Creating class {class_name} from file {filename}, filemodule: {filemodule}, from_import: {from_import}')
         for base in node.bases:
             if isinstance(base, ast.Name):
@@ -102,8 +109,10 @@ class PythonAdapter:
                                     else CommonInfrastructure.NOT_PROVIDED_TYPE
                         arguments.append((argument.arg, user_type))
                 if method_name != '':
+                    is_private: bool = method_name.startswith('_')
                     class_datastructure.add_method(method_name,\
-                        [ (argument_name, argument_type) for argument_name, argument_type in arguments])
+                        [ (argument_name, argument_type) for argument_name, argument_type in arguments],
+                        is_private)
                 for fun_body in class_body.body:
                     if isinstance(fun_body, ast.AnnAssign):
                         target = fun_body.target
