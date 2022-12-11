@@ -5,7 +5,7 @@ create_svg_files() {
   rm $out_dir/*.svg
   number_files=$(ls $out_dir/*.puml | wc -l | sed 's:[ \s\t]::g')
   # Much faster with one call
-  $plantuml -tsvg $out_dir/*.puml &
+  $plantuml $out_dir/*.puml &
   pid_plant_uml=$!
   while [[ $(ps -edf | grep $pid_plant_uml | grep $(basename $plantuml)) ]]; do
     sleep 1
@@ -75,13 +75,12 @@ $python py2plantuml --from_dir $from_dir --out_dir $out_dir $@ && \
 
 if [[ "$svg_dep" == "secure" ]]; then
     echo "Transforming with plantuml"
-    create_svg_files "$plantuml" "$out_dir"
+    create_svg_files "$plantuml -tsvg" "$out_dir"
 
 else
     echo "!!Transforming with plantweb!!"
     cd $out_dir && \
-      plantweb --engine=plantuml ./*.puml && \
-        echo "Open $out_dir/full-diagram-detailed.svg in your browser..."
+      create_svg_files "plantweb --engine=plantuml" "."
 fi
 
 $python -m webbrowser $out_dir/full-diagram-detailed.svg
