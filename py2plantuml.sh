@@ -40,7 +40,7 @@ while [[ "$1" != "" ]]; do
           wget -O plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml.jar
           echo "Finished installing plantuml dependency for the script!!"
         else
-          echo "Java is needed for using plantuml dependency...Please install Java first" && exit 1
+          echo "Java is needed for using plantuml dependency...Please install Java and Graphviz first" && exit 1
         fi
         ;;
         -p | --plantweb_dep_install )
@@ -78,7 +78,8 @@ if [[ "$svg_dep" == "secure" ]]; then
     create_svg_files "$plantuml -tsvg" "$out_dir"
 
 else
-    echo "!!Transforming with plantweb!!"
+    echo "!!WARNING: Transforming with plantweb: All the generated puml files related to your design are being transferred to the plantuml server,using a local installed (Option -d for example or with an already installed plantuml/graphviz) does not send your files on Internet!!"
+    sleep 30
     cd $out_dir && \
       create_svg_files "plantweb --engine=plantuml" "."
 fi
