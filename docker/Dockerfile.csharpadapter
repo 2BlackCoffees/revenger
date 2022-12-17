@@ -1,0 +1,28 @@
+#### Create dotnet adapter
+# docker build -f Dockerfile.csharpadapter -t py2plantuml_csharpadapter:latest .
+
+# docker run -v $SOURCE_DIR:/src -v $OUTPUT_DIR:/out py2plantuml_csharpadapter:latest
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+WORKDIR /App
+
+RUN dotnet new console -o DotnetPreAdapter
+WORKDIR /App/DotnetPreAdapter
+RUN rm -f Program.cs
+COPY dotnet/* ./
+RUN ls -l
+RUN dotnet add package Docker.DotNet --version 3.125.12
+RUN dotnet build
+RUN dotnet restore
+# Build and publish a release
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+USER root
+WORKDIR /App
+COPY --from=build-env /App/DotnetPreAdapter/out ./
+RUN mkdir /src
+RUN mkdir /out
+ENTRYPOINT ["dotnet", "DotnetPreAdapter.dll"]
+CMD ["--from_dir", "/src", "--out_dir", "/out"]
+

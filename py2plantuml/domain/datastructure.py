@@ -63,6 +63,7 @@ class Datastructure(GenericDatastructure):
             self.bases: List[str] = []
             self.inner_classes: List[str] = []
             self.is_abstract_field: bool = False
+            self.is_interface_field: bool = False
             self.statics: List[Datastructure.Static] = []
             self.variables: List[Datastructure.Variable] = []
             self.methods: List[Datastructure.Method] = []
@@ -71,6 +72,8 @@ class Datastructure(GenericDatastructure):
         
         def set_abstract(self) -> None:
             self.is_abstract_field = True
+        def set_interface(self) -> None:
+            self.is_interface_field = True
 
         def set_color(self, color: str) -> None:
             self.color = f'#{color}'
@@ -99,6 +102,9 @@ class Datastructure(GenericDatastructure):
 
         def is_abstract(self) -> bool:
             return self.is_abstract_field
+        def is_interface(self) -> bool:
+            return self.is_interface_field
+
         def has_static_fields(self) -> bool:
             return len(self.statics) > 0
         def has_method_fields(self) -> bool:
@@ -118,8 +124,6 @@ class Datastructure(GenericDatastructure):
             return self.variables
         def get_inner_class_name(self) -> List[str]:
             return self.inner_classes
-        def get_filename(self) -> str:
-            return self.filename
         def get_filename(self) -> str:
             return self.filename
         def get_filemodule(self) -> str:

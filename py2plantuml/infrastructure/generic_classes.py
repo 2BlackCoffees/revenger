@@ -7,6 +7,10 @@ class GenericSubDataStructure(ABC):
         """
         """
 
+    def set_interface(self) -> None:
+        """
+        """
+
     @abstractmethod
     def add_base_class(self, base_class: str) -> None:
         """
@@ -34,7 +38,9 @@ class GenericSubDataStructure(ABC):
 
 class GenericDatastructure(ABC):
     @abstractmethod
-    def append_class(self, filename: str, filemodule: str, from_imports: Dict[str, str], fqdn_class_name: str) -> GenericSubDataStructure:
+    def append_class(self, filename: str, filemodule: str, \
+        from_imports: Dict[str, str], fqdn_class_name: str,\
+            name_space_list: List[str]) -> GenericSubDataStructure:
         """
         """
 

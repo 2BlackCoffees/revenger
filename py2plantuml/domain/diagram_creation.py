@@ -169,12 +169,13 @@ class DiagramCreation:
         fqdn_class_name: str = sub_datastructure.get_fqdn_class_name()
         self.logger.log_debug(f'{empty_spaces}- Analyzing class {fqdn_class_name}')
         is_abstract: str = 'abstract ' if sub_datastructure.is_abstract() else ''
+        class_type: str = 'interface ' if sub_datastructure.is_interface() else 'class '
         class_link: str = DiagramCreation.__get_file_name_from_class_namespace_name(\
             detailed, grouped_per_ns, fqdn_class_name, True)
         color: str = sub_datastructure.get_color()
         if color is None:
             color = ''
-        saver.append(f'{empty_spaces}{is_abstract}class {fqdn_class_name} [[{class_link}]] {color} {{')
+        saver.append(f'{empty_spaces}{is_abstract}{class_type}{fqdn_class_name} [[{class_link}]] {color} {{')
 
         if detailed:
             static_field: Datastructure.Static
@@ -262,6 +263,8 @@ class DiagramCreation:
                         connection_type: str = Common.ConnectionType.IS_MEMBER if variable_field.is_member else Common.ConnectionType.USES
                         if (not skip_uses_relation) or connection_type == Common.ConnectionType.IS_MEMBER:
                             self.__create_puml_connection(class_name, variable_field.variable_type, connection_type, saver)
+                            self.logger.log_trace(f'  Relation created: {class_name} --- {naked_type} (Original type: {variable_field.variable_type}) ' + \
+                                f'(skip_uses_relation: {skip_uses_relation}, connection_type: {connection_type})')
                         else:
                             self.logger.log_debug(f'  Relation skipped: {class_name} --> {naked_type} ' + \
                                 f'(skip_uses_relation: {skip_uses_relation}, connection_type: {connection_type})')
@@ -274,6 +277,9 @@ class DiagramCreation:
                         _, naked_type, _ = Common.reduce_member_type(parameter.user_type)
                         if (not skip_uses_relation) and (create_all_relation or self.datastructure.class_exists(naked_type)):
                             self.__create_puml_connection(class_name, parameter.user_type, Common.ConnectionType.USES, saver)
+                            self.logger.log_debug(f'  Relation Created (Uses): {class_name} --> {naked_type} ' + \
+                                f'(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
+                                    f'{self.datastructure.class_exists(naked_type)}, skip_uses_relation: {skip_uses_relation})')
                         else:
                             self.logger.log_debug(f'  Relation skipped: {class_name} --> {naked_type} ' + \
                                 f'(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
