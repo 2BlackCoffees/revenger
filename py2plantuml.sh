@@ -89,7 +89,7 @@ case $from_language in
     rm $from_dir/*.yaml
     tmp_dir=$from_dir/tmp
     mkdir $tmp_dir || rm -rf $tmp_dir/*
-    docker run -v $from_dir:/src -v $tmp_dir:/out 2blackcoffees/py2plantuml_csharpadapter:arm64_latest || error "Docker failed"
+    docker run -v $from_dir:/src -v $tmp_dir:/out 2blackcoffees/py2plantuml_csharpadapter:latest || error "Docker failed"
     from_dir=$tmp_dir
     ls $from_dir/*.yaml
     ;;
