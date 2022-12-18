@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 create_svg_files() {
   plantuml=$1
   out_dir=$2
