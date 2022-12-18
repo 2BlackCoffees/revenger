@@ -15,41 +15,42 @@ create_svg_files() {
   done
   echo "Done!"
 }
+function usage() {
+    echo "$(basename $0) [-i | --from_dir ] [ -o | --out_dir] [-d | --plantuml_install]  [-p | --plantweb_dep_install] [ --skip_uses_relation ] [ --info ] [ --debug ] [ --trace ] [-h | --help] [--from_language csharp]"
+}
+function error() {
+  echo "ERROR: $1"
+  exit 0
+}
 
 from_dir=$1
 out_dir=$2
 python=python3
 plantuml=/opt/homebrew/bin/plantuml
 svg_dep=secure
-var_pip=pip
-$var_pip -h >/dev/null 2>&1 || var_pip=pip3
-$var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make sure python3 and pip are installed"
+var_pip=pip3
+$var_pip -h >/dev/null 2>&1 || var_pip=pip
+$var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make sure python3 and pip are installed (See https://www.python.org/downloads/)."
+$var_pip --version | grep python3 || error "$var_pip does not support python3! Install python3 and pip3."
 
-function usage(){
-    echo "$(basename $0) [-i | --from_dir ] [ -o | --out_dir] [-d | --dependency_install]  [-p | --plantweb_dep_install] [ --skip_uses_relation ] [ --info ] [ --debug ] [ --trace ] [-h | --help] [--from_language csharp]"
-}
-
-function error() {
-  echo "ERROR: $1"
-  exit 0
-}
 statements=""
 from_language=""
 while [[ "$1" != "" ]]; do
     case $1 in
-        -i | --from_dir )
+        -i | --from_dir | --from-dir | --from )
           from_dir=$2;
           shift;
           ;;
-        -o | --out_dir )
+        -o | --out_dir | --out-dir | --to-dir )
           out_dir=$2;
           shift;
           ;;
-        -d | --dependency_install )
+        -d | --plantuml_install )
           echo "Installing plantuml dependency for rendering SVC....."
           if java -version 2>&1 >/dev/null | grep -E "\S+\s+version" ; then
             wget -O plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml.jar
             echo "Finished installing plantuml dependency for the script!!"
+            echo "Graphviz is needed, please install it for your OS from https://graphviz.org/download/."
           else
             echo "Java is needed for using plantuml dependency...Please install Java and Graphviz first" && exit 1
           fi
