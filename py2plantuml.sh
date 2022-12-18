@@ -2,17 +2,22 @@
 create_svg_files() {
   plantuml=$1
   out_dir=$2
-  rm $out_dir/*.svg
+  rm -f $out_dir/*.svg > /dev/null
   number_files=$(ls $out_dir/*.puml | wc -l | sed 's:[ \s\t]::g')
   # Much faster with one call
-  $plantuml $out_dir/*.puml &
-  plain_command_plantuml=$(echo $plantuml | sed "s/^\s*//; s/\s.*$//;")
+  pushd $out_dir
+  files=*.puml
+  echo "$plantuml $files"
+  bash -c "$plantuml $files" &
   pid_plant_uml=$!
-  while [[ $(ps -edf | grep $pid_plant_uml | grep $(basename $plain_command_plantuml)) ]]; do
+  plain_command_plantuml=plantuml
+  echo $plantuml | grep plantuml || plain_command_plantuml=plantweb
+  while [[ $(ps -edf | grep $pid_plant_uml | grep $plain_command_plantuml) ]]; do
     sleep 1
     number_files_processed=$(ls $out_dir/*.svg | wc -l | sed 's:[ \s\t]::g')
-    echo -n " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%        "
+    echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%        "
   done
+  popd
 }
 function usage() {
     echo "$(basename $0) [ -i | --from_dir ]   Mandatory: Where the source files are located."
@@ -40,7 +45,7 @@ function info() {
 from_dir=$1
 out_dir=$2
 python=python3
-
+from_language=python
 svg_dep=secure
 var_pip=pip3
 $var_pip -h >/dev/null 2>&1 || var_pip=pip
@@ -48,18 +53,17 @@ $var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make s
 $var_pip --version | grep python3 >/dev/null 2>&1 || error "$var_pip does not support python3! Install python3 and pip3."
 
 statements=""
-from_language=""
 while [[ "$1" != "" ]]; do
     case $1 in
         --init )
           $var_pip install -r py2plantuml/requirements.txt
           ;;
         -i | --from_dir | --from-dir | --from )
-          from_dir=$2;
+          from_dir=$(realpath $2);
           shift;
           ;;
         -o | --out_dir | --out-dir | --to-dir )
-          out_dir=$2;
+          out_dir=$(realpath $2);
           shift;
           ;;
         -d | --plantuml_install )
@@ -83,7 +87,7 @@ while [[ "$1" != "" ]]; do
           shift
           from_language=$1
           info "Transforming from language $from_language: This requires either dotnet or Docker to be installed: When using dotnet make sure the project is compiled."
-          dotnet -h || docker -v || error "This feature requires either dotnet or docker to be installed. Please make sure it is installed and accessible."
+          dotnet -h > /dev/null 2>&1 || docker -v > /dev/null 2>&1 || error "This feature requires either dotnet or docker to be installed. Please make sure it is installed and accessible."
           statements="$statements --yaml"
           ;;
         -h | --help )
@@ -104,10 +108,23 @@ done
 # Set plantuml to java binary if it exists in current dir
 plantuml=plantuml
 if [[ $svg_dep == "secure" ]]; then
-  $plantuml -h > /dev/null || plantuml=/opt/homebrew/bin/plantuml && info "Using plantuml from $plantuml"
-  $plantuml -h > /dev/null|| plantuml="docker run ghcr.io/plantuml/plantuml" && info "Using plantuml from $plantuml"
-  $plantuml -h > /dev/null || test -f plantuml.jar && plantuml="java -jar plantuml.jar" && $plantuml -h > /dev/null || echo "plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+  bash -c $plantuml -h > /dev/null 2>&1 
+  if [[ $? != 0 ]];then 
+      plantuml=/opt/homebrew/bin/plantuml
+      bash -c $plantuml -h > /dev/null 2>&1 
+      if [[ $? != 0 ]];then 
+          plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+          bash -c $plantuml -h > /dev/null 2>&1 
+          if [[ $? != 0 && -f plantuml.jar ]];then 
+              plantuml="java -jar plantuml.jar"
+              bash -c $plantuml -h > /dev/null 2>&1 || error "plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+          fi
+      fi
+  fi
 fi
+
+info "Using plantuml from $plantuml"
+info "Using adapter from language $from_language"
 
 case $from_language in
   csharp )
@@ -118,6 +135,8 @@ case $from_language in
     dotnet-prj/run.sh $from_dir $tmp_dir || docker run -v $from_dir:/src -v $tmp_dir:/out 2blackcoffees/py2plantuml_csharpadapter:latest || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
     from_dir=$tmp_dir
     ls $from_dir/*.yaml
+    ;;
+  python )
     ;;
   * )
     error "Language $from_language is currently not supported please make a request if needed (No promise can be made on when it will be ready and if it will be done)"
@@ -134,7 +153,6 @@ $python py2plantuml --from_dir $from_dir --out_dir $out_dir $(echo $statements) 
 
 info "Transforming puml to svg"
 if [[ $svg_dep == "secure" ]]; then
-    plantuml -stdlib > /dev/null || error "Plantuml ($plantuml) is not installed or not accessible, please either try to use option -d or switch to the unsecure plantweb with option -p."
     info "Transforming with plantuml ($plantuml)"
     create_svg_files "$plantuml -tsvg -progress" "$out_dir"
 
