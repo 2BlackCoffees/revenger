@@ -85,6 +85,8 @@ class Datastructure(GenericDatastructure):
         def add_base_class(self, base_class: str) -> None:
             if base_class in self.from_imports.keys():
                 base_class = self.from_imports[base_class]
+            elif '.' in base_class:
+                self.logger.log_debug(f'  Created base class name {base_class} as is from filemodule: >{self.filemodule}< and >{base_class}<')
             else:
                 base_class = f'{self.filemodule}.{base_class}'
                 self.logger.log_debug(f'  Created base class name {base_class} from filemodule: >{self.filemodule}< and >{base_class}<')
