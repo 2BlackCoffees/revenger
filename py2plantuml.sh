@@ -5,19 +5,19 @@ create_svg_files() {
   rm -f $out_dir/*.svg > /dev/null
   number_files=$(ls $out_dir/*.puml | wc -l | sed 's:[ \s\t]::g')
   # Much faster with one call
-  pushd $out_dir
+  pushd $out_dir >/dev/null 
   files=*.puml
-  echo "$plantuml $files"
+  # echo "$plantuml $files"
   bash -c "$plantuml $files" &
   pid_plant_uml=$!
   plain_command_plantuml=plantuml
-  echo $plantuml | grep plantuml || plain_command_plantuml=plantweb
+  echo $plantuml | grep plantuml > /dev/null 2>&1 || plain_command_plantuml=plantweb
   while [[ $(ps -edf | grep $pid_plant_uml | grep $plain_command_plantuml) ]]; do
     sleep 1
-    number_files_processed=$(ls $out_dir/*.svg | wc -l | sed 's:[ \s\t]::g')
+    number_files_processed=$(ls $out_dir/*.svg 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
     echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%        "
   done
-  popd
+  popd >/dev/null 
 }
 function usage() {
     echo "$(basename $0) [ -i | --from_dir ]   Mandatory: Where the source files are located."
@@ -48,6 +48,7 @@ python=python3
 from_language=python
 svg_dep=secure
 var_pip=pip3
+tmp_dir=
 $var_pip -h >/dev/null 2>&1 || var_pip=pip
 $var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make sure python3 and pip are installed (See https://www.python.org/downloads/)."
 $var_pip --version | grep python3 >/dev/null 2>&1 || error "$var_pip does not support python3! Install python3 and pip3."
@@ -59,11 +60,11 @@ while [[ "$1" != "" ]]; do
           $var_pip install -r py2plantuml/requirements.txt
           ;;
         -i | --from_dir | --from-dir | --from )
-          from_dir=$(realpath $2);
+          from_dir=$(readlink -f $2);
           shift;
           ;;
         -o | --out_dir | --out-dir | --to-dir )
-          out_dir=$(realpath $2);
+          out_dir=$(readlink -f $2);
           shift;
           ;;
         -d | --plantuml_install )
@@ -108,16 +109,23 @@ done
 # Set plantuml to java binary if it exists in current dir
 plantuml=plantuml
 if [[ $svg_dep == "secure" ]]; then
-  bash -c $plantuml -h > /dev/null 2>&1 
+  $plantuml -h > /dev/null 2>&1 
   if [[ $? != 0 ]];then 
+      echo "INFO: $plantuml not found searching for an alternative."
       plantuml=/opt/homebrew/bin/plantuml
-      bash -c $plantuml -h > /dev/null 2>&1 
+      $plantuml -h > /dev/null 2>&1 
       if [[ $? != 0 ]];then 
+          echo "INFO: $plantuml not found searching for an alternative."
           plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
           bash -c $plantuml -h > /dev/null 2>&1 
-          if [[ $? != 0 && -f plantuml.jar ]];then 
-              plantuml="java -jar plantuml.jar"
-              bash -c $plantuml -h > /dev/null 2>&1 || error "plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+          if [[ $? != 0 ]]; then
+              echo "INFO: $plantuml not found searching for an alternative."
+              if [[ -f plantuml.jar ]];then 
+                plantuml="java -jar plantuml.jar"
+                bash -c $plantuml -h > /dev/null 2>&1 || error "plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+              else
+                error "plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+              fi
           fi
       fi
   fi
@@ -129,10 +137,11 @@ info "Using adapter from language $from_language"
 case $from_language in
   csharp )
     rm $from_dir/*.yaml
-    tmp_dir=$from_dir/tmp
-    mkdir $tmp_dir || rm -rf $tmp_dir/*
-
-    dotnet-prj/run.sh $from_dir $tmp_dir || docker run -v $from_dir:/src -v $tmp_dir:/out 2blackcoffees/py2plantuml_csharpadapter:latest || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
+    tmp_dir=$(mktemp -d)
+    basepath=$( dirname -- "$( readlink -f -- "$0" )" )
+    pushd $basepath/dotnet-prj >/dev/null 
+    ./run.sh $from_dir $tmp_dir $(echo $statements) || docker run -v $from_dir:/src -v $tmp_dir:/out 2blackcoffees/py2plantuml_csharpadapter:latest $(echo $statements) >/dev/null 2>&1 || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
+    popd >/dev/null 
     from_dir=$tmp_dir
     ls $from_dir/*.yaml
     ;;
@@ -168,5 +177,7 @@ else
     cd $out_dir && \
       create_svg_files "plantweb --engine=plantuml" "."
 fi
-
+if [[ ! -z $tmp_dir ]]; then
+  rm -rf $tmp_dir
+fi
 $python -m webbrowser $out_dir/full-diagram-detailed.svg
