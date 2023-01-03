@@ -9,7 +9,7 @@ namespace DotNetPreAdapter
 	public class AnalyzeAST
 	{
 
-        public void SearchRecurseCSharpToYAML(string fromDir, string toDir)
+        public void SearchRecurseCSharpToYAML(string fromDir, string toDir, Logger logger)
         {
             Datastructure datastructure = new Datastructure();
             var recurseFileProcess = new RecursiveFileProcessor();
@@ -18,7 +18,7 @@ namespace DotNetPreAdapter
             {
                 if (filePath.EndsWith(".cs"))
                 {
-                    Console.WriteLine($"Analyzing {filePath}");
+                    logger.LogInfo($"Analyzing {filePath}");
                     string programText = File.ReadAllText(filePath);
                     SyntaxTree tree = CSharpSyntaxTree.ParseText(programText);
                     CompilationUnitSyntax root = tree.GetCompilationUnitRoot();
@@ -30,7 +30,7 @@ namespace DotNetPreAdapter
 
                     string reducedFilePath = Regex.Replace(filePath.Replace(fromDir, ""), "^[\\s*\\/]*", "");
 
-                    var visitor = new ASTVisitor(datastructure, reducedFilePath, model);
+                    var visitor = new ASTVisitor(datastructure, reducedFilePath, model, logger);
                     visitor.Visit(root);
                 }
 

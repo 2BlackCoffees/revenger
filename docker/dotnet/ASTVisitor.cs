@@ -11,41 +11,12 @@ using System.Text;
 using System.Xml.Linq;
 using static DotNetPreAdapter.Datastructure.Method;
 
+
 namespace DotNetPreAdapter
 {
-    interface IMyTest
-    {
-        void unused();
-    }
+
     class ASTVisitor : CSharpSyntaxWalker
     {
-
-        // Delete this class !
-        class InnerClassBase
-        {
-            int a = 5;
-            public InnerClassBase(int a_)
-            {
-                int a = a_;
-            }
-        }
-        class InnerClass : InnerClassBase, IMyTest
-        {
-            int a = 5;
-            public InnerClass(int a_) : base(a_)
-            {
-                int a = a_;
-            }
-
-            void IMyTest.unused()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        static Datastructure unusedD = new Datastructure();
-
-
 
         Datastructure datastructure;
         string filename;
@@ -59,11 +30,14 @@ namespace DotNetPreAdapter
             "string", "String", "int", "float", "bool", "Boolean", "list[string]",
             "list[int]", "list[bool]", "string[]", "int[]"
         };
-        public ASTVisitor(Datastructure datastructure_, string filename_, SemanticModel model_)
+        Logger logger;
+        string dbgSpaces = "";
+        public ASTVisitor(Datastructure datastructure_, string filename_, SemanticModel model_, Logger logger_)
         {
             datastructure = datastructure_;
             filename = filename_.Replace("\n", "").Replace("\r", "");
             model = model_;
+            logger = logger_;
         }
 
 
@@ -109,29 +83,7 @@ namespace DotNetPreAdapter
             }
             return null;
         }
-        public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
-        {
-            namespaceList.Add(node.Name.GetText().ToString().Replace("\n", "").Replace("\r", ""));
-            DefaultVisit(node);
-            if (namespaceList.Count > 0) namespaceList.RemoveAt(namespaceList.Count - 1);
-        }
-
-
-
-        public override void VisitUsingDirective(UsingDirectiveSyntax node)
-        {
-            //WriteLine($"\tVisitUsingDirective called with {node.Name}.");
-            if (node.Name.ToString() != "System" &&
-                !node.Name.ToString().StartsWith("System.") &&
-                node.Name.ToString() != "Microsoft" &&
-                !node.Name.ToString().StartsWith("Microsoft."))
-            {
-                string name = node.Name.ToString();
-                allUsing.Add(name);
-            }
-            DefaultVisit(node);
-        }
-        private string GetCurrentClassName()
+         private string GetCurrentClassName()
         {
             if (activeClassnameList.Count > 0) return activeClassnameList[^1];
             return "##NoClass##";
@@ -139,6 +91,7 @@ namespace DotNetPreAdapter
 
         Tuple<SubDataStructure?, string> CreateClassInterface<T>( T node) where T: TypeDeclarationSyntax
         {
+            logger.LogDebug($"  Entering CreateClassInterface", dbgSpaces);
             string filemodule = String.Join(".", namespaceList.ToArray());
             string activeClassName = "";
             if (activeClassnameList.Count > 0) activeClassName = activeClassnameList[^1];
@@ -149,15 +102,28 @@ namespace DotNetPreAdapter
                 fqdn_class_name = $"{node.Identifier.ValueText}";
                 if (filemodule.Length > 0)
                 {
-                    if (activeClassName.Length > 0) fqdn_class_name = $"{filemodule}.{fqdn_class_name}";
-                    else fqdn_class_name = $"{filemodule}.{fqdn_class_name}";
+                    if (activeClassName.Length > 0)
+                    {
+                        fqdn_class_name = $"{filemodule}.{fqdn_class_name}";
+                        logger.LogWarning($"    CreateClassInterface: activeClassName={activeClassName}, defining fqdn_class_name as {fqdn_class_name} = {{filemodule}}.{{fqdn_class_name}}", dbgSpaces);
+                    }
+                    else
+                    {
+                        fqdn_class_name = $"{filemodule}.{fqdn_class_name}";
+                        logger.LogWarning($"    CreateClassInterface: activeClassName is empty, defining fqdn_class_name as {fqdn_class_name} = {{filemodule}}.{{fqdn_class_name}}", dbgSpaces);
+                    }
                 }
 
+            }
+            else
+            {
+                logger.LogDebug($"    CreateClassInterface: fqdn_class_name: {fqdn_class_name} created from SyntaxNode", dbgSpaces);
             }
 
             SubDataStructure? parentSubDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
             if (parentSubDataStructure != null)
             {
+                logger.LogDebug($"    CreateClassInterface: {fqdn_class_name} is an inner class of {GetCurrentClassName()}", dbgSpaces);
                 parentSubDataStructure.add_inner_class(fqdn_class_name);
             }
             datastructure.append_class(filename, filemodule, allUsing, fqdn_class_name, namespaceList);
@@ -172,7 +138,12 @@ namespace DotNetPreAdapter
                     if (baseType != null)
                     {
                         string baseClassName = baseType.Name;
-                        if (baseClassName != "Object") subDataStructure.add_base_class(baseClassName);
+                        if (baseClassName != "Object")
+                        {
+                            subDataStructure.add_base_class(baseClassName);
+                            logger.LogDebug($"    CreateClassInterface: Inherited class: {baseClassName}", dbgSpaces);
+
+                        }
                     }
                 }
 
@@ -182,12 +153,17 @@ namespace DotNetPreAdapter
                     var implementedInterfaces = classSymbol.AllInterfaces;
                     foreach (var implementedInterface in implementedInterfaces)
                     {
-
+                        logger.LogDebug($"    CreateClassInterface: ImplementedInterface.Name: {implementedInterface.Name}", dbgSpaces);
                         subDataStructure.add_base_class(implementedInterface.Name);
                     }
 
                 }
 
+
+            }
+            else
+            {
+                logger.LogDebug($"    CreateClassInterface: No enclosing class registered", dbgSpaces);
 
             }
 
@@ -196,7 +172,7 @@ namespace DotNetPreAdapter
             {
                 foreach (var annotatedAndToken in node.BaseList.GetAnnotatedNodesAndTokens())
                 {
-                    Console.WriteLine(annotatedAndToken.ToString());
+                    logger.LogInfo($"    CreateClassInterface: AnnotatedAndToken from BaseList: {annotatedAndToken.ToString()}", dbgSpaces);
 
                 }
             }
@@ -204,26 +180,101 @@ namespace DotNetPreAdapter
             return new Tuple<SubDataStructure?, string>(subDataStructure, fqdn_class_name);
 
         }
+        string getCurrentContext()
+        {
+            return $"ns:<{String.Join(".", namespaceList)}>.clss:<{String.Join(".", activeClassnameList)}>.mthd:<{String.Join(".", activeMethodList)}>";
+
+        }
+
+        string ArgumentsTupleToString(List<Tuple<string, string>> arguments_tuple)
+        {
+            string returnString = "";
+            foreach(var element in arguments_tuple)
+            {
+                if (returnString.Length > 0) returnString = $"{returnString}, ";
+                returnString += $"{element.Item1}:{element.Item2}";
+            }
+            return returnString;
+        }
+
+        public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
+        {
+            dbgSpaces = "  " + dbgSpaces;
+            logger.LogDebug($"Entering VisitNamespaceDeclaration with node:\n{node.ToFullString()}", dbgSpaces);
+            string namespaceName = node.Name.GetText().ToString().Replace("\n", "").Replace("\r", "");
+            logger.LogDebug($"    Adding namespace {namespaceName}", dbgSpaces);
+
+            namespaceList.Add(namespaceName);
+            DefaultVisit(node);
+            if (namespaceList.Count > 0) namespaceList.RemoveAt(namespaceList.Count - 1);
+            logger.LogDebug($"Leaving VisitNamespaceDeclaration", dbgSpaces);
+            dbgSpaces = dbgSpaces.Substring(2);
+        }
+
+
+
+        public override void VisitUsingDirective(UsingDirectiveSyntax node)
+        {
+            dbgSpaces = "  " + dbgSpaces;
+            logger.LogDebug($"Entering VisitUsingDirective with node:\n{node.ToFullString()}", dbgSpaces);
+            if (node.Name.ToString() != "System" &&
+                !node.Name.ToString().StartsWith("System.") &&
+                node.Name.ToString() != "Microsoft" &&
+                !node.Name.ToString().StartsWith("Microsoft."))
+            {
+                string name = node.Name.ToString();
+                logger.LogDebug($"    Adding using {name}", dbgSpaces);
+                allUsing.Add(name);
+            }
+            DefaultVisit(node);
+            logger.LogDebug($"Leaving VisitUsingDirective", dbgSpaces);
+            dbgSpaces = dbgSpaces.Substring(2);
+        }
+
         public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node)
         {
+            dbgSpaces = "  " + dbgSpaces;
+            logger.LogDebug($"Entering VisitInterfaceDeclaration", dbgSpaces);
+            logger.LogTrace($"with node:\n{ node.ToFullString()}", dbgSpaces);
+            logger.LogDebug($"  VisitInterfaceDeclaration: Context={getCurrentContext()}", dbgSpaces);
+
             var (subDataStructure, fqdn_class_name) = CreateClassInterface(node);
             if(subDataStructure != null) subDataStructure.setInterface();
+
             activeClassnameList.Add(fqdn_class_name);
             DefaultVisit(node);
+
             if (activeClassnameList.Count > 0) activeClassnameList.RemoveAt(activeClassnameList.Count - 1);
 
+            logger.LogDebug($"Leaving VisitInterfaceDeclaration", dbgSpaces);
+            dbgSpaces = dbgSpaces.Substring(2);
         }
         public override void VisitClassDeclaration(ClassDeclarationSyntax node)
         {
+            dbgSpaces = "  " + dbgSpaces;
+            logger.LogDebug($"Entering VisitClassDeclaration", dbgSpaces);
+            logger.LogTrace($"with node:\n{node.ToFullString()}", dbgSpaces);
+            logger.LogDebug($"  VisitClassDeclaration: Context={getCurrentContext()}", dbgSpaces);
+
             var (subDataStructure, fqdn_class_name) = CreateClassInterface(node);
             if (subDataStructure != null) subDataStructure.set_abstract();
+
             activeClassnameList.Add(fqdn_class_name);
             DefaultVisit(node);
-            if (activeClassnameList.Count > 0) activeClassnameList.RemoveAt(activeClassnameList.Count - 1);
 
+            if (activeClassnameList.Count > 0) activeClassnameList.RemoveAt(activeClassnameList.Count - 1);
+            logger.LogDebug($"Leaving VisitClassDeclaration", dbgSpaces);
+
+            dbgSpaces = dbgSpaces.Substring(2);
         }
+
         public override void VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
+            dbgSpaces = "  " + dbgSpaces;
+            logger.LogDebug($"Entering VisitMethodDeclaration", dbgSpaces);
+            logger.LogTrace($"with node:\n{node.ToFullString()}", dbgSpaces);
+            logger.LogDebug($"  VisitMethodDeclaration: Context={getCurrentContext()}", dbgSpaces);
+
             string methodName = node.Identifier.ValueText;
             activeMethodList.Add(methodName);
             bool hasPublicModifier = node.Modifiers.Any(a => a.Kind() == SyntaxKind.PublicKeyword);
@@ -240,49 +291,72 @@ namespace DotNetPreAdapter
                         if (parameter.Type != null)
                         {
                             string? tmpType = SyntaxNode(parameter.Type);
-                            Console.WriteLine($"VisitMethodDeclaration: {methodName}({tmpType} {parameterName})");
                             parameterType =
                                 tmpType != null? tmpType: parameter.Type.ToString();
+                            logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: SyntaxNode(parameter.Type)={tmpType}, " +
+                                $"parameter.Type.ToString()={parameter.Type.ToString()})", dbgSpaces);
+
                         }
+                        else
+                        {
+                            logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: Parameter discarded because type is null ({parameter.ToFullString()}))", dbgSpaces);
+
+                        }
+
                         if (!ignoreType.Contains(parameterType))
                         {
                             arguments_tuple.Add(new Tuple<string, string>(parameterName, parameterType));
+                            logger.LogDebug($"  VisitMethodDeclaration: Added arguments_tuple: {ArgumentsTupleToString(arguments_tuple)}", dbgSpaces);
+                        }
+                        else
+                        {
+                            logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: Parameter discarded because type was discarded)", dbgSpaces);
+
                         }
                     }
                 }
+
+            }
+            else
+            {
+                logger.LogDebug($"  VisitMethodDeclaration: Method has no parameters", dbgSpaces);
+
             }
             SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
             if (subDataStructure != null)
             {
+                logger.LogDebug($"  VisitMethodDeclaration: Adding method:{methodName}, arguments_tuple:{ArgumentsTupleToString(arguments_tuple)}, hasPublicModifier:{hasPublicModifier}", dbgSpaces);
                 subDataStructure.add_method(methodName, arguments_tuple, !hasPublicModifier);
+            }
+            else
+            {
+                logger.LogDebug($"  VisitMethodDeclaration: Skipping method as I could not find any enclosing class.", dbgSpaces);
             }
             DefaultVisit(node);
             if (activeMethodList.Count > 0) activeMethodList.RemoveAt(activeMethodList.Count - 1);
-
-
+            logger.LogDebug($"Leaving VisitMethodDeclaration with node {node.ToString()}", dbgSpaces);
+            dbgSpaces = dbgSpaces.Substring(2);
         }
-        
-
-
 
         public override void VisitVariableDeclaration(VariableDeclarationSyntax node)
         {
-            Console.WriteLine($"VisitDeclarationExpression: {node.ToString()}");
+            dbgSpaces = "  " + dbgSpaces;
+            logger.LogDebug($"Entering VisitVariableDeclaration with node:\n{node.ToFullString()}", dbgSpaces);
+            logger.LogDebug($"  VisitVariableDeclaration: Context={getCurrentContext()}", dbgSpaces);
+
             string? typeName = SyntaxNode(node.Type);
             SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
+            logger.LogDebug($"  VisitVariableDeclaration: typeName={typeName}, subDataStructure={subDataStructure}", dbgSpaces);
+
             if (typeName != null && typeName.Length > 0 && subDataStructure != null && !ignoreType.Contains(typeName))
             {
-                
+
                 // Special case: Ensure that 'var' isn't actually an alias to another type. (e.g. using var = System.String).
                 IAliasSymbol? aliasInfo = model.GetAliasInfo(node.Type);
                 if (aliasInfo == null)
                 {
                     // Retrieve the type inferred for var.
                     ITypeSymbol? type = model.GetTypeInfo(node.Type).ConvertedType;
-                    if (type != null)
-                    {
-                        //typeName = type.Name;
-                    }
                     bool isMember = node.Parent is LocalDeclarationStatementSyntax;
                     for (int i = 0; i < node.Variables.Count; ++i)
                     {
@@ -290,25 +364,34 @@ namespace DotNetPreAdapter
                         if (isMember && type != null && type.IsStatic)
                         {
                             subDataStructure.add_static(variableName, typeName);
-
+                            logger.LogDebug($"  VisitVariableDeclaration: Adding STATIC variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
                         }
                         else
                         {
                             subDataStructure.add_variable(variableName, typeName, isMember);
+                            logger.LogDebug($"  VisitVariableDeclaration: Adding variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
                         }
-                        Console.WriteLine($"Adding variable type found: {variableName}, type {typeName}, isMember: {isMember}");
                     }
                 }
             }
-            
+            else
+            {
+                logger.LogDebug($"  VisitVariableDeclaration: Skipping variable: either typeName is null or enclosing class is not found or type belongs to the types to be skipped.", dbgSpaces);
+            }
+
             DefaultVisit(node);
+            logger.LogDebug($"Leaving VisitVariableDeclaration", dbgSpaces);
+            dbgSpaces = dbgSpaces.Substring(2);
         }
 
-    
+
 
 
         public override void VisitInvocationExpression(InvocationExpressionSyntax node)
         {
+            dbgSpaces = "  " + dbgSpaces;
+            logger.LogDebug($"Entering VisitInvocationExpression with node:\n{node.ToFullString()}", dbgSpaces);
+            logger.LogDebug($"  VisitInvocationExpression: Context={getCurrentContext()}", dbgSpaces);
             SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
             if (subDataStructure != null)
             {
@@ -316,99 +399,109 @@ namespace DotNetPreAdapter
                 // This is for normal class accesses
                 if (classUsage.StartsWith("new "))
                 {
+                    logger.LogDebug($"  VisitInvocationExpression: Analyzing a creation with new: {classUsage}", dbgSpaces);
                     classUsage = Regex.Replace(Regex.Replace(classUsage, @"\(.*$", ""), @"new\s*", "");
+                    logger.LogDebug($"  VisitInvocationExpression: After removing new: {classUsage}", dbgSpaces);
                     subDataStructure.addAnonymousInvocation(classUsage);
                 }
                 else
                 {
                     // Static classes do not have new
+                    logger.LogDebug($"  VisitInvocationExpression: Adding an anonymous static invocation: {classUsage}", dbgSpaces);
                     subDataStructure.addAnonymousStaticInvocation(classUsage);
                 }
             }
+            else
+            {
+                logger.LogDebug($"  VisitInvocationExpression: subDatastructure is null (No enclosing class found)", dbgSpaces);
+
+            }
             DefaultVisit(node);
+            logger.LogDebug($"Leaving VisitInvocationExpression", dbgSpaces);
+            dbgSpaces = dbgSpaces.Substring(2);
         }
     }
 
-//    public override void VisitBaseExpression(BaseExpressionSyntax node)
+    //    public override void VisitBaseExpression(BaseExpressionSyntax node)
 
-//    public override void VisitTypeArgumentList(TypeArgumentListSyntax node)
+    //    public override void VisitTypeArgumentList(TypeArgumentListSyntax node)
 
-//    public override void VisitAliasQualifiedName(AliasQualifiedNameSyntax node)
+    //    public override void VisitAliasQualifiedName(AliasQualifiedNameSyntax node)
 
-//    public override void VisitFunctionPointerParameterList(FunctionPointerParameterListSyntax node)
+    //    public override void VisitFunctionPointerParameterList(FunctionPointerParameterListSyntax node)
 
-//    public override void VisitTupleType(TupleTypeSyntax node)
+    //    public override void VisitTupleType(TupleTypeSyntax node)
 
-//    public override void VisitTupleElement(TupleElementSyntax node)
+    //    public override void VisitTupleElement(TupleElementSyntax node)
 
-//    public override void VisitConditionalAccessExpression(ConditionalAccessExpressionSyntax node)
+    //    public override void VisitConditionalAccessExpression(ConditionalAccessExpressionSyntax node)
 
-//    public override void VisitConditionalExpression(ConditionalExpressionSyntax node)
-
-
-//    public override void VisitBaseExpression(BaseExpressionSyntax node)
+    //    public override void VisitConditionalExpression(ConditionalExpressionSyntax node)
 
 
-
-//    public override void VisitArgumentList(ArgumentListSyntax node)
-
-
-//                public override void VisitBracketedArgumentList(BracketedArgumentListSyntax node)
+    //    public override void VisitBaseExpression(BaseExpressionSyntax node)
 
 
-//                public override void VisitArgument(ArgumentSyntax node)
 
-//    public override void VisitDeclarationExpression(DeclarationExpressionSyntax node)
-
-//    public override void VisitParenthesizedLambdaExpression(ParenthesizedLambdaExpressionSyntax node)
-
-////    public override void VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node)
-
-//    public override void VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
-
-//    public override void VisitAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax node)
-
-//    public override void VisitArrayCreationExpression(ArrayCreationExpressionSyntax node)
-
-//    public override void VisitImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax node)
+    //    public override void VisitArgumentList(ArgumentListSyntax node)
 
 
-//    public override void VisitWhileStatement(WhileStatementSyntax node)
+    //                public override void VisitBracketedArgumentList(BracketedArgumentListSyntax node)
 
-//    public override void VisitDoStatement(DoStatementSyntax node)
 
-//    public override void VisitForStatement(ForStatementSyntax node)
+    //                public override void VisitArgument(ArgumentSyntax node)
 
-//    public override void VisitForEachStatement(ForEachStatementSyntax node)
+    //    public override void VisitDeclarationExpression(DeclarationExpressionSyntax node)
 
-//    public override void VisitIfStatement(IfStatementSyntax node)
+    //    public override void VisitParenthesizedLambdaExpression(ParenthesizedLambdaExpressionSyntax node)
 
-//    public override void VisitElseClause(ElseClauseSyntax node)
+    ////    public override void VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node)
 
-//    public override void VisitSwitchStatement(SwitchStatementSyntax node)
+    //    public override void VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
 
-//    public override void VisitAttributeList(AttributeListSyntax node)
+    //    public override void VisitAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax node)
 
-//    public override void VisitAttributeTargetSpecifier(AttributeTargetSpecifierSyntax node)
+    //    public override void VisitArrayCreationExpression(ArrayCreationExpressionSyntax node)
 
-//    public override void VisitAttributeArgumentList(AttributeArgumentListSyntax node)
+    //    public override void VisitImplicitArrayCreationExpression(ImplicitArrayCreationExpressionSyntax node)
 
-//    public override void VisitAttributeArgument(AttributeArgumentSyntax node)
 
-//    public override void VisitTypeParameter(TypeParameterSyntax node)
+    //    public override void VisitWhileStatement(WhileStatementSyntax node)
 
-//    public override void VisitStructDeclaration(StructDeclarationSyntax node)
+    //    public override void VisitDoStatement(DoStatementSyntax node)
 
-//    public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node)
+    //    public override void VisitForStatement(ForStatementSyntax node)
 
-//    public override void VisitEnumDeclaration(EnumDeclarationSyntax node)
+    //    public override void VisitForEachStatement(ForEachStatementSyntax node)
 
-//    public override void VisitBaseList(BaseListSyntax node)
+    //    public override void VisitIfStatement(IfStatementSyntax node)
 
-//    public override void VisitSimpleBaseType(SimpleBaseTypeSyntax node)
+    //    public override void VisitElseClause(ElseClauseSyntax node)
 
-//    public override void VisitFieldDeclaration(FieldDeclarationSyntax node)
+    //    public override void VisitSwitchStatement(SwitchStatementSyntax node)
 
-//    public override void VisitEventFieldDeclaration(EventFieldDeclarationSyntax node)
+    //    public override void VisitAttributeList(AttributeListSyntax node)
+
+    //    public override void VisitAttributeTargetSpecifier(AttributeTargetSpecifierSyntax node)
+
+    //    public override void VisitAttributeArgumentList(AttributeArgumentListSyntax node)
+
+    //    public override void VisitAttributeArgument(AttributeArgumentSyntax node)
+
+    //    public override void VisitTypeParameter(TypeParameterSyntax node)
+
+    //    public override void VisitStructDeclaration(StructDeclarationSyntax node)
+
+    //    public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node)
+
+    //    public override void VisitEnumDeclaration(EnumDeclarationSyntax node)
+
+    //    public override void VisitBaseList(BaseListSyntax node)
+
+    //    public override void VisitSimpleBaseType(SimpleBaseTypeSyntax node)
+
+    //    public override void VisitFieldDeclaration(FieldDeclarationSyntax node)
+
+    //    public override void VisitEventFieldDeclaration(EventFieldDeclarationSyntax node)
 
 }
