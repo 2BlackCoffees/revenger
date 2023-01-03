@@ -51,8 +51,8 @@ namespace DotNetPreAdapter
     }
     class UnusedASTVisitor : CSharpSyntaxWalker
     {
-
-        static Datastructure unusedD = new Datastructure();
+        static Logger logger = new Logger(LoggingType.TRACE);
+        static Datastructure unusedD = new Datastructure(logger);
     }
 }
 

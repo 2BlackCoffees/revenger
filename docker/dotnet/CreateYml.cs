@@ -17,7 +17,7 @@ namespace DotNetPreAdapter
 {
     public class CreateYml
     {
-        public void Create(Datastructure datastructure, string toDir)
+        public void Create(Datastructure datastructure, string toDir, Logger logger)
         {
 
             var subDatastructureYmlNode = new YamlSequenceNode();
@@ -47,9 +47,16 @@ namespace DotNetPreAdapter
                     var anonymousCalls = new YamlSequenceNode();
                     foreach (string anonymousCall in subDataStructure.getAnonymousInvocation())
                     {
-                        anonymousCalls.Add(
-                                    new YamlScalarNode(anonymousCall)
-                            );
+                        if (anonymousCall.Length > 0)
+                        {
+                            anonymousCalls.Add(
+                                        new YamlScalarNode(anonymousCall)
+                                );
+                        }
+                        else
+                        {
+                            logger.LogWarning($"Skipping empty anonymous call found while creating YML file from class {subDataStructure.get_fqdn_class_name()}");
+                        }
                     }
                     var baseClasses = new YamlSequenceNode();
                     foreach (string baseClass in subDataStructure.get_base_classes())
@@ -76,9 +83,9 @@ namespace DotNetPreAdapter
                         variables.Add(
                                 new YamlMappingNode(
                                     new YamlScalarNode("variable_name"),
-                                        new YamlScalarNode(variable.VariableName),
+                                        new YamlScalarNode(variable.variableName),
                                     new YamlScalarNode("variable_type"),
-                                        new YamlScalarNode(variable.VariableType),
+                                        new YamlScalarNode(variable.variableType),
                                     new YamlScalarNode("is_member"),
                                         new YamlScalarNode(variable.IsMember ? "True" : "False")
                                 )
@@ -89,18 +96,18 @@ namespace DotNetPreAdapter
                     foreach (Method method in subDataStructure.get_method_fields())
                     {
                         var parameters = new YamlSequenceNode();
-                        foreach(var parameter in method.Parameters)
+                        foreach(var parameter in method.parameters)
                         {
                             parameters.Add(new YamlMappingNode(
                                     new YamlScalarNode("parameter_name"),
-                                        new YamlScalarNode(parameter.Parameter),
+                                        new YamlScalarNode(parameter.parameter),
                                     new YamlScalarNode("parameter_type"),
-                                        new YamlScalarNode(parameter.UserType)));
+                                        new YamlScalarNode(parameter.userType)));
                         }
                         methods.Add(
                                 new YamlMappingNode(
                                     new YamlScalarNode("method_name"),
-                                    new YamlScalarNode(method.MethodName),
+                                    new YamlScalarNode(method.methodName),
                                     new YamlScalarNode("parameters"),
                                     parameters,
                                     new YamlScalarNode("is_private"),

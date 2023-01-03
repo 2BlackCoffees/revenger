@@ -81,7 +81,7 @@ namespace DotNetPreAdapter
             return "##NoClass##";
         }
 
-        Tuple<SubDataStructure?, string> CreateClassInterface<T>( T node) where T: TypeDeclarationSyntax
+        Tuple<SubDataStructure?, string> CreateClassInterface<T>( T node) where T: BaseTypeDeclarationSyntax
         {
             logger.LogDebug($"  Entering CreateClassInterface", dbgSpaces);
             string filemodule = String.Join(".", namespaceList.ToArray());
@@ -178,13 +178,20 @@ namespace DotNetPreAdapter
 
         }
 
-        string ArgumentsTupleToString(List<Tuple<string, string>> arguments_tuple)
+        string ArgumentsTupleToString(List<Tuple<string, string, string>> arguments_tuple)
         {
             string returnString = "";
             foreach(var element in arguments_tuple)
             {
                 if (returnString.Length > 0) returnString = $"{returnString}, ";
-                returnString += $"{element.Item1}:{element.Item2}";
+                if (element.Item3.Length == 0)
+                {
+                    returnString += $"{element.Item1}:{element.Item2}";
+                }
+                else
+                {
+                    returnString += $"{element.Item1}:({element.Item3}?Probably).{element.Item2}";
+                }
             }
             return returnString;
         }
@@ -223,7 +230,24 @@ namespace DotNetPreAdapter
             logger.LogDebug($"Leaving VisitUsingDirective", dbgSpaces);
             dbgSpaces = dbgSpaces.Substring(2);
         }
+        public override void VisitEnumDeclaration(EnumDeclarationSyntax node)
+        {
+            dbgSpaces = "  " + dbgSpaces;
+            logger.LogDebug($"Entering VisitEnumDeclaration with node:\n{node.ToFullString()}", dbgSpaces);
+            logger.LogTrace($"with node:\n{node.ToFullString()}", dbgSpaces);
+            logger.LogDebug($"  VisitEnumDeclaration: Context={getCurrentContext()}", dbgSpaces);
 
+            var (subDataStructure, fqdn_class_name) = CreateClassInterface(node);
+            if (subDataStructure != null) subDataStructure.set_abstract();
+
+            activeClassnameList.Add(fqdn_class_name);
+            DefaultVisit(node);
+
+            if (activeClassnameList.Count > 0) activeClassnameList.RemoveAt(activeClassnameList.Count - 1);
+            logger.LogDebug($"Leaving VisitClassDeclaration", dbgSpaces);
+
+            dbgSpaces = dbgSpaces.Substring(2);
+        }
         public override void VisitInterfaceDeclaration(InterfaceDeclarationSyntax node)
         {
             dbgSpaces = "  " + dbgSpaces;
@@ -272,7 +296,8 @@ namespace DotNetPreAdapter
             activeMethodList.Add(methodName);
             bool hasPublicModifier = node.Modifiers.Any(a => a.Kind() == SyntaxKind.PublicKeyword);
 
-            List<Tuple<string, string>> arguments_tuple = new List<Tuple<string, string>>();
+            List<Tuple<string, string, string>> arguments_tuple = new List<Tuple<string, string, string>>();
+            string mostProbableNamespace = String.Join(".", namespaceList);
             if (node.ParameterList != null)
             {
                 foreach (ParameterSyntax parameter in node.ParameterList.Parameters)
@@ -307,7 +332,11 @@ namespace DotNetPreAdapter
                     }
                     if (!ignoreType.Contains(parameterType))
                     {
-                        arguments_tuple.Add(new Tuple<string, string>(parameterName, parameterType));
+                        if(parameterType.Contains("."))
+                        {
+                            mostProbableNamespace = "";
+                        }
+                        arguments_tuple.Add(new Tuple<string, string, string>(parameterName, parameterType, mostProbableNamespace));
                         logger.LogDebug($"  VisitMethodDeclaration: Added arguments_tuple: {ArgumentsTupleToString(arguments_tuple)}", dbgSpaces);
                     }
                     else
@@ -353,6 +382,8 @@ namespace DotNetPreAdapter
 
             if (typeName != null && typeName.Length > 0 && subDataStructure != null && !ignoreType.Contains(typeName))
             {
+                string mostProbableNamespace = String.Join(".", namespaceList);
+                if (typeName.Contains(".")) mostProbableNamespace = "";
 
                 // Special case: Ensure that 'var' isn't actually an alias to another type. (e.g. using var = System.String).
                 IAliasSymbol? aliasInfo = model.GetAliasInfo(node.Type);
@@ -371,7 +402,7 @@ namespace DotNetPreAdapter
                         }
                         else
                         {
-                            subDataStructure.add_variable(variableName, typeName, isMember);
+                            subDataStructure.add_variable(variableName, typeName, mostProbableNamespace, isMember);
                             logger.LogDebug($"  VisitVariableDeclaration: Adding variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
                         }
                     }
@@ -423,7 +454,12 @@ namespace DotNetPreAdapter
             logger.LogDebug($"Leaving VisitInvocationExpression", dbgSpaces);
             dbgSpaces = dbgSpaces.Substring(2);
         }
+
+
     }
+
+
+
 
     //    public override void VisitBaseExpression(BaseExpressionSyntax node)
 

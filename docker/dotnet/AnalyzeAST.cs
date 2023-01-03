@@ -11,7 +11,7 @@ namespace DotNetPreAdapter
 
         public void SearchRecurseCSharpToYAML(string fromDir, string toDir, Logger logger)
         {
-            Datastructure datastructure = new Datastructure();
+            Datastructure datastructure = new Datastructure(logger);
             var recurseFileProcess = new RecursiveFileProcessor();
             List<string> listFilePaths = recurseFileProcess.SearchPath(fromDir);
             foreach (string filePath in listFilePaths)
@@ -35,8 +35,8 @@ namespace DotNetPreAdapter
                 }
 
             }
-            //datastructure.ResolveClassNames();
-            new CreateYml().Create(datastructure, toDir);
+            datastructure.ResolveClassNames();
+            new CreateYml().Create(datastructure, toDir, logger);
 
         }
     }

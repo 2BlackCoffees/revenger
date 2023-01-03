@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using static DotNetPreAdapter.Datastructure;
@@ -22,21 +23,23 @@ namespace DotNetPreAdapter
 
             public class ParameterType
             {
-                public string Parameter { get; set; }
-                public string UserType { get; set; }
-                public ParameterType(string Parameter_, string UserType_)
+                public string parameter { get; set; }
+                public string userType { get; set; }
+                public string mostProbableNamespace { get; set; }
+                public ParameterType(string parameter_, string userType_, string mostProbableNamespace_)
                 {
-                    Parameter = Parameter_;
-                    UserType = UserType_;
+                    parameter = parameter_;
+                    userType = userType_;
+                    mostProbableNamespace = mostProbableNamespace_;
                 }
             }
-            public string MethodName { get; set; }
-            public List<ParameterType> Parameters { get; set; }
+            public string methodName { get; set; }
+            public List<ParameterType> parameters { get; set; }
             public Boolean IsPrivate { get; set; }
-            public Method(string MethodName_, List<ParameterType> Parameters_, Boolean IsPrivate_)
+            public Method(string methodName_, List<ParameterType> parameters_, Boolean IsPrivate_)
             {
-                MethodName = MethodName_;
-                Parameters = new List<ParameterType>(Parameters_);
+                methodName = methodName_;
+                parameters = new List<ParameterType>(parameters_);
                 IsPrivate = IsPrivate_;
             }
 
@@ -53,13 +56,15 @@ namespace DotNetPreAdapter
         }
         public class Variable
         {
-            public string VariableName { get; set; }
-            public string VariableType { get; set; }
-            public Boolean IsMember { get; set; }
-            public Variable(string VariableName_, string VariableType_, Boolean IsMember_)
+            public string variableName { get; set; }
+            public string variableType { get; set; }
+            public string mostProbableNamespace { get; set; }
+            public bool IsMember { get; set; }
+            public Variable(string variableName_, string variableType_, string mostProbableNamespace_, bool IsMember_)
             {
-                VariableName = VariableName_;
-                VariableType = VariableType_;
+                variableName = variableName_;
+                variableType = variableType_;
+                mostProbableNamespace = mostProbableNamespace_;
                 IsMember = IsMember_;
             }
         }
@@ -71,7 +76,7 @@ namespace DotNetPreAdapter
             List<string> usings;
             Dictionary<string, string> from_imports = new();
             string filemodule;
-            List<string> name_space_list;
+            List<string> nameSpaceList;
 
             List<string> bases = new();
             List<string> inner_classes = new();
@@ -85,13 +90,13 @@ namespace DotNetPreAdapter
             List<Method> methods = new();
 
 
-            public SubDataStructure(string filename_, string filemodule_, List<string> usings_, string fqdn_class_name_, List<string> name_space_list_)
+            public SubDataStructure(string filename_, string filemodule_, List<string> usings_, string fqdn_class_name_, List<string> nameSpaceList_)
             {
                 fqdn_class_name = fqdn_class_name_;
                 filename = filename_;
                 usings = new List<string>(usings_);
                 filemodule = filemodule_;
-                name_space_list = new List<string>(name_space_list_);
+                nameSpaceList = new List<string>(nameSpaceList_);
             }
 
 
@@ -136,20 +141,19 @@ namespace DotNetPreAdapter
             {
                 statics.Add(new Static(static_name, static_type));
             }
-            public void add_method(string method_name_, List<Tuple<string, string>> arguments_tuple_, Boolean is_private_)
+            public void add_method(string method_name_, List<Tuple<string, string, string>> arguments_tuple_, Boolean is_private_)
             {
                 List<ParameterType> Arguments_ = new List<ParameterType>();
-                foreach (Tuple<string, string> Argument in arguments_tuple_)
+                foreach (var Argument in arguments_tuple_)
                 {
-                    Arguments_.Add(new ParameterType(Argument.Item1, Argument.Item2));
+                    Arguments_.Add(new ParameterType(Argument.Item1, Argument.Item2, Argument.Item3));
                 }
                 methods.Add(new Method(method_name_, Arguments_, is_private_));
             }
-            public void add_variable(string variable_name, string variable_type, Boolean is_member)
+            public void add_variable(string variableName, string variableType, string mostProbableNamespace, Boolean is_member)
             {
-                variables.Add(new Variable(variable_name, variable_type, is_member));
+                variables.Add(new Variable(variableName, variableType, mostProbableNamespace, is_member));
             }
-
             public void add_inner_class(string inner_class_name)
             {
                 inner_classes.Add(inner_class_name);
@@ -226,7 +230,7 @@ namespace DotNetPreAdapter
             }
             public List<string> get_name_space_list()
             {
-                return name_space_list;
+                return nameSpaceList;
             }
         }
 
@@ -234,73 +238,101 @@ namespace DotNetPreAdapter
         Dictionary<string, List<SubDataStructure>> namespace_to_datastructures = new Dictionary<string, List<SubDataStructure>>();
         Dictionary<string, List<string>> namespace_to_namespace_list = new Dictionary<string, List<string>>();
         List<string> skip_types = new List<string> { "string", "Boolean" };
-
-        public Datastructure()
+        Logger logger;
+        public Datastructure(Logger logger_)
         {
 
             skip_types.Add(NOT_EXTRACTED);
+            logger = logger_;
         }
 
         public void ResolveClassNames()
         {
             foreach(SubDataStructure subDataStructure in class_to_datastructure.Values)
             {
-                var classNameList = subDataStructure.getAnonymousInvocation();
-                for (int index = 0; index < classNameList.Count; ++index)
+                CorrectClassScope(subDataStructure, subDataStructure.getAnonymousInvocation(), true);
+                CorrectClassScope(subDataStructure, subDataStructure.getAnonymousStaticInvocation(), true);
+                CorrectClassScope(subDataStructure, subDataStructure.get_base_classes(), false);
+                CorrectClassScope(subDataStructure, subDataStructure.getGenericTypes(), false);
+                var variables = subDataStructure.get_variable_fields();
+                for (int index = 0; index < variables.Count; ++index)
                 {
-                    classNameList[index] = GetFQDNForUsedClassName(subDataStructure, classNameList[index], true);
+                    Variable variable = variables[index];
+                    logger.LogDebug($"  ResolveClassNames: Variable: name {variable.variableName}, current type: {variable.variableType}, most probable NS: {variable.mostProbableNamespace}.");
+                    variables[index].variableType = GetFQDNForUsedClassName(
+                            subDataStructure,
+                            variables[index].variableType,
+                            false,
+                            variables[index].mostProbableNamespace);
                 }
-
-                var baseClassNameList = subDataStructure.get_base_classes();
-                for (int index = 0; index < baseClassNameList.Count; ++index)
+                foreach(Method method in subDataStructure.get_method_fields())
                 {
-                    baseClassNameList[index] = GetFQDNForUsedClassName(subDataStructure, baseClassNameList[index], true);
+                    for (int index = 0; index < method.parameters.Count; ++index)
+                    {
+                        logger.LogDebug($"  ResolveClassNames: Method: {method.methodName} Resolving parameter name {method.parameters[index].parameter}, current type: {method.parameters[index].userType}, most probable NS: {method.parameters[index].mostProbableNamespace}.");
+                        method.parameters[index].userType = GetFQDNForUsedClassName(
+                                subDataStructure,
+                                method.parameters[index].userType,
+                                false,
+                                method.parameters[index].mostProbableNamespace);
+
+                    }
+
                 }
-
-                var genericTypes = subDataStructure.getGenericTypes();
-                for (int index = 0; index < genericTypes.Count; ++index)
-                {
-                    genericTypes[index] = GetFQDNForUsedClassName(subDataStructure, genericTypes[index], true);
-                }
-
-
             }
         }
-        public string GetFQDNForUsedClassName(SubDataStructure subDataStructure, string classUsage, bool isAnymousCall)
+        void CorrectClassScope(SubDataStructure subDataStructure, List<string> classNameList, bool isAnymousCall)
+        {
+            if (classNameList != null)
+            {
+                for (int index = 0; index < classNameList.Count; ++index)
+                {
+                    classNameList[index] = GetFQDNForUsedClassName(subDataStructure, classNameList[index], isAnymousCall);
+                }
+            }
+
+        }
+        string GetFQDNForUsedClassName(SubDataStructure subDataStructure, string classUsage, bool isAnymousCall, string mostProbableNamespace = "")
         {
             string className = "";
             if (!isAnymousCall || Regex.Match(classUsage, @"\(.*\)\s*$", RegexOptions.IgnoreCase).Success)
             {
                 className = isAnymousCall ? classUsage.Split('(')[0] : classUsage;
                 var classnameList = get_classname_list();
-                if (!classnameList.Contains(className))
+                if (!classnameList.Contains(className) ||
+                    (mostProbableNamespace.Length > 0 && !classnameList.Contains($"{mostProbableNamespace}.{className}")))
                 {
 
                     var fittingClassNames = classnameList.Where(
-                            p => Regex.Match(p, $".{className}$").Success
+                            p => Regex.Match(p, $"\\.{className}$").Success
                         ).ToArray();
                     if (fittingClassNames.Length == 1)
                     {
+                        logger.LogDebug($"GetFQDNForUsedClassName: Found class {className} as {fittingClassNames[0]}");
                         className = fittingClassNames[0];
                     }
                     else if (fittingClassNames.Length > 1)
                     {
-                        string classNameNamespace = className.Remove(className.LastIndexOf('.'));
-                        var foundNamespaces = subDataStructure.getUsings().Where(
-                                p => p == classNameNamespace
-                            ).ToArray().Count();
-                        if (foundNamespaces >= 1)
+
+                        var bestFittingClassNames = classnameList.Where(
+                            p => Regex.Match(p, $"{mostProbableNamespace}\\.{className}$").Success
+                            ).ToArray();
+                        if(bestFittingClassNames.Length > 0)
                         {
-                            subDataStructure.addImport(className, classNameNamespace);
+                            fittingClassNames = bestFittingClassNames;
+                            logger.LogDebug($"GetFQDNForUsedClassName: Found class {className} with multiple better fitting variants: {String.Join(", ", fittingClassNames)}");
                         }
+                        logger.LogWarning($"GetFQDNForUsedClassName: Found class {className} with multiple variants: {String.Join(", ", fittingClassNames)}");
+                        logger.LogWarning($"GetFQDNForUsedClassName: Will be defaulting to the first one: {className} as {fittingClassNames[0]}");
+                        className = fittingClassNames[0];
                     }
                     else
                     {
-                        className = $"{subDataStructure.get_filemodule()}.{className}";
+                        logger.LogWarning($"GetFQDNForUsedClassName: Class {className} not found in the whole list of classes! Class will be left as is.");
                     }
                 } else
                 {
-                    className = $"{subDataStructure.get_filemodule()}.{className}";
+                    logger.LogDebug($"GetFQDNForUsedClassName: OK: Class {className} found in the list of classes! Class will be left as is.");
                 }
             }
             return className;
@@ -333,9 +365,9 @@ namespace DotNetPreAdapter
         }
 
 
-        public void append_class(string filename, string filemodule, List<string> usings, string fqdn_class_name, List<string> name_space_list)
+        public void append_class(string filename, string filemodule, List<string> usings, string fqdn_class_name, List<string> nameSpaceList)
         {
-            SubDataStructure sub_datastructure = new SubDataStructure(filename, filemodule, usings, fqdn_class_name, name_space_list);
+            SubDataStructure sub_datastructure = new SubDataStructure(filename, filemodule, usings, fqdn_class_name, nameSpaceList);
             append_sub_datastructure(sub_datastructure);
         }
 
@@ -350,7 +382,7 @@ namespace DotNetPreAdapter
             {
                 return class_to_datastructure[class_name];
             }
-            Console.WriteLine($"Requested class {class_name} was not found in the datastructure");
+            logger.LogWarning($"Requested class {class_name} was not found in the datastructure");
             return null;
         }
     }
