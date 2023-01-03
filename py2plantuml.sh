@@ -54,6 +54,7 @@ $var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make s
 $var_pip --version | grep python3 >/dev/null 2>&1 || error "$var_pip does not support python3! Install python3 and pip3."
 
 statements=""
+keep_tmp_files=0
 while [[ "$1" != "" ]]; do
     case $1 in
         --init )
@@ -98,6 +99,9 @@ while [[ "$1" != "" ]]; do
         --trace | --info | --debug | --skip_uses_relation)
          statements="$statements $1"
          ;;
+        --keep )
+          keep_tmp_files=1
+          ;;
         * )
           usage
           error "Parameter $1 is not know."
@@ -144,6 +148,8 @@ case $from_language in
     popd >/dev/null 
     from_dir=$tmp_dir
     ls $from_dir/*.yaml
+    cp -r $tmp_dir/* $out_dir
+
     ;;
   python )
     ;;
@@ -178,6 +184,10 @@ else
       create_svg_files "plantweb --engine=plantuml" "."
 fi
 if [[ ! -z $tmp_dir ]]; then
-  rm -rf $tmp_dir
+  if [[ $keep_tmp_files == 0 ]]; then
+    rm -rf $tmp_dir
+  else
+    echo "DEBUG: Kept tmp_dir: $tmp_dir"
+  fi
 fi
 $python -m webbrowser $out_dir/full-diagram-detailed.svg
