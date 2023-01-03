@@ -43,21 +43,19 @@ namespace DotNetPreAdapter
 
 
         public ICollection<UsingDirectiveSyntax> Usings { get; } = new List<UsingDirectiveSyntax>();
-
+        string SimplifyType(string type)
+        {
+            return type.Replace("System.Collections.Generic.List", "list")
+                        .Replace("System.Collections.Generic.Dictionary", "dict")
+                        .Replace("System.Tuple", "tuple")
+                        .Replace("List", "list")
+                        .Replace("<", "[")
+                        .Replace(">", "]")
+                        .Replace("?", "");
+        }
         public string? SyntaxNode(SyntaxNode node)
         {
             if (node == null) return "";
-
-            if (node.HasLeadingTrivia)
-            {
-                var ignoreNode = node.GetLeadingTrivia()
-                    .Where(trivia =>
-                            trivia.IsKind(SyntaxKind.MultiLineCommentTrivia) ||
-                            trivia.IsKind(SyntaxKind.SingleLineCommentTrivia))
-                    .Any(trivia => trivia.ToString().TrimStart('/', '*').ToLower().Trim() == "ignore");
-
-                if (ignoreNode) return "";
-            }
 
             if (node is BlockSyntax)
             {
@@ -70,13 +68,7 @@ namespace DotNetPreAdapter
                 string? returnValue = convertedType.ToString();
                 if (returnValue != null)
                 {
-                    return returnValue.Replace("System.Collections.Generic.List", "list")
-                        .Replace("System.Collections.Generic.Dictionary", "dict")
-                        .Replace("System.Tuple", "tuple")
-                        .Replace("List", "list")
-                        .Replace("<", "[")
-                        .Replace(">", "]")
-                        .Replace("?", "");
+                    return SimplifyType(returnValue);
                    
                 }
 
@@ -200,7 +192,8 @@ namespace DotNetPreAdapter
         public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
         {
             dbgSpaces = "  " + dbgSpaces;
-            logger.LogDebug($"Entering VisitNamespaceDeclaration with node:\n{node.ToFullString()}", dbgSpaces);
+            logger.LogDebug($"Entering VisitNamespaceDeclaration", dbgSpaces);
+            logger.LogTrace($"with node:\n{node.ToFullString()}", dbgSpaces);
             string namespaceName = node.Name.GetText().ToString().Replace("\n", "").Replace("\r", "");
             logger.LogDebug($"    Adding namespace {namespaceName}", dbgSpaces);
 
@@ -282,17 +275,26 @@ namespace DotNetPreAdapter
             List<Tuple<string, string>> arguments_tuple = new List<Tuple<string, string>>();
             if (node.ParameterList != null)
             {
-                foreach (var parameter in node.ParameterList.Parameters)
+                foreach (ParameterSyntax parameter in node.ParameterList.Parameters)
                 {
-                    string parameterType = "";
                     string parameterName = parameter.Identifier.ToFullString();
-                    if (parameter != null)
+                    string parameterType = "";
+                    IParameterSymbol? parameterSymbol = model.GetDeclaredSymbol(parameter);
+                    if(parameterSymbol != null)
                     {
+                        parameterType = parameterSymbol.Type.ToDisplayString();
+                        logger.LogDebug($"  VisitMethodDeclaration: {methodName} Parameter of {parameterName} from semantic model: {parameterType}.", dbgSpaces);
+                        parameterType = SimplifyType(parameterType);
+                        logger.LogDebug($"    VisitMethodDeclaration: Type was simplified to {parameterType}.", dbgSpaces);
+                    }
+                    else
+                    {
+                        logger.LogDebug($"  VisitMethodDeclaration: {methodName} Parameter of {parameterName} could not be extrected from semantic model.", dbgSpaces);
                         if (parameter.Type != null)
                         {
                             string? tmpType = SyntaxNode(parameter.Type);
                             parameterType =
-                                tmpType != null? tmpType: parameter.Type.ToString();
+                                tmpType != null ? tmpType : parameter.Type.ToString();
                             logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: SyntaxNode(parameter.Type)={tmpType}, " +
                                 $"parameter.Type.ToString()={parameter.Type.ToString()})", dbgSpaces);
 
@@ -302,18 +304,19 @@ namespace DotNetPreAdapter
                             logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: Parameter discarded because type is null ({parameter.ToFullString()}))", dbgSpaces);
 
                         }
-
-                        if (!ignoreType.Contains(parameterType))
-                        {
-                            arguments_tuple.Add(new Tuple<string, string>(parameterName, parameterType));
-                            logger.LogDebug($"  VisitMethodDeclaration: Added arguments_tuple: {ArgumentsTupleToString(arguments_tuple)}", dbgSpaces);
-                        }
-                        else
-                        {
-                            logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: Parameter discarded because type was discarded)", dbgSpaces);
-
-                        }
                     }
+                    if (!ignoreType.Contains(parameterType))
+                    {
+                        arguments_tuple.Add(new Tuple<string, string>(parameterName, parameterType));
+                        logger.LogDebug($"  VisitMethodDeclaration: Added arguments_tuple: {ArgumentsTupleToString(arguments_tuple)}", dbgSpaces);
+                    }
+                    else
+                    {
+                        logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: Parameter discarded because type was discarded)", dbgSpaces);
+
+                    }
+
+
                 }
 
             }
