@@ -39,7 +39,7 @@ class YAMLAdapter:
             if value_dict['is_interface']:
                 sub_datastructure.set_interface() 
             for base_class in value_dict['base_classes']:
-                sub_datastructure.add_base_class(base_class)
+                sub_datastructure.add_base_class(base_class, True)
             for anonymous_call_type in value_dict['anonymous_calls']:
                 sub_datastructure.add_variable(\
                     'anonymous_call', anonymous_call_type, False)

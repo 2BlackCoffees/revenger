@@ -12,7 +12,7 @@ class GenericSubDataStructure(ABC):
         """
 
     @abstractmethod
-    def add_base_class(self, base_class: str) -> None:
+    def add_base_class(self, base_class: str, add_no_module: bool = False) -> None:
         """
         """
 

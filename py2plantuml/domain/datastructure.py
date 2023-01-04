@@ -82,10 +82,10 @@ class Datastructure(GenericDatastructure):
         def get_color(self) -> str:
             return self.color
     
-        def add_base_class(self, base_class: str) -> None:
+        def add_base_class(self, base_class: str, add_no_module: bool = False) -> None:
             if base_class in self.from_imports.keys():
                 base_class = self.from_imports[base_class]
-            elif '.' in base_class:
+            elif add_no_module:
                 self.logger.log_debug(f'  Created base class name {base_class} as is from filemodule: >{self.filemodule}< and >{base_class}<')
             else:
                 base_class = f'{self.filemodule}.{base_class}'
