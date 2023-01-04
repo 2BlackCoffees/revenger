@@ -418,7 +418,7 @@ namespace DotNetPreAdapter
                 {
                     // Retrieve the type inferred for var.
                     ITypeSymbol? type = model.GetTypeInfo(node.Type).ConvertedType;
-                    bool isMember = node.Parent is LocalDeclarationStatementSyntax;
+                    bool isMember = node.Parent is not LocalDeclarationStatementSyntax;
                     for (int i = 0; i < node.Variables.Count; ++i)
                     {
                         string variableName = node.Variables[i].Identifier.Text;
