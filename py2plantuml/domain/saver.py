@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Set
 import os
 
 from infrastructure.generic_classes import GenericSaver
@@ -8,10 +8,20 @@ from domain.logger import Logger
 class Saver(GenericSaver):
     def __init__(self, out_dir: str, logger: Logger, saver: Saver = None):
         self.lines_to_save: List[str] = []
+        self.connections: Set[str] = set()
         self.out_dir: str = out_dir
         self.logger = logger
         if saver is not None:
             self.lines_to_save = saver.copy_content()
+
+    def append_connection(self, line: str, keep_only_unique: bool = True) -> Saver:
+        if not keep_only_unique or line not in self.connections:
+            self.append(line)
+            if keep_only_unique:
+                self.connections.add(line)
+        else:
+            self.logger.log_debug(f'Connection {line} was skipped because it exists already.')
+        return self
 
     def append(self, line: str) -> Saver:
         self.lines_to_save.append(line)

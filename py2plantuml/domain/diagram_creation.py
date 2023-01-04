@@ -220,7 +220,7 @@ class DiagramCreation:
         connection, member_type, note = Common.reduce_member_type(full_member_type, connection_type)
         if member_type not in self.datastructure.get_skip_types() and \
                 class_name not in self.datastructure.get_skip_types():
-            saver.append(f'{class_name} {connection} {member_type} {note}')
+            saver.append_connection(f'{class_name} {connection} {member_type} {note}')
 
     def __create_puml_classes_relations(self, saver: Saver, create_all_relation: bool, skip_uses_relation: bool) -> None:
         for namespace_name in self.datastructure.get_sorted_name_spaces():
@@ -233,7 +233,7 @@ class DiagramCreation:
                     if base not in self.datastructure.get_skip_types() and \
                         class_name not in self.datastructure.get_skip_types():
                         if create_all_relation or self.datastructure.class_exists(base):
-                            saver.append(f'{base} <|-- {class_name}')
+                            saver.append_connection(f'{base} <|-- {class_name}')
                         else:
                             self.logger.log_debug(\
                                 f'  Relation skipped: {base} <|-- {class_name} ' + \
