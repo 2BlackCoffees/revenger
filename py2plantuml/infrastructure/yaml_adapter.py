@@ -21,9 +21,8 @@ class YAMLAdapter:
             self.logger.log_trace(f"Filename: {filename}")
             self.logger.log_trace(pprint.pformat(yaml_content))
             self.logger.log_trace("\n\n\n\n")
-            print("type(yaml_content):" + str(type(yaml_content)))
         for sub_datastructure_yaml in yaml_content:
-            pprint.pprint(sub_datastructure_yaml)
+            self.logger.log_trace(pprint.pformat(sub_datastructure_yaml))
             value_dict = sub_datastructure_yaml['sub_datastructure']
             from_imports: Dict[str, str] = {}
             for from_import in value_dict['from_imports']:

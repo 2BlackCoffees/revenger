@@ -31,7 +31,6 @@ def main(from_dir: str, out_dir: str) -> None:
     if args.out_dir: out_dir = args.out_dir
     if args.yaml:
         source_type = SourceType.YAML_SOURCE
-    print(f"source_type: {source_type}")
 
     logger: Logger = Logger(args.info, args.debug, args.trace)
     if not from_dir.startswith('/'):
