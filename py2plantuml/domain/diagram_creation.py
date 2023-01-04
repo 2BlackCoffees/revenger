@@ -30,7 +30,7 @@ class DiagramCreation:
 
     def __add_inexistent_class(self, class_name: str):
         no_file_read: str = "**NoFileRead**"
-        color: str = 'DimGrey'
+        color: str = 'MintCream'
         if class_name != Common.COMPLEX_TYPE and \
             class_name not in self.datastructure.get_skip_types() and \
             class_name not in self.datastructure.get_classname_list():
@@ -301,7 +301,7 @@ class DiagramCreation:
                         if (not skip_uses_relation) or connection_type == Common.ConnectionType.IS_MEMBER:
                             self.__create_puml_connection(class_name, variable_field.variable_type, connection_type, saver)
                             self.logger.log_trace(f'  Relation created: {class_name} --- {naked_type} (Original type: {variable_field.variable_type}) ' + \
-                                f'(skip_uses_relation: {skip_uses_relation}, connection_type: {connection_type})')
+                                f'(skip_uses_relation: {skip_uses_relation}, connection_type: {connection_type}, is_member: {variable_field.is_member})')
                         else:
                             self.logger.log_debug(f'  Relation skipped: {class_name} --> {naked_type} ' + \
                                 f'(skip_uses_relation: {skip_uses_relation}, connection_type: {connection_type})')
