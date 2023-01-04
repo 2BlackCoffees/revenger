@@ -48,7 +48,7 @@ class YAMLAdapter:
                 sub_datastructure.add_variable(\
                     variable['variable_name'],
                     variable['variable_type'],
-                    variable['is_member'] == 'True')
+                    variable['is_member'] == True)
             for static in value_dict['statics']:
                 sub_datastructure.add_static(\
                     static['static_name'],
