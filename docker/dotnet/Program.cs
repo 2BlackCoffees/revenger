@@ -76,7 +76,7 @@ namespace DotNetPreAdapter
                 }
                 else
                 {
-                    logger.LogError($"Option {args[index]} is unknown: Skipped.");
+                    logger.LogWarning($"Option {args[index]} is unknown: Skipped.");
                 }
             }
 

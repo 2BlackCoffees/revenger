@@ -29,23 +29,23 @@ namespace DotNetPreAdapter
         }
         public void LogError(string text, string startText = "")
         {
-            if (loggingType <= LoggingType.ERROR)      log("ERROR", text, startText);
+            if (loggingType <= LoggingType.ERROR)       log("ERROR (C#) ", text, startText);
         }
         public void LogWarning(string text, string startText = "")
         {
-            if (loggingType <= LoggingType.WARNING)    log("WARNING", text, startText);
+            if (loggingType <= LoggingType.WARNING)     log("WARN (C#) ", text, startText);
         }
         public void LogInfo(string text, string startText = "")
         {
-            if (loggingType <= LoggingType.INFO) log("INFO", text, startText);
+            if (loggingType <= LoggingType.INFO)        log("INFO (C#) ", text, startText);
         }
         public void LogDebug(string text, string startText = "")
         {
-            if (loggingType <= LoggingType.DEBUG) log("DEBUG", text, startText);
+            if (loggingType <= LoggingType.DEBUG)       log("DEBUG (C#) ", text, startText);
         }
         public void LogTrace(string text, string startText= "")
         {
-            if (loggingType <= LoggingType.TRACE) log("TRACE", text, startText);
+            if (loggingType <= LoggingType.TRACE)       log("TRACE (C#) ", text, startText);
         }
     }
 }
