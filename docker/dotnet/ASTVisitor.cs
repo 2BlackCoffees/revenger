@@ -68,8 +68,7 @@ namespace DotNetPreAdapter
                 string? returnValue = convertedType.ToString();
                 if (returnValue != null)
                 {
-                    return SimplifyType(returnValue);
-                   
+                    return SimplifyType(returnValue);                   
                 }
 
             }
@@ -96,13 +95,15 @@ namespace DotNetPreAdapter
                 {
                     if (activeClassName.Length > 0)
                     {
-                        fqdn_class_name = $"{filemodule}.{fqdn_class_name}";
-                        logger.LogWarning($"    CreateClassInterface: activeClassName={activeClassName}, defining fqdn_class_name as {fqdn_class_name} = {{filemodule}}.{{fqdn_class_name}}", dbgSpaces);
+                        fqdn_class_name = $"{activeClassName}.{fqdn_class_name}";
+                        logger.LogWarning($"    CreateClassInterface: activeClassName={activeClassName}, " +
+                            $"defining fqdn_class_name as {fqdn_class_name} = {{filemodule}}.{{fqdn_class_name}}", dbgSpaces);
                     }
                     else
                     {
                         fqdn_class_name = $"{filemodule}.{fqdn_class_name}";
-                        logger.LogWarning($"    CreateClassInterface: activeClassName is empty, defining fqdn_class_name as {fqdn_class_name} = {{filemodule}}.{{fqdn_class_name}}", dbgSpaces);
+                        logger.LogWarning($"    CreateClassInterface: activeClassName is empty, defining fqdn_class_name as " +
+                            $"{fqdn_class_name} = {{filemodule}}.{{fqdn_class_name}}", dbgSpaces);
                     }
                 }
 
@@ -115,9 +116,11 @@ namespace DotNetPreAdapter
             SubDataStructure? parentSubDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
             if (parentSubDataStructure != null)
             {
-                logger.LogDebug($"    CreateClassInterface: {fqdn_class_name} is an inner class of {GetCurrentClassName()}", dbgSpaces);
+                logger.LogDebug($"    CreateClassInterface: {fqdn_class_name} is an inner class of {GetCurrentClassName()}",
+                    dbgSpaces);
                 parentSubDataStructure.add_inner_class(fqdn_class_name);
             }
+
             datastructure.append_class(filename, filemodule, allUsing, fqdn_class_name, namespaceList);
             SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(fqdn_class_name);
             if (subDataStructure != null)
@@ -134,7 +137,6 @@ namespace DotNetPreAdapter
                         {
                             subDataStructure.add_base_class(baseClassName);
                             logger.LogDebug($"    CreateClassInterface: Inherited class: {baseClassName}", dbgSpaces);
-
                         }
                     }
                 }
@@ -145,13 +147,11 @@ namespace DotNetPreAdapter
                     var implementedInterfaces = classSymbol.AllInterfaces;
                     foreach (var implementedInterface in implementedInterfaces)
                     {
-                        logger.LogDebug($"    CreateClassInterface: ImplementedInterface.Name: {implementedInterface.Name}", dbgSpaces);
+                        logger.LogDebug($"    CreateClassInterface: ImplementedInterface.Name: {implementedInterface.Name}",
+                            dbgSpaces);
                         subDataStructure.add_base_class(implementedInterface.Name);
                     }
-
                 }
-
-
             }
             else
             {
@@ -164,7 +164,8 @@ namespace DotNetPreAdapter
             {
                 foreach (var annotatedAndToken in node.BaseList.GetAnnotatedNodesAndTokens())
                 {
-                    logger.LogInfo($"    CreateClassInterface: AnnotatedAndToken from BaseList: {annotatedAndToken.ToString()}", dbgSpaces);
+                    logger.LogInfo($"    CreateClassInterface: AnnotatedAndToken from BaseList: " +
+                        $"{annotatedAndToken.ToString()}", dbgSpaces);
 
                 }
             }
@@ -174,7 +175,8 @@ namespace DotNetPreAdapter
         }
         string getCurrentContext()
         {
-            return $"ns:<{String.Join(".", namespaceList)}>.clss:<{String.Join(".", activeClassnameList)}>.mthd:<{String.Join(".", activeMethodList)}>";
+            return $"ns:<{String.Join(".", namespaceList)}>.clss:<{String.Join(".", activeClassnameList)}>." +
+                $"mthd:<{String.Join(".", activeMethodList)}>";
 
         }
 
@@ -196,6 +198,22 @@ namespace DotNetPreAdapter
             return returnString;
         }
 
+        string cleanForRegEx(string typeName)
+        {
+            string notAllowedChars = "[]{}/\\-()";
+            if (notAllowedChars.Any(x => typeName.Contains(x)))
+            {
+                logger.LogDebug($"{dbgSpaces}  cleanForRegEx: typeName {typeName} contains not allowed chars " +
+                    $"{notAllowedChars}", dbgSpaces);
+                foreach (char regexChar in notAllowedChars)
+                {
+                    typeName = typeName.Replace(regexChar.ToString(), $"\\{regexChar}");
+                }
+                logger.LogDebug($"{dbgSpaces}    cleanForRegEx: typeName was transformed to {typeName}", dbgSpaces);
+            }
+            return typeName;
+        }
+
         public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
         {
             dbgSpaces = "  " + dbgSpaces;
@@ -210,7 +228,6 @@ namespace DotNetPreAdapter
             logger.LogDebug($"Leaving VisitNamespaceDeclaration", dbgSpaces);
             dbgSpaces = dbgSpaces.Substring(2);
         }
-
 
 
         public override void VisitUsingDirective(UsingDirectiveSyntax node)
@@ -308,26 +325,28 @@ namespace DotNetPreAdapter
                     if(parameterSymbol != null)
                     {
                         parameterType = parameterSymbol.Type.ToDisplayString();
-                        logger.LogDebug($"  VisitMethodDeclaration: {methodName} Parameter of {parameterName} from semantic model: {parameterType}.", dbgSpaces);
+                        logger.LogDebug($"  VisitMethodDeclaration: {methodName} Parameter of {parameterName} " +
+                            $"from semantic model: {parameterType}.", dbgSpaces);
                         parameterType = SimplifyType(parameterType);
                         logger.LogDebug($"    VisitMethodDeclaration: Type was simplified to {parameterType}.", dbgSpaces);
                     }
                     else
                     {
-                        logger.LogDebug($"  VisitMethodDeclaration: {methodName} Parameter of {parameterName} could not be extrected from semantic model.", dbgSpaces);
+                        logger.LogDebug($"  VisitMethodDeclaration: {methodName} Parameter of {parameterName} " +
+                            $"could not be extrected from semantic model.", dbgSpaces);
                         if (parameter.Type != null)
                         {
                             string? tmpType = SyntaxNode(parameter.Type);
                             parameterType =
                                 tmpType != null ? tmpType : parameter.Type.ToString();
-                            logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: SyntaxNode(parameter.Type)={tmpType}, " +
+                            logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: " +
+                                $"SyntaxNode(parameter.Type)={tmpType}, " +
                                 $"parameter.Type.ToString()={parameter.Type.ToString()})", dbgSpaces);
-
                         }
                         else
                         {
-                            logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: Parameter discarded because type is null ({parameter.ToFullString()}))", dbgSpaces);
-
+                            logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}:" +
+                                $" Parameter discarded because type is null ({parameter.ToFullString()}))", dbgSpaces);
                         }
                     }
                     if (!ignoreType.Contains(parameterType))
@@ -336,23 +355,22 @@ namespace DotNetPreAdapter
                         {
                             mostProbableNamespace = "";
                         }
-                        arguments_tuple.Add(new Tuple<string, string, string>(parameterName, parameterType, mostProbableNamespace));
-                        logger.LogDebug($"  VisitMethodDeclaration: Added arguments_tuple: {ArgumentsTupleToString(arguments_tuple)}", dbgSpaces);
+                        arguments_tuple.Add(new Tuple<string, string, string>(
+                            parameterName, cleanForRegEx(parameterType), mostProbableNamespace));
+                        logger.LogDebug($"  VisitMethodDeclaration: Added arguments_tuple: " +
+                            $"{ArgumentsTupleToString(arguments_tuple)}", dbgSpaces);
                     }
                     else
                     {
-                        logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: Parameter discarded because type was discarded)", dbgSpaces);
-
+                        logger.LogDebug($"  VisitMethodDeclaration: {methodName}(parameterName={parameterName}: "+
+                            $"Parameter discarded because type was discarded)", dbgSpaces);
                     }
-
-
                 }
 
             }
             else
             {
                 logger.LogDebug($"  VisitMethodDeclaration: Method has no parameters", dbgSpaces);
-
             }
             SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
             if (subDataStructure != null)
@@ -373,17 +391,18 @@ namespace DotNetPreAdapter
         public override void VisitVariableDeclaration(VariableDeclarationSyntax node)
         {
             dbgSpaces = "  " + dbgSpaces;
-            logger.LogDebug($"Entering VisitVariableDeclaration with node:\n{node.ToFullString()}", dbgSpaces);
-            logger.LogDebug($"  VisitVariableDeclaration: Context={getCurrentContext()}", dbgSpaces);
+            logger.LogDebug($"{dbgSpaces}Entering VisitVariableDeclaration with node:\n{node.ToFullString()}", dbgSpaces);
+            logger.LogDebug($"{dbgSpaces}  VisitVariableDeclaration: Context={getCurrentContext()}", dbgSpaces);
 
             string? typeName = SyntaxNode(node.Type);
             SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
-            logger.LogDebug($"  VisitVariableDeclaration: typeName={typeName}, subDataStructure={subDataStructure}", dbgSpaces);
+            logger.LogDebug($"{dbgSpaces}  VisitVariableDeclaration: typeName={typeName}, subDataStructure={subDataStructure}", dbgSpaces);
 
             if (typeName != null && typeName.Length > 0 && subDataStructure != null && !ignoreType.Contains(typeName))
             {
                 string mostProbableNamespace = String.Join(".", namespaceList);
                 if (typeName.Contains(".")) mostProbableNamespace = "";
+                typeName = cleanForRegEx(typeName);
 
                 // Special case: Ensure that 'var' isn't actually an alias to another type. (e.g. using var = System.String).
                 IAliasSymbol? aliasInfo = model.GetAliasInfo(node.Type);
@@ -398,38 +417,63 @@ namespace DotNetPreAdapter
                         if (isMember && type != null && type.IsStatic)
                         {
                             subDataStructure.add_static(variableName, typeName);
-                            logger.LogDebug($"  VisitVariableDeclaration: Adding STATIC variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
+                            logger.LogDebug($"{dbgSpaces}  VisitVariableDeclaration: Adding STATIC variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
                         }
                         else
                         {
                             subDataStructure.add_variable(variableName, typeName, mostProbableNamespace, isMember);
-                            logger.LogDebug($"  VisitVariableDeclaration: Adding variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
+                            logger.LogDebug($"{dbgSpaces}  VisitVariableDeclaration: Adding variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
                         }
                     }
                 }
             }
             else
             {
-                logger.LogDebug($"  VisitVariableDeclaration: Skipping variable: either typeName is null or enclosing class is not found or type belongs to the types to be skipped.", dbgSpaces);
+                logger.LogDebug($"{dbgSpaces}  VisitVariableDeclaration: Skipping variable: either typeName is null or enclosing class is not found or type belongs to the types to be skipped.", dbgSpaces);
             }
 
             DefaultVisit(node);
-            logger.LogDebug($"Leaving VisitVariableDeclaration", dbgSpaces);
+            logger.LogDebug($"{dbgSpaces}Leaving VisitVariableDeclaration", dbgSpaces);
             dbgSpaces = dbgSpaces.Substring(2);
         }
 
+#if DEACTIVATED_ON_PURPOSE
+        ITypeSymbol? getExpressionSymbol(InvocationExpressionSyntax node)
+        {
+            IMethodSymbol? symbol = model.GetSymbolInfo(node.Expression).Symbol as IMethodSymbol;
+            return symbol switch
+            {
+                ILocalSymbol local      => local.Type,
+                IParameterSymbol param  => param.Type,
+                IFieldSymbol field      => field.Type,
+                IPropertySymbol prop    => prop.Type,
+                IMethodSymbol method    => method.MethodKind == MethodKind.Constructor ? method.ReceiverType : method.ReturnType,
 
+                _                       => null
+            };
 
+        }
 
         public override void VisitInvocationExpression(InvocationExpressionSyntax node)
         {
             dbgSpaces = "  " + dbgSpaces;
             logger.LogDebug($"Entering VisitInvocationExpression with node:\n{node.ToFullString()}", dbgSpaces);
             logger.LogDebug($"  VisitInvocationExpression: Context={getCurrentContext()}", dbgSpaces);
-            SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
+
+
+             SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(GetCurrentClassName());
             if (subDataStructure != null)
             {
-                string classUsage = Regex.Replace(node.Expression.ToString(), @"^\s*", "");
+                string classUsage = "";
+                ITypeSymbol? symbol = getExpressionSymbol(node);
+                if (symbol != null)
+                {
+                    classUsage = symbol.ToDisplayString();
+                }
+                else
+                {
+                    classUsage = Regex.Replace(node.Expression.ToString(), @"^\s*", "");
+                }
                 // This is for normal class accesses
                 if (classUsage.StartsWith("new "))
                 {
@@ -454,7 +498,7 @@ namespace DotNetPreAdapter
             logger.LogDebug($"Leaving VisitInvocationExpression", dbgSpaces);
             dbgSpaces = dbgSpaces.Substring(2);
         }
-
+#endif
 
     }
 

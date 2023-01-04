@@ -302,33 +302,44 @@ namespace DotNetPreAdapter
                 if (!classnameList.Contains(className) ||
                     (mostProbableNamespace.Length > 0 && !classnameList.Contains($"{mostProbableNamespace}.{className}")))
                 {
-
-                    var fittingClassNames = classnameList.Where(
-                            p => Regex.Match(p, $"\\.{className}$").Success
-                        ).ToArray();
-                    if (fittingClassNames.Length == 1)
+                    try
                     {
-                        logger.LogDebug($"GetFQDNForUsedClassName: Found class {className} as {fittingClassNames[0]}");
-                        className = fittingClassNames[0];
-                    }
-                    else if (fittingClassNames.Length > 1)
-                    {
-
-                        var bestFittingClassNames = classnameList.Where(
-                            p => Regex.Match(p, $"{mostProbableNamespace}\\.{className}$").Success
-                            ).ToArray();
-                        if(bestFittingClassNames.Length > 0)
+                        foreach (char regexChar in "[]{}/\\-()")
                         {
-                            fittingClassNames = bestFittingClassNames;
-                            logger.LogDebug($"GetFQDNForUsedClassName: Found class {className} with multiple better fitting variants: {String.Join(", ", fittingClassNames)}");
+                            className = className.Replace(regexChar.ToString(), $"\\{regexChar}");
+
                         }
-                        logger.LogWarning($"GetFQDNForUsedClassName: Found class {className} with multiple variants: {String.Join(", ", fittingClassNames)}");
-                        logger.LogWarning($"GetFQDNForUsedClassName: Will be defaulting to the first one: {className} as {fittingClassNames[0]}");
-                        className = fittingClassNames[0];
-                    }
-                    else
+                        var fittingClassNames = classnameList.Where(
+                                p => Regex.Match(p, $"\\.{className}$").Success
+                            ).ToArray();
+                        if (fittingClassNames.Length == 1)
+                        {
+                            logger.LogDebug($"GetFQDNForUsedClassName: Found class {className} as {fittingClassNames[0]}");
+                            className = fittingClassNames[0];
+                        }
+                        else if (fittingClassNames.Length > 1)
+                        {
+
+                            var bestFittingClassNames = classnameList.Where(
+                                p => Regex.Match(p, $"{mostProbableNamespace}\\.{className}$").Success
+                                ).ToArray();
+                            if (bestFittingClassNames.Length > 0)
+                            {
+                                fittingClassNames = bestFittingClassNames;
+                                logger.LogDebug($"GetFQDNForUsedClassName: Found class {className} with multiple better fitting variants: {String.Join(", ", fittingClassNames)}");
+                            }
+                            logger.LogWarning($"GetFQDNForUsedClassName: Found class {className} with multiple variants: {String.Join(", ", fittingClassNames)}");
+                            logger.LogWarning($"GetFQDNForUsedClassName: Will be defaulting to the first one: {className} as {fittingClassNames[0]}");
+                            className = fittingClassNames[0];
+                        }
+                        else
+                        {
+                            logger.LogWarning($"GetFQDNForUsedClassName: Class {className} not found in the whole list of classes! Class will be left as is.");
+                        }
+                    } catch (System.Text.RegularExpressions.RegexParseException e)
                     {
-                        logger.LogWarning($"GetFQDNForUsedClassName: Class {className} not found in the whole list of classes! Class will be left as is.");
+                        logger.LogError($"GetFQDNForUsedClassName: Class {className} could not be regexe parsed (Class will be left as is):\n{e.ToString()}");
+
                     }
                 } else
                 {
