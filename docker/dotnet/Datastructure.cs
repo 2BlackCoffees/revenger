@@ -304,11 +304,6 @@ namespace DotNetPreAdapter
                 {
                     try
                     {
-                        foreach (char regexChar in "[]{}/\\-()")
-                        {
-                            className = className.Replace(regexChar.ToString(), $"\\{regexChar}");
-
-                        }
                         var fittingClassNames = classnameList.Where(
                                 p => Regex.Match(p, $"\\.{className}$").Success
                             ).ToArray();

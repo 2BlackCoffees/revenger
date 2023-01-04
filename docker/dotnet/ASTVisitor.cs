@@ -200,6 +200,13 @@ namespace DotNetPreAdapter
 
         string cleanForRegEx(string typeName)
         {
+            if(typeName.EndsWith("[]"))
+            {
+                typeName = $"list[{typeName}]";
+            }
+            return typeName;
+#if DEACTIVATED_ON_PURPOSE
+
             string notAllowedChars = "[]{}/\\-()";
             if (notAllowedChars.Any(x => typeName.Contains(x)))
             {
@@ -212,6 +219,7 @@ namespace DotNetPreAdapter
                 logger.LogDebug($"{dbgSpaces}    cleanForRegEx: typeName was transformed to {typeName}", dbgSpaces);
             }
             return typeName;
+#endif
         }
 
         public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
