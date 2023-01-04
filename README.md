@@ -7,14 +7,18 @@ At the moment adapters exist only for Python and C#.
 
 See here for a quick introduction what this tool is used for and how to use it (Outdated presentation): https://www.youtube.com/watch?v=u4VpfKfgr7Q 
 
-Currently the Python adapter requires:
-1. All user defined modules to be imported one per line
-2. When importing a user module, the whole module path must be specified from the entry point
-3. All declarations and method parameters must be properly annotated with their type
+
+## Dependencies
+* You will need to have either plantuml installed or at least Docker.
+  * One option of the script allows to install plantuml partially or use a PlantUML Web server.
+* If you need to reverse engineer C#, the script will try to use a locally accessible dotnet program. 
+  * If no dotnet can be found a Docker image can be used to run the adapter: The script will take care to try it. 
+* If Docker and dotnet are both not installed, the csharp reverse engineering will not be running. 
 
 ## Usage
-`./py2plantuml.sh -h`
 ```
+./py2plantuml.sh -h
+
 py2plantuml.sh [ -i | --from_dir ]   Mandatory: Where the source files are located.
                [ -o | --out_dir ]    Mandatory: Where to store the puml and svg files
                [ --init ]                       Run update on python dependencies (Run it at least the first time)
@@ -28,6 +32,12 @@ py2plantuml.sh [ -i | --from_dir ]   Mandatory: Where the source files are locat
                [ -h | --help ]                  This help
 ```
 # TODOs
+
+Currently the Python adapter requires:
+1. All user defined modules to be imported one per line
+2. When importing a user module, the whole module path must be specified from the entry point
+3. All declarations and method parameters must be properly annotated with their type
+
 ## Design improvement needed
 The application was created to be quickly usable. The Python adapeter needs to be refactored as follows:
   * On going: Python Adapter needs to be improved (See https://docs.python.org/3/library/ast.html for more details)
