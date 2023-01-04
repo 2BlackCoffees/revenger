@@ -2,7 +2,9 @@
 create_svg_files() {
   plantuml=$1
   out_dir=$2
+
   find $out_dir -type f -name '*.svg' | xargs rm -f  > /dev/null
+
   number_files=$(find $out_dir -type f -name '*.puml' 2>/dev/null | wc -l  | sed 's:[ \s\t]::g')
   # Much faster with one call
   pushd $out_dir >/dev/null 
@@ -137,13 +139,20 @@ fi
 
 info "Using plantuml from $plantuml"
 info "Using adapter from language $from_language"
+if [[ $keep_tmp_files == 0 ]]; then
+  info "Cleaning output directory"
+  find $out_dir -type f | xargs rm -f  > /dev/null
+fi
 
 case $from_language in
   csharp )
-    rm $out_dir/*.yaml > /dev/null 2>&1
+    if [[ $keep_tmp_files == 0 ]]; then
+      rm $out_dir/*.yaml > /dev/null 2>&1
+    fi
     tmp_dir=$(mktemp -d)
     basepath=$( dirname -- "$( readlink -f -- "$0" )" )
     pushd $basepath/dotnet-prj >/dev/null 
+    info "Running CSharp adapter"
     ./run.sh $from_dir $tmp_dir $(echo $statements) || docker run -v $from_dir:/src -v $tmp_dir:/out 2blackcoffees/py2plantuml_csharpadapter:latest $(echo $statements) >/dev/null 2>&1 || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
     popd >/dev/null 
     from_dir=$tmp_dir
@@ -169,7 +178,7 @@ $python py2plantuml --from_dir $from_dir --out_dir $out_dir $(echo $statements) 
 info "Transforming puml to svg"
 if [[ $svg_dep == "secure" ]]; then
     info "Transforming with plantuml ($plantuml)"
-    create_svg_files "$plantuml -tsvg -progress" "$out_dir"
+    create_svg_files "$plantuml -tsvg -progress" "$out_dir" 
 
 else
     wait_time=5
@@ -181,7 +190,7 @@ else
       sleep 1;
     done
     cd $out_dir && \
-      create_svg_files "plantweb --engine=plantuml" "."
+      create_svg_files "plantweb --engine=plantuml" "." 
 fi
 if [[ ! -z $tmp_dir ]]; then
   if [[ $keep_tmp_files == 0 ]]; then
