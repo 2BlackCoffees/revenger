@@ -68,7 +68,7 @@ class Datastructure(GenericDatastructure):
             self.variables: List[Datastructure.Variable] = []
             self.methods: List[Datastructure.Method] = []
             self.logger = logger
-            self.color = None
+            self.set_default_color('MintCream')
         
         def set_abstract(self) -> None:
             self.is_abstract_field = True
@@ -77,8 +77,11 @@ class Datastructure(GenericDatastructure):
 
         def set_color(self, color: str) -> None:
             self.color = f'#{color}'
+        def set_default_color(self, color: str) -> None:
+            self.set_color(color)
+            self.default_color = self.color
         def clear_color(self) -> None:
-            self.color = None
+            self.color = self.default_color
         def get_color(self) -> str:
             return self.color
     

@@ -51,7 +51,7 @@ class ApplicationService:
         saver.append('@startuml')
 
         ApplicationService.fill_datastructure_with_all_source_files(from_dir, diagram_creation, logger, saver, source_type)
-
+        diagram_creation.create_referenced_but_inexistent_classes()
         # Create full diagrams
         diagram_creation.create_puml_files(from_dir, skip_uses_relation, None)
 

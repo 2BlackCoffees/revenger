@@ -27,6 +27,43 @@ class DiagramCreation:
     def get_data_structure(self) -> Datastructure:
         return self.datastructure
 
+
+    def __add_inexistent_class(self, class_name: str):
+        no_file_read: str = "**NoFileRead**"
+        color: str = 'DimGrey'
+        if class_name != Common.COMPLEX_TYPE and \
+            class_name not in self.datastructure.get_skip_types() and \
+            class_name not in self.datastructure.get_classname_list():
+            self.logger.log_debug(f'  Creating non defined type {class_name} as Grey type.')
+            tmp_sub_datastructure: Datastructure.SubDataStructure = \
+                self.datastructure.append_class(no_file_read, "", {}, class_name, [])
+            tmp_sub_datastructure.set_default_color(color)
+
+    def create_referenced_but_inexistent_classes(self):
+        for namespace_name in self.datastructure.get_sorted_name_spaces():
+            sub_datastructure: Datastructure.SubDataStructure
+            for sub_datastructure in self.datastructure.get_datastructures_from_namespace(namespace_name):
+                for base in sub_datastructure.get_base_classes():
+                    self.__add_inexistent_class(base)
+
+                for inner_class_name in sub_datastructure.get_inner_class_name():
+                    self.__add_inexistent_class(inner_class_name)
+
+                static_field: Datastructure.Static
+                for static_field in sub_datastructure.get_static_fields():
+                    _, naked_type, _ = Common.reduce_member_type(static_field.static_type)
+                    self.__add_inexistent_class(naked_type)
+
+                variable_field: Datastructure.Variable
+                for variable_field in sub_datastructure.get_variable_fields():
+                    _, naked_type, _ = Common.reduce_member_type(variable_field.variable_type)
+                    self.__add_inexistent_class(naked_type)
+
+                for method_field in sub_datastructure.get_method_fields():
+                    for parameter in method_field.parameters:
+                        _, naked_type, _ = Common.reduce_member_type(parameter.user_type)
+                        self.__add_inexistent_class(naked_type)
+
     @staticmethod
     def __get_file_name_from_class_namespace_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
         file_name: str = ''
