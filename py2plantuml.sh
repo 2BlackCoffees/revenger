@@ -2,8 +2,8 @@
 create_svg_files() {
   plantuml=$1
   out_dir=$2
-  rm -f $out_dir/*.svg > /dev/null
-  number_files=$(ls $out_dir/*.puml | wc -l | sed 's:[ \s\t]::g')
+  find $out_dir -type f -name '*.svg' | xargs rm -f  > /dev/null
+  number_files=$(find $out_dir -type f -name '*.puml' 2>/dev/null | wc -l  | sed 's:[ \s\t]::g')
   # Much faster with one call
   pushd $out_dir >/dev/null 
   files=*.puml
@@ -14,7 +14,7 @@ create_svg_files() {
   echo $plantuml | grep plantuml > /dev/null 2>&1 || plain_command_plantuml=plantweb
   while [[ $(ps -edf | grep $pid_plant_uml | grep $plain_command_plantuml) ]]; do
     sleep 1
-    number_files_processed=$(ls $out_dir/*.svg 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
+    number_files_processed=$(find $out_dir -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
     echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%        "
   done
   popd >/dev/null 
@@ -140,7 +140,7 @@ info "Using adapter from language $from_language"
 
 case $from_language in
   csharp )
-    rm $from_dir/*.yaml
+    rm $out_dir/*.yaml > /dev/null 2>&1
     tmp_dir=$(mktemp -d)
     basepath=$( dirname -- "$( readlink -f -- "$0" )" )
     pushd $basepath/dotnet-prj >/dev/null 
