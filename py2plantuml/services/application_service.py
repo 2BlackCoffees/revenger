@@ -52,8 +52,10 @@ class ApplicationService:
 
         ApplicationService.fill_datastructure_with_all_source_files(from_dir, diagram_creation, logger, saver, source_type)
 
+        # Create full diagrams
         diagram_creation.create_puml_files(from_dir, skip_uses_relation, None)
 
+        # Create diagrams filtered out by class name
         class_list: List[str] = diagram_creation.get_data_structure().get_classname_list()
         for class_name in class_list:
              reduced_class_list_datastructure = \
@@ -63,6 +65,7 @@ class ApplicationService:
                 DiagramCreation(reduced_class_list_datastructure, saver, logger)
              class_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, class_name)
 
+        # Create diagrams filtered out by namespace
         class_name_list_grouped_by_namespaces: Dict[List[str]] = \
             DatastructureHandler(diagram_creation.get_data_structure(), logger)\
                 .get_class_name_list_grouped_by_namespaces()
