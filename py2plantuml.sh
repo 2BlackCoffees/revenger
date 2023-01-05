@@ -32,6 +32,8 @@ function usage() {
     echo "               [ --debug ]                      Debug logs"
     echo "               [ --trace ]                      Trace logs"
     echo "               [ --from_language csharp ]       Currently only python (default) or csharp adapter exist"
+    echo "               [ --force_docker_adapter ]       If the adapter has a docker image use it as prio 1"
+    echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ -h | --help ]                  This help"
 }
 function error() {
@@ -44,6 +46,26 @@ function warning() {
 function info() {
   echo "INFO: $1"
 }
+function run_dotnet_locally() {
+  from_dir=$1
+  tmp_dir=$2
+  statements=$3
+  pushd $basepath/dotnet-adapter >/dev/null 2>&1
+  info "Running ./run.sh $from_dir $tmp_dir $(echo $statements)"
+  ./run.sh $from_dir $tmp_dir $(echo $statements) || info "Running ./run.sh $from_dir $tmp_dir $(echo $statements) failed"
+  status=$?
+  popd >/dev/null 2>&1
+  return $status
+}
+function run_dotnet_in_docker() {
+  from_dir=$1
+  tmp_dir=$2
+  statements=$3
+  docker run -v $from_dir:/src -v $tmp_dir:/out \
+    2blackcoffees/py2plantuml_csharpadapter:latest --from_dir /src --out_dir /out \
+    $(echo $statements) 
+  return $?
+}
 from_dir=$1
 out_dir=$2
 python=python3
@@ -51,6 +73,8 @@ from_language=python
 svg_dep=secure
 var_pip=pip3
 tmp_dir=
+force_docker_adapter=0
+force_docker_plantuml=0
 $var_pip -h >/dev/null 2>&1 || var_pip=pip
 $var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make sure python3 and pip are installed (See https://www.python.org/downloads/)."
 $var_pip --version | grep python3 >/dev/null 2>&1 || error "$var_pip does not support python3! Install python3 and pip3."
@@ -79,6 +103,12 @@ while [[ "$1" != "" ]]; do
           out_dir=$(readlink -f $tmp_out);
           shift;
           ;;
+        --force_docker_adapter)
+          force_docker_adapter=1
+        ;;
+        --force_docker_plantuml)
+          force_docker_plantuml=1
+        ;;
         -d | --plantuml_install )
           info "Installing plantuml dependency for rendering SVC....."
           if java -version 2>&1 >/dev/null | grep -E "\S+\s+version" ; then
@@ -122,24 +152,32 @@ while [[ "$1" != "" ]]; do
 done
 
 # Set plantuml to java binary if it exists in current dir
-plantuml=plantuml
+if [[ $force_docker_plantuml == 0 ]]; then  
+  plantuml=plantuml
+else
+  plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+fi
 if [[ $svg_dep == "secure" ]]; then
   $plantuml -h > /dev/null 2>&1 
   if [[ $? != 0 ]];then 
-      echo "INFO: $plantuml not found searching for an alternative."
+      info "$plantuml not found trying /opt/homebrew/bin/plantuml."
       plantuml=/opt/homebrew/bin/plantuml
       $plantuml -h > /dev/null 2>&1 
       if [[ $? != 0 ]];then 
-          echo "INFO: $plantuml not found searching for an alternative."
-          plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+          info "$plantuml not found searching for an alternative."
+          if [[ $force_docker_plantuml == 0 ]]; then  
+            plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+          else
+            plantuml=plantuml
+          fi
           bash -c $plantuml -h > /dev/null 2>&1 
           if [[ $? != 0 ]]; then
-              echo "INFO: $plantuml not found searching for an alternative."
+              info "$plantuml not found searching trying with the jar file."
               if [[ -f plantuml.jar ]];then 
                 plantuml="java -jar plantuml.jar"
-                bash -c $plantuml -h > /dev/null 2>&1 || error "plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
               else
-                error "plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
               fi
           fi
       fi
@@ -160,12 +198,15 @@ case $from_language in
     fi
     tmp_dir=$(mktemp -d)
     basepath=$( dirname -- "$( readlink -f -- "$0" )" )
-    pushd $basepath/dotnet-adapter >/dev/null 2>&1
-    info "Running CSharp adapter"
-    ./run.sh $from_dir $tmp_dir $(echo $statements) || docker run -v $from_dir:/src -v $tmp_dir:/out 2blackcoffees/py2plantuml_csharpadapter:latest $(echo $statements) >/dev/null 2>&1 || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
-    popd >/dev/null 2>&1
+    if [[ $force_docker_adapter == 0 ]]; then
+      info "Running CSharp adapter locally or as docker image"
+      run_dotnet_locally $from_dir $tmp_dir $statements || run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
+    else
+      info "Running CSharp adapter as Docker image"
+      run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used from the docker image: Make sure docker is installed or try to run dotnet locally."
+    fi
     from_dir=$tmp_dir
-    cp -r $tmp_dir/* $out_dir
+    cp -r $tmp_dir/* $out_dir || error "no files could be found in the temporary directory $tmp_dir"
 
     ;;
   python )
@@ -200,7 +241,7 @@ if [[ ! -z $tmp_dir ]]; then
   if [[ $keep_tmp_files == 0 ]]; then
     rm -rf $tmp_dir
   else
-    echo "DEBUG: Kept tmp_dir: $tmp_dir"
+    info "Kept tmp_dir: $tmp_dir"
   fi
 fi
 $python -m webbrowser $out_dir/full-diagram-detailed.svg
