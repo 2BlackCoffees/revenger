@@ -51,6 +51,9 @@ Currently the Python adapter requires:
 2. When importing a user module, the whole module path must be specified from the entry point
 3. All declarations and method parameters must be properly annotated with their type
 
+## Architecture
+See below a high level architecture of the application:
+![High level Architecture](./revenger-architecture.png?raw=true "Architecture of Revenger")
 ## Design improvement needed
 The application was created to be quickly usable. The Python adapeter needs to be refactored as follows:
   * On going: Python Adapter needs to be improved (See https://docs.python.org/3/library/ast.html for more details)
