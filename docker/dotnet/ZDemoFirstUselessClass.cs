@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define DEMO_PURPOSE
+#if DEMO_PURPOSE
+using System;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace MyNamespace
@@ -51,8 +53,23 @@ namespace DotNetPreAdapter
     }
     class UnusedASTVisitor : CSharpSyntaxWalker
     {
-        static Logger logger = new Logger(LoggingType.TRACE);
-        static Datastructure unusedD = new Datastructure(logger);
+        static Utils.Logger logger = new Utils.Logger(Utils.LoggingType.TRACE);
+        static Domain.Datastructure unusedD = new Domain.Datastructure(logger);
     }
 }
 
+namespace DotNetPreAdapter
+{
+    namespace RecursiveFileProcessor
+    {
+        class InnerClass
+        {
+            int a = 5;
+            public InnerClass(int a_)
+            {
+                int a = a_;
+            }
+        }
+    }
+}
+#endif

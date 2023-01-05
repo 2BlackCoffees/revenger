@@ -1,4 +1,5 @@
-﻿using static System.Console;
+﻿#define DEMO_PURPOSE
+using static System.Console;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -9,6 +10,8 @@ namespace DotNetPreAdapter
 {
     class Program
     {
+#if DEMO_PURPOSE
+
         static void removeMe()
         {
             MyNamespace.UnusedClass u1 = new();
@@ -17,6 +20,7 @@ namespace DotNetPreAdapter
             new MyNamespace.UnusedClass1().doNothing();
             new UnusedClass().doNothing();
         }
+#endif
         static int Main(string[] args)
         {
             // Test if input arguments were supplied.
@@ -35,8 +39,10 @@ namespace DotNetPreAdapter
             string from_dir = "/Users/jean-philippe.ulpiano/development/py2plantuml/dotnet-solution/dotnet-pre-adapter/dotnet-pre-adapter";
             string to_dir = "/Users/jean-philippe.ulpiano/development/py2plantuml/dotnet-solution/output";
 
+#if DEMO_PURPOSE
             removeMe();
-            Logger logger = new Logger(LoggingType.WARNING);
+#endif
+            Utils.Logger logger = new Utils.Logger(Utils.LoggingType.WARNING);
             for (int index = 0; index < args.Length; ++index)
             {
                 if (args[index].Equals("--from_dir"))
@@ -51,27 +57,27 @@ namespace DotNetPreAdapter
                 }
                 else if (args[index].Equals("--trace"))
                 {
-                    logger = new Logger(LoggingType.TRACE);
+                    logger = new Utils.Logger(Utils.LoggingType.TRACE);
                     logger.LogInfo("Setting trace log");
                 }
                 else if (args[index].Equals("--debug"))
                 {
-                    logger = new Logger(LoggingType.DEBUG);
+                    logger = new Utils.Logger(Utils.LoggingType.DEBUG);
                     logger.LogInfo("Setting debug log");
                 }
                 else if (args[index].Equals("--INFO"))
                 {
-                    logger = new Logger(LoggingType.INFO);
+                    logger = new Utils.Logger(Utils.LoggingType.INFO);
                     logger.LogInfo("Setting info log");
                 }
                 else if (args[index].Equals("--warning"))
                 {
-                    logger = new Logger(LoggingType.WARNING);
+                    logger = new Utils.Logger(Utils.LoggingType.WARNING);
                     logger.LogInfo("Setting warning log");
                 }
                 else if (args[index].Equals("--error"))
                 {
-                    logger = new Logger(LoggingType.ERROR);
+                    logger = new Utils.Logger(Utils.LoggingType.ERROR);
                     Console.WriteLine("Setting ERROR Logs only");
                 }
                 else
@@ -82,7 +88,7 @@ namespace DotNetPreAdapter
 
 
 
-            var ast = new AnalyzeAST();
+            var ast = new Service.AnalyzeAST();
             ast.SearchRecurseCSharpToYAML(from_dir, to_dir, logger);
             return 0;
         }
