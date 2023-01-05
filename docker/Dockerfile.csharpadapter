@@ -10,6 +10,8 @@ RUN rm -f Program.cs
 COPY DotnetPreAdapter/* ./
 RUN ls -l
 RUN dotnet add package Docker.DotNet --version 3.125.12
+RUN dotnet add package RoslynQuoter --version 1.0.1
+RUN dotnet add package YamlDotNet --version 12.2.0
 RUN dotnet build
 RUN dotnet restore
 # Build and publish a release
