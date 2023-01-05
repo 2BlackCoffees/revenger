@@ -63,11 +63,20 @@ while [[ "$1" != "" ]]; do
           $var_pip install -r py2plantuml/requirements.txt
           ;;
         -i | --from_dir | --from-dir | --from )
-          from_dir=$(readlink -f $2);
+          tmp_from=$2
+          if [[ ! -d $tmp_from ]]; then
+            error "Source directory $tmp_from does not exist!"
+          fi
+          from_dir=$(readlink -f $tmp_from);
           shift;
           ;;
         -o | --out_dir | --out-dir | --to-dir )
-          out_dir=$(readlink -f $2);
+          tmp_out=$2
+          if [[ ! -d $tmp_out ]]; then
+            info "Creating dorectory output non existing directory $tmp_out"
+            mkdir -p $tmp_out
+          fi
+          out_dir=$(readlink -f $tmp_out);
           shift;
           ;;
         -d | --plantuml_install )
@@ -167,10 +176,6 @@ case $from_language in
 esac
 
 
-
-if [[ ! -d $out_dir ]]; then
-    mkdir -p $out_dir
-fi
 info "Generating puml files"
 $python py2plantuml --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
 
