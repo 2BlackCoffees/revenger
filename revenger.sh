@@ -14,15 +14,14 @@ create_svg_files() {
   pid_plant_uml=$!
   plain_command_plantuml=plantuml
   echo $plantuml | grep plantuml > /dev/null 2>&1 || plain_command_plantuml=plantweb
-  touch previous_svg_list
+  find . -name '*.svg' > previous_svg_list
   while [[ $(ps -edf | grep $pid_plant_uml | grep $plain_command_plantuml) ]]; do
-    #sleep 1
+    sleep 1
     number_files_processed=$(find $out_dir -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
     find . -name '*.svg' > latest_svg_list
     if [[ $(diff previous_svg_list latest_svg_list) ]]; then
-      #diff previous_svg_list latest_svg_list
-      latest_processed_files=$(awk 'NR==FNR{rec[$0];next}!($0 in rec)' previous_svg_list latest_svg_list)
-      echo -e "\nLatest processed files:\n$latest_processed_files"
+      latest_processed_files=$(diff previous_svg_list latest_svg_list | grep "> " | sed 's/^/      /g')
+      echo -e "\n    Latest processed files:\n$latest_processed_files"
       cp latest_svg_list previous_svg_list
     fi
     echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%        "
