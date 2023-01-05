@@ -1,4 +1,6 @@
-# Py2plantuml
+# Revenger
+Revenger stands for REVerse ENGineER.
+
 This program transforms either a python or a C# program into a clickable class diagram of the whole application.
 Classes can be filtered in just clicking on them to analyze and understand how the program is structured.
 
@@ -17,9 +19,9 @@ See here for a quick introduction what this tool is used for and how to use it (
 
 ## Usage
 ```
-./py2plantuml.sh -h
+./revenger.sh -h
 
-py2plantuml.sh [ -i | --from_dir ]   Mandatory: Where the source files are located.
+revenger.sh [ -i | --from_dir ]   Mandatory: Where the source files are located.
                [ -o | --out_dir ]    Mandatory: Where to store the puml and svg files
                [ --init ]                       Run update on python dependencies (Run it at least the first time)
                [ -d | --plantuml_install ]      Install plantuml (not graphviz however, you will have to install it yourself)
@@ -29,8 +31,19 @@ py2plantuml.sh [ -i | --from_dir ]   Mandatory: Where the source files are locat
                [ --debug ]                      Debug logs
                [ --trace ]                      Trace logs
                [ --from_language csharp ]       Currently only python (default) or csharp adapter exist
+               [ --force_docker_adapter ]       If the adapter has a docker image use it as prio 1
+               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead
                [ -h | --help ]                  This help
 ```
+
+It can be easily tested against itself. Once you cloned this repository, you can check how to reverse engineer CSharp code as follows:
+
+`./revenger.sh --from_dir dotnet-adapter/DotnetPreAdapter --out_dir out-revenger-csharp-uses  --from_language csharp`
+
+Python code can be reversed engineered as follows (please not that the Python adapter is being refactored because of some wrongly generated inconsistencies):
+
+`./revenger.sh --from_dir revenger --out_dir out-revenger-python-uses`
+
 # TODOs
 
 Currently the Python adapter requires:

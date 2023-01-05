@@ -10,5 +10,5 @@ docker buildx inspect mybuilder --bootstrap
 docker buildx build \
   	-f Dockerfile.csharpadapter \
     --platform linux/arm64,linux/amd64 \
-   	-t 2blackcoffees/py2plantuml_csharpadapter:latest . --push
+   	-t 2blackcoffees/revenger_csharpadapter:latest . --push
 popd

@@ -14,9 +14,17 @@ create_svg_files() {
   pid_plant_uml=$!
   plain_command_plantuml=plantuml
   echo $plantuml | grep plantuml > /dev/null 2>&1 || plain_command_plantuml=plantweb
+  touch previous_svg_list
   while [[ $(ps -edf | grep $pid_plant_uml | grep $plain_command_plantuml) ]]; do
-    sleep 1
+    #sleep 1
     number_files_processed=$(find $out_dir -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
+    find . -name '*.svg' > latest_svg_list
+    if [[ $(diff previous_svg_list latest_svg_list) ]]; then
+      #diff previous_svg_list latest_svg_list
+      latest_processed_files=$(awk 'NR==FNR{rec[$0];next}!($0 in rec)' previous_svg_list latest_svg_list)
+      echo -e "\nLatest processed files:\n$latest_processed_files"
+      cp latest_svg_list previous_svg_list
+    fi
     echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%        "
   done
   popd >/dev/null 
@@ -62,7 +70,7 @@ function run_dotnet_in_docker() {
   tmp_dir=$2
   statements=$3
   docker run -v $from_dir:/src -v $tmp_dir:/out \
-    2blackcoffees/py2plantuml_csharpadapter:latest --from_dir /src --out_dir /out \
+    2blackcoffees/revenger_csharpadapter:latest --from_dir /src --out_dir /out \
     $(echo $statements) 
   return $?
 }
@@ -84,7 +92,7 @@ keep_tmp_files=0
 while [[ "$1" != "" ]]; do
     case $1 in
         --init )
-          $var_pip install -r py2plantuml/requirements.txt
+          $var_pip install -r revenger/requirements.txt
           ;;
         -i | --from_dir | --from-dir | --from )
           tmp_from=$2
@@ -218,7 +226,7 @@ esac
 
 
 info "Generating puml files"
-$python py2plantuml --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
+$python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
 
 info "Transforming puml to svg"
 if [[ $svg_dep == "secure" ]]; then
