@@ -160,7 +160,7 @@ case $from_language in
     fi
     tmp_dir=$(mktemp -d)
     basepath=$( dirname -- "$( readlink -f -- "$0" )" )
-    pushd $basepath/dotnet-prj >/dev/null 2>&1
+    pushd $basepath/dotnet-adapter >/dev/null 2>&1
     info "Running CSharp adapter"
     ./run.sh $from_dir $tmp_dir $(echo $statements) || docker run -v $from_dir:/src -v $tmp_dir:/out 2blackcoffees/py2plantuml_csharpadapter:latest $(echo $statements) >/dev/null 2>&1 || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
     popd >/dev/null 2>&1

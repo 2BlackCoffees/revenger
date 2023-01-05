@@ -7,7 +7,7 @@ WORKDIR /App
 RUN dotnet new console -o DotnetPreAdapter
 WORKDIR /App/DotnetPreAdapter
 RUN rm -f Program.cs
-COPY dotnet/* ./
+COPY DotnetPreAdapter/* ./
 RUN ls -l
 RUN dotnet add package Docker.DotNet --version 3.125.12
 RUN dotnet build
