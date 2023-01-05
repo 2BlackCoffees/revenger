@@ -39,7 +39,7 @@ class DiagramCreation:
                 self.datastructure.append_class(no_file_read, "", {}, class_name, [])
             tmp_sub_datastructure.set_default_color(color)
 
-    def create_referenced_but_inexistent_classes(self):
+    def create_referenced_but_inexistent_classes(self, skip_uses_relation: bool):
         for namespace_name in self.datastructure.get_sorted_name_spaces():
             sub_datastructure: Datastructure.SubDataStructure
             for sub_datastructure in self.datastructure.get_datastructures_from_namespace(namespace_name):
@@ -56,13 +56,15 @@ class DiagramCreation:
 
                 variable_field: Datastructure.Variable
                 for variable_field in sub_datastructure.get_variable_fields():
-                    _, naked_type, _ = Common.reduce_member_type(variable_field.variable_type)
-                    self.__add_inexistent_class(naked_type)
-
-                for method_field in sub_datastructure.get_method_fields():
-                    for parameter in method_field.parameters:
-                        _, naked_type, _ = Common.reduce_member_type(parameter.user_type)
+                    if variable_field.is_member or not skip_uses_relation:
+                        _, naked_type, _ = Common.reduce_member_type(variable_field.variable_type)
                         self.__add_inexistent_class(naked_type)
+
+                if not skip_uses_relation:
+                    for method_field in sub_datastructure.get_method_fields():
+                        for parameter in method_field.parameters:
+                            _, naked_type, _ = Common.reduce_member_type(parameter.user_type)
+                            self.__add_inexistent_class(naked_type)
 
     @staticmethod
     def __get_file_name_from_class_namespace_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
