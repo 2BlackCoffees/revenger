@@ -37,8 +37,13 @@ class Datastructure(GenericDatastructure):
         class ParameterType:
             parameter: str
             user_type: str
+        @dataclass
+        class MethodVariable:
+            variable_name: str
+            variable_type: str
         parameters: List[ParameterType]
         is_private: bool
+        variables: List[MethodVariable]
 
     @dataclass
     class Static:
@@ -50,6 +55,7 @@ class Datastructure(GenericDatastructure):
         variable_name: str
         variable_type: str
         is_member: bool
+        is_private: bool
 
     class SubDataStructure(GenericSubDataStructure):
         def __init__(self, filename: str, filemodule: str, from_imports: Dict[str, str], \
@@ -98,11 +104,12 @@ class Datastructure(GenericDatastructure):
  
         def add_static(self, static_name: str, static_type: str) -> None:
             self.statics.append(Datastructure.Static(static_name, static_type))
-        def add_method(self, method_name: str, arguments_tuple: List[Tuple[str, str]], is_private: bool) -> None:
+        def add_method(self, method_name: str, arguments_tuple: List[Tuple[str, str]], is_private: bool, method_variables_tuple: List[Tuple[str, str]] = None) -> None:
             arguments = [Datastructure.Method.ParameterType(parameter, user_type) for parameter, user_type in arguments_tuple]
-            self.methods.append(Datastructure.Method(method_name, arguments, is_private))
-        def add_variable(self, variable_name: str, variable_type: str, is_member: bool) -> None:
-            self.variables.append(Datastructure.Variable(variable_name, variable_type, is_member))
+            method_variables = [Datastructure.Method.MethodVariable(variable_name, variable_type) for variable_name, variable_type in method_variables_tuple]
+            self.methods.append(Datastructure.Method(method_name, arguments, is_private, method_variables))
+        def add_variable(self, variable_name: str, variable_type: str, is_member: bool, is_private = False) -> None:
+            self.variables.append(Datastructure.Variable(variable_name, variable_type, is_member, is_private))
         def add_inner_class(self, inner_class_name: str) -> None:
             self.inner_classes.append(inner_class_name)
 
@@ -224,8 +231,9 @@ class DatastructureHandler:
                 self.logger.log_debug(f'  Appended sub datastructure of {sub_datastructure.get_fqdn_class_name()}')
                 return sub_datastructure
             else:
-                self.logger.log_debug(f'  Could not find sub_datastructure for class {classname}')
-        self.logger.log_debug(f'  {classname} was skipped because it belongs to the skipped types {self.datastructure.get_skip_types()}')
+                self.logger.log_debug(f'  Could not find internal sub_datastructure for class {classname}')
+        else:
+            self.logger.log_debug(f'  {classname} was skipped because it belongs to the skipped types {self.datastructure.get_skip_types()}')
         
         return None
 
@@ -246,6 +254,7 @@ class DatastructureHandler:
                 self.__add_class_to_reduced_datastructure_if_not_exist(class_name, reduced_datastructure)
             if sub_datastructure is not None:
                 sub_datastructure.set_color('yellow')
+                self.logger.log_debug(f'  All base classes for class {class_name} are: {sub_datastructure.get_base_classes()})')
                 for base_class_name in sub_datastructure.get_base_classes():
                     self.__append_sub_datastructures_from_classname(\
                         base_class_name, reduced_datastructure)
@@ -253,6 +262,7 @@ class DatastructureHandler:
                     self.logger.log_debug(f'  All reduced base classes for {class_name}: {reduced_datastructure.get_datastructures_from_class_name(class_name).get_base_classes()})')
 
                 static_field: Datastructure.Static
+                self.logger.log_debug(f'  All static fields for class {class_name} are: {[f"{static_field.static_name}:{static_field.static_type}" for static_field in sub_datastructure.get_static_fields()]})')
                 for static_field in sub_datastructure.get_static_fields():
                     _, reduced_member_type, _ = Common.reduce_member_type(static_field.static_type)
                     self.__append_sub_datastructures_from_classname(\
@@ -260,6 +270,7 @@ class DatastructureHandler:
                     self.logger.log_debug(f' Adding static related class {reduced_member_type} of {class_name}')
 
                 variable_field: Datastructure.Variable
+                self.logger.log_debug(f'  All variable fields for class {class_name} are: {[f"{variable_field.variable_name}:{variable_field.variable_type}" for variable_field in sub_datastructure.get_variable_fields()]})')
                 for variable_field in sub_datastructure.get_variable_fields():
                     _, reduced_member_type, _ = Common.reduce_member_type(variable_field.variable_type)
                     self.__append_sub_datastructures_from_classname(\
@@ -267,59 +278,75 @@ class DatastructureHandler:
                     self.logger.log_debug(f' Adding variable related class {reduced_member_type} of {class_name}')
 
                 method_field: Datastructure.Method
+                self.logger.log_debug(f'  All methods for class {class_name} are: {[f"{method_field.method_name}" for method_field in sub_datastructure.get_method_fields()]})')
                 for method_field in sub_datastructure.get_method_fields():
+                    self.logger.log_debug(f'    All parameters for method {class_name}.{method_field.method_name} are: {[f"{parameter.parameter}:{parameter.user_type}" for parameter in method_field.parameters]})')
                     for parameter in method_field.parameters:
                         _, reduced_member_type, _ = Common.reduce_member_type(parameter.user_type)
                         self.__append_sub_datastructures_from_classname(\
                             reduced_member_type, reduced_datastructure)
-                        self.logger.log_debug(f' {reduced_member_type} is a parameter from method {method_field.method_name} from class {sub_datastructure.get_fqdn_class_name()} ')
+                        self.logger.log_debug(f' {parameter.parameter}:{parameter.user_type} (reduced to {reduced_member_type}) is a parameter from method {method_field.method_name} from class {sub_datastructure.get_fqdn_class_name()} ')
+                    self.logger.log_debug(f'    All local variables for method {class_name}.{method_field.method_name} are: {[f"{variable.variable_name}:{variable.variable_type}" for variable in method_field.variables]})')
+                    for variable in method_field.variables:
+                        _, reduced_member_type, _ = Common.reduce_member_type(variable.variable_type)
+                        self.__append_sub_datastructures_from_classname(\
+                            reduced_member_type, reduced_datastructure)
+                        self.logger.log_debug(f' {variable.variable_name}:{variable.variable_type} (reduced to {reduced_member_type}) is a variable from method {method_field.method_name} from class {sub_datastructure.get_fqdn_class_name()} ')
 
+                self.logger.log_debug(f'  All inner classes for class {class_name} are: {sub_datastructure.get_inner_class_name()})')
                 for inner_class_name in sub_datastructure.get_inner_class_name():
                     _, reduced_member_type, _ = Common.reduce_member_type(inner_class_name)
                     self.__append_sub_datastructures_from_classname(\
                         reduced_member_type, reduced_datastructure)
                     self.logger.log_debug(f' Adding inner class {reduced_member_type} of {class_name}')
-
+        
+        self.logger.log_debug(f'Analyzing all classes referencing {class_name}')
         for namespace_name in self.datastructure.get_sorted_name_spaces():
             for sub_datastructure in self.datastructure.get_datastructures_from_namespace(namespace_name):
 
                 for base_classname in sub_datastructure.get_base_classes():
                     if base_classname in class_name_list:
+                        self.logger.log_debug(f' Adding child related class {sub_datastructure.get_fqdn_class_name()} of {base_classname}')
                         self.__append_sub_datastructures_from_classname(\
                             sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
-                        self.logger.log_debug(f' Adding child related class {sub_datastructure.get_fqdn_class_name()} of {base_classname}')
 
                 static_field: Datastructure.Static
                 for static_field in sub_datastructure.get_static_fields():
                     _, reduced_member_type, _ = Common.reduce_member_type(static_field.static_type)
                     if reduced_member_type in class_name_list:
+                        self.logger.log_debug(f' Adding {static_field.static_name}.{reduced_member_type} which is a static related class of {sub_datastructure.get_fqdn_class_name()} ')
                         self.__append_sub_datastructures_from_classname(\
                             sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
-                        self.logger.log_debug(f' {reduced_member_type} is a static related class of {sub_datastructure.get_fqdn_class_name()} ')
 
                 variable_field: Datastructure.Variable
                 for variable_field in sub_datastructure.get_variable_fields():
                     _, reduced_member_type, _ = Common.reduce_member_type(variable_field.variable_type)
                     if reduced_member_type in class_name_list:
+                        self.logger.log_debug(f' Adding {variable_field.variable_name}:{variable_field.variable_type} (reduced to {reduced_member_type}) which is a variable related class of {sub_datastructure.get_fqdn_class_name()} ')
                         self.__append_sub_datastructures_from_classname(\
                             sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
-                        self.logger.log_debug(f' {reduced_member_type} is a variable related class of {sub_datastructure.get_fqdn_class_name()} ')
 
                 method_field: Datastructure.Method
                 for method_field in sub_datastructure.get_method_fields():
                     for parameter in method_field.parameters:
                         _, reduced_member_type, _ = Common.reduce_member_type(parameter.user_type)
                         if reduced_member_type in class_name_list:
+                            self.logger.log_debug(f' Adding {reduced_member_type} which is a parameter from method {method_field.method_name} related class of {sub_datastructure.get_fqdn_class_name()} ')
                             self.__append_sub_datastructures_from_classname(\
                                 sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
-                            self.logger.log_debug(f' {reduced_member_type} is a parameter from method {method_field.method_name} related class of {sub_datastructure.get_fqdn_class_name()} ')
+                    for variable in method_field.variables:
+                        _, reduced_member_type, _ = Common.reduce_member_type(variable.variable_type)
+                        if reduced_member_type in class_name_list:
+                            self.logger.log_debug(f' Adding {variable.variable_name}:{variable.variable_type} (reduced to {reduced_member_type}) which is a local variable from method {method_field.method_name} from class {sub_datastructure.get_fqdn_class_name()} ')
+                            self.__append_sub_datastructures_from_classname(\
+                                reduced_member_type, reduced_datastructure)
 
                 for inner_class_name in sub_datastructure.get_inner_class_name():
                     _, reduced_member_type, _ = Common.reduce_member_type(inner_class_name)
                     if reduced_member_type in class_name_list:
+                        self.logger.log_debug(f' Adding {reduced_member_type} contains class of {sub_datastructure.get_fqdn_class_name()} ')
                         self.__append_sub_datastructures_from_classname(\
                             sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
-                        self.logger.log_debug(f' {reduced_member_type} contains class of {sub_datastructure.get_fqdn_class_name()} ')
 
         return reduced_datastructure
 

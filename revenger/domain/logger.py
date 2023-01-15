@@ -15,19 +15,19 @@ class Logger(GenericLogger):
         self.trace = True
 
     def log_info(self, line: str) -> None:
-        if self.info:
-            print(f'INFO: {line}')
+        if self.info or self.debug or self.trace:
+            print(f'INFO (py): {line}')
 
     def log_error(self, line: str) -> None:
-        print(f'ERROR: {line}')
+        print(f'ERROR (py): {line}')
 
     def log_warn(self, line: str) -> None:
-        print(f'WARN: {line}')
+        print(f'WARN (py): {line}')
 
     def log_debug(self, line: str) -> None:
-        if self.debug:
-            print(f'DEBUG: {line}')
+        if self.debug or self.trace:
+            print(f'DEBUG (py): {line}')
 
     def log_trace(self, line: str) -> None:
         if self.trace:
-            print(f'TRACE: {line}')
+            print(f'TRACE (py): {line}')

@@ -430,7 +430,20 @@ namespace DotNetPreAdapter
                             }
                             else
                             {
-                                subDataStructure.add_variable(variableName, typeName, mostProbableNamespace, isMember);
+                                bool variableSaved = false;
+                                if (activeMethodList.Count > 0)
+                                {
+                                    Method? method = subDataStructure.GetMethod(activeMethodList[^1]);
+                                    if (method != null)
+                                    {
+                                        method.AddVariable(variableName, typeName, mostProbableNamespace);
+                                        variableSaved = true;
+                                    }
+                                }
+                                if (!variableSaved)
+                                {
+                                    subDataStructure.add_variable(variableName, typeName, mostProbableNamespace, isMember);
+                                }
                                 logger.LogDebug($"{dbgSpaces}  VisitVariableDeclaration: Adding variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
                             }
                         }

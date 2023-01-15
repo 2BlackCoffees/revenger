@@ -22,7 +22,7 @@ class GenericSubDataStructure(ABC):
         """
 
     @abstractmethod
-    def add_method(self, method_name: str, arguments: List[Tuple[str, str]], is_private: bool) -> None:
+    def add_method(self, method_name: str, arguments: List[Tuple[str, str]], is_private: bool, method_variables: List[Tuple[str, str]]) -> None:
         """
         """
 

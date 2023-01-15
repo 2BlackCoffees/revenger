@@ -56,7 +56,9 @@ function info() {
 function run_dotnet_locally() {
   from_dir=$1
   tmp_dir=$2
-  statements=$3
+  shift
+  shift
+  statements=$@
   pushd $basepath/dotnet-adapter >/dev/null 2>&1
   info "Running ./run.sh $from_dir $tmp_dir $(echo $statements)"
   ./run.sh $from_dir $tmp_dir $(echo $statements) || info "Running ./run.sh $from_dir $tmp_dir $(echo $statements) failed"
@@ -67,7 +69,9 @@ function run_dotnet_locally() {
 function run_dotnet_in_docker() {
   from_dir=$1
   tmp_dir=$2
-  statements=$3
+  shift
+  shift
+  statements=$@
   docker run -v $from_dir:/src -v $tmp_dir:/out \
     2blackcoffees/revenger_csharpadapter:latest --from_dir /src --out_dir /out \
     $(echo $statements) 

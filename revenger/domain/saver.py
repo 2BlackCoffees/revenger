@@ -19,6 +19,7 @@ class Saver(GenericSaver):
             self.append(line)
             if keep_only_unique:
                 self.connections.add(line)
+            self.logger.log_trace(f'Connection {line} was created.')
         else:
             self.logger.log_debug(f'Connection {line} was skipped because it exists already.')
         return self

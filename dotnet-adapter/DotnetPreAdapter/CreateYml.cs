@@ -106,12 +106,24 @@ namespace DotNetPreAdapter
                                         new YamlScalarNode("parameter_type"),
                                             new YamlScalarNode(parameter.userType)));
                             }
+                            var methodVariables = new YamlSequenceNode();
+                            foreach (var variable in method.variables)
+                            {
+                                methodVariables.Add(new YamlMappingNode(
+                                        new YamlScalarNode("variable_name"),
+                                            new YamlScalarNode(variable.variableName),
+                                        new YamlScalarNode("variable_type"),
+                                            new YamlScalarNode(variable.variableType)));
+                            }
+
                             methods.Add(
                                     new YamlMappingNode(
                                         new YamlScalarNode("method_name"),
                                         new YamlScalarNode(method.methodName),
                                         new YamlScalarNode("parameters"),
                                         parameters,
+                                        new YamlScalarNode("method_variables"),
+                                        methodVariables,
                                         new YamlScalarNode("is_private"),
                                         new YamlScalarNode(method.IsPrivate ? "True" : "False")
                                         )

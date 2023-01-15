@@ -35,7 +35,20 @@ namespace DotNetPreAdapter
                         mostProbableNamespace = mostProbableNamespace_;
                     }
                 }
+                public class Variable
+                {
+                    public string variableName { get; set; }
+                    public string variableType { get; set; }
+                    public string mostProbableNamespace { get; set; }
+                    public Variable(string variableName_, string variableType_, string mostProbableNamespace_)
+                    {
+                        variableName = variableName_;
+                        variableType = variableType_;
+                        mostProbableNamespace = mostProbableNamespace_;
+                    }
+                }
                 public string methodName { get; set; }
+                public List<Variable> variables { get; set; }
                 public List<ParameterType> parameters { get; set; }
                 public Boolean IsPrivate { get; set; }
                 public Method(string methodName_, List<ParameterType> parameters_, Boolean IsPrivate_)
@@ -43,6 +56,11 @@ namespace DotNetPreAdapter
                     methodName = methodName_;
                     parameters = new List<ParameterType>(parameters_);
                     IsPrivate = IsPrivate_;
+                    variables = new List<Variable>();
+                }
+                public void AddVariable(string variableName_, string variableType_, string mostProbableNamespace_)
+                {
+                    variables.Add(new Variable(variableName_, variableType_, mostProbableNamespace_));
                 }
 
             }
@@ -151,6 +169,17 @@ namespace DotNetPreAdapter
                         Arguments_.Add(new ParameterType(Argument.Item1, Argument.Item2, Argument.Item3));
                     }
                     methods.Add(new Method(method_name_, Arguments_, is_private_));
+                }
+                public Method? GetMethod(string methodName)
+                {
+                    foreach (var method in methods)
+                    {
+                        if(method.methodName == methodName)
+                        {
+                            return method;
+                        }
+                    }
+                    return null;
                 }
                 public void add_variable(string variableName, string variableType, string mostProbableNamespace, Boolean is_member)
                 {
@@ -277,6 +306,16 @@ namespace DotNetPreAdapter
                                     method.parameters[index].userType,
                                     false,
                                     method.parameters[index].mostProbableNamespace);
+
+                        }
+                        for (int index = 0; index < method.variables.Count; ++index)
+                        {
+                            logger.LogDebug($"  ResolveClassNames: Method: {method.methodName} Resolving variable name {method.variables[index].variableName}, current type: {method.variables[index].variableType}, most probable NS: {method.variables[index].mostProbableNamespace}.");
+                            method.variables[index].variableType = GetFQDNForUsedClassName(
+                                    subDataStructure,
+                                    method.variables[index].variableType,
+                                    false,
+                                    method.variables[index].mostProbableNamespace);
 
                         }
 

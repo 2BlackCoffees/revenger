@@ -60,8 +60,13 @@ class YAMLAdapter:
                     parameters.append(\
                         (parameter['parameter_name'], \
                             parameter['parameter_type']))
+                method_variables: List[Tuple[str, str]] = []
+                for method_variable in method['method_variables']:
+                    method_variables.append(\
+                        (method_variable['variable_name'], \
+                            method_variable['variable_type']))
                 sub_datastructure.add_method(\
                     method['method_name'], \
                         parameters, \
-                            method['is_private'] == 'True')
+                            method['is_private'] == 'True', method_variables)
             
