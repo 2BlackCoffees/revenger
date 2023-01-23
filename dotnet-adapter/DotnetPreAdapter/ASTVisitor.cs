@@ -228,7 +228,7 @@ namespace DotNetPreAdapter
                 dbgSpaces = "  " + dbgSpaces;
                 logger.LogDebug($"Entering VisitNamespaceDeclaration", dbgSpaces);
                 logger.LogTrace($"with node:\n{node.ToFullString()}", dbgSpaces);
-                string namespaceName = node.Name.GetText().ToString().Replace("\n", "").Replace("\r", "");
+                string namespaceName = node.Name.GetText().ToString().Replace("\n", "").Replace("\r", "").TrimEnd(' ').TrimStart(' ');
                 logger.LogDebug($"    Adding namespace {namespaceName}", dbgSpaces);
 
                 namespaceList.Add(namespaceName);
