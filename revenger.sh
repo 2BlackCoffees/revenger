@@ -1,21 +1,72 @@
 #!/bin/bash
+
+function error() {
+  echo "ERROR: $1"
+  exit 0
+}
+function warning() {
+  echo "WARNING: $1"
+}
+function info() {
+  echo "INFO: $1"
+}
+
+list_file_to_parameters() {
+  plant_uml=$1
+  file_type=$2
+  number_files=$3
+
+  export number_parameters_max=1500
+  export number_groups=$((number_files/number_parameters_max))
+  number_groups_int=$(printf "%.0f\n" $number_groups)
+  if [[ $number_groups_int > $number_groups ]]; then
+    number_groups=$number_groups_int
+  fi
+  tmpfile=$(mktemp)
+  tmpfile_tmp=$(mktemp)
+  command_file=$(mktemp)
+  echo "function uml_to_svg_runner() {" > $command_file
+  ls | grep \.$file_type > $tmpfile
+  group_nb=1
+  while [[ $(wc -c $tmpfile | awk '{print $1}' | xargs) > 1 ]]; do
+    file_list=$(head -$number_parameters_max $tmpfile | xargs)
+    tail -n +$((number_parameters_max + 1))  $tmpfile > $tmpfile_tmp
+    cp $tmpfile_tmp $tmpfile
+    echo "  echo \"Starting transfroming from PUML to SVG the group $group_nb/$number_groups of $number_parameters_max files\"" >> $command_file
+    group_nb=$((group_nb + 1))
+    echo "  $plantuml $file_list" >> $command_file
+  done
+  rm "$tmpfile"
+  echo "}" >> $command_file
+  echo "uml_to_svg_runner" >> $command_file
+  chmod 755 $command_file
+  echo $command_file
+
+}
+
 create_svg_files() {
   plantuml=$1
   out_dir=$2
-
+  keep_tmp_files=$3
   find $out_dir -type f -name '*.svg' | xargs rm -f  > /dev/null
 
   number_files=$(find $out_dir -type f -name '*.puml' 2>/dev/null | wc -l  | sed 's:[ \s\t]::g')
   # Much faster with one call
   pushd $out_dir >/dev/null 
-  files=*.puml
-  # echo "$plantuml $files"
-  bash -c "$plantuml $files" &
+  command_file=$(list_file_to_parameters "$plantuml" "puml" "$number_files")
+  bash $command_file &
+
+  # files=*.puml
+  # # echo "$plantuml $files"
+  # bash -c "$plantuml $files" &
   pid_plant_uml=$!
+  echo $pid_plant_uml
+  ps -edf | grep $pid_plant_uml
   plain_command_plantuml=plantuml
   echo $plantuml | grep plantuml > /dev/null 2>&1 || plain_command_plantuml=plantweb
   find . -name '*.svg' > previous_svg_list
-  while [[ $(ps -edf | grep $pid_plant_uml | grep $plain_command_plantuml) ]]; do
+  stop=0
+  while [[ $stop == 0 ]]; do
     sleep 1
     number_files_processed=$(find $out_dir -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
     find . -name '*.svg' > latest_svg_list
@@ -25,8 +76,17 @@ create_svg_files() {
       cp latest_svg_list previous_svg_list
     fi
     echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%        "
+    if [[ $number_files_processed == $number_files ]]; then
+      break
+    fi
   done
   popd >/dev/null 
+  if [[ $keep_tmp_files == 0 ]]; then
+    rm $command_file
+  else
+    info "Kept command file $command_file"
+  fi
+
 }
 function usage() {
     echo "$(basename $0) [ -i | --from_dir ]   Mandatory: Where the source files are located."
@@ -43,16 +103,7 @@ function usage() {
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ -h | --help ]                  This help"
 }
-function error() {
-  echo "ERROR: $1"
-  exit 0
-}
-function warning() {
-  echo "WARNING: $1"
-}
-function info() {
-  echo "INFO: $1"
-}
+
 function run_dotnet_locally() {
   from_dir=$1
   tmp_dir=$2
@@ -162,37 +213,45 @@ while [[ "$1" != "" ]]; do
     shift
 done
 
+basepath=$( dirname -- "$( readlink -f -- "$0" )" )
+
 # Set plantuml to java binary if it exists in current dir
 if [[ $force_docker_plantuml == 0 ]]; then  
-  plantuml=plantuml
+  plantuml=$basepath/plantuml.sh
 else
   plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
 fi
 if [[ $svg_dep == "secure" ]]; then
-  $plantuml -h > /dev/null 2>&1 
-  if [[ $? != 0 ]];then 
-      info "$plantuml not found trying /opt/homebrew/bin/plantuml."
-      plantuml=/opt/homebrew/bin/plantuml
-      $plantuml -h > /dev/null 2>&1 
-      if [[ $? != 0 ]];then 
-          info "$plantuml not found searching for an alternative."
-          if [[ $force_docker_plantuml == 0 ]]; then  
-            plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
-          else
-            plantuml=plantuml
-          fi
-          bash -c $plantuml -h > /dev/null 2>&1 
-          if [[ $? != 0 ]]; then
-              info "$plantuml not found searching trying with the jar file."
-              if [[ -f plantuml.jar ]];then 
-                plantuml="java -jar plantuml.jar"
-                bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
-              else
-                error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
-              fi
-          fi
-      fi
-  fi
+    info "Checking accessibility of $plantuml" 
+    $plantuml -h > /dev/null 2>&1 
+    if [[ $? != 0 ]];then 
+        info "$plantuml not found trying plantuml."
+        plantuml=plantuml
+        $plantuml -h > /dev/null 2>&1 
+        if [[ $? != 0 ]];then 
+            info "$plantuml not found trying /opt/homebrew/bin/plantuml."
+            plantuml=/opt/homebrew/bin/plantuml
+            $plantuml -h > /dev/null 2>&1 
+            if [[ $? != 0 ]];then 
+                info "$plantuml not found searching for an alternative."
+                if [[ $force_docker_plantuml == 0 ]]; then  
+                  plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+                else
+                  plantuml=plantuml
+                fi
+                bash -c $plantuml -h > /dev/null 2>&1 
+                if [[ $? != 0 ]]; then
+                    info "$plantuml not found searching trying with the jar file."
+                    if [[ -f plantuml.jar ]];then 
+                      plantuml="java -Djava.awt.headless=true  -Xmx8G -jar plantuml.jar"
+                      bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                    else
+                      error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                    fi
+                fi
+            fi
+        fi
+    fi
 fi
 
 info "Using plantuml from $plantuml"
@@ -208,7 +267,6 @@ case $from_language in
       rm $out_dir/*.yaml > /dev/null 2>&1
     fi
     tmp_dir=$(mktemp -d)
-    basepath=$( dirname -- "$( readlink -f -- "$0" )" )
     if [[ $force_docker_adapter == 0 ]]; then
       info "Running CSharp adapter locally or as docker image"
       run_dotnet_locally $from_dir $tmp_dir $statements || run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
@@ -234,7 +292,7 @@ $python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || 
 info "Transforming puml to svg"
 if [[ $svg_dep == "secure" ]]; then
     info "Transforming with plantuml ($plantuml)"
-    create_svg_files "$plantuml -tsvg -progress" "$out_dir" 
+    create_svg_files "$plantuml -tsvg " "$out_dir" "$keep_tmp_files"
 
 else
     wait_time=5
@@ -246,13 +304,13 @@ else
       sleep 1;
     done
     cd $out_dir && \
-      create_svg_files "plantweb --engine=plantuml" "." 
+      create_svg_files "plantweb --engine=plantuml" "." "$keep_tmp_files"
 fi
 if [[ ! -z $tmp_dir ]]; then
   if [[ $keep_tmp_files == 0 ]]; then
     rm -rf $tmp_dir
   else
-    info "Kept tmp_dir: $tmp_dir"
+    info "Kept tmp_dir: $tmp_dir and $command_file"
   fi
 fi
 $python -m webbrowser $out_dir/full-diagram-detailed.svg
