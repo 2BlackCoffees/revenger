@@ -60,13 +60,22 @@ create_svg_files() {
   # # echo "$plantuml $files"
   # bash -c "$plantuml $files" &
   pid_plant_uml=$!
-  echo $pid_plant_uml
-  ps -edf | grep $pid_plant_uml
-  plain_command_plantuml=plantuml
-  echo $plantuml | grep plantuml > /dev/null 2>&1 || plain_command_plantuml=plantweb
+
   find . -name '*.svg' > previous_svg_list
-  stop=0
-  while [[ $stop == 0 ]]; do
+  number_seconds_since_last_processed_files=$(date +%s)
+  started_time=$(date +%s)
+  last_diff_epoch=$(date +%s)
+  while [[ $(ps -edf | grep $pid_plant_uml | grep $command_file) ]]; do
+    unix_epoch=$(date +%s)
+    if [[ $((unix_epoch - last_printed_waiting_message_time)) -gt 10 ]]; then
+      export latest_file_name_svg=$(ls -t | grep '\.svg'| head -1 | sed 's:svg$:puml:')
+      latest_file_puml=""
+      if [[ -n $latest_file_name_svg ]]; then
+        latest_file_puml=$(ls -l  $latest_file_name_svg | awk '{print $9" (" $5" bytes)"}')
+      fi
+      echo "   - Still processing $latest_file_puml since $((unix_epoch - number_seconds_since_last_processed_files)) seconds - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%     "
+      last_printed_waiting_message_time=$unix_epoch
+    fi
     sleep 1
     number_files_processed=$(find $out_dir -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
     find . -name '*.svg' > latest_svg_list
@@ -74,11 +83,16 @@ create_svg_files() {
       latest_processed_files=$(diff previous_svg_list latest_svg_list | grep "> " | sed 's/^/      /g')
       echo -e "\n    Latest processed files:\n$latest_processed_files"
       cp latest_svg_list previous_svg_list
+      number_seconds_since_last_processed_files=$(date +%s)
+      last_printed_waiting_message_time=$unix_epoch
+
+      time_spent=$((number_seconds_since_last_processed_files - started_time))
+      echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%"
+
     fi
-    echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%        "
-    if [[ $number_files_processed == $number_files ]]; then
-      break
-    fi
+    # if [[ $number_files_processed == $number_files ]]; then
+    #   break
+    # fi
   done
   popd >/dev/null 
   if [[ $keep_tmp_files == 0 ]]; then
@@ -101,7 +115,13 @@ function usage() {
     echo "               [ --from_language csharp ]       Currently only python (default) or csharp adapter exist"
     echo "               [ --force_docker_adapter ]       If the adapter has a docker image use it as prio 1"
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
-    echo "               [ -h | --help ]                  This help"
+    echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
+    echo "  PlantUML specific options for the local plantuml script:"
+    echo "               [ --plantuml.java_heap_max_size ]    Defines the max size for the Java heap for plantuml/dotgraphviz ONLY if using the local script"
+    echo "               [ --plantuml.graphvizdotpath ]       Defines the path to the application graphvizdot"
+    echo "               [ --plantuml.plantumljarpath ]       Defines the path to plantuml jar file"
+    echo "               [ --plantuml.javapath ]              Defines the path to java binary command"
+    echo "               [ -h | --help ]                      This help"
 }
 
 function run_dotnet_locally() {
@@ -143,6 +163,8 @@ $var_pip --version | grep python3 >/dev/null 2>&1 || error "$var_pip does not su
 
 statements=""
 keep_tmp_files=0
+PLANTUML_DOT_JAVA_HEAP_MAX_SIZE=16G
+plantuml_timeout=900
 while [[ "$1" != "" ]]; do
     case $1 in
         --init )
@@ -198,6 +220,26 @@ while [[ "$1" != "" ]]; do
         -h | --help )
           usage;
           exit;
+          ;;
+        --plantuml.java_heap_max_size )
+          PLANTUML_DOT_JAVA_HEAP_MAX_SIZE=$2
+          shift
+          ;;
+        --timeout )
+          plantuml_timeout=$2
+          shift
+          ;;
+        --plantuml.graphvizdotpath )
+          PLANTUML_GRAPHVIZ_DOT_PATH=$2
+          shift
+          ;;
+        --plantuml.plantumljarpath )
+          PLANTUML_JAR_PATH=$2
+          shift
+          ;;
+        --plantuml.javapath ) 
+          PLANTUML_JAVAPATH=$2
+          shift
           ;;
         --trace | --info | --debug | --skip_uses_relation)
          statements="$statements $1"
@@ -292,7 +334,7 @@ $python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || 
 info "Transforming puml to svg"
 if [[ $svg_dep == "secure" ]]; then
     info "Transforming with plantuml ($plantuml)"
-    create_svg_files "$plantuml -tsvg " "$out_dir" "$keep_tmp_files"
+    create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_tmp_files"
 
 else
     wait_time=5
