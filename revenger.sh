@@ -13,30 +13,30 @@ function info() {
 
 list_file_to_parameters() {
   plant_uml=$1
-  file_type=$2
-  number_files=$3
+  number_files=$2
+  list_remaining_puml=$3
 
+  file_type=".puml"
   export number_parameters_max=1500
   export number_groups=$((number_files/number_parameters_max))
   number_groups_int=$(printf "%.0f\n" $number_groups)
   if [[ $number_groups_int > $number_groups ]]; then
     number_groups=$number_groups_int
   fi
-  tmpfile=$(mktemp)
-  tmpfile_tmp=$(mktemp)
+  list_remaining_puml_tmp=$(mktemp)
   command_file=$(mktemp)
   echo "function uml_to_svg_runner() {" > $command_file
-  ls | grep \.$file_type > $tmpfile
+  ls | grep \.$file_type > $list_remaining_puml
   group_nb=1
-  while [[ $(wc -c $tmpfile | awk '{print $1}' | xargs) > 1 ]]; do
-    file_list=$(head -$number_parameters_max $tmpfile | xargs)
-    tail -n +$((number_parameters_max + 1))  $tmpfile > $tmpfile_tmp
-    cp $tmpfile_tmp $tmpfile
+  while [[ $(wc -c $list_remaining_puml | awk '{print $1}' | xargs) > 1 ]]; do
+    file_list=$(head -$number_parameters_max $list_remaining_puml | xargs)
+    tail -n +$((number_parameters_max + 1))  $list_remaining_puml > $list_remaining_puml_tmp
+    cp $list_remaining_puml_tmp $list_remaining_puml
     echo "  echo \"Starting transfroming from PUML to SVG the group $group_nb/$number_groups of $number_parameters_max files\"" >> $command_file
     group_nb=$((group_nb + 1))
     echo "  $plantuml $file_list" >> $command_file
   done
-  rm "$tmpfile"
+  rm "$list_remaining_puml"
   echo "}" >> $command_file
   echo "uml_to_svg_runner" >> $command_file
   chmod 755 $command_file
@@ -44,27 +44,45 @@ list_file_to_parameters() {
 
 }
 
+get_list_puml_not_processed() {
+  process_missing_puml_only=$1
+  list_remaining_puml=$(mktemp)
+  if [[ $process_svg_only == 0 ]]; then
+    find $out_dir -type f -name '*.svg' | xargs rm -f  > /dev/null
+    list_all_puml=$(mktemp)
+    list_puml_done=$(mktemp)
+    find . -type f -name "*.puml" > $list_all_puml 2>/dev/null
+    find . -type f -name "*.svg" | sed 's:\.puml:\.svg:' > $list_puml_done 2>/dev/null
+    diff $list_puml_done $list_all_puml | grep '>' | sed 's:^[\> ]*::g' > $list_remaining_puml
+    rm $list_puml_done $list_all_puml
+  else
+    find . -name "*.svg" -size 0 -type f | xargs rm -f  > /dev/null
+    find . -type f -name "*.puml" > $list_remaining_puml 2>/dev/null
+  fi
+  echo $list_remaining_puml
+
+}
+
 create_svg_files() {
   plantuml=$1
   out_dir=$2
   keep_tmp_files=$3
-  find $out_dir -type f -name '*.svg' | xargs rm -f  > /dev/null
+  process_missing_puml_only=$4
+  list_remaining_puml=$(get_list_puml_not_processed $process_missing_puml_only)
+  number_files=$(wc -l $list_remaining_puml | sed 's:[ \s\t]::g')
 
-  number_files=$(find $out_dir -type f -name '*.puml' 2>/dev/null | wc -l  | sed 's:[ \s\t]::g')
-  # Much faster with one call
   pushd $out_dir >/dev/null 
-  command_file=$(list_file_to_parameters "$plantuml" "puml" "$number_files")
+  command_file=$(list_file_to_parameters "$plantuml" "$number_files" "$list_remaining_puml")
   bash $command_file &
 
-  # files=*.puml
-  # # echo "$plantuml $files"
-  # bash -c "$plantuml $files" &
   pid_plant_uml=$!
 
   find . -name '*.svg' > previous_svg_list
   number_seconds_since_last_processed_files=$(date +%s)
   started_time=$(date +%s)
   last_diff_epoch=$(date +%s)
+  total_size_puml=$(cat $list_remaining_puml | ls -l | awk '{sum+=$5;} END {print sum;}')
+  processed_size_puml=0
   while [[ $(ps -edf | grep $pid_plant_uml | grep $command_file) ]]; do
     unix_epoch=$(date +%s)
     if [[ $((unix_epoch - last_printed_waiting_message_time)) -gt 10 ]]; then
@@ -75,6 +93,7 @@ create_svg_files() {
       fi
       echo "   - Still processing $latest_file_puml since $((unix_epoch - number_seconds_since_last_processed_files)) seconds - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%     "
       last_printed_waiting_message_time=$unix_epoch
+
     fi
     sleep 1
     number_files_processed=$(find $out_dir -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
@@ -85,9 +104,10 @@ create_svg_files() {
       cp latest_svg_list previous_svg_list
       number_seconds_since_last_processed_files=$(date +%s)
       last_printed_waiting_message_time=$unix_epoch
+      processed_size_puml=$(cat $latest_svg_list | sed 's:\.svg:\.puml' | ls -l | awk '{sum+=$5;} END {print sum;}')
 
       time_spent=$((number_seconds_since_last_processed_files - started_time))
-      echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%"
+      echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))% ($processed_size_puml/$total_size_puml bytes proecessed = $((processed_size_puml/total_size_puml))% )"
 
     fi
     # if [[ $number_files_processed == $number_files ]]; then
@@ -116,6 +136,7 @@ function usage() {
     echo "               [ --force_docker_adapter ]       If the adapter has a docker image use it as prio 1"
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
+    echo "               [ --process_svg_only ]          Skip puml generation and process (or continue processing svg generation)"
     echo "  PlantUML specific options for the local plantuml script:"
     echo "               [ --plantuml.java_heap_max_size ]    Defines the max size for the Java heap for plantuml/dotgraphviz ONLY if using the local script"
     echo "               [ --plantuml.graphvizdotpath ]       Defines the path to the application graphvizdot"
@@ -157,6 +178,7 @@ var_pip=pip3
 tmp_dir=
 force_docker_adapter=0
 force_docker_plantuml=0
+process_svg_only=0
 $var_pip -h >/dev/null 2>&1 || var_pip=pip
 $var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make sure python3 and pip are installed (See https://www.python.org/downloads/)."
 $var_pip --version | grep python3 >/dev/null 2>&1 || error "$var_pip does not support python3! Install python3 and pip3."
@@ -187,12 +209,15 @@ while [[ "$1" != "" ]]; do
           out_dir=$(readlink -f $tmp_out);
           shift;
           ;;
+        --process_svg_only)
+          process_svg_only=1
+          ;;
         --force_docker_adapter)
           force_docker_adapter=1
-        ;;
+          ;;
         --force_docker_plantuml)
           force_docker_plantuml=1
-        ;;
+          ;;
         -d | --plantuml_install )
           info "Installing plantuml dependency for rendering SVC....."
           if java -version 2>&1 >/dev/null | grep -E "\S+\s+version" ; then
@@ -257,84 +282,85 @@ done
 
 basepath=$( dirname -- "$( readlink -f -- "$0" )" )
 
-# Set plantuml to java binary if it exists in current dir
-if [[ $force_docker_plantuml == 0 ]]; then  
-  plantuml=$basepath/plantuml.sh
-else
-  plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+if [[ $process_svg_only == 0 ]]; then
+  # Set plantuml to java binary if it exists in current dir
+  if [[ $force_docker_plantuml == 0 ]]; then  
+    plantuml=$basepath/plantuml.sh
+  else
+    plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+  fi
+  if [[ $svg_dep == "secure" ]]; then
+      info "Checking accessibility of $plantuml" 
+      $plantuml -h > /dev/null 2>&1 
+      if [[ $? != 0 ]];then 
+          info "$plantuml not found trying plantuml."
+          plantuml=plantuml
+          $plantuml -h > /dev/null 2>&1 
+          if [[ $? != 0 ]];then 
+              info "$plantuml not found trying /opt/homebrew/bin/plantuml."
+              plantuml=/opt/homebrew/bin/plantuml
+              $plantuml -h > /dev/null 2>&1 
+              if [[ $? != 0 ]];then 
+                  info "$plantuml not found searching for an alternative."
+                  if [[ $force_docker_plantuml == 0 ]]; then  
+                    plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+                  else
+                    plantuml=plantuml
+                  fi
+                  bash -c $plantuml -h > /dev/null 2>&1 
+                  if [[ $? != 0 ]]; then
+                      info "$plantuml not found searching trying with the jar file."
+                      if [[ -f plantuml.jar ]];then 
+                        plantuml="java -Djava.awt.headless=true  -Xmx8G -jar plantuml.jar"
+                        bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                      else
+                        error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                      fi
+                  fi
+              fi
+          fi
+      fi
+  fi
+
+  info "Using plantuml from $plantuml"
+  info "Using adapter from language $from_language"
+  if [[ $keep_tmp_files == 0 ]]; then
+    info "Cleaning output directory"
+    find $out_dir -type f | xargs rm -f  > /dev/null
+  fi
+
+  case $from_language in
+    csharp )
+      if [[ $keep_tmp_files == 0 ]]; then
+        rm $out_dir/*.yaml > /dev/null 2>&1
+      fi
+      tmp_dir=$(mktemp -d)
+      if [[ $force_docker_adapter == 0 ]]; then
+        info "Running CSharp adapter locally or as docker image"
+        run_dotnet_locally $from_dir $tmp_dir $statements || run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
+      else
+        info "Running CSharp adapter as Docker image"
+        run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used from the docker image: Make sure docker is installed or try to run dotnet locally."
+      fi
+      from_dir=$tmp_dir
+      cp -r $tmp_dir/* $out_dir || error "no files could be found in the temporary directory $tmp_dir"
+
+      ;;
+    python )
+      ;;
+    * )
+      error "Language $from_language is currently not supported please make a request if needed (No promise can be made on when it will be ready and if it will be done)"
+      ;;
+  esac
+
+
+  info "Generating puml files"
+  $python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
 fi
-if [[ $svg_dep == "secure" ]]; then
-    info "Checking accessibility of $plantuml" 
-    $plantuml -h > /dev/null 2>&1 
-    if [[ $? != 0 ]];then 
-        info "$plantuml not found trying plantuml."
-        plantuml=plantuml
-        $plantuml -h > /dev/null 2>&1 
-        if [[ $? != 0 ]];then 
-            info "$plantuml not found trying /opt/homebrew/bin/plantuml."
-            plantuml=/opt/homebrew/bin/plantuml
-            $plantuml -h > /dev/null 2>&1 
-            if [[ $? != 0 ]];then 
-                info "$plantuml not found searching for an alternative."
-                if [[ $force_docker_plantuml == 0 ]]; then  
-                  plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
-                else
-                  plantuml=plantuml
-                fi
-                bash -c $plantuml -h > /dev/null 2>&1 
-                if [[ $? != 0 ]]; then
-                    info "$plantuml not found searching trying with the jar file."
-                    if [[ -f plantuml.jar ]];then 
-                      plantuml="java -Djava.awt.headless=true  -Xmx8G -jar plantuml.jar"
-                      bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
-                    else
-                      error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
-                    fi
-                fi
-            fi
-        fi
-    fi
-fi
-
-info "Using plantuml from $plantuml"
-info "Using adapter from language $from_language"
-if [[ $keep_tmp_files == 0 ]]; then
-  info "Cleaning output directory"
-  find $out_dir -type f | xargs rm -f  > /dev/null
-fi
-
-case $from_language in
-  csharp )
-    if [[ $keep_tmp_files == 0 ]]; then
-      rm $out_dir/*.yaml > /dev/null 2>&1
-    fi
-    tmp_dir=$(mktemp -d)
-    if [[ $force_docker_adapter == 0 ]]; then
-      info "Running CSharp adapter locally or as docker image"
-      run_dotnet_locally $from_dir $tmp_dir $statements || run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
-    else
-      info "Running CSharp adapter as Docker image"
-      run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used from the docker image: Make sure docker is installed or try to run dotnet locally."
-    fi
-    from_dir=$tmp_dir
-    cp -r $tmp_dir/* $out_dir || error "no files could be found in the temporary directory $tmp_dir"
-
-    ;;
-  python )
-    ;;
-  * )
-    error "Language $from_language is currently not supported please make a request if needed (No promise can be made on when it will be ready and if it will be done)"
-    ;;
-esac
-
-
-info "Generating puml files"
-$python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
-
 info "Transforming puml to svg"
 if [[ $svg_dep == "secure" ]]; then
     info "Transforming with plantuml ($plantuml)"
-    create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_tmp_files"
+    create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_tmp_files" "$process_svg_only"
 
 else
     wait_time=5
