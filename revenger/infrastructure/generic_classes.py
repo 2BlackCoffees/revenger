@@ -63,3 +63,10 @@ class GenericLogger(ABC):
     def log_trace(self, line: str):
         """
         """
+
+
+class GenericPythonAdapter(ABC):
+    @abstractmethod
+    def read_python_ast(self, datastructure: GenericDatastructure, filename: str, from_dir: str) -> any:
+        """
+        """
