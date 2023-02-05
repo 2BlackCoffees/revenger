@@ -172,10 +172,46 @@ class PythonAdapterV2(GenericPythonAdapter):
             self.datastructure = datastructure
             self.filename = filename
             self.filemodule = filemodule
-            self.from_import: Dict[str, str] = {}
             self.logger = logger
+            self.from_import: Dict[str, str] = {}
+            self.active_class_name_list: List[str] = []
+            self.active_method_name_list: List[str] = []
+            self.namespace_list: List[str] = []
 
-            self.current_class_datastructure: GenericSubDataStructure = None
+        def get_current_class_name(self) -> str:
+            if len(self.active_class_name_list) > 0:
+                return self.active_class_name_list[-1]
+            return "##NoClass##"
+
+        def analyse_class_def(self, node: ClassDef) -> Tuple[GenericSubDataStructure | None, str]:
+            filemodule: str = ".".join(self.namespace_list)
+            active_class_name: str = None
+
+            if len(self.active_class_name_list) > 0:
+                active_class_name = self.active_class_name_list[-1]
+
+            fqdn_class_name: str = f'{filemodule}.{active_class_name}.{node.name}'
+
+            parent_sub_datastructure: GenericSubDataStructure = self.datastructure.get_datastructures_from_class_name(
+                self.get_current_class_name())
+
+            if parent_sub_datastructure is not None:
+                parent_sub_datastructure.add_inner_class(fqdn_class_name)
+
+            self.datastructure.append_class(self.filename, filemodule, self.from_import, fqdn_class_name, self.namespace_list)
+
+            sub_datastructure: GenericDatastructure = self.datastructure.get_datastructures_from_class_name(fqdn_class_name)
+            if sub_datastructure is not None:
+                for base in node.bases:
+                    if isinstance(base, ast.Name):
+                        base_class = base.id
+                        if base_class == 'ABC':
+                            self.sub_datastructure.set_abstract()
+                        else:
+                            self.sub_datastructure.add_base_class(base_class)
+
+            return sub_datastructure, fqdn_class_name
+
 
         def visit_ImportFrom(self, node: ImportFrom) -> Any:
             module_path = node.module
@@ -191,22 +227,33 @@ class PythonAdapterV2(GenericPythonAdapter):
             ast.NodeVisitor.generic_visit(self, node)
 
         def visit_ClassDef(self, node: ClassDef) -> Any:
-            class_name: str = f'{self.filemodule}.{node.name}'
-            self.logger.log_warn(f'Created class_name {class_name} from filemodule: >{self.filemodule}< and >{node.name}<')
 
-            self.current_class_datastructure: GenericSubDataStructure= \
-                self.datastructure.append_class(self.filename, self.filemodule, self.from_import, class_name, self.filemodule.split('.'))
-            self.logger.log_debug(
-                f' Creating class {class_name} from file {self.filename}, filemodule: {self.filemodule}, from_import: {self.from_import}')
+            sub_datastructure, fqdn_class_name = self.analyse_class_def(node)
 
-            # TODO: How to idenitify node is base class when using "visit_Name"
-            for base in node.bases:
-                if isinstance(base, ast.Name):
-                    base_class = base.id
-                    if base_class == 'ABC':
-                        self.current_class_datastructure.set_abstract()
-                    else:
-                        self.class_datastructure.add_base_class(base_class)
+            self.active_class_name_list.append(fqdn_class_name)
+            ast.NodeVisitor.generic_visit(self, node)
+
+            if len(self.active_class_name_list) > 0:
+                self.active_class_name_list.pop()
+
+
+
+            # class_name: str = f'{self.filemodule}.{node.name}'
+            # self.logger.log_warn(f'Created class_name {class_name} from filemodule: >{self.filemodule}< and >{node.name}<')
+            #
+            # self.current_class_datastructure: GenericSubDataStructure= \
+            #     self.datastructure.append_class(self.filename, self.filemodule, self.from_import, class_name, self.filemodule.split('.'))
+            # self.logger.log_debug(
+            #     f' Creating class {class_name} from file {self.filename}, filemodule: {self.filemodule}, from_import: {self.from_import}')
+            #
+            # # TODO: How to idenitify node is base class when using "visit_Name"
+            # for base in node.bases:
+            #     if isinstance(base, ast.Name):
+            #         base_class = base.id
+            #         if base_class == 'ABC':
+            #             self.current_class_datastructure.set_abstract()
+            #         else:
+            #             self.class_datastructure.add_base_class(base_class)
 
             # for class_body in node.body:
             #     if isinstance(class_body, ast.ClassDef):
@@ -291,9 +338,28 @@ class PythonAdapterV2(GenericPythonAdapter):
             #                         self.logger.log_debug(
             #                             f'   Function type from file {filename} method {method_name}, member_type: {member_type}, is_member: {is_member}')
             #                         class_datastructure.add_variable(member_name, member_type, is_member)
-            ast.NodeVisitor.generic_visit(self, node)
 
-        # def visit_Bas
+        def visit_AnnAssign(self, node: AnnAssign) -> Any:
+            static_name: str = node.target.id
+            static_type: str = CommonInfrastructure.NOT_EXTRACTED
+            if isinstance(node.annotation, ast.Name):
+                static_type = self.get_type(self.datastructure.get_skip_types(), \
+                                            node.annotation.id, self.from_import, self.filemodule)
+                self.logger.log_debug(f' Analyzing ast.Name static type {static_type} from file {self.filename}')
+            elif isinstance(node.annotation, ast.Subscript):
+                if isinstance(node.annotation.value, ast.Name) and \
+                        isinstance(node.annotation.slice, ast.Name):
+                    member_sub_type = self.get_type(node.get_skip_types(), \
+                                                    node.annotation.slice.id, self.from_import, self.filemodule)
+                    static_type = node.annotation.value.id + '[' + \
+                                  member_sub_type + ']'
+                    self.logger.log_debug(
+                        f' Analyzing ast.Subscript static type {static_type} from file {self.filename}')
+            self.logger.log_debug(
+                f'   Static type from file {self.filename} found static_name: {static_name}, static_type: {static_type}')
+            self.current_class_datastructure.add_static(static_name, static_type)
+
+
         # def visit_ClassDef(self, node):
         #     print(node.name)
         #     ast.NodeVisitor.generic_visit(self, node)
