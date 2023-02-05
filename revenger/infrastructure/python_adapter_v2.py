@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from _ast import ImportFrom, ClassDef, Name, AnnAssign
+from _ast import ImportFrom, ClassDef, Name, AnnAssign, FunctionDef
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Any
 import ast
@@ -11,26 +11,13 @@ from infrastructure.generic_classes import GenericSaver
 from infrastructure.generic_classes import GenericLogger
 from infrastructure.generic_classes import GenericPythonAdapter
 from infrastructure.common import CommonInfrastructure
-
+from domain.datastructure import Datastructure
 
 class PythonAdapterV2(GenericPythonAdapter):
     def __init__(self, saver: GenericSaver, logger: GenericLogger):
         self.saver = saver
         self.logger = logger
         self.logger.log_warn(f' ============== Analysing With Py Adapter V2 =======================')
-
-    def get_type(self, skip_types: List[str], initial_type: str, type_dict: Dict[str, str], filemodule: str) -> str:
-        member_sub_type = initial_type
-        if member_sub_type in type_dict.keys():
-            member_sub_type = type_dict[member_sub_type]
-            self.logger.log_debug(
-                f'  Type {member_sub_type} *** found *** in {type_dict.keys()} saving as type from module {member_sub_type}')
-        elif member_sub_type not in skip_types:
-            member_sub_type = f'{filemodule}.{member_sub_type}'
-            self.logger.log_debug(f'  Created sub type {member_sub_type} from filemodule: >{filemodule}<')
-            self.logger.log_debug(
-                f'  Type {member_sub_type} not found in {type_dict.keys()} saving as type from module {member_sub_type}')
-        return member_sub_type
 
     @staticmethod
     def __get_namespace_name_from_filename(filename: str, from_dir: str) -> str:
@@ -183,14 +170,29 @@ class PythonAdapterV2(GenericPythonAdapter):
                 return self.active_class_name_list[-1]
             return "##NoClass##"
 
+        def get_type(self, skip_types: List[str], initial_type: str, type_dict: Dict[str, str], filemodule: str) -> str:
+            member_sub_type = initial_type
+            if member_sub_type in type_dict.keys():
+                member_sub_type = type_dict[member_sub_type]
+                self.logger.log_debug(
+                    f'  Type {member_sub_type} *** found *** in {type_dict.keys()} saving as type from module {member_sub_type}')
+            elif member_sub_type not in skip_types:
+                member_sub_type = f'{filemodule}.{member_sub_type}'
+                self.logger.log_debug(f'  Created sub type {member_sub_type} from filemodule: >{filemodule}<')
+                self.logger.log_debug(
+                    f'  Type {member_sub_type} not found in {type_dict.keys()} saving as type from module {member_sub_type}')
+            return member_sub_type
+
+        # TODO: Move it to classDef itself and improve implementation
         def analyse_class_def(self, node: ClassDef) -> Tuple[GenericSubDataStructure | None, str]:
-            filemodule: str = ".".join(self.namespace_list)
             active_class_name: str = None
 
             if len(self.active_class_name_list) > 0:
                 active_class_name = self.active_class_name_list[-1]
 
-            fqdn_class_name: str = f'{filemodule}.{active_class_name}.{node.name}'
+            fqdn_class_name: str = f'{self.filemodule}.{node.name}'
+            if active_class_name is not None:
+                fqdn_class_name = f'{self.filemodule}.{active_class_name}.{node.name}'
 
             parent_sub_datastructure: GenericSubDataStructure = self.datastructure.get_datastructures_from_class_name(
                 self.get_current_class_name())
@@ -198,17 +200,17 @@ class PythonAdapterV2(GenericPythonAdapter):
             if parent_sub_datastructure is not None:
                 parent_sub_datastructure.add_inner_class(fqdn_class_name)
 
-            self.datastructure.append_class(self.filename, filemodule, self.from_import, fqdn_class_name, self.namespace_list)
+            self.datastructure.append_class(self.filename, self.filemodule, self.from_import, fqdn_class_name, self.namespace_list)
 
-            sub_datastructure: GenericDatastructure = self.datastructure.get_datastructures_from_class_name(fqdn_class_name)
+            sub_datastructure: GenericSubDataStructure = self.datastructure.get_datastructures_from_class_name(fqdn_class_name)
             if sub_datastructure is not None:
                 for base in node.bases:
                     if isinstance(base, ast.Name):
                         base_class = base.id
                         if base_class == 'ABC':
-                            self.sub_datastructure.set_abstract()
+                            sub_datastructure.set_abstract()
                         else:
-                            self.sub_datastructure.add_base_class(base_class)
+                            sub_datastructure.add_base_class(base_class)
 
             return sub_datastructure, fqdn_class_name
 
@@ -236,109 +238,6 @@ class PythonAdapterV2(GenericPythonAdapter):
             if len(self.active_class_name_list) > 0:
                 self.active_class_name_list.pop()
 
-
-
-            # class_name: str = f'{self.filemodule}.{node.name}'
-            # self.logger.log_warn(f'Created class_name {class_name} from filemodule: >{self.filemodule}< and >{node.name}<')
-            #
-            # self.current_class_datastructure: GenericSubDataStructure= \
-            #     self.datastructure.append_class(self.filename, self.filemodule, self.from_import, class_name, self.filemodule.split('.'))
-            # self.logger.log_debug(
-            #     f' Creating class {class_name} from file {self.filename}, filemodule: {self.filemodule}, from_import: {self.from_import}')
-            #
-            # # TODO: How to idenitify node is base class when using "visit_Name"
-            # for base in node.bases:
-            #     if isinstance(base, ast.Name):
-            #         base_class = base.id
-            #         if base_class == 'ABC':
-            #             self.current_class_datastructure.set_abstract()
-            #         else:
-            #             self.class_datastructure.add_base_class(base_class)
-
-            # for class_body in node.body:
-            #     if isinstance(class_body, ast.ClassDef):
-            #         inner_class_name: str = f'{class_name}.{class_body.name}'
-            #         self.logger.log_debug(
-            #             f'  Created inner class name {inner_class_name} from filemodule: >{self.filemodule}< and >{node.name}<')
-            #         from_parent: str = node.name
-            #         self.logger.log_debug(f'  Created from_parent name {from_parent}')
-            #         class_datastructure.add_inner_class(inner_class_name)
-            #         self.analyze_class_def(class_body, self.datastructure, self.filename, from_import, filemodule, from_parent)
-            #
-            #     if isinstance(class_body, ast.AnnAssign):
-            #         static_name: str = class_body.target.id
-            #         static_type: str = CommonInfrastructure.NOT_EXTRACTED
-            #         if isinstance(class_body.annotation, ast.Name):
-            #             static_type = self.get_type(datastructure.get_skip_types(), \
-            #                                         class_body.annotation.id, from_import, filemodule)
-            #             self.logger.log_debug(f' Analyzing ast.Name static type {static_type} from file {filename}')
-            #         elif isinstance(class_body.annotation, ast.Subscript):
-            #             if isinstance(class_body.annotation.value, ast.Name) and \
-            #                     isinstance(class_body.annotation.slice, ast.Name):
-            #                 member_sub_type = self.get_type(datastructure.get_skip_types(), \
-            #                                                 class_body.annotation.slice.id, from_import, filemodule)
-            #                 static_type = class_body.annotation.value.id + '[' + \
-            #                               member_sub_type + ']'
-            #                 self.logger.log_debug(
-            #                     f' Analyzing ast.Subscript static type {static_type} from file {filename}')
-            #         self.logger.log_debug(
-            #             f'   Static type from file {filename} found static_name: {static_name}, static_type: {static_type}')
-            #         class_datastructure.add_static(static_name, static_type)
-            #
-            #     if isinstance(class_body, ast.FunctionDef):
-            #         method_name: str = class_body.name
-            #         arguments: List[Tuple[str, str]] = []
-            #         for argument in class_body.args.args:
-            #             if argument.arg != 'self':
-            #                 user_type: str = self.get_type(datastructure.get_skip_types(), \
-            #                                                argument.annotation.id, from_import, filemodule) \
-            #                     if hasattr(argument, 'annotation') and isinstance(argument.annotation, ast.Name) \
-            #                     else CommonInfrastructure.NOT_PROVIDED_TYPE
-            #                 arguments.append((argument.arg, user_type))
-            #         if method_name != '':
-            #             is_private: bool = method_name.startswith('_')
-            #             class_datastructure.add_method(method_name, \
-            #                                            [(argument_name, argument_type) for argument_name, argument_type
-            #                                             in
-            #                                             arguments],
-            #                                            is_private)
-            #         for fun_body in class_body.body:
-            #             if isinstance(fun_body, ast.AnnAssign):
-            #                 target = fun_body.target
-            #                 if isinstance(target, ast.Attribute) or isinstance(target, ast.Name):
-            #                     is_member: bool = False
-            #                     if isinstance(target, ast.Attribute):
-            #                         member_name: str = 'self.' + target.attr
-            #                         member_type: str = ""
-            #                         annotation = fun_body.annotation
-            #                         is_member = True
-            #                     else:
-            #                         member_name: str = f'{method_name}.{target.id}'
-            #                         self.logger.log_debug(
-            #                             f'  Created member_name {member_name} from method_name: >{method_name}> and >{target.id}<')
-            #                         member_type: str = ""
-            #                         annotation = fun_body.annotation
-            #                     if isinstance(annotation, ast.Subscript):
-            #                         if isinstance(annotation.value, ast.Name) and \
-            #                                 isinstance(annotation.slice, ast.Name) and \
-            #                                 hasattr(annotation, 'slice'):
-            #                             self.logger.log_debug(f' Subscript function type from file {filename}')
-            #                             member_sub_type = self.get_type(datastructure.get_skip_types(), \
-            #                                                             annotation.slice.id, from_import, filemodule)
-            #
-            #                             member_type = annotation.value.id + '[' + member_sub_type + ']'
-            #                     elif isinstance(annotation, ast.Name):
-            #                         self.logger.log_debug(f' Name function type from file {filename}')
-            #                         member_type = self.get_type(datastructure.get_skip_types(), \
-            #                                                     annotation.id, from_import, filemodule)
-            #                     else:
-            #                         self.saver.append(f'\'WARNING: Will not import member named {member_name}')
-            #                     if len(member_type) > 0 and (
-            #                             is_member or member_type not in datastructure.get_skip_types()):
-            #                         self.logger.log_debug(
-            #                             f'   Function type from file {filename} method {method_name}, member_type: {member_type}, is_member: {is_member}')
-            #                         class_datastructure.add_variable(member_name, member_type, is_member)
-
         def visit_AnnAssign(self, node: AnnAssign) -> Any:
             static_name: str = node.target.id
             static_type: str = CommonInfrastructure.NOT_EXTRACTED
@@ -349,7 +248,7 @@ class PythonAdapterV2(GenericPythonAdapter):
             elif isinstance(node.annotation, ast.Subscript):
                 if isinstance(node.annotation.value, ast.Name) and \
                         isinstance(node.annotation.slice, ast.Name):
-                    member_sub_type = self.get_type(node.get_skip_types(), \
+                    member_sub_type = self.get_type(self.datastructure.get_skip_types(), \
                                                     node.annotation.slice.id, self.from_import, self.filemodule)
                     static_type = node.annotation.value.id + '[' + \
                                   member_sub_type + ']'
@@ -357,18 +256,73 @@ class PythonAdapterV2(GenericPythonAdapter):
                         f' Analyzing ast.Subscript static type {static_type} from file {self.filename}')
             self.logger.log_debug(
                 f'   Static type from file {self.filename} found static_name: {static_name}, static_type: {static_type}')
-            self.current_class_datastructure.add_static(static_name, static_type)
+            sub_datastructure: GenericSubDataStructure = self.datastructure.get_datastructures_from_class_name(
+                self.get_current_class_name())
 
+            sub_datastructure.add_static(static_name, static_type)
 
-        # def visit_ClassDef(self, node):
-        #     print(node.name)
-        #     ast.NodeVisitor.generic_visit(self, node)
-        #
-        # def visit_FunctionDef(self, node):
-        #     print(node.name)
-        #     ast.NodeVisitor.generic_visit(self, node)
-        #
-        # def visit_AnnAssign(self, node):
-        #     print(node)
-        #     ast.NodeVisitor.generic_visit(self, node)
+            # Instance and method vars
+            method: Datastructure.Method = sub_datastructure.get_method(self.active_method_name_list[-1])
+            target = node.target
+            if isinstance(target, ast.Attribute) or isinstance(target, ast.Name):
+                is_member: bool = False
+                if isinstance(target, ast.Attribute):
+                    member_name: str = 'self.' + target.attr
+                    member_type: str = ""
+                    annotation = node.annotation
+                    is_member = True
+                else:
+                    member_name: str = f'{self.active_method_name_list[-1]}.{target.id}'
+                    self.logger.log_debug(
+                        f'  Created member_name {member_name} from method_name: >{self.active_method_name_list[-1]}> and >{target.id}<')
+                    member_type: str = ""
+                    annotation = node.annotation
+                if isinstance(annotation, ast.Subscript):
+                    if isinstance(annotation.value, ast.Name) and \
+                            isinstance(annotation.slice, ast.Name) and \
+                            hasattr(annotation, 'slice'):
+                        self.logger.log_debug(f' Subscript function type from file {self.filename}')
+                        member_sub_type = self.get_type(self.datastructure.get_skip_types(), \
+                                                        annotation.slice.id, self.from_import, self.filemodule)
 
+                        member_type = annotation.value.id + '[' + member_sub_type + ']'
+                elif isinstance(annotation, ast.Name):
+                    self.logger.log_debug(f' Name function type from file {self.filename}')
+                    member_type = self.get_type(self.datastructure.get_skip_types(), \
+                                                annotation.id, self.from_import, self.filemodule)
+                # else:
+                #     self.saver.append(f'\'WARNING: Will not import member named {member_name}')
+                if len(member_type) > 0 and (
+                        is_member or member_type not in self.datastructure.get_skip_types()):
+                    self.logger.log_debug(
+                        f'   Function type from file {self.filename} method {method.method_name}, member_type: {member_type}, is_member: {is_member}')
+                    sub_datastructure.add_variable(member_name, member_type, is_member)
+                else:
+                    method.variables.append(Datastructure.Method.MethodVariable(member_name, member_type))
+
+            ast.NodeVisitor.generic_visit(self, node)
+
+        def visit_FunctionDef(self, node: FunctionDef) -> Any:
+            sub_datastructure: GenericSubDataStructure = self.datastructure.get_datastructures_from_class_name(
+                self.get_current_class_name())
+            method_name: str = node.name
+            self.active_method_name_list.append(method_name)
+
+            arguments: List[Tuple[str, str]] = []
+            for argument in node.args.args:
+                if argument.arg != 'self':
+                    user_type: str = self.get_type(self.datastructure.get_skip_types(), \
+                                                   argument.annotation.id, self.from_import, self.filemodule) \
+                        if hasattr(argument, 'annotation') and isinstance(argument.annotation, ast.Name) \
+                        else CommonInfrastructure.NOT_PROVIDED_TYPE
+                    arguments.append((argument.arg, user_type))
+            if method_name != '':
+                is_private: bool = method_name.startswith('_')
+                sub_datastructure.add_method(method_name, \
+                                               [(argument_name, argument_type) for argument_name, argument_type in
+                                                arguments],
+                                               is_private, ()) # TODO: method variables
+
+            ast.NodeVisitor.generic_visit(self, node)
+            if len(self.active_method_name_list) > 0:
+                self.active_method_name_list.pop()

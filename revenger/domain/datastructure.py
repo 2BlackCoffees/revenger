@@ -104,7 +104,7 @@ class Datastructure(GenericDatastructure):
  
         def add_static(self, static_name: str, static_type: str) -> None:
             self.statics.append(Datastructure.Static(static_name, static_type))
-        def add_method(self, method_name: str, arguments_tuple: List[Tuple[str, str]], is_private: bool, method_variables_tuple: List[Tuple[str, str]] = None) -> None:
+        def add_method(self, method_name: str, arguments_tuple: List[Tuple[str, str]], is_private: bool, method_variables_tuple: List[Tuple[str, str]] = ()) -> None:
             arguments = [Datastructure.Method.ParameterType(parameter, user_type) for parameter, user_type in arguments_tuple]
             method_variables = [Datastructure.Method.MethodVariable(variable_name, variable_type) for variable_name, variable_type in method_variables_tuple]
             self.methods.append(Datastructure.Method(method_name, arguments, is_private, method_variables))
@@ -143,6 +143,12 @@ class Datastructure(GenericDatastructure):
             return self.filemodule
         def get_name_space_list(self) -> None:
             return self.name_space_list
+
+        def get_method(self, method_name: str) -> Datastructure.Method:
+            for method in self.methods:
+                if method.method_name == method_name:
+                    return method
+            return None
 
     def __init__(self, language_dependent: LanguageDependent, logger: Logger):
         self.class_to_datastructure: Dict[str, Datastructure.SubDataStructure] = {}
