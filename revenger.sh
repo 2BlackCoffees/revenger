@@ -1,14 +1,18 @@
 #!/bin/bash
 
 function error() {
-  echo "ERROR: $1"
+  echo -e "ERROR: $1"
   exit 0
 }
 function warning() {
-  echo "WARNING: $1"
+  echo -e "WARNING: $1"
 }
 function info() {
-  echo "INFO: $1"
+  echo -e "INFO: $1"
+}
+
+function info_overwrite_line() {
+  echo -ne "INFO: $1                  \033[0K\r"
 }
 
 list_file_to_parameters() {
@@ -18,21 +22,21 @@ list_file_to_parameters() {
 
   file_type=".puml"
   export number_parameters_max=1500
-  export number_groups=$((number_files/number_parameters_max))
+  export number_groups=$(( number_files / number_parameters_max + 1 ))
   number_groups_int=$(printf "%.0f\n" $number_groups)
   if [[ $number_groups_int > $number_groups ]]; then
     number_groups=$number_groups_int
   fi
-  list_remaining_puml_tmp=$(mktemp)
   command_file=$(mktemp)
-  echo "function uml_to_svg_runner() {" > $command_file
-  ls | grep \.$file_type > $list_remaining_puml
+  list_remaining_puml_tmp=$(mktemp)
+  echo "function uml_to_svg_runner() {" >> $command_file
   group_nb=1
   while [[ $(wc -c $list_remaining_puml | awk '{print $1}' | xargs) > 1 ]]; do
+    echo "# COMMENT: Preparing group $group_nb out of $number_groups (Total files: $(wc -l $list_remaining_puml) )" >> $command_file
     file_list=$(head -$number_parameters_max $list_remaining_puml | xargs)
     tail -n +$((number_parameters_max + 1))  $list_remaining_puml > $list_remaining_puml_tmp
     cp $list_remaining_puml_tmp $list_remaining_puml
-    echo "  echo \"Starting transfroming from PUML to SVG the group $group_nb/$number_groups of $number_parameters_max files\"" >> $command_file
+    echo "  echo \"INFO: Starting transforming from PUML to SVG the group $group_nb/$number_groups of $number_parameters_max files (Running in $command_file, PID: \$\$)\"" >> $command_file
     group_nb=$((group_nb + 1))
     echo "  $plantuml $file_list" >> $command_file
   done
@@ -45,69 +49,103 @@ list_file_to_parameters() {
 }
 
 get_list_puml_not_processed() {
-  process_missing_puml_only=$1
+  keep_old_svg_and_tmp_files=$1
+  process_missing_puml_only=$2
   list_remaining_puml=$(mktemp)
-  if [[ $process_svg_only == 0 ]]; then
-    find $out_dir -type f -name '*.svg' | xargs rm -f  > /dev/null
+  deadletter=DeadLetter
+  if [[ $process_svg_only == 1 || $keep_old_svg_and_tmp_files == 1 ]]; then
+    test -d $deadletter || mkdir $deadletter
+    find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs -I '{}' mv {} $deadletter >/dev/null 2>&1
+    find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs rm
+    find . -name "*.svg" -size 0 -type f | xargs rm
     list_all_puml=$(mktemp)
     list_puml_done=$(mktemp)
-    find . -type f -name "*.puml" > $list_all_puml 2>/dev/null
-    find . -type f -name "*.svg" | sed 's:\.puml:\.svg:' > $list_puml_done 2>/dev/null
+    find . -type f -name "*.puml" | grep -v $deadletter | sort > $list_all_puml 2>/dev/null
+    find . -type f -name "*.svg" | grep -v $deadletter | sed 's:\.svg:\.puml:' | sort > $list_puml_done 2>/dev/null
     diff $list_puml_done $list_all_puml | grep '>' | sed 's:^[\> ]*::g' > $list_remaining_puml
-    rm $list_puml_done $list_all_puml
+    if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
+      rm $list_puml_done $list_all_puml
+    else
+      info "Keeping list_puml_done = $list_puml_done" >> dbg_info
+      info "Keeping list_all_puml = $list_all_puml" >> dbg_info
+    fi
   else
-    find . -name "*.svg" -size 0 -type f | xargs rm -f  > /dev/null
-    find . -type f -name "*.puml" > $list_remaining_puml 2>/dev/null
+    find . -type f -name '*.svg' | xargs rm -f  > /dev/null
+    find . -type f -name "*.puml" | grep -v $deadletter > $list_remaining_puml 2>/dev/null
   fi
   echo $list_remaining_puml
-
 }
 
 create_svg_files() {
   plantuml=$1
   out_dir=$2
-  keep_tmp_files=$3
+  keep_old_svg_and_tmp_files=$3
   process_missing_puml_only=$4
-  list_remaining_puml=$(get_list_puml_not_processed $process_missing_puml_only)
-  number_files=$(wc -l $list_remaining_puml | sed 's:[ \s\t]::g')
-
+  info "Analyzing list of files to be processed"
   pushd $out_dir >/dev/null 
+  list_remaining_puml=$(get_list_puml_not_processed $keep_old_svg_and_tmp_files $process_missing_puml_only)
+  total_size_puml=$(cat $list_remaining_puml | xargs ls -l | awk '{sum+=$5;} END {print sum;}')
+  number_files=$(wc -l $list_remaining_puml | perl -npe 's:^\s*::;s:\s+.*$::')
+  info "Number files: $number_files, Total size: $((total_size_puml / 1024/1024)) MB"
   command_file=$(list_file_to_parameters "$plantuml" "$number_files" "$list_remaining_puml")
+  grep COMMENT $command_file | sed 's: # COMMENT:INFO:'
+
   bash $command_file &
 
   pid_plant_uml=$!
 
-  find . -name '*.svg' > previous_svg_list
+  export previous_svg_list=previous_svg_list
+  export latest_svg_list=latest_svg_list
+  find . -name '*.svg' > $previous_svg_list
   number_seconds_since_last_processed_files=$(date +%s)
   started_time=$(date +%s)
   last_diff_epoch=$(date +%s)
-  total_size_puml=$(cat $list_remaining_puml | ls -l | awk '{sum+=$5;} END {print sum;}')
+  number_files_previously_processed=$(find . -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
+  if [[ -z $number_files_previously_processed ]]; then
+    number_files_previously_processed=0
+  fi
+
   processed_size_puml=0
+  last_processed_files_date_time=$(date '+%d/%m/%Y %H:%M:%S')
+  need_carriage_return=0
+
   while [[ $(ps -edf | grep $pid_plant_uml | grep $command_file) ]]; do
     unix_epoch=$(date +%s)
     if [[ $((unix_epoch - last_printed_waiting_message_time)) -gt 10 ]]; then
       export latest_file_name_svg=$(ls -t | grep '\.svg'| head -1 | sed 's:svg$:puml:')
       latest_file_puml=""
       if [[ -n $latest_file_name_svg ]]; then
-        latest_file_puml=$(ls -l  $latest_file_name_svg | awk '{print $9" (" $5" bytes)"}')
+        latest_file_puml=$(ls -l  $latest_file_name_svg | awk '{print $9" (" $5/1024/1024" MB)"}')
       fi
-      echo "   - Still processing $latest_file_puml since $((unix_epoch - number_seconds_since_last_processed_files)) seconds - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%     "
+      now_date_time=$(date '+%d/%m/%Y %H:%M:%S')
+      info_overwrite_line "   -  ($now_date_time) Still processing $latest_file_puml since $((unix_epoch - number_seconds_since_last_processed_files)) seconds (Started $last_processed_files_date_time) - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))%  (PID: $pid_plant_uml)   "
       last_printed_waiting_message_time=$unix_epoch
+      need_carriage_return=1
 
     fi
     sleep 1
-    number_files_processed=$(find $out_dir -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
-    find . -name '*.svg' > latest_svg_list
-    if [[ $(diff previous_svg_list latest_svg_list) ]]; then
-      latest_processed_files=$(diff previous_svg_list latest_svg_list | grep "> " | sed 's/^/      /g')
-      echo -e "\n    Latest processed files:\n$latest_processed_files"
-      cp latest_svg_list previous_svg_list
+    number_files_processed=$(find . -type f -name '*.svg' 2>/dev/null | wc -l | sed 's:[ \s\t]::g')
+    if [[ -z $number_files_processed ]]; then
+      number_files_processed=0
+    fi
+    number_files_processed=$(( number_files_processed - number_files_previously_processed ))
+    find . -name '*.svg' > $latest_svg_list
+    if [[ $(diff $previous_svg_list $latest_svg_list) ]]; then
+      latest_processed_files=$(diff $previous_svg_list $latest_svg_list | grep "> " | sed 's/^/      /g')
+      echo ""
+      info "    Latest processed files:\n$latest_processed_files"
+      cp $latest_svg_list $previous_svg_list
       number_seconds_since_last_processed_files=$(date +%s)
+      last_processed_files_date_time=$(date '+%d/%m/%Y %H:%M:%S')
       last_printed_waiting_message_time=$unix_epoch
-      processed_size_puml=$(cat $latest_svg_list | sed 's:\.svg:\.puml' | ls -l | awk '{sum+=$5;} END {print sum;}')
+      processed_size_puml=0
+      if [[ -e $latest_svg_list ]]; then 
+        processed_size_puml=$(cat $latest_svg_list | sed 's:\.svg:\.puml:' | xargs ls -l 2>/dev/null | awk '{sum+=$5;} END {print sum;}')
+      fi
 
       time_spent=$((number_seconds_since_last_processed_files - started_time))
-      echo " - Processed $number_files_processed/$number_files puml files = $((number_files_processed * 100 / number_files))% ($processed_size_puml/$total_size_puml bytes proecessed = $((processed_size_puml/total_size_puml))% )"
+      if [[ $need_carriage_return == 1 ]]; then echo ""; fi
+      info " - Processed $number_files_processed/$number_files puml files = $(( number_files_processed * 100 / number_files ))% ($((processed_size_puml / 1024 / 1024 ))/$((total_size_puml / 1024 / 1024)) MB processed = $(( processed_size_puml * 100 / total_size_puml ))% )"
 
     fi
     # if [[ $number_files_processed == $number_files ]]; then
@@ -115,7 +153,7 @@ create_svg_files() {
     # fi
   done
   popd >/dev/null 
-  if [[ $keep_tmp_files == 0 ]]; then
+  if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
     rm $command_file
   else
     info "Kept command file $command_file"
@@ -123,7 +161,8 @@ create_svg_files() {
 
 }
 function usage() {
-    echo "$(basename $0) [ -i | --from_dir ]   Mandatory: Where the source files are located."
+    echo "$(basename $0) options:"
+    echo "               [ -i | --from_dir ]   Mandatory except when process_svg_only is set: Defines where the source files are located."
     echo "               [ -o | --out_dir ]    Mandatory: Where to store the puml and svg files"
     echo "               [ --init ]                       Run update on python dependencies (Run it at least the first time)"
     echo "               [ -d | --plantuml_install ]      Install plantuml (not graphviz however, you will have to install it yourself)"
@@ -184,7 +223,7 @@ $var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make s
 $var_pip --version | grep python3 >/dev/null 2>&1 || error "$var_pip does not support python3! Install python3 and pip3."
 
 statements=""
-keep_tmp_files=0
+keep_old_svg_and_tmp_files=0
 PLANTUML_DOT_JAVA_HEAP_MAX_SIZE=16G
 plantuml_timeout=900
 while [[ "$1" != "" ]]; do
@@ -270,7 +309,7 @@ while [[ "$1" != "" ]]; do
          statements="$statements $1"
          ;;
         --keep )
-          keep_tmp_files=1
+          keep_old_svg_and_tmp_files=1
           ;;
         * )
           usage
@@ -282,56 +321,54 @@ done
 
 basepath=$( dirname -- "$( readlink -f -- "$0" )" )
 
+# Set plantuml to java binary if it exists in current dir
+if [[ $force_docker_plantuml == 0 ]]; then  
+  plantuml=$basepath/plantuml.sh
+else
+  plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+fi
+if [[ $svg_dep == "secure" ]]; then
+    info "Checking accessibility of $plantuml" 
+    $plantuml -h > /dev/null 2>&1 
+    if [[ $? != 0 ]];then 
+        info "$plantuml not found trying plantuml."
+        plantuml=plantuml
+        $plantuml -h > /dev/null 2>&1 
+        if [[ $? != 0 ]];then 
+            info "$plantuml not found trying /opt/homebrew/bin/plantuml."
+            plantuml=/opt/homebrew/bin/plantuml
+            $plantuml -h > /dev/null 2>&1 
+            if [[ $? != 0 ]];then 
+                info "$plantuml not found searching for an alternative."
+                if [[ $force_docker_plantuml == 0 ]]; then  
+                  plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+                else
+                  plantuml=plantuml
+                fi
+                bash -c $plantuml -h > /dev/null 2>&1 
+                if [[ $? != 0 ]]; then
+                    info "$plantuml not found searching trying with the jar file."
+                    if [[ -f plantuml.jar ]];then 
+                      plantuml="java -Djava.awt.headless=true  -Xmx8G -jar plantuml.jar"
+                      bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                    else
+                      error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                    fi
+                fi
+            fi
+        fi
+    fi
+fi
+info "Using plantuml from $plantuml"
 if [[ $process_svg_only == 0 ]]; then
-  # Set plantuml to java binary if it exists in current dir
-  if [[ $force_docker_plantuml == 0 ]]; then  
-    plantuml=$basepath/plantuml.sh
-  else
-    plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
-  fi
-  if [[ $svg_dep == "secure" ]]; then
-      info "Checking accessibility of $plantuml" 
-      $plantuml -h > /dev/null 2>&1 
-      if [[ $? != 0 ]];then 
-          info "$plantuml not found trying plantuml."
-          plantuml=plantuml
-          $plantuml -h > /dev/null 2>&1 
-          if [[ $? != 0 ]];then 
-              info "$plantuml not found trying /opt/homebrew/bin/plantuml."
-              plantuml=/opt/homebrew/bin/plantuml
-              $plantuml -h > /dev/null 2>&1 
-              if [[ $? != 0 ]];then 
-                  info "$plantuml not found searching for an alternative."
-                  if [[ $force_docker_plantuml == 0 ]]; then  
-                    plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
-                  else
-                    plantuml=plantuml
-                  fi
-                  bash -c $plantuml -h > /dev/null 2>&1 
-                  if [[ $? != 0 ]]; then
-                      info "$plantuml not found searching trying with the jar file."
-                      if [[ -f plantuml.jar ]];then 
-                        plantuml="java -Djava.awt.headless=true  -Xmx8G -jar plantuml.jar"
-                        bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
-                      else
-                        error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
-                      fi
-                  fi
-              fi
-          fi
-      fi
-  fi
-
-  info "Using plantuml from $plantuml"
   info "Using adapter from language $from_language"
-  if [[ $keep_tmp_files == 0 ]]; then
+  if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
     info "Cleaning output directory"
     find $out_dir -type f | xargs rm -f  > /dev/null
   fi
-
   case $from_language in
     csharp )
-      if [[ $keep_tmp_files == 0 ]]; then
+      if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
         rm $out_dir/*.yaml > /dev/null 2>&1
       fi
       tmp_dir=$(mktemp -d)
@@ -360,7 +397,7 @@ fi
 info "Transforming puml to svg"
 if [[ $svg_dep == "secure" ]]; then
     info "Transforming with plantuml ($plantuml)"
-    create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_tmp_files" "$process_svg_only"
+    create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_old_svg_and_tmp_files" "$process_svg_only"
 
 else
     wait_time=5
@@ -372,10 +409,10 @@ else
       sleep 1;
     done
     cd $out_dir && \
-      create_svg_files "plantweb --engine=plantuml" "." "$keep_tmp_files"
+      create_svg_files "plantweb --engine=plantuml" "." "$keep_old_svg_and_tmp_files"
 fi
 if [[ ! -z $tmp_dir ]]; then
-  if [[ $keep_tmp_files == 0 ]]; then
+  if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
     rm -rf $tmp_dir
   else
     info "Kept tmp_dir: $tmp_dir and $command_file"
