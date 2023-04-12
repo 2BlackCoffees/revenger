@@ -7,9 +7,10 @@ from infrastructure.generic_classes import GenericSubDataStructure
 from infrastructure.generic_classes import GenericDatastructure
 from infrastructure.generic_classes import GenericSaver
 from infrastructure.generic_classes import GenericLogger
+from infrastructure.generic_classes import GenericPythonAdapter
 from infrastructure.common import CommonInfrastructure
 
-class PythonAdapter:
+class PythonAdapter(GenericPythonAdapter):
     def __init__(self, saver: GenericSaver, logger: GenericLogger):
         self.saver = saver
         self.logger = logger

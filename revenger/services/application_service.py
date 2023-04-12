@@ -14,6 +14,7 @@ from domain.diagram_creation import DiagramCreation
 
 from infrastructure.python_adapter import PythonAdapter
 from infrastructure.yaml_adapter import YAMLAdapter
+from infrastructure.python_adapter_factory import PythonAdapterFactory
  
 class SourceType(Enum):
     PYTHON_SOURCE = 1,
@@ -36,7 +37,7 @@ class ApplicationService:
         for file in file_list:
             file_name: str = os.path.join(from_dir, file)
             if source_type == SourceType.PYTHON_SOURCE:
-                PythonAdapter(saver, logger).read_python_ast(\
+                PythonAdapterFactory(saver, logger).create_adapter().read_python_ast(\
                     diagram_creation.get_data_structure(), file_name, from_dir)
             elif source_type == SourceType.YAML_SOURCE:
                 YAMLAdapter(saver, logger).read(\
