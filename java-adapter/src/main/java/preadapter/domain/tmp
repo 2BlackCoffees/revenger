@@ -1,0 +1,98 @@
+TRACE (Java): Analyzing /Users/jeanphi/Development/revenger/java-adapter/src/main/java/Example/Example.java
+CompilationUnit:
+PackageDeclaration:
+Name: Example
+ClassOrInterfaceDeclaration: Useless
+MethodDeclaration: public void useless()
+BlockStmt: 1 statements
+ExpressionStmt: System.out.println("Useless")
+MethodCallExpr: println Optional[System.out]
+StringLiteralExpr: "Useless"
+SimpleName: println
+FieldAccessExpr: out
+SimpleName: out
+NameExpr: System
+SimpleName: System
+VoidType:
+SimpleName: useless
+SimpleName: Useless
+ClassOrInterfaceDeclaration: IExample
+MethodDeclaration: public void example()
+VoidType:
+SimpleName: example
+SimpleName: IExample
+ClassOrInterfaceDeclaration: BaseExample
+MethodDeclaration: public void otherExample()
+BlockStmt: 1 statements
+ThrowStmt: new UnsupportedOperationException("Unimplemented method 'example'")
+ObjectCreationExpr: new UnsupportedOperationException("Unimplemented method 'example'")
+StringLiteralExpr: "Unimplemented method 'example'"
+ClassOrInterfaceType: UnsupportedOperationException
+SimpleName: UnsupportedOperationException
+LineComment:  TODO Auto-generated method stub
+VoidType:
+SimpleName: otherExample
+SimpleName: BaseExample
+ClassOrInterfaceDeclaration: Example
+ClassOrInterfaceType: BaseExample
+SimpleName: BaseExample
+ClassOrInterfaceType: IExample
+SimpleName: IExample
+FieldDeclaration: Useless memberVarUseless = new Useless();
+VariableDeclarator: memberVarUseless of type Useless init new Useless()
+ObjectCreationExpr: new Useless()
+ClassOrInterfaceType: Useless
+SimpleName: Useless
+SimpleName: memberVarUseless
+ClassOrInterfaceType: Useless
+SimpleName: Useless
+ConstructorDeclaration: public Example()
+BlockStmt: 3 statements
+ExpressionStmt: Useless localVarUseless = new Useless()
+VariableDeclarationExpr: Useless localVarUseless = new Useless()
+VariableDeclarator: localVarUseless of type Useless init new Useless()
+ObjectCreationExpr: new Useless()
+ClassOrInterfaceType: Useless
+SimpleName: Useless
+SimpleName: localVarUseless
+ClassOrInterfaceType: Useless
+SimpleName: Useless
+ExpressionStmt: localVarUseless.useless()
+MethodCallExpr: useless Optional[localVarUseless]
+SimpleName: useless
+NameExpr: localVarUseless
+SimpleName: localVarUseless
+ExpressionStmt: memberVarUseless.useless()
+MethodCallExpr: useless Optional[memberVarUseless]
+SimpleName: useless
+NameExpr: memberVarUseless
+SimpleName: memberVarUseless
+SimpleName: Example
+MethodDeclaration: public void example()
+BlockStmt: 2 statements
+ExpressionStmt: BaseExample localVarBaseExample = new BaseExample()
+VariableDeclarationExpr: BaseExample localVarBaseExample = new BaseExample()
+VariableDeclarator: localVarBaseExample of type BaseExample init new BaseExample()
+ObjectCreationExpr: new BaseExample()
+ClassOrInterfaceType: BaseExample
+SimpleName: BaseExample
+SimpleName: localVarBaseExample
+ClassOrInterfaceType: BaseExample
+SimpleName: BaseExample
+ExpressionStmt: localVarBaseExample.otherExample()
+MethodCallExpr: otherExample Optional[localVarBaseExample]
+SimpleName: otherExample
+NameExpr: localVarBaseExample
+SimpleName: localVarBaseExample
+VoidType:
+SimpleName: example
+MarkerAnnotationExpr: Override
+Name: Override
+MethodDeclaration: public IExample getExample()
+BlockStmt: 1 statements
+ReturnStmt: Optional[this]
+ThisExpr: this
+ClassOrInterfaceType: IExample
+SimpleName: IExample
+SimpleName: getExample
+SimpleName: Example
