@@ -207,9 +207,18 @@ class DiagramCreation:
             previous_sub_namespace_list.append(namespace)
             saver.append(DiagramCreation.__get_namespace_name(current_sub_namespace_list, sub_index + 1, detailed, grouped_per_ns))
 
+    def __get_fqdn_class_name_plant_uml(self, sub_datastructure):
+        fqdn_class_name: str = sub_datastructure.get_fqdn_class_name()
+        if sub_datastructure.is_inner_class():
+            module_name_length: int = len(sub_datastructure.get_filemodule())
+            if len(fqdn_class_name) > module_name_length + 1:
+                fqdn_class_name = fqdn_class_name[:module_name_length + 1] + \
+                                  fqdn_class_name[module_name_length + 1:].replace('.', '___')
+        return fqdn_class_name
     def __create_puml_class(self, sub_datastructure: Datastructure.SubDataStructure, saver: Saver,\
             detailed: bool, grouped_per_ns: bool, empty_spaces: str):
         fqdn_class_name: str = sub_datastructure.get_fqdn_class_name()
+        fqdn_class_name_for_plant_uml: str = self.__get_fqdn_class_name_plant_uml(sub_datastructure)
         self.logger.log_debug(f'{empty_spaces}- Analyzing class {fqdn_class_name}')
         is_abstract: str = 'abstract ' if sub_datastructure.is_abstract() else ''
         class_type: str = 'interface ' if sub_datastructure.is_interface() else 'class '
@@ -218,7 +227,7 @@ class DiagramCreation:
         color: str = sub_datastructure.get_color()
         if color is None:
             color = ''
-        saver.append(f'{empty_spaces}{is_abstract}{class_type}{fqdn_class_name} [[{class_link}]] {color} {{')
+        saver.append(f'{empty_spaces}{is_abstract}{class_type}{fqdn_class_name_for_plant_uml} [[{class_link}]] {color} {{')
 
         if detailed:
             static_field: Datastructure.Static
@@ -283,7 +292,8 @@ class DiagramCreation:
             saver.append(f'\' Class relations extracted from namespace:\n\' {namespace_name}')
             sub_datastructure: Datastructure.SubDataStructure
             for sub_datastructure in self.datastructure.get_datastructures_from_namespace(namespace_name):
-                class_name = sub_datastructure.get_fqdn_class_name()
+                class_name: str = sub_datastructure.get_fqdn_class_name()
+                class_name_puml: str = self.__get_fqdn_class_name_plant_uml(sub_datastructure)
                 self.logger.log_debug(f' Searching for relations for class {class_name} to be created (create_all_relation: {create_all_relation}, namespace_name: {namespace_name})')
                 self.logger.log_trace(f'  Base classes are: {", ".join(sub_datastructure.get_base_classes())}')
                 for base in sub_datastructure.get_base_classes():
@@ -291,19 +301,25 @@ class DiagramCreation:
                         class_name not in self.datastructure.get_skip_types():
                         relation_created = "skipped"
                         if create_all_relation or self.datastructure.class_exists(base):
-                            saver.append_connection(f'{base} <|-[#red]- {class_name}')
+                            base_sub_datastructure: Datastructure.SubDataStructure = self.datastructure.get_datastructures_from_class_name(base)
+                            base_puml: str = self.__get_fqdn_class_name_plant_uml(base_sub_datastructure)
+                            saver.append_connection(f'{base_puml} <|-[#red]- {class_name_puml}')
                             relation_created = "created"
                         self.logger.log_debug(\
-                            f'   Relation *** {relation_created} ***: {base} <|-[#red]- {class_name} ' + \
+                            f'   Relation *** {relation_created} ***: {base} <|-[#red]- {class_name_puml} ' + \
                                 f'(create_all_relation: {create_all_relation}, ' + \
                                     f'datastructure.class_exists({base}): {self.datastructure.class_exists(base)})')
                 self.logger.log_trace(f'  Inner classes are: {", ".join(sub_datastructure.get_inner_class_name())}')
                 for inner_class_name in sub_datastructure.get_inner_class_name():
                     relation_created = "skipped"
                     if create_all_relation or self.datastructure.class_exists(inner_class_name):
-                        self.__create_puml_connection(class_name, inner_class_name, Common.ConnectionType.IS_INNER_CLASS, saver)
+
+                        inner_class_sub_datastructure: Datastructure.SubDataStructure = self.datastructure.get_datastructures_from_class_name(inner_class_name)
+                        inner_class_name_puml: str = self.__get_fqdn_class_name_plant_uml(inner_class_sub_datastructure)
+
+                        self.__create_puml_connection(class_name_puml, inner_class_name_puml, Common.ConnectionType.IS_INNER_CLASS, saver)
                         relation_created = "created"
-                    self.logger.log_debug(f'    Relation *** {relation_created} ***: {class_name} +-- {inner_class_name} ' + \
+                    self.logger.log_debug(f'    Relation *** {relation_created} ***: {class_name_puml} +-- {inner_class_name} ' + \
                         f'(create_all_relation: {create_all_relation}, datastructure.class_exists({inner_class_name}): ' + \
                             f'{self.datastructure.class_exists(inner_class_name)})')
 

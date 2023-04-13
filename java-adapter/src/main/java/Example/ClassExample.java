@@ -20,7 +20,17 @@ interface IExample {
     public void example(Useless useless1, Useless useless2);
 }
 
-abstract class  BaseExample  {
+abstract class  AbstractBaseExample {
+    abstract Useless exampleAbstract(Useless useless1, Useless useless2);
+
+}
+
+class  BaseExample extends AbstractBaseExample {
+    @Override
+    Useless exampleAbstract(Useless useless1, Useless useless2) {
+        return null;
+    }
+
     enum EnumTest {
         EnumValue1,
         EnumValue2
@@ -31,7 +41,6 @@ abstract class  BaseExample  {
         throw new UnsupportedOperationException("Unimplemented method 'example'");
     }
 
-    abstract Useless exampleAbstract(Useless useless1, Useless useless2);
 }
 public class ClassExample extends BaseExample implements IExample {
     Useless memberVarUseless = new Useless();

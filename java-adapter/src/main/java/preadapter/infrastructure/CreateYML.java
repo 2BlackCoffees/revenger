@@ -1,7 +1,4 @@
-// Refactor https://github.com/2BlackCoffees/revenger/blob/main/dotnet-adapter/DotnetPreAdapter/CreateYml.cs to java
-
 package preadapter.infrastructure;
-
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -10,6 +7,8 @@ import org.yaml.snakeyaml.nodes.*;
 import preadapter.Logger;
 import preadapter.domain.Datastructure;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -59,6 +58,7 @@ public class CreateYML {
                 ), subSequenceNode));
     }
     public void Create(Datastructure datastructure, String toFile, Logger logger) {
+
         var subDataStructureSequenceYmlNode = new SequenceNode(
                 Tag.SEQ, new ArrayList<>(), dummperOptions);
 
@@ -72,14 +72,18 @@ public class CreateYML {
                 appendTupleNodeValueString(subDataStructureMappingYmlNode, "filename", subDataStructure.get_filename());
                 appendTupleNodeValueString(subDataStructureMappingYmlNode, "is_abstract", subDataStructure.is_abstract() ? "True" : "False");
                 appendTupleNodeValueString(subDataStructureMappingYmlNode, "is_interface", subDataStructure.IsInterface() ? "True" : "False");
+                appendTupleNodeValueString(subDataStructureMappingYmlNode, "is_inner_class", subDataStructure.isInnerClass() ? "True" : "False");
                 appendTupleNodeValueString(subDataStructureMappingYmlNode, "filemodule", subDataStructure.get_filemodule());
-                var fromImports = new SequenceNode(
+                var fromImportsSequenceNode = new SequenceNode(
                         Tag.SEQ, new ArrayList<>(), dummperOptions);
                 subDataStructure.get_from_imports().forEach((fqdnClassName, namespaceName) -> {
-                    appendTupleNodeValueStringToSequenceNode(fromImports, "imported_class_name", fqdnClassName);
-                    appendTupleNodeValueStringToSequenceNode(fromImports, "namespace_path", namespaceName);
+                    var fromImportsMappingNode = new MappingNode(
+                            Tag.MAP, new ArrayList<>(), dummperOptions);
+                    appendTupleNodeValueString(fromImportsMappingNode, "imported_class_name", fqdnClassName);
+                    appendTupleNodeValueString(fromImportsMappingNode, "namespace_path", namespaceName);
+                    fromImportsSequenceNode.getValue().add(fromImportsMappingNode);
                 });
-                appendTupleNodeValueSequenceNode(subDataStructureMappingYmlNode, "from_imports", fromImports);
+                appendTupleNodeValueSequenceNode(subDataStructureMappingYmlNode, "from_imports", fromImportsSequenceNode);
 
                 appendSequence(subDataStructureMappingYmlNode,
                         subDataStructure.get_inner_class_name(),
@@ -93,114 +97,83 @@ public class CreateYML {
                         subDataStructure.get_base_classes(),
                         "base_classes");
 
+                var staticsSequenceNode = new SequenceNode(
+                        Tag.SEQ, new ArrayList<>(), dummperOptions);
                 subDataStructure.get_static_fields().forEach(staticType -> {
-                    var statics = new SequenceNode(
-                            Tag.SEQ, new ArrayList<>(), dummperOptions);
-                    appendTupleNodeValueStringToSequenceNode(statics, "static_name", staticType.StaticName);
-                    appendTupleNodeValueStringToSequenceNode(statics, "static_type", staticType.StaticType);
-                    appendTupleNodeValueSequenceNode(subDataStructureMappingYmlNode, "statics", statics);
+                    var staticsMappingNode = new MappingNode(
+                            Tag.MAP, new ArrayList<>(), dummperOptions);
+                    appendTupleNodeValueString(staticsMappingNode, "static_name", staticType.StaticName);
+                    appendTupleNodeValueString(staticsMappingNode, "static_type", staticType.StaticType);
+                    staticsSequenceNode.getValue().add(staticsMappingNode);
                 });
+                appendTupleNodeValueSequenceNode(subDataStructureMappingYmlNode, "statics", staticsSequenceNode);
 
-                var variables = new SequenceNode(
+                var variablesSequenceNode = new SequenceNode(
                         Tag.SEQ, new ArrayList<>(), dummperOptions);
                 subDataStructure.get_variable_fields().forEach(variable -> {
-                    appendTupleNodeValueStringToSequenceNode(variables, "variable_name", variable.variableName);
-                    appendTupleNodeValueStringToSequenceNode(variables, "variable_type", variable.variableType);
-                    appendTupleNodeValueStringToSequenceNode(variables, "is_member", variable.IsMember ? "True" : "False");
+                    var variablesMappingNode = new MappingNode(
+                            Tag.MAP, new ArrayList<>(), dummperOptions);
+                    appendTupleNodeValueString(variablesMappingNode, "variable_name", variable.variableName);
+                    appendTupleNodeValueString(variablesMappingNode, "variable_type", variable.variableType);
+                    appendTupleNodeValueString(variablesMappingNode, "is_member", variable.IsMember ? "True" : "False");
+                    variablesSequenceNode.getValue().add(variablesMappingNode);
                 });
+                appendTupleNodeValueSequenceNode(subDataStructureMappingYmlNode, "variables", variablesSequenceNode);
 
-                var methods = new SequenceNode(
+
+                var methodsSequenceNode = new SequenceNode(
                         Tag.SEQ, new ArrayList<>(), dummperOptions);
                 subDataStructure.get_method_fields().forEach(method -> {
                     var parameters = new SequenceNode(
                             Tag.SEQ, new ArrayList<>(), dummperOptions);
                     method.getParameters().forEach(parameter -> {
-
-                        appendTupleNodeValueStringToSequenceNode(parameters, "parameter_name", parameter.parameter);
-                        appendTupleNodeValueStringToSequenceNode(parameters, "parameter_type", parameter.userType);
+                        var methodParametersMappingNode = new MappingNode(
+                                Tag.MAP, new ArrayList<>(), dummperOptions);
+                        appendTupleNodeValueString(methodParametersMappingNode, "parameter_name", parameter.parameter);
+                        appendTupleNodeValueString(methodParametersMappingNode, "parameter_type", parameter.userType);
+                        parameters.getValue().add(methodParametersMappingNode);
                     });
 
                     var methodVariables = new SequenceNode(
                             Tag.SEQ, new ArrayList<>(), dummperOptions);
                     method.variables.forEach(variable -> {
-                        appendTupleNodeValueStringToSequenceNode(methodVariables, "variable_name", variable.variableName);
-                        appendTupleNodeValueStringToSequenceNode(methodVariables, "variable_type", variable.variableType);
+                        var methodVariablesMappingNode = new MappingNode(
+                                Tag.MAP, new ArrayList<>(), dummperOptions);
+                        appendTupleNodeValueString(methodVariablesMappingNode, "variable_name", variable.variableName);
+                        appendTupleNodeValueString(methodVariablesMappingNode, "variable_type", variable.variableType);
+                        methodVariables.getValue().add(methodVariablesMappingNode);
+
                     });
 
                     var methodNode = new MappingNode(
-                            Tag.SEQ, new ArrayList<>(), dummperOptions);
+                            Tag.MAP, new ArrayList<>(), dummperOptions);
                     appendTupleNodeValueString(methodNode, "method_name", method.methodName);
                     appendTupleNodeValueSequenceNode(methodNode, "parameters", parameters);
                     appendTupleNodeValueSequenceNode(methodNode, "method_variables", methodVariables);
                     appendTupleNodeValueString(methodNode, "is_private", method.IsPrivate ? "True" : "False");
-                    methods.getValue().add(methodNode);
+                    methodsSequenceNode.getValue().add(methodNode);
                 });
+                appendTupleNodeValueSequenceNode(subDataStructureMappingYmlNode, "methods", methodsSequenceNode);
 
-
-
-
-
-            }
-
-            var tmpMappingNode = new MappingNode( Tag.MAP, new ArrayList<>(), dummperOptions);
-            tmpMappingNode.getValue().add(
-                    new NodeTuple(
-                            new ScalarNode(Tag.STR, "sub_datastructure",
-                                    startMark, endMark, DumperOptions.ScalarStyle.PLAIN),
-                            subDataStructureMappingYmlNode)
-            );
-            subDataStructureSequenceYmlNode.getValue().add(tmpMappingNode);
-        });
+                var tmpMappingNode = new MappingNode( Tag.MAP, new ArrayList<>(), dummperOptions);
+                tmpMappingNode.getValue().add(
+                        new NodeTuple(
+                                new ScalarNode(Tag.STR, "sub_datastructure",
+                                        startMark, endMark, DumperOptions.ScalarStyle.PLAIN),
+                                subDataStructureMappingYmlNode)
+                );
+                subDataStructureSequenceYmlNode.getValue().add(tmpMappingNode);
+            } // if subDataStructure != null
+        }); // for each classname
 
         Yaml yaml = new Yaml();
-        yaml.serialize(subDataStructureSequenceYmlNode, new PrintWriter(System.out));
-    }
-
-
-
-
-}
-/*
-        var subDatastructureYmlNode = new MappingNode(
-                Tag.MAP, new ArrayList<NodeTuple>, DumperOptions.FlowStyle.BLOCK);
-        datastructure.get_classname_list().forEach(className -> {});
-        {
-            SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(classname);
-            if (subDataStructure != null)
-            {
-
-
-
-                ///// C# code
-
-    
-                            subDatastructureYmlNode.Add(new YamlMappingNode(
-                                new YamlScalarNode("sub_datastructure"),
-                                new YamlMappingNode(
-
-    
-
-                                    new YamlScalarNode("filemodule"),
-                                        new YamlScalarNode(subDataStructure.get_filemodule())
-    
-                                        )
-                                    )
-                                );
-                        }
-                    }
-    
-                    var stream = new YamlStream(
-                        new YamlDocument(subDatastructureYmlNode
-    
-                            )
-                        );
-                    using (TextWriter writer = File.CreateText(toDir + "/output.yaml"))
-                    {
-                        stream.Save(writer, false);
-                    }
-                }
-            }
+        try {
+            logger.logInfo("Writing YAML file: " + toFile);
+            PrintWriter writer = new PrintWriter(toFile);
+            yaml.serialize(subDataStructureSequenceYmlNode, writer);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
+
     }
-    
-*/
+}

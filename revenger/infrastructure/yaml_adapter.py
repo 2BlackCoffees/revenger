@@ -15,6 +15,16 @@ class YAMLAdapter:
         self.saver = saver
         self.logger = logger
 
+    @staticmethod
+    def __check_boolean(value_dict: dict, key: str):
+        if key in value_dict:
+            value = value_dict[key]
+            if isinstance(value, bool):
+                return value
+            assert isinstance(value, str)
+            return value.lower() == 'true'
+        return False
+
     def read(self, datastructure: GenericDatastructure, filename: str, from_dir: str) -> any:
         with open(filename, encoding="utf-8") as stream:
             yaml_content: dict = yaml.safe_load(stream)
@@ -22,6 +32,7 @@ class YAMLAdapter:
             self.logger.log_trace(pprint.pformat(yaml_content))
             self.logger.log_trace("\n\n\n\n")
         for sub_datastructure_yaml in yaml_content:
+            self.logger.log_trace("See below content of sub_datastructure_yaml: ")
             self.logger.log_trace(pprint.pformat(sub_datastructure_yaml))
             value_dict = sub_datastructure_yaml['sub_datastructure']
             from_imports: Dict[str, str] = {}
@@ -33,10 +44,15 @@ class YAMLAdapter:
                     value_dict['filename'], value_dict['filemodule'],\
                         from_imports, value_dict['fqdn_class_name'],\
                             value_dict['filemodule'].split('.'))
-            if value_dict['is_abstract']:
+            if YAMLAdapter.__check_boolean(value_dict, 'is_abstract'):
+                self.logger.log_trace(f"value_dict['is_abstract']: {value_dict['is_abstract']}")
                 sub_datastructure.set_abstract()
-            if value_dict['is_interface']:
-                sub_datastructure.set_interface() 
+            if YAMLAdapter.__check_boolean(value_dict, 'is_inner_class'):
+                self.logger.log_trace(f"value_dict['is_inner_class']: {value_dict['is_inner_class']}")
+                sub_datastructure.set_inner_class()
+            if YAMLAdapter.__check_boolean(value_dict, 'is_interface'):
+                self.logger.log_trace(f"value_dict['is_interface']: {value_dict['is_interface']}")
+                sub_datastructure.set_interface()
             for base_class in value_dict['base_classes']:
                 sub_datastructure.add_base_class(base_class, True)
             for anonymous_call_type in value_dict['anonymous_calls']:

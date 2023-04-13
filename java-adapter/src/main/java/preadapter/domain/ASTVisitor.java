@@ -64,11 +64,20 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
                 .replace(">", "]");
     }
 
+    String cleanClassName(String className)
+    {
+        String occurencesToClean = "[{(<>)]}";
+        for (int i = 0; i < occurencesToClean.length(); i++) {
+            className = className.replace(String.valueOf(occurencesToClean.charAt(i)), "_BRQT_");
+        }
+        return className;
+    }
+
 
     String CreateClassInterface(ClassOrInterfaceDeclaration node)
     {
-        String fqdnCurrentClassName = deepness.GetFQDNCurrentClassName(node);
-        String fqdnParentClassName = deepness.GetFQDNParentClassName(node);
+        String fqdnCurrentClassName = cleanClassName(deepness.GetFQDNCurrentClassName(node));
+        String fqdnParentClassName = cleanClassName(deepness.GetFQDNParentClassName(node));
 
         Datastructure.SubDataStructure parentSubDataStructure =
                 datastructure.get_datastructures_from_class_name(fqdnParentClassName);
@@ -79,16 +88,19 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
                             deepness.getDeepness());
             parentSubDataStructure.add_inner_class(fqdnCurrentClassName);
         }
-
-        datastructure.append_class(filename, fqdnParentClassName, allUsing, fqdnCurrentClassName, namespaceList);
-        Datastructure.SubDataStructure subDataStructure = datastructure.get_datastructures_from_class_name(fqdnCurrentClassName);
+        Datastructure.SubDataStructure subDataStructure =
+                datastructure.append_class(filename, deepness.getCurrentNamespace(),
+                        allUsing, fqdnCurrentClassName, namespaceList);
+        subDataStructure.setInnerClass(parentSubDataStructure != null);
+        //datastructure.append_class(filename, deepness.getCurrentNamespace(), allUsing, fqdnCurrentClassName, namespaceList);
+        //Datastructure.SubDataStructure subDataStructure = datastructure.get_datastructures_from_class_name(fqdnCurrentClassName);
         final String fqdnCurrentClassNameFinal = fqdnCurrentClassName;
         node.getExtendedTypes().forEach(extendedType -> {
-            String extendedTypeStr = SimplifyType(extendedType.asString());
+            String extendedTypeStr = extendedType.asString();
             if (extendedTypeStr != null && extendedTypeStr.length() > 0) {
                     logger.logDebug(String.format("    Class %s inherits from %s", fqdnCurrentClassNameFinal, extendedTypeStr),
                             deepness.getDeepness());
-                    subDataStructure.add_base_class(extendedTypeStr);
+                    subDataStructure.add_base_class(cleanClassName(extendedTypeStr));
             }
         });
         if(subDataStructure.get_base_classes().size() == 0) {
@@ -247,46 +259,7 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
             return " ".repeat(deepness);
         }
     }
-/*
-    @Override
-    public void visit(AnnotationDeclaration n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "AnnotationDeclaration: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
 
-    @Override
-    public void visit(AnnotationMemberDeclaration n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "AnnotationMemberDeclaration: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(MethodCallExpr n, Void arg) {
-        logger.logInfo(String.format("Entering MethodCallExpr: %s (%s)", n.getArguments().toString(), n.getScope()),
-                deepness.getDeepness() );
-        if(n.getTypeArguments().isPresent()) {
-            NodeList<Type> arguments = n.getTypeArguments().get();
-            logger.logInfo(String.format("  arguments: %s", arguments.toString()), deepness.getDeepness());
-            for (Type argument : arguments) {
-                String fqdnCurrentTypeName = deepness.GetFQDNCurrentClassName(argument);
-                logger.logInfo(String.format("  Argument: %s (%s)", argument, fqdnCurrentTypeName),
-                        deepness.getDeepness());
-            }
-        }
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-
-    @Override
-    public void visit(MethodReferenceExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "MethodReferenceExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-*/
     @Override
     public void visit(MethodDeclaration n, Void arg) {
         String methodName = n.getNameAsString();
@@ -300,16 +273,20 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
         if(subDataStructure != null) {
             List<Triplet<String, String, String>> argumentsTuple = new ArrayList<>();
             for (var argument : n.getParameters()) {
-                String fqdnCurrentTypeName = deepness.GetFQDNCurrentClassName(argument.getType());
+                String argumentTypeString = SimplifyType(argument.getTypeAsString());
+                String mostProbableNS = argumentTypeString.contains(".") ?
+                        "" :
+                        deepness.getCurrentNamespace();
 
                 argumentsTuple.add(new Triplet<>(methodName,
-                        fqdnCurrentTypeName,
-                        fqdnParentClassName));
-                logger.logTrace(String.format("  Method: %s, Adding parameter name: %s, type: %s, (%s), mostprobableNS: %s",
+                                                argumentTypeString,
+                                                mostProbableNS)
+                );
+                logger.logTrace(String.format("  Method: %s, Adding parameter name: %s, type: %s, (Most probable NS: %s), fqdnParentClassName: %s",
                         methodName,
                         argument.getNameAsString(),
-                        argument.getTypeAsString(),
-                        fqdnCurrentTypeName,
+                        argumentTypeString,
+                        mostProbableNS,
                         fqdnParentClassName));
             }
             subDataStructure.add_method(methodName,
@@ -347,16 +324,22 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
                     datastructure.get_datastructures_from_class_name(fqdnParentClassName);
             if(subDataStructure != null) {
                 for (VariableDeclarator variableDeclarator : n.getVariables()) {
-                    String fqdnCurrentClassName = deepness.GetFQDNCurrentClassName(variableDeclarator.getType());
+                    String argumentTypeString = SimplifyType(variableDeclarator.getTypeAsString());
+                    String mostProbableNS = argumentTypeString.contains(".") ?
+                            "" :
+                            deepness.getCurrentNamespace();
+
                     subDataStructure.add_variable(
                             variableDeclarator.getNameAsString(),
-                            fqdnCurrentClassName,
-                            fqdnParentClassName,
+                            argumentTypeString,
+                            mostProbableNS,
                             true);
-                    logger.logTrace(String.format("Created ** Member ** variable name: %s, type: %s, ns: %s",
+                    logger.logTrace(String.format("Created ** Member ** variable name: %s, type: %s, mostProbableNS: %s, fqdnParentClassName: %s",
                                                     variableDeclarator.getNameAsString(),
-                            fqdnCurrentClassName,
-                                    fqdnParentClassName), deepness.getDeepness());
+                                                    argumentTypeString,
+                                                    mostProbableNS,
+                                                    fqdnParentClassName),
+                            deepness.getDeepness());
                 }
             } else {
                 logger.logError("Could not find class " + fqdnParentClassName + " in datastructure");
@@ -390,18 +373,27 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
         String fqdnParentClassName = deepness.GetFQDNParentClassName(n);
         Datastructure.SubDataStructure subDataStructure =
                 datastructure.get_datastructures_from_class_name(fqdnParentClassName);
-        subDataStructure.add_variable(enumValueName, "enumValue", fqdnParentClassName, true);
+        subDataStructure.add_variable(enumValueName, "EnumTypePlaceHolder", fqdnParentClassName, true);
         super.visit(n, arg);
     }
 
     @Override
     public void visit(EnumDeclaration n, Void arg) {
-        String fqdnCurrentClassName = deepness.GetFQDNCurrentClassName(n);
-        String fqdnParentClassName = deepness.GetFQDNParentClassName(n);
+        String fqdnCurrentClassName = cleanClassName(deepness.GetFQDNCurrentClassName(n));
+        String fqdnParentClassName = cleanClassName(deepness.GetFQDNParentClassName(n));
         logger.logDebug( String.format("Entering EnumDeclaration %s ", fqdnCurrentClassName));
         logger.logDebug("  EnumDeclaration: Context=" + deepness.getCurrentContext(n), deepness.getDeepness());
+        Datastructure.SubDataStructure subDataStructureParent =
+                datastructure.get_datastructures_from_class_name(fqdnParentClassName);
+        if(subDataStructureParent != null)
+        {
+            subDataStructureParent.add_inner_class(fqdnCurrentClassName);
+        }
+        Datastructure.SubDataStructure subDataStructureChild =
+                datastructure.append_class(filename, deepness.getCurrentNamespace(), allUsing,
+                        fqdnCurrentClassName, namespaceList);
+        subDataStructureChild.setInnerClass(subDataStructureParent != null);
 
-        datastructure.append_class(filename, fqdnParentClassName, allUsing, fqdnCurrentClassName, namespaceList);
         deepness.appendClassName(fqdnCurrentClassName);
 
         super.visit(n, arg);
@@ -412,572 +404,66 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
 
     @Override
     public void visit(VariableDeclarator n, Void arg) {
-        logger.logDebug( String.format("Entering VariableDeclarator %s ", n.getNameAsString()));
+        logger.logDebug( String.format("Entering VariableDeclarator %s ", n.getNameAsString()), deepness.getDeepness());
+        String fqdnParentClassName = cleanClassName(deepness.GetFQDNParentClassName(n));
+        Datastructure.SubDataStructure subDataStructureParent =
+                datastructure.get_datastructures_from_class_name(fqdnParentClassName);
+        if(subDataStructureParent != null) {
+            var variableName = n.getNameAsString();
+            var variableType = n.getTypeAsString();
+            var initializer = n.getInitializer().toString();
+            logger.logTrace( String.format("  Before processing: Variable name: %s, variableType: %s, initializer: %s ", variableName, variableType, initializer), deepness.getDeepness());
+            if(variableType.equals("var")) {
+                variableType = initializer;
+            }
+            if (variableType.contains("new ")) {
+                variableType = variableType.replace("new ", "").trim();
+            }
+            if (variableType.startsWith("Optional[")) {
+                variableType = variableType.replace("Optional[", "");
+                variableType = variableType.substring(0, variableType.length() - 1).trim();
+            }
+            if(variableType.contains("(")) {
+                variableType = variableType.substring(0, variableType.indexOf('(')).trim();
+            }
+            logger.logTrace( String.format("  After processing: Variable name: %s, variableType: %s", variableName, variableType), deepness.getDeepness());
 
-        String fqdnCurrentTypeName = deepness.GetFQDNCurrentClassName(n.getType());
-        logger.logDebug("VariableDeclarator: " +  n + ", " +
-                n.getNameAsString() + " of type " + fqdnCurrentTypeName + ", " + n.getType() + " init " + n.getInitializer().orElse(null), deepness.getDeepness());
+            if (variableType.length() > 0) {
+                variableType = SimplifyType(variableType);
+                if(variableType.matches("^[\\w\\[\\]]+$")) {
+
+                    String methodName = deepness.GetCurrentMethodName();
+                    Datastructure.Method method = subDataStructureParent.getMethod(methodName);
+                    if (method != null) {
+                        method.AddVariable(variableName, variableType, deepness.getCurrentNamespace());
+                    } else {
+                        logger.logTrace("  Could not find method " + methodName + " in class " + fqdnParentClassName, deepness.getDeepness());
+                    }
+                } else {
+                    logger.logWarning(String.format("  Skipped: Variable name %s of class %s has a type %s that CANNOT be extracted", variableName, fqdnParentClassName, variableType), deepness.getDeepness());
+                }
+            }
+        }
+
 
         super.visit(n, arg);
 
     }
 
 
-    /*
-    @Override
-    public void visit(ArrayAccessExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ArrayAccessExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
 
-    @Override
-    public void visit(ArrayCreationExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ArrayCreationExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ArrayCreationLevel n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ArrayCreationLevel: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ArrayInitializerExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ArrayInitializerExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ArrayType n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ArrayType: " + (extended ? n : n.getComponentType()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(AssertStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "AssertStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-*/
     @Override
     public void visit(AssignExpr n, Void arg) {
         logger.logInfo(deepness.getDeepness() + "AssignExpr: " + (extended ? n : n.getTarget() + " = " + n.getValue()));
         super.visit(n, arg);
         deepness.decrease();
     }
-/*
-    @Override
-    public void visit(BinaryExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "BinaryExpr: " + (extended ? n : n.getLeft() + " " + n.getOperator() + " " + n.getRight()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(BlockComment n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "BlockComment: " + (extended ? n : n.getContent()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(BlockStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "BlockStmt: " + (extended ? n : n.getStatements().size() + " statements"));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(BooleanLiteralExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "BooleanLiteralExpr: " + (extended ? n : n.getValue()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(BreakStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "BreakStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(CastExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "CastExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(CatchClause n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "CatchClause: " + (extended ? n : n.getParameter()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(CharLiteralExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "CharLiteralExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-*/
     @Override
     public void visit(ClassExpr n, Void arg) {
         logger.logInfo(deepness.getDeepness() + "ClassExpr: " + (extended ? n : n.getType()));
         super.visit(n, arg);
         deepness.decrease();
     }
-/*
-    @Override
-    public void visit(ClassOrInterfaceType n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ClassOrInterfaceType: " + (extended ? n : n.getNameAsString()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(CompilationUnit n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "CompilationUnit: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ConditionalExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ConditionalExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ConstructorDeclaration n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ConstructorDeclaration: " + (extended ? n : n.getDeclarationAsString()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ContinueStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ContinueStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(DoStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "DoStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(DoubleLiteralExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "DoubleLiteralExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(EmptyStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "EmptyStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(EnclosedExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "EnclosedExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(EnumConstantDeclaration n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "EnumConstantDeclaration: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(EnumDeclaration n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "EnumDeclaration: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ExplicitConstructorInvocationStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ExplicitConstructorInvocationStmt: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ExpressionStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ExpressionStmt: " + (extended ? n : n.getExpression()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(FieldAccessExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "FieldAccessExpr: " + (extended ? n : n.getNameAsString()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-*/
-
-/*
-    @Override
-    public void visit(ForEachStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ForEachStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ForStmt n, Void arg) {
-        // Collector<CharSequence, ?, String> joiner = Collectors.joining(", ");
-        // out.logInfo(deepness.getDeepness() + "ForStmt: "
-        // + (extended ? n : n.getInitialization().stream().map(node ->
-        // Objects.toString(node)).collect(joiner)) + "; "
-        // + n.getCompare()
-        // + "; " + n.getUpdate().stream().map(node ->
-        // Objects.toString(node)).collect(joiner)
-        //
-        // );
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(IfStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "IfStmt: " + (extended ? n : n.getCondition()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-
-
-    @Override
-    public void visit(InitializerDeclaration n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "InitializerDeclaration: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(InstanceOfExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "InstanceOfExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(IntegerLiteralExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "IntegerLiteralExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(IntersectionType n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "IntersectionType: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(JavadocComment n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "JavadocComment: " + (extended ? n : n.getContent()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(LabeledStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "LabeledStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(LambdaExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "LambdaExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(LineComment n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "LineComment: " + (extended ? n : n.getContent()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(LocalClassDeclarationStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "LocalClassDeclarationStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(LongLiteralExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "LongLiteralExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(MarkerAnnotationExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "MarkerAnnotationExpr: " + (extended ? n : n.getNameAsString()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(MemberValuePair n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "MemberValuePair: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-
-    @Override
-    public void visit(ModuleDeclaration n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ModuleDeclaration: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ModuleExportsDirective n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ModuleExportsStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ModuleOpensDirective n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ModuleOpensStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ModuleProvidesDirective n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ModuleProvidesStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ModuleRequiresDirective n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ModuleRequiresStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ModuleUsesDirective n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ModuleUsesStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(Name n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "Name: " + (extended ? n : n.getIdentifier()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(NameExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "NameExpr: " + (extended ? n : n.getNameAsString()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(NodeList n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "NodeList: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(NormalAnnotationExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "NormalAnnotationExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(NullLiteralExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "NullLiteralExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ObjectCreationExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ObjectCreationExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-*/
-
-/*
-    @Override
-    public void visit(Parameter n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "Parameter: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(PrimitiveType n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "PrimitiveType: " + (extended ? n : n.getType()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ReturnStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ReturnStmt: " + (extended ? n : n.getExpression()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(SimpleName n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "SimpleName: " + (extended ? n : n.getIdentifier()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(SingleMemberAnnotationExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "SingleMemberAnnotationExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(StringLiteralExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "StringLiteralExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(SuperExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "SuperExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(SwitchEntry n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "SwitchEntryStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(SwitchStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "SwitchStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(SynchronizedStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "SynchronizedStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ThisExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ThisExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(ThrowStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "ThrowStmt: " + (extended ? n : n.getExpression()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(TryStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "TryStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(TypeExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "TypeExpr: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(TypeParameter n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "TypeParameter: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(UnaryExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "UnaryExpr: " + (extended ? n : n.getOperator() + " " + n.getExpression()));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(UnionType n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "UnionType: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(UnknownType n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "UnknownType: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(UnparsableStmt n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "UnparsableStmt: " + (extended ? n : ""));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-
-    @Override
-    public void visit(VariableDeclarationExpr n, Void arg) {
-        logger.logInfo(deepness.getDeepness() + "VariableDeclarationExpr: " + (extended ? n : n));
-        super.visit(n, arg);
-        deepness.decrease();
-    }
-*/
     @Override
     public void visit(VoidType n, Void arg) {
         logger.logInfo(deepness.getDeepness() + "VoidType: " + (extended ? n : ""));

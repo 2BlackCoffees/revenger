@@ -110,6 +110,7 @@ public class Datastructure {
         List<Static> statics = new ArrayList<>();
         List<Variable> variables = new ArrayList<>();
         List<Method> methods = new ArrayList<>();
+        boolean isInnerClass = false;
 
         public SubDataStructure(String filename_, String filemodule_, 
                                 List<String> usings_, String fqdn_class_name_, 
@@ -187,6 +188,10 @@ public class Datastructure {
         {
             return isInterface;
         }
+        public boolean isInnerClass()
+        {
+            return isInnerClass;
+        }
         public Boolean has_static_fields()
         {
             return statics.size() > 0;
@@ -250,6 +255,9 @@ public class Datastructure {
             return nameSpaceList;
         }
 
+        public void setInnerClass(boolean isInnerClass_) {
+            isInnerClass = isInnerClass_;
+        }
     } // end of class SubDataStructure
 
     Map<String, SubDataStructure> class_to_datastructure = new HashMap<String, SubDataStructure>();
@@ -376,9 +384,10 @@ public class Datastructure {
               ", from class: " + class_to_datastructure.get(fqdn_class_name).get_fqdn_class_name() + ": Ignoring.");
         }
     }
-    public void append_class(String filename, String filemodule, List<String> usings, String fqdn_class_name, List<String> nameSpaceList) {
+    public SubDataStructure append_class(String filename, String filemodule, List<String> usings, String fqdn_class_name, List<String> nameSpaceList) {
         SubDataStructure sub_datastructure = new SubDataStructure(filename, filemodule, usings, fqdn_class_name, nameSpaceList);
         append_sub_datastructure(sub_datastructure);
+        return sub_datastructure;
     }
 
     public List<String> get_classname_list() {

@@ -68,6 +68,7 @@ class Datastructure(GenericDatastructure):
 
             self.bases: List[str] = []
             self.inner_classes: List[str] = []
+            self.is_inner_class_field: bool = False
             self.is_abstract_field: bool = False
             self.is_interface_field: bool = False
             self.statics: List[Datastructure.Static] = []
@@ -79,6 +80,10 @@ class Datastructure(GenericDatastructure):
         
         def set_abstract(self) -> None:
             self.is_abstract_field = True
+
+        def set_inner_class(self) -> None:
+            self.is_inner_class_field = True
+
         def set_interface(self) -> None:
             self.is_interface_field = True
 
@@ -117,6 +122,8 @@ class Datastructure(GenericDatastructure):
             return self.is_abstract_field
         def is_interface(self) -> bool:
             return self.is_interface_field
+        def is_inner_class(self) -> bool:
+            return self.is_inner_class_field
 
         def has_static_fields(self) -> bool:
             return len(self.statics) > 0
@@ -127,6 +134,7 @@ class Datastructure(GenericDatastructure):
 
         def get_fqdn_class_name(self) -> str:
             return self.fqdn_class_name
+
         def get_base_classes(self) -> List[str]:
             return self.bases
         def get_static_fields(self) -> List[Datastructure.Static]:

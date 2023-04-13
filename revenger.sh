@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# \rm -rf tmp-dotnet && mkdir tmp-dotnet && ./revenger.sh --from_dir dotnet-adapter/DotnetPreAdapter --out_dir tmp-dotnet --trace --from_language csharp --keep > out-csharp.log 2>&1
+# \rm -rf tmp-java && mkdir tmp-java && ./revenger.sh --from_dir java-adapter/src/main/java/Example --out_dir tmp-java --trace --from_language java --keep > tmp/out-java.log 2>&1
 function error() {
   echo -e "ERROR: $1"
   exit 0
@@ -33,7 +35,7 @@ list_file_to_parameters() {
   group_nb=1
   while [[ $(wc -c $list_remaining_puml | awk '{print $1}' | xargs) > 1 ]]; do
     echo "# COMMENT: Preparing group $group_nb out of $number_groups (Total files: $(wc -l $list_remaining_puml) )" >> $command_file
-    file_list=$(head -$number_parameters_max $list_remaining_puml | xargs)
+    file_list=$(head -$number_parameters_max $list_remaining_puml  | xargs)
     tail -n +$((number_parameters_max + 1))  $list_remaining_puml > $list_remaining_puml_tmp
     cp $list_remaining_puml_tmp $list_remaining_puml
     echo "  echo \"INFO: Starting transforming from PUML to SVG the group $group_nb/$number_groups of $number_parameters_max files (Running in $command_file, PID: \$\$)\"" >> $command_file
@@ -60,7 +62,7 @@ get_list_puml_not_processed() {
     find . -name "*.svg" -size 0 -type f | xargs rm
     list_all_puml=$(mktemp)
     list_puml_done=$(mktemp)
-    find . -type f -name "*.puml" | grep -v $deadletter | sort > $list_all_puml 2>/dev/null
+    find . -type f -name "*.puml" | grep -v $deadletter | perl -npe 's:([\[\]]):\\\\$1:g;s:([<> ]):\\\\$1:g;' | sort > $list_all_puml 2>/dev/null
     find . -type f -name "*.svg" | grep -v $deadletter | sed 's:\.svg:\.puml:' | sort > $list_puml_done 2>/dev/null
     diff $list_puml_done $list_all_puml | grep '>' | sed 's:^[\> ]*::g' > $list_remaining_puml
     if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
@@ -171,7 +173,7 @@ function usage() {
     echo "               [ --info ]                       Info logs"
     echo "               [ --debug ]                      Debug logs"
     echo "               [ --trace ]                      Trace logs"
-    echo "               [ --from_language csharp ]       Currently only python (default) or csharp adapter exist"
+    echo "               [ --from_language lang_type ]    lang_type can be csharp, java or python. "
     echo "               [ --force_docker_adapter ]       If the adapter has a docker image use it as prio 1"
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
@@ -184,15 +186,17 @@ function usage() {
     echo "               [ -h | --help ]                      This help"
 }
 
-function run_dotnet_locally() {
-  from_dir=$1
-  tmp_dir=$2
+function run_dotnet_java_locally() {
+  language=$1
+  from_dir=$2
+  tmp_dir=$3
+  shift
   shift
   shift
   statements=$@
-  pushd $basepath/dotnet-adapter >/dev/null 2>&1
+  pushd $basepath/${language}-adapter >/dev/null 2>&1
   info "Running ./run.sh $from_dir $tmp_dir $(echo $statements)"
-  ./run.sh $from_dir $tmp_dir $(echo $statements) || info "Running ./run.sh $from_dir $tmp_dir $(echo $statements) failed"
+  ./run.sh $from_dir $tmp_dir $(echo $statements) || info "Running $(pwd)/run.sh $from_dir $tmp_dir $(echo $statements) failed"
   status=$?
   popd >/dev/null 2>&1
   return $status
@@ -277,7 +281,7 @@ while [[ "$1" != "" ]]; do
         --from_language )
           shift
           from_language=$1
-          info "Transforming from language $from_language: This requires either dotnet or Docker to be installed: When using dotnet make sure the project is compiled."
+          info "Transforming from language $from_language: This requires either dotnet for C# or Docker to be installed: When using dotnet make sure the project is compiled."
           dotnet -h > /dev/null 2>&1 || docker -v > /dev/null 2>&1 || error "This feature requires either dotnet or docker to be installed. Please make sure it is installed and accessible."
           statements="$statements --yaml"
           ;;
@@ -374,13 +378,29 @@ if [[ $process_svg_only == 0 ]]; then
       tmp_dir=$(mktemp -d)
       if [[ $force_docker_adapter == 0 ]]; then
         info "Running CSharp adapter locally or as docker image"
-        run_dotnet_locally $from_dir $tmp_dir $statements || run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapeter is compiled or docker is installed."
+        run_dotnet_java_locally dotnet $from_dir $tmp_dir $statements|| run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used both local or from the docker image: Make sure either dotnet is installed and the adapter is compiled or docker is installed."
       else
         info "Running CSharp adapter as Docker image"
         run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used from the docker image: Make sure docker is installed or try to run dotnet locally."
       fi
       from_dir=$tmp_dir
       cp -r $tmp_dir/* $out_dir || error "no files could be found in the temporary directory $tmp_dir"
+
+      ;;
+    java )
+       if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
+         rm $out_dir/*.yaml > /dev/null 2>&1
+       fi
+       tmp_dir=$(mktemp -d)
+       if [[ $force_docker_adapter == 0 ]]; then
+         info "Running Java adapter locally or as docker image"
+         run_dotnet_java_locally java $from_dir $tmp_dir $statements || run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Java adapter could not be used both local or from the docker image: Make sure either maven is installed or docker is installed."
+       else
+         info "Running Java adapter as Docker image"
+         #run_dotnet_in_docker $from_dir $tmp_dir $statements || error "Dotnet adapter could not be used from the docker image: Make sure docker is installed or try to run dotnet locally."
+       fi
+       from_dir=$tmp_dir
+       cp -r $tmp_dir/* $out_dir || error "no files could be found in the temporary directory $tmp_dir"
 
       ;;
     python )
@@ -392,6 +412,7 @@ if [[ $process_svg_only == 0 ]]; then
 
 
   info "Generating puml files"
+  info "$python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements)"
   $python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
 fi
 info "Transforming puml to svg"
