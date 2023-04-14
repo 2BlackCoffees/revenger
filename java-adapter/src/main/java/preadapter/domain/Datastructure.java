@@ -263,7 +263,7 @@ public class Datastructure {
     Map<String, SubDataStructure> class_to_datastructure = new HashMap<String, SubDataStructure>();
     Map<String, List<SubDataStructure>> namespace_to_datastructures = new HashMap<String, List<SubDataStructure>>();
     Map<String, List<String>> namespace_to_namespace_list = new HashMap<String, List<String>>();
-    List<String> skip_types = new ArrayList<String>(Arrays.asList("String", "Boolean"));
+    List<String> skip_types = new ArrayList<String>(Arrays.asList("String", "Boolean", "boolean", "int", "float", "double", "Integer", "byte", "short", "char"));
     Logger logger;
     public Datastructure(Logger logger_)
     {

@@ -37,8 +37,8 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
     List<String> allUsing = new ArrayList<>();
     Map<String, String> usingDict = new HashMap<>();
     private final HandleDeepness deepness = new HandleDeepness(namespaceList, activeClassnameList, activeMethodList);
-    List<String> ignoreType = new ArrayList<>(Arrays.asList( "string", "String", "int", "float", "bool", "Boolean", "list[string]",
-            "list[int]", "list[bool]", "string[]", "int[]"));
+    List<String> ignoreType = new ArrayList<>(Arrays.asList("String", "int", "Integer", "float", "boolean", "Boolean", "list[string]",
+            "list[int]", "list[bool]", "String[]", "int[]"));
     private String NO_CLASS_FOUND = "##NoClass##";
 
     public ASTVisitor(Datastructure datastructure, String filename, Logger logger)
@@ -274,20 +274,22 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
             List<Triplet<String, String, String>> argumentsTuple = new ArrayList<>();
             for (var argument : n.getParameters()) {
                 String argumentTypeString = SimplifyType(argument.getTypeAsString());
-                String mostProbableNS = argumentTypeString.contains(".") ?
-                        "" :
-                        deepness.getCurrentNamespace();
+                if(!ignoreType.contains(argumentTypeString)) {
+                    String mostProbableNS = argumentTypeString.contains(".") ?
+                            "" :
+                            deepness.getCurrentNamespace();
 
-                argumentsTuple.add(new Triplet<>(methodName,
-                                                argumentTypeString,
-                                                mostProbableNS)
-                );
-                logger.logTrace(String.format("  Method: %s, Adding parameter name: %s, type: %s, (Most probable NS: %s), fqdnParentClassName: %s",
-                        methodName,
-                        argument.getNameAsString(),
-                        argumentTypeString,
-                        mostProbableNS,
-                        fqdnParentClassName));
+                    argumentsTuple.add(new Triplet<>(methodName,
+                            argumentTypeString,
+                            mostProbableNS)
+                    );
+                    logger.logTrace(String.format("  Method: %s, Adding parameter name: %s, type: %s, (Most probable NS: %s), fqdnParentClassName: %s",
+                            methodName,
+                            argument.getNameAsString(),
+                            argumentTypeString,
+                            mostProbableNS,
+                            fqdnParentClassName));
+                }
             }
             subDataStructure.add_method(methodName,
                                         argumentsTuple,
@@ -325,21 +327,24 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
             if(subDataStructure != null) {
                 for (VariableDeclarator variableDeclarator : n.getVariables()) {
                     String argumentTypeString = SimplifyType(variableDeclarator.getTypeAsString());
-                    String mostProbableNS = argumentTypeString.contains(".") ?
-                            "" :
-                            deepness.getCurrentNamespace();
+                    if(!ignoreType.contains(argumentTypeString)) {
 
-                    subDataStructure.add_variable(
-                            variableDeclarator.getNameAsString(),
-                            argumentTypeString,
-                            mostProbableNS,
-                            true);
-                    logger.logTrace(String.format("Created ** Member ** variable name: %s, type: %s, mostProbableNS: %s, fqdnParentClassName: %s",
-                                                    variableDeclarator.getNameAsString(),
-                                                    argumentTypeString,
-                                                    mostProbableNS,
-                                                    fqdnParentClassName),
-                            deepness.getDeepness());
+                        String mostProbableNS = argumentTypeString.contains(".") ?
+                                "" :
+                                deepness.getCurrentNamespace();
+
+                        subDataStructure.add_variable(
+                                variableDeclarator.getNameAsString(),
+                                argumentTypeString,
+                                mostProbableNS,
+                                true);
+                        logger.logTrace(String.format("Created ** Member ** variable name: %s, type: %s, mostProbableNS: %s, fqdnParentClassName: %s",
+                                        variableDeclarator.getNameAsString(),
+                                        argumentTypeString,
+                                        mostProbableNS,
+                                        fqdnParentClassName),
+                                deepness.getDeepness());
+                    }
                 }
             } else {
                 logger.logError("Could not find class " + fqdnParentClassName + " in datastructure");
@@ -430,14 +435,17 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
 
             if (variableType.length() > 0) {
                 variableType = SimplifyType(variableType);
-                if(variableType.matches("^[\\w\\[\\]]+$")) {
+                if(!ignoreType.contains(variableType)) {
 
-                    String methodName = deepness.GetCurrentMethodName();
-                    Datastructure.Method method = subDataStructureParent.getMethod(methodName);
-                    if (method != null) {
-                        method.AddVariable(variableName, variableType, deepness.getCurrentNamespace());
-                    } else {
-                        logger.logTrace("  Could not find method " + methodName + " in class " + fqdnParentClassName, deepness.getDeepness());
+                    if(variableType.matches("^[\\w\\[\\]]+$")) {
+
+                        String methodName = deepness.GetCurrentMethodName();
+                        Datastructure.Method method = subDataStructureParent.getMethod(methodName);
+                        if (method != null) {
+                            method.AddVariable(variableName, variableType, deepness.getCurrentNamespace());
+                        } else {
+                            logger.logTrace("  Could not find method " + methodName + " in class " + fqdnParentClassName, deepness.getDeepness());
+                        }
                     }
                 } else {
                     logger.logWarning(String.format("  Skipped: Variable name %s of class %s has a type %s that CANNOT be extracted", variableName, fqdnParentClassName, variableType), deepness.getDeepness());
