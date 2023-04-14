@@ -44,16 +44,17 @@ class ApplicationService:
 
     @staticmethod
     def read_all_source_files(from_dir: str, out_dir: str, \
-            logger: Logger, language_dependent: LanguageDependent, \
-                skip_uses_relation: bool, source_type: SourceType) -> Dict[str, List[str]]:
+            logger: Logger, language_dependent: LanguageDependent, skip_uses_relation: bool, \
+            skip_not_defined_classes: bool, source_type: SourceType) -> Dict[str, List[str]]:
         saver: Saver = Saver(out_dir, logger)
         diagram_creation: DiagramCreation = DiagramCreation(Datastructure(language_dependent, logger), saver, logger)
         saver.append('@startuml')
 
         ApplicationService.fill_datastructure_with_all_source_files(from_dir, diagram_creation, logger, saver, source_type)
-        diagram_creation.create_referenced_but_inexistent_classes(skip_uses_relation)
+        if not skip_not_defined_classes:
+            diagram_creation.create_referenced_but_inexistent_classes(skip_uses_relation)
         # Create full diagrams
-        diagram_creation.create_puml_files(from_dir, skip_uses_relation, None)
+        diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, None)
 
         # Create diagrams filtered out by class name
         class_list: List[str] = diagram_creation.get_data_structure().get_classname_list()
@@ -63,7 +64,7 @@ class ApplicationService:
                     .create_reduced_class_list_from_class_name_list([class_name])
              class_based_diagram_creation: DiagramCreation = \
                 DiagramCreation(reduced_class_list_datastructure, saver, logger)
-             class_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, class_name)
+             class_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, class_name)
 
         # Create diagrams filtered out by namespace
         class_name_list_grouped_by_namespaces: Dict[List[str]] = \
@@ -75,4 +76,4 @@ class ApplicationService:
                     create_reduced_class_list_from_class_name_list(class_name_list)
              namespace_based_diagram_creation: DiagramCreation = \
                 DiagramCreation(reduced_namespace_list, saver, logger)
-             namespace_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, namespace_name)
+             namespace_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, namespace_name)

@@ -170,6 +170,7 @@ function usage() {
     echo "               [ -d | --plantuml_install ]      Install plantuml (not graphviz however, you will have to install it yourself)"
     echo "               [ -p | --plantweb_dep_install ]  Uses plantweb server instead of local plantuml: Insecure DO NOT USE IT for sensitive data."
     echo "               [ --skip_uses_relation ]         Skip UML uses relations"
+    echo "               [ --skip_not_defined_classes ]   If a class is referenced but not defined, it will not be displayed (reduces memory needs)"
     echo "               [ --info ]                       Info logs"
     echo "               [ --debug ]                      Debug logs"
     echo "               [ --trace ]                      Trace logs"
@@ -309,7 +310,7 @@ while [[ "$1" != "" ]]; do
           PLANTUML_JAVAPATH=$2
           shift
           ;;
-        --trace | --info | --debug | --skip_uses_relation)
+        --trace | --info | --debug | --skip_uses_relation | --skip_not_defined_classes )
          statements="$statements $1"
          ;;
         --keep )

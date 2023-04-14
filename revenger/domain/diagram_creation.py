@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 import re
 
 from pprint import pprint
+from pprint import pformat
 
 from domain.saver import Saver
 from domain.logger import Logger
@@ -227,7 +228,9 @@ class DiagramCreation:
         color: str = sub_datastructure.get_color()
         if color is None:
             color = ''
-        saver.append(f'{empty_spaces}{is_abstract}{class_type}{fqdn_class_name_for_plant_uml} [[{class_link}]] {color} {{')
+        class_creation: str = f'{empty_spaces}{is_abstract}{class_type}{fqdn_class_name_for_plant_uml} [[{class_link}]] {color} {{'
+        saver.append(class_creation)
+        self.logger.log_trace(f'{empty_spaces}  Created:\'{class_creation}\'')
 
         if detailed:
             static_field: Datastructure.Static
@@ -259,7 +262,7 @@ class DiagramCreation:
                   saver.append('--')
 
         saver.append(f'{empty_spaces}}}')
-    
+
     def __create_puml_classes(self, detailed: bool, grouped_per_ns: bool, saver: Saver, from_dir: str) -> None:
         previous_sub_namespace_list: List[str] = []
         list_file_namespaces = self.datastructure.get_sorted_name_spaces()
@@ -287,7 +290,8 @@ class DiagramCreation:
                 class_name not in self.datastructure.get_skip_types():
             saver.append_connection(f'{class_name} {connection} {member_type} {note}')
 
-    def __create_puml_classes_relations(self, saver: Saver, create_all_relation: bool, skip_uses_relation: bool) -> None:
+    def __create_puml_classes_relations(self, saver: Saver, create_all_relation: bool, skip_uses_relation: bool, \
+                                        skip_not_defined_classes: bool) -> None:
         for namespace_name in self.datastructure.get_sorted_name_spaces():
             saver.append(f'\' Class relations extracted from namespace:\n\' {namespace_name}')
             sub_datastructure: Datastructure.SubDataStructure
@@ -302,9 +306,10 @@ class DiagramCreation:
                         relation_created = "skipped"
                         if create_all_relation or self.datastructure.class_exists(base):
                             base_sub_datastructure: Datastructure.SubDataStructure = self.datastructure.get_datastructures_from_class_name(base)
-                            base_puml: str = self.__get_fqdn_class_name_plant_uml(base_sub_datastructure)
-                            saver.append_connection(f'{base_puml} <|-[#red]- {class_name_puml}')
-                            relation_created = "created"
+                            if base_sub_datastructure is not None:
+                                base_puml: str = self.__get_fqdn_class_name_plant_uml(base_sub_datastructure)
+                                saver.append_connection(f'{base_puml} <|-[#red]- {class_name_puml}')
+                                relation_created = "created"
                         self.logger.log_debug(\
                             f'   Relation *** {relation_created} ***: {base} <|-[#red]- {class_name_puml} ' + \
                                 f'(create_all_relation: {create_all_relation}, ' + \
@@ -315,10 +320,11 @@ class DiagramCreation:
                     if create_all_relation or self.datastructure.class_exists(inner_class_name):
 
                         inner_class_sub_datastructure: Datastructure.SubDataStructure = self.datastructure.get_datastructures_from_class_name(inner_class_name)
-                        inner_class_name_puml: str = self.__get_fqdn_class_name_plant_uml(inner_class_sub_datastructure)
+                        if inner_class_sub_datastructure is not None:
+                            inner_class_name_puml: str = self.__get_fqdn_class_name_plant_uml(inner_class_sub_datastructure)
 
-                        self.__create_puml_connection(class_name_puml, inner_class_name_puml, Common.ConnectionType.IS_INNER_CLASS, saver)
-                        relation_created = "created"
+                            self.__create_puml_connection(class_name_puml, inner_class_name_puml, Common.ConnectionType.IS_INNER_CLASS, saver)
+                            relation_created = "created"
                     self.logger.log_debug(f'    Relation *** {relation_created} ***: {class_name_puml} +-- {inner_class_name} ' + \
                         f'(create_all_relation: {create_all_relation}, datastructure.class_exists({inner_class_name}): ' + \
                             f'{self.datastructure.class_exists(inner_class_name)})')
@@ -339,7 +345,7 @@ class DiagramCreation:
                 variable_field: Datastructure.Variable
                 for variable_field in sub_datastructure.get_variable_fields():
                     _, naked_type, _ = Common.reduce_member_type(variable_field.variable_type)
-                    if create_all_relation or self.datastructure.class_exists(naked_type):
+                    if (create_all_relation and not skip_not_defined_classes) or self.datastructure.class_exists(naked_type):
                         connection_type: str = Common.ConnectionType.IS_MEMBER if variable_field.is_member else Common.ConnectionType.USES
                         if (not skip_uses_relation) or connection_type == Common.ConnectionType.IS_MEMBER:
                             self.__create_puml_connection(class_name, variable_field.variable_type, connection_type, saver)
@@ -358,9 +364,12 @@ class DiagramCreation:
                     for parameter in method_field.parameters:
                         _, naked_type, _ = Common.reduce_member_type(parameter.user_type)
                         relation_created = "skipped"
-                        if (not skip_uses_relation) and (create_all_relation or self.datastructure.class_exists(naked_type)):
-                            self.__create_puml_connection(class_name, parameter.user_type, Common.ConnectionType.USES_PARAMETER, saver)
-                            relation_created = "created"
+                        if (not skip_uses_relation) and ((create_all_relation and not skip_not_defined_classes) or self.datastructure.class_exists(naked_type)):
+                            parameter_type_sub_datastructure: Datastructure.SubDataStructure = self.datastructure.get_datastructures_from_class_name(parameter.user_type)
+                            if parameter_type_sub_datastructure is not None:
+                                parameter_type_name_puml: str = self.__get_fqdn_class_name_plant_uml(parameter_type_sub_datastructure)
+                                self.__create_puml_connection(class_name, parameter_type_name_puml, Common.ConnectionType.USES_PARAMETER, saver)
+                                relation_created = "created"
 
                         self.logger.log_debug(f'    Parameter relation *** {relation_created} *** (Uses): {class_name} --> {naked_type} ' + \
                             f'(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
@@ -369,18 +378,22 @@ class DiagramCreation:
                     for variable in method_field.variables:
                         _, naked_type, _ = Common.reduce_member_type(variable.variable_type)
                         relation_created = "skipped"
-                        if (not skip_uses_relation) and (create_all_relation or self.datastructure.class_exists(naked_type)):
-                            self.__create_puml_connection(class_name, variable.variable_type, Common.ConnectionType.USES_LOCAL_VARIABLE, saver)
-                            relation_created = "created"
+                        if (not skip_uses_relation) and ((create_all_relation and not skip_not_defined_classes) or self.datastructure.class_exists(naked_type)):
+                            variable_type_sub_datastructure: Datastructure.SubDataStructure = self.datastructure.get_datastructures_from_class_name(variable.variable_type)
+                            if variable_type_sub_datastructure is not None:
+                                variable_type_name_puml: str = self.__get_fqdn_class_name_plant_uml(variable_type_sub_datastructure)
+                                self.__create_puml_connection(class_name, variable_type_name_puml, Common.ConnectionType.USES_LOCAL_VARIABLE, saver)
+                                relation_created = "created"
                         self.logger.log_debug(f'    Local variable relation *** {relation_created} *** (Uses): {class_name} --> {naked_type} ' + \
                             f'(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
                                 f'{self.datastructure.class_exists(naked_type)}, skip_uses_relation: {skip_uses_relation})')
             
-    def __create_full_diagram(self, detailed: bool, grouped_per_ns: bool, from_dir: str, skip_uses_relation: bool, class_namespace_name: str = None) -> None:
+    def __create_full_diagram(self, detailed: bool, grouped_per_ns: bool, from_dir: str, skip_uses_relation: bool, \
+                              skip_not_defined_classes: bool, class_namespace_name: str = None) -> None:
         saver: Saver = self.saver.clone()
         user_info_filename, filename, user_info_link_1, link_path_1, user_info_link_2, link_path_2 = \
             DiagramCreation.__get_file_name(detailed, grouped_per_ns, class_namespace_name)
-        self.logger.log_debug(f"*** Creating diagram {filename} ***\n  filename: {filename}\n  detailed:{detailed}\n  grouped_per_ns:{grouped_per_ns}\n  from_dir: {from_dir}\n  skip_uses_relation: {skip_uses_relation}\n  class_namespace_name: {class_namespace_name}")
+        self.logger.log_debug(f"*** Creating diagram {filename} ***\n  filename: {filename}\n  detailed:{detailed}\n  grouped_per_ns:{grouped_per_ns}\n  from_dir: {from_dir}\n  skip_uses_relation: {skip_uses_relation}\n  skip_not_defined_classes: {skip_not_defined_classes}\n  class_namespace_name: {class_namespace_name}")
         saver.append(f'title <size:20>{user_info_filename}</size>')
         saver.append( f'note "Your are analyzing:\\n{user_info_filename}\\n\\n' +
                       '==Filter==\\n' +
@@ -393,14 +406,16 @@ class DiagramCreation:
 
         self.__create_puml_classes(detailed, grouped_per_ns, saver, from_dir)
         create_all_relation: bool = class_namespace_name == None
-        self.__create_puml_classes_relations(saver, create_all_relation, skip_uses_relation)
+        self.__create_puml_classes_relations(saver, create_all_relation, skip_uses_relation, skip_not_defined_classes)
         saver.append('@enduml')
+        # self.logger.log_trace(f'PUML file content before saving to {filename}:\n {pformat(saver.lines_to_save)} ')
         saver.save(filename)
 
-    def create_puml_files(self, from_dir: str, skip_uses_relation: bool, class_namespace_name: str = None) -> None:
+    def create_puml_files(self, from_dir: str, skip_uses_relation: bool, skip_not_defined_classes: bool, \
+                          class_namespace_name: str = None) -> None:
         detailed: bool = True
         grouped_per_ns: bool = True
-        self.__create_full_diagram(detailed,     not grouped_per_ns,  from_dir, skip_uses_relation, class_namespace_name)
-        self.__create_full_diagram(detailed,     grouped_per_ns,      from_dir, skip_uses_relation, class_namespace_name)
-        self.__create_full_diagram(not detailed, not grouped_per_ns,  from_dir, skip_uses_relation, class_namespace_name)
-        self.__create_full_diagram(not detailed, grouped_per_ns,      from_dir, skip_uses_relation, class_namespace_name)
+        self.__create_full_diagram(detailed,     not grouped_per_ns,  from_dir, skip_uses_relation, skip_not_defined_classes, class_namespace_name)
+        self.__create_full_diagram(detailed,     grouped_per_ns,      from_dir, skip_uses_relation, skip_not_defined_classes, class_namespace_name)
+        self.__create_full_diagram(not detailed, not grouped_per_ns,  from_dir, skip_uses_relation, skip_not_defined_classes, class_namespace_name)
+        self.__create_full_diagram(not detailed, grouped_per_ns,      from_dir, skip_uses_relation, skip_not_defined_classes, class_namespace_name)

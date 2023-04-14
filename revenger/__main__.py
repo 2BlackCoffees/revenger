@@ -20,6 +20,7 @@ def main(from_dir: str, out_dir: str) -> None:
     parser.add_argument('--from_dir', type=str, help='Specify where to read the python files from', required=True)
     parser.add_argument('--out_dir', type=str, help='Specify where to store all puml files', required=True)
     parser.add_argument('--skip_uses_relation', action="store_true", help='Do not create use relationship')
+    parser.add_argument('--skip_not_defined_classes', action="store_true", help='If a class is referenced but not defined, it will not be displayed (reduces memory needs)')
     parser.add_argument('--info', action="store_true", help='Set logging to info')
     parser.add_argument('--debug', action="store_true", help='Set logging to debug')
     parser.add_argument('--trace', action="store_true", help='Set logging to trace')
@@ -37,7 +38,8 @@ def main(from_dir: str, out_dir: str) -> None:
         logger.log_error(f'Source directory ({from_dir}) is invalid, it requires an absolute path! Exiting!')
         exit(1)
 
-    ApplicationService.read_all_source_files(from_dir, out_dir, logger, PythonLanguage(logger), args.skip_uses_relation, source_type)
+    ApplicationService.read_all_source_files(from_dir, out_dir, logger, PythonLanguage(logger), \
+                                             args.skip_uses_relation, args.skip_not_defined_classes, source_type)
 
     file_name: str = os.path.join(os.getcwd(), out_dir, re.sub('puml$', 'svg', f'full{DiagramCreation.DETAILED_FILENAME_SUFFIX}'))
     logger.log_warn(f'Please open {file_name} in your browser')
