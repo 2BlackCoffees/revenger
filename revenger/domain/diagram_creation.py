@@ -213,7 +213,7 @@ class DiagramCreation:
             module_name_length: int = len(sub_datastructure.get_filemodule())
             if len(fqdn_class_name) > module_name_length + 1:
                 fqdn_class_name = fqdn_class_name[:module_name_length + 1] + \
-                                  fqdn_class_name[module_name_length + 1:].replace('.', '___')
+                                  fqdn_class_name[module_name_length + 1:].replace('.', '_DOT_')
         return fqdn_class_name
     def __create_puml_class(self, sub_datastructure: Datastructure.SubDataStructure, saver: Saver,\
             detailed: bool, grouped_per_ns: bool, empty_spaces: str):
