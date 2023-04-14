@@ -1,0 +1,24 @@
+#### Create dotnet adapter
+# docker build -f Dockerfile.javaadapter -t py2plantuml_javaadapter:latest .
+# docker buildx build -f Dockerfile.javaadapter --platform linux/arm64,linux/amd64 -t 2blackcoffees/py2plantuml_javaadapter:latest . --push
+FROM maven:3.8.7-openjdk-18-slim AS build-env
+WORKDIR /App
+
+COPY java-adapter/* ./
+RUN ls -l
+RUN mvn -f pom.xml clean package
+
+# Build runtime image
+FROM maven:3.8.7-openjdk-18-slim
+USER root
+RUN mkdir -p /App/java-adapter/target
+WORKDIR /App/
+COPY --from=build-env /App/java-adapter/target ./target
+COPY --from=build-env /App/java-adapter/pom.xml ./
+RUN mkdir /src
+RUN mkdir /out
+RUN echo 'mvn -f pom.xml exec:java -Dexec.args="$* --from_dir /src --out_dir /out"' > from_docker_run.sh'
+RUN chmod 755 from_docker_run.sh
+ENTRYPOINT ["./from_docker_run.sh"]
+CMD ["--info"]
+
