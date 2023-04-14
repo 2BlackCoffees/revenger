@@ -1,4 +1,6 @@
 #### Create dotnet adapter
+# On MAC, buildx is installed as follows:
+#    brew install docker-buildx
 # docker build -f Dockerfile.csharpadapter -t py2plantuml_csharpadapter:latest .
 # docker buildx build -f Dockerfile.csharpadapter --platform linux/arm64,linux/amd64 -t 2blackcoffees/py2plantuml_csharpadapter:latest . --push
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env

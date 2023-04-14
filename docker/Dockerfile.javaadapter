@@ -1,4 +1,6 @@
-#### Create dotnet adapter
+#### Create java adapter
+# On MAC, buildx is installed as follows:
+#    brew install docker-buildx
 # docker build -f Dockerfile.javaadapter -t py2plantuml_javaadapter:latest .
 # docker buildx build -f Dockerfile.javaadapter --platform linux/arm64,linux/amd64 -t 2blackcoffees/py2plantuml_javaadapter:latest . --push
 FROM maven:3.8.7-openjdk-18-slim AS build-env
@@ -11,13 +13,13 @@ RUN mvn -f pom.xml clean package
 # Build runtime image
 FROM maven:3.8.7-openjdk-18-slim
 USER root
-RUN mkdir -p /App/java-adapter/target
+RUN mkdir -p /App/target
 WORKDIR /App/
-COPY --from=build-env /App/java-adapter/target ./target
-COPY --from=build-env /App/java-adapter/pom.xml ./
+COPY --from=build-env /App/target ./target
+COPY --from=build-env /App/pom.xml ./
 RUN mkdir /src
 RUN mkdir /out
-RUN echo 'mvn -f pom.xml exec:java -Dexec.args="$* --from_dir /src --out_dir /out"' > from_docker_run.sh'
+RUN echo 'mvn -f pom.xml exec:java -Dexec.args="$* --from_dir /src --out_dir /out"' > from_docker_run.sh
 RUN chmod 755 from_docker_run.sh
 ENTRYPOINT ["./from_docker_run.sh"]
 CMD ["--info"]
