@@ -126,6 +126,10 @@ namespace DotNetPreAdapter
                 SubDataStructure? subDataStructure = datastructure.get_datastructures_from_class_name(fqdn_class_name);
                 if (subDataStructure != null)
                 {
+                    if (parentSubDataStructure != null)
+                    {
+                        subDataStructure.setInnerClass();
+                    }
 
                     var tmpBase = model.GetDeclaredSymbol(node) as ITypeSymbol;
                     if (tmpBase != null)

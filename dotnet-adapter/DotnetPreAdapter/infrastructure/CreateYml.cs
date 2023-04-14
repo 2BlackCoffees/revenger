@@ -151,6 +151,8 @@ namespace DotNetPreAdapter
                                     new YamlScalarNode(subDataStructure.is_abstract() ? "True" : "False"),
                                 new YamlScalarNode("is_interface"),
                                     new YamlScalarNode(subDataStructure.IsInterface() ? "True" : "False"),
+                                new YamlScalarNode("is_inner_class"),
+                                    new YamlScalarNode(subDataStructure.IsInnerClass() ? "True" : "False"),
 
                                 new YamlScalarNode("base_classes"),
                                     baseClasses,

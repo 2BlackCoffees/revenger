@@ -108,6 +108,7 @@ namespace DotNetPreAdapter
                 List<Static> statics = new();
                 List<Variable> variables = new();
                 List<Method> methods = new();
+                Boolean isInnerClass = false;
 
 
                 public SubDataStructure(string filename_, string filemodule_, List<string> usings_, string fqdn_class_name_, List<string> nameSpaceList_)
@@ -127,6 +128,10 @@ namespace DotNetPreAdapter
                 public void setInterface()
                 {
                     isInterface = true;
+                }
+                public void setInnerClass()
+                {
+                    isInnerClass = true;
                 }
                 public List<string> getUsings()
                 {
@@ -197,6 +202,10 @@ namespace DotNetPreAdapter
                 public bool IsInterface()
                 {
                     return isInterface;
+                }
+                public bool IsInnerClass()
+                {
+                    return isInnerClass;
                 }
                 public Boolean has_static_fields()
                 {

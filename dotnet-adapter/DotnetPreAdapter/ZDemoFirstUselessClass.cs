@@ -20,6 +20,17 @@ namespace MyNamespace
         {
 
         }
+        class InnerClass
+        {
+            private InnerClass()
+            {
+
+            }
+            public void UnusedInnerClass(UnusedClass unusedClass)
+            {
+
+            }
+        }
     }
 }
 
@@ -49,6 +60,11 @@ namespace DotNetPreAdapter
         void IMyTest.unused()
         {
             throw new NotImplementedException();
+        }
+        enum InnerTestUnusedInInnerClass
+        {
+            Value1,
+            Value2
         }
     }
     class UnusedASTVisitor : CSharpSyntaxWalker

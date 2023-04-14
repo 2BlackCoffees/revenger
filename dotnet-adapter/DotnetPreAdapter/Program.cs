@@ -34,7 +34,7 @@ namespace DotNetPreAdapter
                 Console.WriteLine("  --info       Log info");
                 Console.WriteLine("  --warning    Log warning (Default)");
                 Console.WriteLine("  --error      Log error");
-                //return 1;
+                return 1;
             }
             string from_dir = "/Users/jean-philippe.ulpiano/development/revenger/dotnet-adapter/DotnetPreAdapter";
             string to_dir = "/Users/jean-philippe.ulpiano/development/revenger/dotnet-adapter/output";
