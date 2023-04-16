@@ -16,8 +16,8 @@ import preadapter.service.AnalyzeAST;
 public class Revenger {
     // Create a method to parse a file
     public static void main(String[] args) {
-        String from_dir = "/Users/jeanphi/Development/revenger/java-adapter/src/main/java/"; //args[0];
-        String to_dir = "/Users/jeanphi/Development/revenger/java-adapter/tmp"; // args[1];
+        String from_dir = "/Users/jean-philippe.ulpiano/Development/plantuml/"; //args[0];
+        String to_dir = "/Users/jean-philippe.ulpiano/Development/revenger/plantuml.out"; // args[1];
 
         if (args.length < 4) {
             System.out.println("Usage (from_dir and out_dir are mandatory parameters):");
