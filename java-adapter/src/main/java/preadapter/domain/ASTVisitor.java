@@ -66,10 +66,37 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
 
     String cleanClassName(String className)
     {
-        String occurencesToClean = "[{(<>)]}";
-        for (int i = 0; i < occurencesToClean.length(); i++) {
-            className = className.replace(String.valueOf(occurencesToClean.charAt(i)), "_BRQT_");
+        logger.logTrace(String.format("  cleanClassName: Processing special characters of className %s.", className), deepness.getDeepness());
+
+        String occurencesToCleanOpen = "[{(<";
+        for (int i = 0; i < occurencesToCleanOpen.length(); i++) {
+            className = className.replace(String.valueOf(occurencesToCleanOpen.charAt(i)), "_BRQTO_");
         }
+        String occurencesToCleanClose = ">)]}";
+        for (int i = 0; i < occurencesToCleanClose.length(); i++) {
+            className = className.replace(String.valueOf(occurencesToCleanClose.charAt(i)), "_BRQTC");
+        }
+        String namespace = deepness.getCurrentNamespace();
+        if(!className.equals(namespace)) {
+            logger.logTrace(String.format("  className %s, namespace %s has its dots being processed.", className, namespace), deepness.getDeepness());
+            if (className.startsWith(namespace)) {
+                int namespaceLength = namespace.length();
+                className = className.substring(0, namespaceLength + 1) + className.substring(namespaceLength + 1).replace(".", "_DOT_");
+            } else {
+                className = className.replace(".", "_DOT_");
+            }
+            logger.logTrace(String.format("    className was modified to %s.", className), deepness.getDeepness());
+        } else {
+            logger.logTrace(String.format("  className %s, namespace %s did not need to have its dot replaced.", className, namespace), deepness.getDeepness());
+        }
+        className = className.replace(" extends ", "_XTNDS_");
+        className = className.replace(" implements ", "_MPLMNTS_");
+        className = className.replace("?", "QSTN");
+        className = className.replace(" ", "_SPC_");
+        className = className.replace(",", "_COMMA_");
+
+        logger.logTrace(String.format("  cleanClassName: Processed className is %s.", className), deepness.getDeepness());
+
         return className;
     }
 
@@ -274,6 +301,8 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
             List<Triplet<String, String, String>> argumentsTuple = new ArrayList<>();
             for (var argument : n.getParameters()) {
                 String argumentTypeString = SimplifyType(argument.getTypeAsString());
+                argumentTypeString = cleanClassName(argumentTypeString);
+
                 if(!ignoreType.contains(argumentTypeString)) {
                     String mostProbableNS = argumentTypeString.contains(".") ?
                             "" :
@@ -378,7 +407,13 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
         String fqdnParentClassName = deepness.GetFQDNParentClassName(n);
         Datastructure.SubDataStructure subDataStructure =
                 datastructure.get_datastructures_from_class_name(fqdnParentClassName);
-        subDataStructure.add_variable(enumValueName, "EnumTypePlaceHolder", fqdnParentClassName, true);
+        if(subDataStructure != null) {
+            subDataStructure.add_variable(enumValueName, "EnumTypePlaceHolder", fqdnParentClassName, true);
+            logger.logDebug(String.format("  EnumConstantDeclaration: Created enumValue %s for enum type %s", enumValueName, fqdnParentClassName), deepness.getDeepness());
+        } else {
+            logger.logWarning(String.format("  EnumConstantDeclaration: Could not create enumValue %s because " +
+                    "parent enum type %s could not be found.", enumValueName, fqdnParentClassName), deepness.getDeepness());
+        }
         super.visit(n, arg);
     }
 
@@ -428,9 +463,8 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
                 variableType = variableType.replace("Optional[", "");
                 variableType = variableType.substring(0, variableType.length() - 1).trim();
             }
-            if(variableType.contains("(")) {
-                variableType = variableType.substring(0, variableType.indexOf('(')).trim();
-            }
+            variableType = cleanClassName(variableType);
+
             logger.logTrace( String.format("  After processing: Variable name: %s, variableType: %s", variableName, variableType), deepness.getDeepness());
 
             if (variableType.length() > 0) {
@@ -459,7 +493,7 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
     }
 
 
-
+/* 
     @Override
     public void visit(AssignExpr n, Void arg) {
         logger.logInfo(deepness.getDeepness() + "AssignExpr: " + (extended ? n : n.getTarget() + " = " + n.getValue()));
@@ -492,7 +526,7 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
         super.visit(n, arg);
         deepness.decrease();
     }
-
+*/
 
     public static void main(String[] args) throws Exception {
         for (String file : args) {
