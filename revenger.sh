@@ -184,6 +184,8 @@ function usage() {
     echo "               [ --plantuml.graphvizdotpath ]       Defines the path to the application graphvizdot"
     echo "               [ --plantuml.plantumljarpath ]       Defines the path to plantuml jar file"
     echo "               [ --plantuml.javapath ]              Defines the path to java binary command"
+    echo "  Misc options:"
+    echo "               [ --only_full_diagrams ]             Generate only full diagrams (for debug purpose)"
     echo "               [ -h | --help ]                      This help"
 }
 
@@ -310,7 +312,7 @@ while [[ "$1" != "" ]]; do
           PLANTUML_JAVAPATH=$2
           shift
           ;;
-        --trace | --info | --debug | --skip_uses_relation | --skip_not_defined_classes )
+        --trace | --info | --debug | --skip_uses_relation | --skip_not_defined_classes | --only_full_diagrams )
          statements="$statements $1"
          ;;
         --keep )

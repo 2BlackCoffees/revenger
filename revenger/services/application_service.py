@@ -45,7 +45,7 @@ class ApplicationService:
     @staticmethod
     def read_all_source_files(from_dir: str, out_dir: str, \
             logger: Logger, language_dependent: LanguageDependent, skip_uses_relation: bool, \
-            skip_not_defined_classes: bool, source_type: SourceType) -> Dict[str, List[str]]:
+            skip_not_defined_classes: bool, only_full_diagrams: bool, source_type: SourceType) -> Dict[str, List[str]]:
         saver: Saver = Saver(out_dir, logger)
         diagram_creation: DiagramCreation = DiagramCreation(Datastructure(language_dependent, logger), saver, logger)
         saver.append('@startuml')
@@ -56,24 +56,28 @@ class ApplicationService:
         # Create full diagrams
         diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, None)
 
-        # Create diagrams filtered out by class name
-        class_list: List[str] = diagram_creation.get_data_structure().get_classname_list()
-        for class_name in class_list:
-             reduced_class_list_datastructure = \
-                DatastructureHandler(diagram_creation.get_data_structure(), logger)\
-                    .create_reduced_class_list_from_class_name_list([class_name])
-             class_based_diagram_creation: DiagramCreation = \
-                DiagramCreation(reduced_class_list_datastructure, saver, logger)
-             class_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, class_name)
+        if not only_full_diagrams:
 
-        # Create diagrams filtered out by namespace
-        class_name_list_grouped_by_namespaces: Dict[List[str]] = \
-            DatastructureHandler(diagram_creation.get_data_structure(), logger)\
-                .get_class_name_list_grouped_by_namespaces()
-        for namespace_name, class_name_list in class_name_list_grouped_by_namespaces.items():
-             reduced_namespace_list = \
-                DatastructureHandler(diagram_creation.get_data_structure(), logger).\
-                    create_reduced_class_list_from_class_name_list(class_name_list)
-             namespace_based_diagram_creation: DiagramCreation = \
-                DiagramCreation(reduced_namespace_list, saver, logger)
-             namespace_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, namespace_name)
+            # Create diagrams filtered out by class name
+            class_list: List[str] = diagram_creation.get_data_structure().get_classname_list()
+            for class_name in class_list:
+                 reduced_class_list_datastructure = \
+                    DatastructureHandler(diagram_creation.get_data_structure(), logger)\
+                        .create_reduced_class_list_from_class_name_list([class_name])
+                 class_based_diagram_creation: DiagramCreation = \
+                    DiagramCreation(reduced_class_list_datastructure, saver, logger)
+                 class_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, class_name)
+
+            # Create diagrams filtered out by namespace
+            class_name_list_grouped_by_namespaces: Dict[List[str]] = \
+                DatastructureHandler(diagram_creation.get_data_structure(), logger)\
+                    .get_class_name_list_grouped_by_namespaces()
+            for namespace_name, class_name_list in class_name_list_grouped_by_namespaces.items():
+                 reduced_namespace_list = \
+                    DatastructureHandler(diagram_creation.get_data_structure(), logger).\
+                        create_reduced_class_list_from_class_name_list(class_name_list)
+                 namespace_based_diagram_creation: DiagramCreation = \
+                    DiagramCreation(reduced_namespace_list, saver, logger)
+                 namespace_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, namespace_name)
+        else:
+            logger.log_info('Generating only full diagrams')
