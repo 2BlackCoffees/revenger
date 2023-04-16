@@ -1,10 +1,17 @@
 #!/bin/bash
-
+export REVENGER_LOCAL_PID=$$
 # \rm -rf tmp-dotnet && mkdir tmp-dotnet && ./revenger.sh --from_dir dotnet-adapter/DotnetPreAdapter --out_dir tmp-dotnet --trace --from_language csharp --keep > out-csharp.log 2>&1
 # \rm -rf tmp-java && mkdir tmp-java && ./revenger.sh --from_dir java-adapter/src/main/java/Example --out_dir tmp-java --trace --from_language java --keep > tmp/out-java.log 2>&1
+function kill_script() {
+      kill -9 $REVENGER_LOCAL_PID
+
+}
+
 function error() {
   echo -e "ERROR: $1"
-  exit 0
+  kill_script
+
+  exit 1
 }
 function warning() {
   echo -e "WARNING: $1"
@@ -26,14 +33,14 @@ list_file_to_parameters() {
   export number_parameters_max=1500
   export number_groups=$(( number_files / number_parameters_max + 1 ))
   number_groups_int=$(printf "%.0f\n" $number_groups)
-  if [[ $number_groups_int > $number_groups ]]; then
+  if [[ $number_groups_int -gt $number_groups ]]; then
     number_groups=$number_groups_int
   fi
   command_file=$(mktemp)
   list_remaining_puml_tmp=$(mktemp)
   echo "function uml_to_svg_runner() {" >> $command_file
   group_nb=1
-  while [[ $(wc -c $list_remaining_puml | awk '{print $1}' | xargs) > 1 ]]; do
+  while [[ $(wc -c $list_remaining_puml | awk '{print $1}' | xargs) -gt 1 ]]; do
     echo "# COMMENT: Preparing group $group_nb out of $number_groups (Total files: $(wc -l $list_remaining_puml) )" >> $command_file
     file_list=$(head -$number_parameters_max $list_remaining_puml  | xargs)
     tail -n +$((number_parameters_max + 1))  $list_remaining_puml > $list_remaining_puml_tmp
@@ -46,14 +53,19 @@ list_file_to_parameters() {
   echo "}" >> $command_file
   echo "uml_to_svg_runner" >> $command_file
   chmod 755 $command_file
-  echo $command_file
+  if [[ $group_nb -gt 1 ]]; then
+    echo $command_file
+  else
+      error "No missing PUML files found to be processed."
+  fi
 
 }
 
 get_list_puml_not_processed() {
   keep_old_svg_and_tmp_files=$1
   process_missing_puml_only=$2
-  list_remaining_puml=$(mktemp)
+  start_with_biggest_sizes=$3
+  list_remaining_puml_init=$(mktemp)
   deadletter=DeadLetter
   if [[ $process_svg_only == 1 || $keep_old_svg_and_tmp_files == 1 ]]; then
     test -d $deadletter || mkdir $deadletter
@@ -64,7 +76,7 @@ get_list_puml_not_processed() {
     list_puml_done=$(mktemp)
     find . -type f -name "*.puml" | grep -v $deadletter | perl -npe 's:([\[\]]):\\\\$1:g;s:([<> ]):\\\\$1:g;' | sort > $list_all_puml 2>/dev/null
     find . -type f -name "*.svg" | grep -v $deadletter | sed 's:\.svg:\.puml:' | sort > $list_puml_done 2>/dev/null
-    diff $list_puml_done $list_all_puml | grep '>' | sed 's:^[\> ]*::g' > $list_remaining_puml
+    diff $list_puml_done $list_all_puml | grep '>' | sed 's:^[\> ]*::g' > $list_remaining_puml_init
     if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
       rm $list_puml_done $list_all_puml
     else
@@ -73,19 +85,32 @@ get_list_puml_not_processed() {
     fi
   else
     find . -type f -name '*.svg' | xargs rm -f  > /dev/null
-    find . -type f -name "*.puml" | grep -v $deadletter > $list_remaining_puml 2>/dev/null
+    find . -type f -name "*.puml" | grep -v $deadletter > $list_remaining_puml_init 2>/dev/null
   fi
-  echo $list_remaining_puml
+  list_remaining_puml_sorted=$(mktemp)
+  sort_option=nk1
+  if [[ $start_with_biggest_sizes -eq 1 ]]; then
+    sort_option="r${sort_option}"
+  fi
+  cat $list_remaining_puml_init | xargs ls -l | awk '{print $5 " " $9}' | sort -${sort_option} | awk '{print $2}' > $list_remaining_puml_sorted
+
+  if [[ $keep_old_svg_and_tmp_files == 1 ]]; then
+    rm $list_remaining_puml_init
+  else
+    info "Keeping list_remaining_puml_init = $list_remaining_puml_init"
+  fi
+  echo $list_remaining_puml_sorted
 }
 
 create_svg_files() {
   plantuml=$1
   out_dir=$2
   keep_old_svg_and_tmp_files=$3
-  process_missing_puml_only=$4
+  start_with_biggest_sizes=$4
+  process_missing_puml_only=$5
   info "Analyzing list of files to be processed"
   pushd $out_dir >/dev/null 
-  list_remaining_puml=$(get_list_puml_not_processed $keep_old_svg_and_tmp_files $process_missing_puml_only)
+  list_remaining_puml=$(get_list_puml_not_processed $keep_old_svg_and_tmp_files $process_missing_puml_only $start_with_biggest_sizes)
   total_size_puml=$(cat $list_remaining_puml | xargs ls -l | awk '{sum+=$5;} END {print sum;}')
   number_files=$(wc -l $list_remaining_puml | perl -npe 's:^\s*::;s:\s+.*$::')
   info "Number files: $number_files, Total size: $((total_size_puml / 1024/1024)) MB"
@@ -186,6 +211,7 @@ function usage() {
     echo "               [ --plantuml.javapath ]              Defines the path to java binary command"
     echo "  Misc options:"
     echo "               [ --only_full_diagrams ]             Generate only full diagrams (for debug purpose)"
+    echo "               [ --start_with_biggest_sizes ]       Processes by default smallest PUML files size first, with this option, start with biggest PUML files size"
     echo "               [ -h | --help ]                      This help"
 }
 
@@ -233,6 +259,7 @@ statements=""
 keep_old_svg_and_tmp_files=0
 PLANTUML_DOT_JAVA_HEAP_MAX_SIZE=16G
 plantuml_timeout=900
+start_with_biggest_sizes=0
 while [[ "$1" != "" ]]; do
     case $1 in
         --init )
@@ -317,6 +344,9 @@ while [[ "$1" != "" ]]; do
          ;;
         --keep )
           keep_old_svg_and_tmp_files=1
+          ;;
+        --start_with_biggest_sizes )
+          start_with_biggest_sizes=1
           ;;
         * )
           usage
@@ -421,7 +451,7 @@ fi
 info "Transforming puml to svg"
 if [[ $svg_dep == "secure" ]]; then
     info "Transforming with plantuml ($plantuml)"
-    create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_old_svg_and_tmp_files" "$process_svg_only"
+    create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes" "$process_svg_only"
 
 else
     wait_time=5
@@ -433,7 +463,7 @@ else
       sleep 1;
     done
     cd $out_dir && \
-      create_svg_files "plantweb --engine=plantuml" "." "$keep_old_svg_and_tmp_files"
+      create_svg_files "plantweb --engine=plantuml" "." "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes"
 fi
 if [[ ! -z $tmp_dir ]]; then
   if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
