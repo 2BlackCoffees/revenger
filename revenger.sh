@@ -97,7 +97,7 @@ get_list_puml_not_processed() {
   if [[ $keep_old_svg_and_tmp_files == 1 ]]; then
     rm $list_remaining_puml_init
   else
-    info "Keeping list_remaining_puml_init = $list_remaining_puml_init"
+    info "Keeping list_remaining_puml_init = $list_remaining_puml_init"  >> dbg_info
   fi
   echo $list_remaining_puml_sorted
 }
@@ -112,10 +112,11 @@ create_svg_files() {
   pushd $out_dir >/dev/null 
   list_remaining_puml=$(get_list_puml_not_processed $keep_old_svg_and_tmp_files $process_missing_puml_only $start_with_biggest_sizes)
   total_size_puml=$(cat $list_remaining_puml | xargs ls -l | awk '{sum+=$5;} END {print sum;}')
+
   number_files=$(wc -l $list_remaining_puml | perl -npe 's:^\s*::;s:\s+.*$::')
   info "Number files: $number_files, Total size: $((total_size_puml / 1024/1024)) MB"
   command_file=$(list_file_to_parameters "$plantuml" "$number_files" "$list_remaining_puml")
-  grep COMMENT $command_file | sed 's: # COMMENT:INFO:'
+  grep COMMENT $command_file | perl -npe 's:\s*# COMMENT:INFO:'
 
   bash $command_file &
 
