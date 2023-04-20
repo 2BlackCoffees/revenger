@@ -70,8 +70,8 @@ get_list_puml_not_processed() {
   if [[ $process_svg_only == 1 || $keep_old_svg_and_tmp_files == 1 ]]; then
     test -d $deadletter || mkdir $deadletter
     find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs -I '{}' mv {} $deadletter >/dev/null 2>&1
-    find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs rm
-    find . -name "*.svg" -size 0 -type f | xargs rm
+    find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs rm >/dev/null 2>&1
+    find . -name "*.svg" -size 0 -type f | xargs rm 
     list_all_puml=$(mktemp)
     list_puml_done=$(mktemp)
     find . -type f -name "*.puml" | grep -v $deadletter | perl -npe 's:([\[\]]):\\\\$1:g;s:([<> ]):\\\\$1:g;' | sort > $list_all_puml 2>/dev/null
@@ -204,7 +204,7 @@ function usage() {
     echo "               [ --force_docker_adapter ]       If the adapter has a docker image use it as prio 1"
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
-    echo "               [ --process_svg_only ]          Skip puml generation and process (or continue processing svg generation)"
+    echo "               [ --process_svg_only ]           Skip puml generation and process (or continue processing svg generation)"
     echo "  PlantUML specific options for the local plantuml script:"
     echo "               [ --plantuml.java_heap_max_size ]    Defines the max size for the Java heap for plantuml/dotgraphviz ONLY if using the local script"
     echo "               [ --plantuml.graphvizdotpath ]       Defines the path to the application graphvizdot"
