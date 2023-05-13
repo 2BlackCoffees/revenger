@@ -11,10 +11,14 @@ from domain.datastructure import Datastructure
 from domain.datastructure import DatastructureHandler
 from domain.datastructure import LanguageDependent
 from domain.diagram_creation import DiagramCreation                        
+from domain.statistics_compute import ClassConnectionsDetails
+from domain.statistics_compute import StatisticsCompute                        
 
 from infrastructure.python_adapter import PythonAdapter
 from infrastructure.yaml_adapter import YAMLAdapter
- 
+from infrastructure.statistics_html import StatisticsHtml
+
+
 class SourceType(Enum):
     PYTHON_SOURCE = 1,
     YAML_SOURCE = 2
@@ -33,27 +37,33 @@ class ApplicationService:
         file_list = []
         for exentions in file_types:
             file_list.extend(list(Path(from_dir).rglob(exentions)))
-        for file in file_list:
-            file_name: str = os.path.join(from_dir, file)
-            if source_type == SourceType.PYTHON_SOURCE:
-                PythonAdapter(saver, logger).read_python_ast(\
-                    diagram_creation.get_data_structure(), file_name, from_dir)
-            elif source_type == SourceType.YAML_SOURCE:
-                YAMLAdapter(saver, logger).read(\
-                    diagram_creation.get_data_structure(), file_name, from_dir)
+        if file_list is None or len(file_list) == 0:
+            logger.log_error(f"No file type {file_types} could be found in directory {from_dir}!")
+        else:
+            for file in file_list:
+                file_name: str = os.path.join(from_dir, file)
+                if source_type == SourceType.PYTHON_SOURCE:
+                    PythonAdapter(saver, logger).read_python_ast(\
+                        diagram_creation.get_data_structure(), file_name, from_dir)
+                elif source_type == SourceType.YAML_SOURCE:
+                    YAMLAdapter(saver, logger).read(\
+                        diagram_creation.get_data_structure(), file_name, from_dir)
 
     @staticmethod
-    def read_all_source_files(from_dir: str, out_dir: str, \
+    def generate_all_diagrams(from_dir: str, out_dir: str, \
             logger: Logger, language_dependent: LanguageDependent, skip_uses_relation: bool, \
-            skip_not_defined_classes: bool, only_full_diagrams: bool, source_type: SourceType) -> Dict[str, List[str]]:
+            skip_not_defined_classes: bool, only_full_diagrams: bool, source_type: SourceType) -> DiagramCreation:
         saver: Saver = Saver(out_dir, logger)
         diagram_creation: DiagramCreation = DiagramCreation(Datastructure(language_dependent, logger), saver, logger)
         saver.append('@startuml')
 
+        logger.log_info('Reading source files')
         ApplicationService.fill_datastructure_with_all_source_files(from_dir, diagram_creation, logger, saver, source_type)
         if not skip_not_defined_classes:
+            logger.log_info('Filling data structure with inexistent classes')
             diagram_creation.create_referenced_but_inexistent_classes(skip_uses_relation)
         # Create full diagrams
+        logger.log_info('Creating highest level of PUML files')
         diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, None)
 
         if not only_full_diagrams:
@@ -66,6 +76,7 @@ class ApplicationService:
                         .create_reduced_class_list_from_class_name_list([class_name])
                  class_based_diagram_creation: DiagramCreation = \
                     DiagramCreation(reduced_class_list_datastructure, saver, logger)
+                 logger.log_info(f'Creating PUML diagram for class {class_name}')
                  class_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, class_name)
 
             # Create diagrams filtered out by namespace
@@ -78,6 +89,32 @@ class ApplicationService:
                         create_reduced_class_list_from_class_name_list(class_name_list)
                  namespace_based_diagram_creation: DiagramCreation = \
                     DiagramCreation(reduced_namespace_list, saver, logger)
+                 logger.log_info(f'Creating PUML diagram for namesapce {namespace_name}')
                  namespace_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, namespace_name)
         else:
             logger.log_info('Generating only full diagrams')
+
+        return diagram_creation
+    
+    @staticmethod
+    def create_summary_page(from_dir: str, out_dir: str, \
+                            logger: Logger, language_dependent: LanguageDependent, \
+                            source_type: SourceType) -> str:
+        saver_dummy: Saver = Saver(out_dir, logger)
+
+        logger.log_info("Populating data structure")
+        diagram_creation: DiagramCreation = DiagramCreation(Datastructure(language_dependent, logger), saver_dummy, logger)
+        ApplicationService.fill_datastructure_with_all_source_files(from_dir, diagram_creation, logger, saver_dummy, source_type)
+        diagram_creation.create_referenced_but_inexistent_classes(skip_uses_relation=False)
+
+        logger.log_info("Computing statistics")
+        connection_details: Dict[str, ClassConnectionsDetails] = []
+        statistics: ClassConnectionsDetails.StatisticValues = None
+        statistics_compute = StatisticsCompute(diagram_creation.get_data_structure(), logger)
+        connection_details, statistics = statistics_compute.get_all_classes_and_connections()
+
+        logger.log_info("Generating html file")
+        return StatisticsHtml.create(connection_details, statistics, from_dir, out_dir)
+
+
+

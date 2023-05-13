@@ -205,6 +205,10 @@ function usage() {
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
     echo "               [ --process_svg_only ]           Skip puml generation and process (or continue processing svg generation)"
+    echo "               [ --summary_page_only ]          Generate a summary page (This option will short circuit the analysis processing)"
+    echo "               [ --force_python ]               Force a specific version of python"
+    echo "               [ --force_pip ]                  Force a specific version of pip"
+
     echo "  PlantUML specific options for the local plantuml script:"
     echo "               [ --plantuml.java_heap_max_size ]    Defines the max size for the Java heap for plantuml/dotgraphviz ONLY if using the local script"
     echo "               [ --plantuml.graphvizdotpath ]       Defines the path to the application graphvizdot"
@@ -252,10 +256,8 @@ tmp_dir=
 force_docker_adapter=0
 force_docker_plantuml=0
 process_svg_only=0
-$var_pip -h >/dev/null 2>&1 || var_pip=pip
-$var_pip -h >/dev/null 2>&1 || error "Could not find pip and pip3, please make sure python3 and pip are installed (See https://www.python.org/downloads/)."
-$var_pip --version | grep python3 >/dev/null 2>&1 || error "$var_pip does not support python3! Install python3 and pip3."
-
+summary_page_only=0
+force_init=0
 statements=""
 keep_old_svg_and_tmp_files=0
 PLANTUML_DOT_JAVA_HEAP_MAX_SIZE=16G
@@ -263,8 +265,16 @@ plantuml_timeout=900
 start_with_biggest_sizes=0
 while [[ "$1" != "" ]]; do
     case $1 in
+        --force_python )
+          python=$2
+          shift;
+          ;;
+        --force_pip )
+          var_pip=$2
+          shift;
+          ;;
         --init )
-          $var_pip install -r revenger/requirements.txt
+          force_init=1
           ;;
         -i | --from_dir | --from-dir | --from )
           tmp_from=$2
@@ -285,6 +295,9 @@ while [[ "$1" != "" ]]; do
           ;;
         --process_svg_only)
           process_svg_only=1
+          ;;
+        --summary_page_only)
+          summary_page_only=1
           ;;
         --force_docker_adapter)
           force_docker_adapter=1
@@ -357,48 +370,58 @@ while [[ "$1" != "" ]]; do
     shift
 done
 
+$var_pip -h >/dev/null 2>&1 || var_pip=pip
+$var_pip -h >/dev/null 2>&1 || error "Could not find $var_pip, please make sure $python and $var_pip are installed (See https://www.python.org/downloads/)."
+$var_pip --version | grep $python >/dev/null 2>&1 || error "$var_pip does not support $python! Install $python and $pip."
+
+if [[ $force_init == 1 ]]; then
+  info "Installing python librairies: $var_pip install -r revenger/requirements.txt"
+  $var_pip install -r revenger/requirements.txt
+fi
 basepath=$( dirname -- "$( readlink -f -- "$0" )" )
 
-# Set plantuml to java binary if it exists in current dir
-if [[ $force_docker_plantuml == 0 ]]; then  
-  plantuml=$basepath/plantuml.sh
-else
-  plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+if [[ $summary_page_only == 0 ]]; then
+  # Set plantuml to java binary if it exists in current dir
+  if [[ $force_docker_plantuml == 0 ]]; then  
+    plantuml=$basepath/plantuml.sh
+  else
+    plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+  fi
+  if [[ $svg_dep == "secure" ]]; then
+      info "Checking accessibility of $plantuml" 
+      $plantuml -h > /dev/null 2>&1 
+      if [[ $? != 0 ]];then 
+          info "$plantuml not found trying plantuml."
+          plantuml=plantuml
+          $plantuml -h > /dev/null 2>&1 
+          if [[ $? != 0 ]];then 
+              info "$plantuml not found trying /opt/homebrew/bin/plantuml."
+              plantuml=/opt/homebrew/bin/plantuml
+              $plantuml -h > /dev/null 2>&1 
+              if [[ $? != 0 ]];then 
+                  info "$plantuml not found searching for an alternative."
+                  if [[ $force_docker_plantuml == 0 ]]; then  
+                    plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
+                  else
+                    plantuml=plantuml
+                  fi
+                  bash -c $plantuml -h > /dev/null 2>&1 
+                  if [[ $? != 0 ]]; then
+                      info "$plantuml not found searching trying with the jar file."
+                      if [[ -f plantuml.jar ]];then 
+                        plantuml="java -Djava.awt.headless=true  -Xmx8G -jar plantuml.jar"
+                        bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                      else
+                        error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                      fi
+                  fi
+              fi
+          fi
+      fi
+  fi
+  info "Using plantuml from $plantuml"
 fi
-if [[ $svg_dep == "secure" ]]; then
-    info "Checking accessibility of $plantuml" 
-    $plantuml -h > /dev/null 2>&1 
-    if [[ $? != 0 ]];then 
-        info "$plantuml not found trying plantuml."
-        plantuml=plantuml
-        $plantuml -h > /dev/null 2>&1 
-        if [[ $? != 0 ]];then 
-            info "$plantuml not found trying /opt/homebrew/bin/plantuml."
-            plantuml=/opt/homebrew/bin/plantuml
-            $plantuml -h > /dev/null 2>&1 
-            if [[ $? != 0 ]];then 
-                info "$plantuml not found searching for an alternative."
-                if [[ $force_docker_plantuml == 0 ]]; then  
-                  plantuml="docker run -v $out_dir:/data ghcr.io/plantuml/plantuml"
-                else
-                  plantuml=plantuml
-                fi
-                bash -c $plantuml -h > /dev/null 2>&1 
-                if [[ $? != 0 ]]; then
-                    info "$plantuml not found searching trying with the jar file."
-                    if [[ -f plantuml.jar ]];then 
-                      plantuml="java -Djava.awt.headless=true  -Xmx8G -jar plantuml.jar"
-                      bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
-                    else
-                      error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
-                    fi
-                fi
-            fi
-        fi
-    fi
-fi
-info "Using plantuml from $plantuml"
-if [[ $process_svg_only == 0 ]]; then
+if [[ $process_svg_only == 0 && $summary_page_only == 0 ]]; then
   info "Using adapter from language $from_language"
   if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
     info "Cleaning output directory"
@@ -449,23 +472,30 @@ if [[ $process_svg_only == 0 ]]; then
   info "$python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements)"
   $python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
 fi
-info "Transforming puml to svg"
-if [[ $svg_dep == "secure" ]]; then
-    info "Transforming with plantuml ($plantuml)"
-    create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes" "$process_svg_only"
 
-else
-    wait_time=5
-    warning "Transforming with plantweb: All the generated puml files related to your design are being transferred to the plantuml server,using a local installed (Option -d for example or with an already installed plantuml/graphviz) does not send your files on Internet!!"
-    info "Starting in $wait_time seconds, press ctrl-c to interrupt if you prefer avoiding sending files on the Internet."
-    while [[ $wait_time -ge 1 ]]; do
-      info -n "$wait_time ... ";
-      wait_time=$((wait_time - 1));
-      sleep 1;
-    done
-    cd $out_dir && \
-      create_svg_files "plantweb --engine=plantuml" "." "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes"
+if [[ $summary_page_only == 0 ]]; then
+  info "Transforming puml to svg"
+  if [[ $svg_dep == "secure" ]]; then
+      info "Transforming with plantuml ($plantuml)"
+      create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes" "$process_svg_only"
+
+  else
+      wait_time=5
+      warning "Transforming with plantweb: All the generated puml files related to your design are being transferred to the plantuml server,using a local installed (Option -d for example or with an already installed plantuml/graphviz) does not send your files on Internet!!"
+      info "Starting in $wait_time seconds, press ctrl-c to interrupt if you prefer avoiding sending files on the Internet."
+      while [[ $wait_time -ge 1 ]]; do
+        info -n "$wait_time ... ";
+        wait_time=$((wait_time - 1));
+        sleep 1;
+      done
+      cd $out_dir && \
+        create_svg_files "plantweb --engine=plantuml" "." "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes"
+  fi
 fi
+
+info "$python revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements)"
+$python revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements) || error "Could not process source files"
+
 if [[ ! -z $tmp_dir ]]; then
   if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
     rm -rf $tmp_dir
@@ -473,4 +503,4 @@ if [[ ! -z $tmp_dir ]]; then
     info "Kept tmp_dir: $tmp_dir and $command_file"
   fi
 fi
-$python -m webbrowser $out_dir/full-diagram-detailed.svg
+$python -m webbrowser $out_dir/index.html

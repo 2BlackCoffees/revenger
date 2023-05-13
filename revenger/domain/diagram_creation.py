@@ -13,7 +13,6 @@ from domain.common import Common
 from domain.datastructure import Datastructure
 
 
-
 class DiagramCreation:
     DETAILED_FILENAME_SUFFIX: str           = '-diagram-detailed.puml'
     SIMPLIFIED_FILENAME_SUFFIX: str         = '-diagram-simplified.puml'
@@ -72,7 +71,7 @@ class DiagramCreation:
 
 
     @staticmethod
-    def __get_file_name_from_class_namespace_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
+    def get_file_name_from_class_namespace_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
         file_name: str = ''
         if detailed:
             if grouped_per_ns:
@@ -131,10 +130,10 @@ class DiagramCreation:
                             "Full diagram **detailed**", full_file_name_detailed
 
         user_info_puml_file: str = DiagramCreation.__get_user_info(detailed, grouped_per_ns, class_namespace_name)
-        puml_file: str = DiagramCreation.__get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_namespace_name, False)
+        puml_file: str = DiagramCreation.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_namespace_name, False)
 
         user_info_opposite_detailed_svg: str = DiagramCreation.__get_user_info(not detailed, grouped_per_ns, class_namespace_name)
-        svg_file_name_opposite_detailed: str = DiagramCreation.__get_file_name_from_class_namespace_name(not detailed, grouped_per_ns, class_namespace_name, True)
+        svg_file_name_opposite_detailed: str = DiagramCreation.get_file_name_from_class_namespace_name(not detailed, grouped_per_ns, class_namespace_name, True)
 
         full_file_name: str = full_file_name_simplified_per_ns
         user_info_full_file_name: str = f"Full diagram **simplified** and **grouped per namespace**"
@@ -151,7 +150,7 @@ class DiagramCreation:
     def __get_namespace_name(namespace_list: List[str], index: int, detailed: bool, grouped_per_ns: bool) -> str:
         namespace_name: str = '.'.join([ namespace for namespace in namespace_list[0: index]])
 
-        namespace_filtered_filename: str = DiagramCreation.__get_file_name_from_class_namespace_name(detailed, grouped_per_ns, namespace_name, True)
+        namespace_filtered_filename: str = DiagramCreation.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, namespace_name, True)
 
         return f'namespace {namespace_name} [[{namespace_filtered_filename}]] {{'
 
@@ -223,7 +222,7 @@ class DiagramCreation:
         self.logger.log_debug(f'{empty_spaces}- Analyzing class {fqdn_class_name}')
         is_abstract: str = 'abstract ' if sub_datastructure.is_abstract() else ''
         class_type: str = 'interface ' if sub_datastructure.is_interface() else 'class '
-        class_link: str = DiagramCreation.__get_file_name_from_class_namespace_name(\
+        class_link: str = DiagramCreation.get_file_name_from_class_namespace_name(\
             detailed, grouped_per_ns, fqdn_class_name, True)
         color: str = sub_datastructure.get_color()
         if color is None:

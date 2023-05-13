@@ -21,7 +21,7 @@ class PythonLanguage(LanguageDependent):
         self.logger = logger
 
     def get_skip_types(self) -> List[str]:
-        return ['int', 'str', 'float', 'bool', 'abc.ABC']
+        return ['int', 'str', 'float', 'bool', 'abc.ABC', 'double']
 
 class Datastructure(GenericDatastructure):
     NOT_EXTRACTED: str = '** Not extracted **'
@@ -58,6 +58,8 @@ class Datastructure(GenericDatastructure):
         is_private: bool
 
     class SubDataStructure(GenericSubDataStructure):
+
+
         def __init__(self, filename: str, filemodule: str, from_imports: Dict[str, str], \
                 fqdn_class_name: str, name_space_list: List[str], logger: Logger):
             self.fqdn_class_name: str = fqdn_class_name
