@@ -67,30 +67,55 @@ class StatisticsHtml:
                         with tr():
                             bgcolor: str = f'#888888'
                             td_style = f"padding-right: 5px; padding-left: 5px; "
+                            with td(style=td_style, bgcolor = bgcolor, halign="center", valign="center"):
+                                p("Thresholds")
+                            bgcolor: str = f'#DDDDDD'
+                            with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
+                                p('{}'.format(ClassConnectionsDetails.THRESHOLD_CHILD_CLASSES))
+                            with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
+                                p('{}'.format(ClassConnectionsDetails.THRESHOLD_PARENT_CLASSES))
+                            with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
+                                p('{}'.format(ClassConnectionsDetails.THRESHOLD_AGGREGATION_FROM))
+                            with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
+                                p('{}'.format(ClassConnectionsDetails.THRESHOLD_AGGREGATION_TO))
+                            with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
+                                p('{}'.format(ClassConnectionsDetails.THRESHOLD_USES_FROM))
+                            with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
+                                p('{}'.format(ClassConnectionsDetails.THRESHOLD_USES_TO))
+
+                        with tr():
+                            bgcolor: str = f'#888888'
+                            td_style = f"padding-right: 5px; padding-left: 5px; "
                             with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p("Mean")
-                            bgcolor: str = f'#DDDDDD'
-                            color = default_color if self.statistics.mean.child_classes < ClassConnectionsDetails.THRESHOLD_CHILD_CLASSES else '#FF0000'
+                            #bgcolor: str = f'#DDDDDD'
+                            color = default_color
+                            bgcolor = f'#DDDDDD' if self.statistics.mean.child_classes < ClassConnectionsDetails.THRESHOLD_CHILD_CLASSES else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p('{:.3f}'.format(self.statistics.mean.child_classes))
 
-                            color = default_color if self.statistics.mean.parent_classes < ClassConnectionsDetails.THRESHOLD_PARENT_CLASSES else '#FF0000'
+                            color = default_color
+                            bgcolor: str = f'#DDDDDD'  if self.statistics.mean.parent_classes < ClassConnectionsDetails.THRESHOLD_PARENT_CLASSES else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p('{:.3f}'.format(self.statistics.mean.parent_classes))
 
-                            color = default_color if self.statistics.mean.aggregations_from < ClassConnectionsDetails.THRESHOLD_AGGREGATION_FROM else '#FF0000'
+                            color = default_color
+                            bgcolor: str = f'#DDDDDD'  if self.statistics.mean.aggregations_from < ClassConnectionsDetails.THRESHOLD_AGGREGATION_FROM else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p('{:.3f}'.format(self.statistics.mean.aggregations_from))
 
-                            color = default_color if self.statistics.mean.aggregations_to < ClassConnectionsDetails.THRESHOLD_AGGREGATION_TO else '#FF0000'
+                            color = default_color
+                            bgcolor: str = f'#DDDDDD'  if self.statistics.mean.aggregations_to < ClassConnectionsDetails.THRESHOLD_AGGREGATION_TO else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p('{:.3f}'.format(self.statistics.mean.aggregations_to))
 
-                            color = default_color if self.statistics.mean.uses_from < ClassConnectionsDetails.THRESHOLD_USES_FROM else '#FF0000'
+                            color = default_color
+                            bgcolor: str = f'#DDDDDD'  if self.statistics.mean.uses_from < ClassConnectionsDetails.THRESHOLD_USES_FROM else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p('{:.3f}'.format(self.statistics.mean.uses_from))
 
-                            color = default_color if self.statistics.mean.uses_to < ClassConnectionsDetails.THRESHOLD_USES_TO else '#FF0000'
+                            color = default_color
+                            bgcolor: str = f'#DDDDDD'  if self.statistics.mean.uses_to < ClassConnectionsDetails.THRESHOLD_USES_TO else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p('{:.3f}'.format(self.statistics.mean.uses_to))
 
@@ -118,31 +143,37 @@ class StatisticsHtml:
                             td_style = f"padding-right: 5px; padding-left: 5px; "
                             with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p("Max")
-                            bgcolor: str = f'#DDDDDD'
-
-                            color = default_color if self.statistics.max.child_classes < ClassConnectionsDetails.THRESHOLD_CHILD_CLASSES else '#FF0000'
+                            
+                            color = default_color
+                            bgcolor: str = f'#DDDDDD' if self.statistics.max.child_classes < ClassConnectionsDetails.THRESHOLD_CHILD_CLASSES else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
-                                p('{:.3f}'.format(self.statistics.max.child_classes))
+                                p('{}'.format(self.statistics.max.child_classes))
 
-                            color = default_color if self.statistics.max.parent_classes < ClassConnectionsDetails.THRESHOLD_PARENT_CLASSES else '#FF0000'
+                            color = default_color 
+                            bgcolor: str = f'#DDDDDD' if self.statistics.max.parent_classes < ClassConnectionsDetails.THRESHOLD_PARENT_CLASSES else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
-                                p('{:.3f}'.format(self.statistics.max.parent_classes))
+                                p('{}'.format(self.statistics.max.parent_classes))
 
-                            color = default_color if self.statistics.max.aggregations_from < ClassConnectionsDetails.THRESHOLD_AGGREGATION_FROM else '#FF0000'
+                            color = default_color 
+                            bgcolor: str = f'#DDDDDD' if self.statistics.max.aggregations_from < ClassConnectionsDetails.THRESHOLD_AGGREGATION_FROM else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
-                                p('{:.3f}'.format(self.statistics.max.aggregations_from))
+                                p('{}'.format(self.statistics.max.aggregations_from))
 
-                            color = default_color if self.statistics.max.aggregations_to < ClassConnectionsDetails.THRESHOLD_AGGREGATION_TO else '#FF0000'
+                            color = default_color 
+                            bgcolor: str = f'#DDDDDD' if self.statistics.max.aggregations_to < ClassConnectionsDetails.THRESHOLD_AGGREGATION_TO else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
-                                p('{:.3f}'.format(self.statistics.max.aggregations_to))
+                                p('{}'.format(self.statistics.max.aggregations_to))
 
-                            color = default_color if self.statistics.max.uses_from < ClassConnectionsDetails.THRESHOLD_USES_FROM else '#FF0000'
+                            color = default_color 
+                            bgcolor: str = f'#DDDDDD' if self.statistics.max.uses_from < ClassConnectionsDetails.THRESHOLD_USES_FROM else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
-                                p('{:.3f}'.format(self.statistics.max.uses_from))
+                                p('{}'.format(self.statistics.max.uses_from))
 
-                            color = default_color if self.statistics.max.uses_to < ClassConnectionsDetails.THRESHOLD_USES_TO else '#FF0000'
+                            color = default_color 
+                            bgcolor: str = f'#DDDDDD' if self.statistics.max.uses_to < ClassConnectionsDetails.THRESHOLD_USES_TO else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
-                                p('{:.3f}'.format(self.statistics.max.uses_to))
+                                p('{}'.format(self.statistics.max.uses_to))
+
 
  
         @staticmethod
