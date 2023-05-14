@@ -200,7 +200,7 @@ function usage() {
     echo "               [ --info ]                       Info logs"
     echo "               [ --debug ]                      Debug logs"
     echo "               [ --trace ]                      Trace logs"
-    echo "               [ --from_language lang_type ]    lang_type can be csharp, java or python. "
+    echo "               [ --from_language lang_type ]    lang_type can be csharp, java, yaml or python. "
     echo "               [ --force_docker_adapter ]       If the adapter has a docker image use it as prio 1"
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
@@ -215,7 +215,8 @@ function usage() {
     echo "               [ --plantuml.plantumljarpath ]       Defines the path to plantuml jar file"
     echo "               [ --plantuml.javapath ]              Defines the path to java binary command"
     echo "  Misc options:"
-    echo "               [ --only_full_diagrams ]             Generate only full diagrams (for debug purpose)"
+    echo "               [ --no_full_diagrams ]               Generates no full diagrams (these digrams can be huge)"
+    echo "               [ --profiler_output ]                Enable the python profiler: specify the filename for the output"
     echo "               [ --start_with_biggest_sizes ]       Processes by default smallest PUML files size first, with this option, start with biggest PUML files size"
     echo "               [ -h | --help ]                      This help"
 }
@@ -353,7 +354,11 @@ while [[ "$1" != "" ]]; do
           PLANTUML_JAVAPATH=$2
           shift
           ;;
-        --trace | --info | --debug | --skip_uses_relation | --skip_not_defined_classes | --only_full_diagrams )
+        --profiler_output )
+         statements="$statements $1 $2"
+         shift
+         ;;
+        --trace | --info | --debug | --skip_uses_relation | --skip_not_defined_classes | --no_full_diagrams )
          statements="$statements $1"
          ;;
         --keep )
@@ -461,6 +466,8 @@ if [[ $process_svg_only == 0 && $summary_page_only == 0 ]]; then
 
       ;;
     python )
+      ;;
+    yaml )
       ;;
     * )
       error "Language $from_language is currently not supported please make a request if needed (No promise can be made on when it will be ready and if it will be done)"

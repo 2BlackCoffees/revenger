@@ -52,7 +52,7 @@ class ApplicationService:
     @staticmethod
     def generate_all_diagrams(from_dir: str, out_dir: str, \
             logger: Logger, language_dependent: LanguageDependent, skip_uses_relation: bool, \
-            skip_not_defined_classes: bool, only_full_diagrams: bool, source_type: SourceType) -> DiagramCreation:
+            skip_not_defined_classes: bool, no_full_diagrams: bool, source_type: SourceType) -> DiagramCreation:
         saver: Saver = Saver(out_dir, logger)
         diagram_creation: DiagramCreation = DiagramCreation(Datastructure(language_dependent, logger), saver, logger)
         saver.append('@startuml')
@@ -63,36 +63,35 @@ class ApplicationService:
             logger.log_info('Filling data structure with inexistent classes')
             diagram_creation.create_referenced_but_inexistent_classes(skip_uses_relation)
         # Create full diagrams
-        logger.log_info('Creating highest level of PUML files')
-        diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, None)
-
-        if not only_full_diagrams:
-
-            # Create diagrams filtered out by class name
-            class_list: List[str] = diagram_creation.get_data_structure().get_classname_list()
-            for class_name in class_list:
-                 reduced_class_list_datastructure = \
-                    DatastructureHandler(diagram_creation.get_data_structure(), logger)\
-                        .create_reduced_class_list_from_class_name_list([class_name])
-                 class_based_diagram_creation: DiagramCreation = \
-                    DiagramCreation(reduced_class_list_datastructure, saver, logger)
-                 logger.log_info(f'Creating PUML diagram for class {class_name}')
-                 class_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, class_name)
-
-            # Create diagrams filtered out by namespace
-            class_name_list_grouped_by_namespaces: Dict[List[str]] = \
-                DatastructureHandler(diagram_creation.get_data_structure(), logger)\
-                    .get_class_name_list_grouped_by_namespaces()
-            for namespace_name, class_name_list in class_name_list_grouped_by_namespaces.items():
-                 reduced_namespace_list = \
-                    DatastructureHandler(diagram_creation.get_data_structure(), logger).\
-                        create_reduced_class_list_from_class_name_list(class_name_list)
-                 namespace_based_diagram_creation: DiagramCreation = \
-                    DiagramCreation(reduced_namespace_list, saver, logger)
-                 logger.log_info(f'Creating PUML diagram for namesapce {namespace_name}')
-                 namespace_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, namespace_name)
+        if not no_full_diagrams:
+            logger.log_info('Creating highest level of PUML files')
+            diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, None)
         else:
-            logger.log_info('Generating only full diagrams')
+            logger.log_info('Skipping full diagrams')
+        # Create diagrams filtered out by class name
+        class_list: List[str] = diagram_creation.get_data_structure().get_classname_list()
+        for class_name in class_list:
+                reduced_class_list_datastructure = \
+                DatastructureHandler(diagram_creation.get_data_structure(), logger)\
+                    .create_reduced_class_list_from_class_name_list([class_name])
+                class_based_diagram_creation: DiagramCreation = \
+                DiagramCreation(reduced_class_list_datastructure, saver, logger)
+                logger.log_info(f'Creating PUML diagram for class {class_name}')
+                class_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, class_name)
+
+        # Create diagrams filtered out by namespace
+        class_name_list_grouped_by_namespaces: Dict[List[str]] = \
+            DatastructureHandler(diagram_creation.get_data_structure(), logger)\
+                .get_class_name_list_grouped_by_namespaces()
+        for namespace_name, class_name_list in class_name_list_grouped_by_namespaces.items():
+                reduced_namespace_list = \
+                DatastructureHandler(diagram_creation.get_data_structure(), logger).\
+                    create_reduced_class_list_from_class_name_list(class_name_list)
+                namespace_based_diagram_creation: DiagramCreation = \
+                DiagramCreation(reduced_namespace_list, saver, logger)
+                logger.log_info(f'Creating PUML diagram for namesapce {namespace_name}')
+                namespace_based_diagram_creation.create_puml_files(from_dir, skip_uses_relation, skip_not_defined_classes, namespace_name)
+
 
         return diagram_creation
     

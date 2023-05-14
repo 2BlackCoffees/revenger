@@ -29,7 +29,7 @@ class DiagramCreation:
 
 
     def __add_inexistent_class(self, class_name: str):
-        no_file_read: str = "**NoFileRead**"
+        no_file_read: str = "**ClassWasNotDefinedInAnyFile**"
         color: str = 'MintCream'
         if class_name != Common.COMPLEX_TYPE and \
             class_name not in self.datastructure.get_skip_types() and \
@@ -400,7 +400,7 @@ class DiagramCreation:
                       'or class names for filtering them and their\\n' +
                       'direct dependencies.\\n\\n' +
                       '==Select other==\\n' +
-                      f'* {user_info_link_1}:\\n   [[{link_path_1}]]\\n* {user_info_link_2}:\\n   [[{link_path_2}]]" as FloatingNote')
+                      f'* {user_info_link_1}:\\n   [[{link_path_1}]]\\n* {user_info_link_2}:\\n   [[{link_path_2}]]\\n* Home:\\n   [[index.html]]" as FloatingNote')
         # saver.append('skinparam handwritten true')
 
         self.__create_puml_classes(detailed, grouped_per_ns, saver, from_dir)
