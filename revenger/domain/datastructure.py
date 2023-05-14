@@ -349,7 +349,7 @@ class DatastructureHandler:
                         if reduced_member_type in class_name_list:
                             self.logger.log_debug(f' Adding {variable.variable_name}:{variable.variable_type} (reduced to {reduced_member_type}) which is a local variable from method {method_field.method_name} from class {sub_datastructure.get_fqdn_class_name()} ')
                             self.__append_sub_datastructures_from_classname(\
-                                reduced_member_type, reduced_datastructure)
+                                sub_datastructure.get_fqdn_class_name(), reduced_datastructure)
 
                 for inner_class_name in sub_datastructure.get_inner_class_name():
                     _, reduced_member_type, _ = Common.reduce_member_type(inner_class_name)
