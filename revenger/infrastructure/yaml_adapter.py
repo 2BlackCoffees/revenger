@@ -26,14 +26,15 @@ class YAMLAdapter:
         return False
 
     def read(self, datastructure: GenericDatastructure, filename: str, from_dir: str) -> any:
+        self.logger.log_info(f"Opening yaml file {filename}")
         with open(filename, encoding="utf-8") as stream:
             yaml_content: dict = yaml.safe_load(stream)
             self.logger.log_trace(f"Filename: {filename}")
-            self.logger.log_trace(pprint.pformat(yaml_content))
-            self.logger.log_trace("\n\n\n\n")
+            #self.logger.log_trace(pprint.pformat(yaml_content))
+            #self.logger.log_trace("\n\n\n\n")
         for sub_datastructure_yaml in yaml_content:
-            self.logger.log_trace("See below content of sub_datastructure_yaml: ")
-            self.logger.log_trace(pprint.pformat(sub_datastructure_yaml))
+            #self.logger.log_trace("See below content of sub_datastructure_yaml: ")
+            #self.logger.log_trace(pprint.pformat(sub_datastructure_yaml))
             value_dict = sub_datastructure_yaml['sub_datastructure']
             from_imports: Dict[str, str] = {}
             for from_import in value_dict['from_imports']:

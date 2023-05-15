@@ -356,7 +356,9 @@ class DiagramCreation:
                     else:
                         self.logger.log_debug(f'    Relation skipped: {class_name} ?-- {naked_type} ' + \
                             f'(create_all_relation: {create_all_relation}, datastructure.class_exists({naked_type}): ' + \
-                                f'{self.datastructure.class_exists(naked_type)})')
+                                f'{self.datastructure.class_exists(naked_type)}), ' + \
+                                    f'skip_not_defined_classes: {skip_not_defined_classes}), ' + \
+                                    f'skip_not_defined_classes: {skip_not_defined_classes})')
 
                 self.logger.log_trace(f'  Methods are: {", ".join([f"{method_field.method_name}" for method_field in sub_datastructure.get_method_fields()])}')
                 for method_field in sub_datastructure.get_method_fields():
@@ -369,10 +371,15 @@ class DiagramCreation:
                                 parameter_type_name_puml: str = self.__get_fqdn_class_name_plant_uml(parameter_type_sub_datastructure)
                                 self.__create_puml_connection(class_name, parameter_type_name_puml, Common.ConnectionType.USES_PARAMETER, saver)
                                 relation_created = "created"
+                            else:
+                              self.logger.log_debug(f'    Data structure from type {parameter.user_type} reduced to naked_type: {naked_type} could not be found!')
+                        else:
+                            self.logger.log_debug(f'    Connection was explicitely skipped!')
 
                         self.logger.log_debug(f'    Parameter relation *** {relation_created} *** (Uses): {class_name} --> {naked_type} ' + \
                             f'(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
-                                f'{self.datastructure.class_exists(naked_type)}, skip_uses_relation: {skip_uses_relation})')
+                                f'{self.datastructure.class_exists(naked_type)}, skip_uses_relation: {skip_uses_relation}), ' + \
+                                    f'skip_not_defined_classes: {skip_not_defined_classes})')
             
                     for variable in method_field.variables:
                         _, naked_type, _ = Common.reduce_member_type(variable.variable_type)
@@ -383,16 +390,23 @@ class DiagramCreation:
                                 variable_type_name_puml: str = self.__get_fqdn_class_name_plant_uml(variable_type_sub_datastructure)
                                 self.__create_puml_connection(class_name, variable_type_name_puml, Common.ConnectionType.USES_LOCAL_VARIABLE, saver)
                                 relation_created = "created"
+                            else:
+                              self.logger.log_debug(f'    Data structure from type {variable.variable_type} reduced to naked_type: {naked_type} could not be found!')
+                        else:
+                            self.logger.log_debug(f'    Connection was explicitely skipped!')
                         self.logger.log_debug(f'    Local variable relation *** {relation_created} *** (Uses): {class_name} --> {naked_type} ' + \
                             f'(create_all_relation: {create_all_relation}, self.datastructure.class_exists({naked_type}): ' + \
-                                f'{self.datastructure.class_exists(naked_type)}, skip_uses_relation: {skip_uses_relation})')
+                                f'{self.datastructure.class_exists(naked_type)}, skip_uses_relation: {skip_uses_relation}), ' + \
+                                    f'skip_not_defined_classes: {skip_not_defined_classes}')
             
     def __create_full_diagram(self, detailed: bool, grouped_per_ns: bool, from_dir: str, skip_uses_relation: bool, \
                               skip_not_defined_classes: bool, class_namespace_name: str = None) -> None:
         saver: Saver = self.saver.clone()
         user_info_filename, filename, user_info_link_1, link_path_1, user_info_link_2, link_path_2 = \
             DiagramCreation.__get_file_name(detailed, grouped_per_ns, class_namespace_name)
-        self.logger.log_debug(f"*** Creating diagram {filename} ***\n  filename: {filename}\n  detailed:{detailed}\n  grouped_per_ns:{grouped_per_ns}\n  from_dir: {from_dir}\n  skip_uses_relation: {skip_uses_relation}\n  skip_not_defined_classes: {skip_not_defined_classes}\n  class_namespace_name: {class_namespace_name}")
+        self.logger.log_debug(f'*** Creating diagram {filename} ***\n  filename: {filename}\n  detailed:{detailed}\n' + \
+                              f'  grouped_per_ns:{grouped_per_ns}\n  from_dir: {from_dir}\n  skip_uses_relation: {skip_uses_relation}\n' + \
+                              f'  skip_not_defined_classes: {skip_not_defined_classes}\n  class_namespace_name: {class_namespace_name}')
         saver.append(f'title <size:20>{user_info_filename}</size>')
         saver.append( f'note "Your are analyzing:\\n{user_info_filename}\\n\\n' +
                       '==Filter==\\n' +

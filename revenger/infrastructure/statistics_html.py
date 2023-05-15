@@ -184,19 +184,19 @@ class StatisticsHtml:
             if max_number > threshold and number > threshold:
                 return_string = f' <b>{connection_type}</b>'
                 if number < max_number / 100:
-                    return_string += f' (OK: {number} < 1% max)'
+                    return_string += f' ({number} < 1% max)'
                     risk = 0.1
                 elif number < max_number / 10:
-                    return_string += f' (Observe: {number} = {number * 100 // max_number}% max)'
+                    return_string += f' ({number} = {number * 100 // max_number}% max)'
                     risk = 0.3
                 elif number < max_number / 2:
-                    return_string += f' (Not good: {number} = {number * 100 // max_number}% max)'
+                    return_string += f' ({number} = {number * 100 // max_number}% max)'
                     risk = 0.5
                 elif number < 2 * max_number / 3:
-                    return_string += f' (Bad: {number} = {number * 100 // max_number}% max)'
+                    return_string += f' ({number} = {number * 100 // max_number}% max)'
                     risk = 0.8
                 else:
-                    return_string += f' (Very bad: {number} = {number * 100 // max_number}% max)'
+                    return_string += f' ({number} = {number * 100 // max_number}% max)'
                     risk = 1.0
             return return_string, risk
 
