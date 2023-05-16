@@ -35,7 +35,7 @@ class StatisticsHtml:
 
         def _create_summary(self):
             with self.doc:
-                h2("Main statistics")
+                h2("Main statistics", style="font-family:georgia;")
             with self.doc:
                 with div(id='statistics'):
                     table_links: table = table(border=1, 
@@ -261,8 +261,11 @@ class StatisticsHtml:
         def _create_page(self, target_directory: str) -> str:
             
             with self.doc.head:
-                style("""\
-
+                style("""
+                    body {
+                        background-image: url('2blackcoffees.png');
+                        background-repeat: repeat;
+                    }
                     a.table_link:link     { color: white; }
                     a.table_link:visited  { color: purple; }
                     a.table_link:hover    { color: black; }
@@ -314,8 +317,8 @@ class StatisticsHtml:
 
         def _create_header(self) -> None:
             with self.doc:
-                h1(raw(f"<center>RevEngEr</center>"))
-                h1(raw(f"Results for {self.from_dir}"))
+                h1(raw('<center><img src="revenger.png" alt="RevEngEr""></center>'))
+                h1(raw(f"Results for {self.from_dir}"), style="font-family:georgia;")
             with self.doc:
                 self._create_summary()
 
@@ -330,7 +333,7 @@ class StatisticsHtml:
 
         def create_page(self, file_name: str, link_file_names: List[Tuple[str, str]],
                         target_directory: str):
-            self.doc.add(h1(raw(self.title)))
+            self.doc.add(h1(raw(self.title), style="font-family:georgia;"))
 
             self._create_header()
             self._create_links(file_name, link_file_names)

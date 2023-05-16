@@ -326,7 +326,7 @@ while [[ "$1" != "" ]]; do
         --from_language )
           shift
           from_language=$1
-          info "Transforming from language $from_language: This requires either dotnet for C# or Docker to be installed: When using dotnet make sure the project is compiled."
+          info "Transforming from language $from_language: This requires either dotnet for C#, jvm for java or Docker to be installed, nothing for YAML: When using dotnet make sure the project is compiled."
           dotnet -h > /dev/null 2>&1 || docker -v > /dev/null 2>&1 || error "This feature requires either dotnet or docker to be installed. Please make sure it is installed and accessible."
           statements="$statements --yaml"
           ;;
@@ -500,6 +500,7 @@ if [[ $summary_page_only == 0 ]]; then
   fi
 fi
 
+cp assets/* $out_dir
 info "$python revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements)"
 $python revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements) || error "Could not process source files"
 
