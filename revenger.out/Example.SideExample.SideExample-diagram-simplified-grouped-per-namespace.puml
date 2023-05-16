@@ -1,0 +1,22 @@
+@startuml
+title <size:20>Example.SideExample.SideExample **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nExample.SideExample.SideExample **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Example.SideExample.SideExample **detailed** and **grouped per namespace**:\n   [[Example.SideExample.SideExample-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Example [[Example-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Example.SideExample [[Example.SideExample-diagram-simplified-grouped-per-namespace.svg]] {
+  class Example.SideExample.SideExample [[Example.SideExample.SideExample-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace Example.SideExample [[Example.SideExample-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace SideExample
+}
+' Closing namespace Example
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Example.SideExample
+Example.SideExample.SideExample .[#6060BB].> Example.SideExample.SideTestEnum  : uses 
+@enduml

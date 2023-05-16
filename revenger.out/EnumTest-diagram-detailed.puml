@@ -1,0 +1,24 @@
+@startuml
+title <size:20>EnumTest **detailed** </size>
+note "Your are analyzing:\nEnumTest **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* EnumTest **simplified** :\n   [[EnumTest-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class EnumTest [[EnumTest-diagram-detailed.svg]] #yellow {
+}
+class Example.ClassExample [[Example.ClassExample-diagram-detailed.svg]]  {
+  + memberVarUseless: Example.Useless
+  + memberVarEnumTest: EnumTest
+==
+  + example(<font color="6060BB">example:Example.Useless, example:Example.Useless</font>)
+  - <font color="909090">example.localVarBaseExample: Example.BaseExample</font>
+--
+  + getExample(<font color="6060BB"></font>)
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' Example
+Example.ClassExample .[#6060BB].> EnumTest  : uses 
+@enduml

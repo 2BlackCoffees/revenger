@@ -1,0 +1,25 @@
+@startuml
+title <size:20>Optional_DOT_empty **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nOptional_DOT_empty **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Optional_DOT_empty **detailed** and **grouped per namespace**:\n   [[Optional_DOT_empty-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Optional_DOT_empty [[Optional_DOT_empty-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace preadapter [[preadapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] {
+  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace domain
+}
+' Closing namespace preadapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.ASTVisitor -[#909090]-> Optional_DOT_empty  : uses 
+@enduml

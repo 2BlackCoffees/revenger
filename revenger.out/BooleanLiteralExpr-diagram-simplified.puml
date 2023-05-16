@@ -1,0 +1,16 @@
+@startuml
+title <size:20>BooleanLiteralExpr **simplified** </size>
+note "Your are analyzing:\nBooleanLiteralExpr **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* BooleanLiteralExpr **detailed** :\n   [[BooleanLiteralExpr-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class BooleanLiteralExpr [[BooleanLiteralExpr-diagram-simplified.svg]] #yellow {
+}
+  class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BooleanLiteralExpr  : uses 
+@enduml

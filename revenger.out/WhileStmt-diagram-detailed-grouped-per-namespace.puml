@@ -1,0 +1,122 @@
+@startuml
+title <size:20>WhileStmt **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nWhileStmt **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* WhileStmt **simplified** and **grouped per namespace**:\n   [[WhileStmt-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class WhileStmt [[WhileStmt-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] {
+  class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-detailed-grouped-per-namespace.svg]]  {
+    + out: PrintStream
+    + deepness: HandleDeepness
+==
+    + visit(<font color="6060BB">visit:AnnotationDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:AnnotationMemberDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayAccessExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayCreationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayCreationLevel, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayInitializerExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:AssertStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:AssignExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BinaryExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BlockComment, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BlockStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BooleanLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BreakStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:CastExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:CatchClause, visit:Void</font>)
+    + visit(<font color="6060BB">visit:CharLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ClassExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ClassOrInterfaceDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ClassOrInterfaceType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:CompilationUnit, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ConditionalExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ConstructorDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ContinueStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:DoStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:DoubleLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:EmptyStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:EnclosedExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:EnumConstantDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:EnumDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ExplicitConstructorInvocationStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ExpressionStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:FieldAccessExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:FieldDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ForEachStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ForStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:IfStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ImportDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:InitializerDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:InstanceOfExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:IntegerLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:IntersectionType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:JavadocComment, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LabeledStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LambdaExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LineComment, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LocalClassDeclarationStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LongLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MarkerAnnotationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MemberValuetuple, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MethodCallExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MethodDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MethodReferenceExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleExportsDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleOpensDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleProvidesDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleRequiresDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleUsesDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:Name, visit:Void</font>)
+    + visit(<font color="6060BB">visit:NameExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:Nodelist, visit:Void</font>)
+    + visit(<font color="6060BB">visit:NormalAnnotationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:NullLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ObjectCreationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:PackageDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:Parameter, visit:Void</font>)
+    + visit(<font color="6060BB">visit:PrimitiveType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ReturnStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SimpleName, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SingleMemberAnnotationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:StringLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SuperExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SwitchEntry, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SwitchStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SynchronizedStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ThisExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ThrowStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:TryStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:TypeExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:TypeParameter, visit:Void</font>)
+    + visit(<font color="6060BB">visit:UnaryExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:UnionType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:UnknownType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:UnparsableStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:VariableDeclarationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:VariableDeclarator, visit:Void</font>)
+    + visit(<font color="6060BB">visit:VoidType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:WhileStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:WildcardType, visit:Void</font>)
+--
+    + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
+    - <font color="909090">main.cu: CompilationUnit</font>
+--
+  }
+'Compared namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace domain
+}
+' Closing namespace preadapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.ASTVisitorDebug .[#6060BB].> WhileStmt  : uses 
+@enduml

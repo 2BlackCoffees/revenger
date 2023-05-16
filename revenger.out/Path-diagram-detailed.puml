@@ -1,0 +1,23 @@
+@startuml
+title <size:20>Path **detailed** </size>
+note "Your are analyzing:\nPath **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Path **simplified** :\n   [[Path-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Path [[Path-diagram-detailed.svg]] #yellow {
+}
+  class preadapter.service.RecursiveFileProcessor [[preadapter.service.RecursiveFileProcessor-diagram-detailed.svg]]  {
+    + SearchPath(<font color="6060BB"></font>)
+    - <font color="909090">SearchPath.fileList: list_BRQTO_String_BRQTC</font>
+--
+    - ProcessDirectory(<font color="6060BB">ProcessDirectory:list_BRQTO_String_BRQTC</font>)
+    - <font color="909090">ProcessDirectory.stream: DirectoryStream_BRQTO_Path_BRQTC</font>
+    - <font color="909090">ProcessDirectory.path: Path</font>
+--
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.service
+preadapter.service.RecursiveFileProcessor -[#909090]-> Path  : uses 
+@enduml

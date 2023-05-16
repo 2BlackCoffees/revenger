@@ -1,0 +1,399 @@
+@startuml
+title <size:20>preadapter.domain.ASTVisitorDebug **detailed** </size>
+note "Your are analyzing:\npreadapter.domain.ASTVisitorDebug **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.ASTVisitorDebug **simplified** :\n   [[preadapter.domain.ASTVisitorDebug-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class VoidVisitorAdapter_BRQTO_Void_BRQTC [[VoidVisitorAdapter_BRQTO_Void_BRQTC-diagram-detailed.svg]] #MintCream {
+}
+class PrintStream [[PrintStream-diagram-detailed.svg]] #MintCream {
+}
+class HandleDeepness [[HandleDeepness-diagram-detailed.svg]] #MintCream {
+}
+class AnnotationDeclaration [[AnnotationDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class Void [[Void-diagram-detailed.svg]] #MintCream {
+}
+class AnnotationMemberDeclaration [[AnnotationMemberDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class ArrayAccessExpr [[ArrayAccessExpr-diagram-detailed.svg]] #MintCream {
+}
+class ArrayCreationExpr [[ArrayCreationExpr-diagram-detailed.svg]] #MintCream {
+}
+class ArrayCreationLevel [[ArrayCreationLevel-diagram-detailed.svg]] #MintCream {
+}
+class ArrayInitializerExpr [[ArrayInitializerExpr-diagram-detailed.svg]] #MintCream {
+}
+class ArrayType [[ArrayType-diagram-detailed.svg]] #MintCream {
+}
+class AssertStmt [[AssertStmt-diagram-detailed.svg]] #MintCream {
+}
+class AssignExpr [[AssignExpr-diagram-detailed.svg]] #MintCream {
+}
+class BinaryExpr [[BinaryExpr-diagram-detailed.svg]] #MintCream {
+}
+class BlockComment [[BlockComment-diagram-detailed.svg]] #MintCream {
+}
+class BlockStmt [[BlockStmt-diagram-detailed.svg]] #MintCream {
+}
+class BooleanLiteralExpr [[BooleanLiteralExpr-diagram-detailed.svg]] #MintCream {
+}
+class BreakStmt [[BreakStmt-diagram-detailed.svg]] #MintCream {
+}
+class CastExpr [[CastExpr-diagram-detailed.svg]] #MintCream {
+}
+class CatchClause [[CatchClause-diagram-detailed.svg]] #MintCream {
+}
+class CharLiteralExpr [[CharLiteralExpr-diagram-detailed.svg]] #MintCream {
+}
+class ClassExpr [[ClassExpr-diagram-detailed.svg]] #MintCream {
+}
+class ClassOrInterfaceDeclaration [[ClassOrInterfaceDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class ClassOrInterfaceType [[ClassOrInterfaceType-diagram-detailed.svg]] #MintCream {
+}
+class CompilationUnit [[CompilationUnit-diagram-detailed.svg]] #MintCream {
+}
+class ConditionalExpr [[ConditionalExpr-diagram-detailed.svg]] #MintCream {
+}
+class ConstructorDeclaration [[ConstructorDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class ContinueStmt [[ContinueStmt-diagram-detailed.svg]] #MintCream {
+}
+class DoStmt [[DoStmt-diagram-detailed.svg]] #MintCream {
+}
+class DoubleLiteralExpr [[DoubleLiteralExpr-diagram-detailed.svg]] #MintCream {
+}
+class EmptyStmt [[EmptyStmt-diagram-detailed.svg]] #MintCream {
+}
+class EnclosedExpr [[EnclosedExpr-diagram-detailed.svg]] #MintCream {
+}
+class EnumConstantDeclaration [[EnumConstantDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class EnumDeclaration [[EnumDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class ExplicitConstructorInvocationStmt [[ExplicitConstructorInvocationStmt-diagram-detailed.svg]] #MintCream {
+}
+class ExpressionStmt [[ExpressionStmt-diagram-detailed.svg]] #MintCream {
+}
+class FieldAccessExpr [[FieldAccessExpr-diagram-detailed.svg]] #MintCream {
+}
+class FieldDeclaration [[FieldDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class ForEachStmt [[ForEachStmt-diagram-detailed.svg]] #MintCream {
+}
+class ForStmt [[ForStmt-diagram-detailed.svg]] #MintCream {
+}
+class IfStmt [[IfStmt-diagram-detailed.svg]] #MintCream {
+}
+class ImportDeclaration [[ImportDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class InitializerDeclaration [[InitializerDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class InstanceOfExpr [[InstanceOfExpr-diagram-detailed.svg]] #MintCream {
+}
+class IntegerLiteralExpr [[IntegerLiteralExpr-diagram-detailed.svg]] #MintCream {
+}
+class IntersectionType [[IntersectionType-diagram-detailed.svg]] #MintCream {
+}
+class JavadocComment [[JavadocComment-diagram-detailed.svg]] #MintCream {
+}
+class LabeledStmt [[LabeledStmt-diagram-detailed.svg]] #MintCream {
+}
+class LambdaExpr [[LambdaExpr-diagram-detailed.svg]] #MintCream {
+}
+class LineComment [[LineComment-diagram-detailed.svg]] #MintCream {
+}
+class LocalClassDeclarationStmt [[LocalClassDeclarationStmt-diagram-detailed.svg]] #MintCream {
+}
+class LongLiteralExpr [[LongLiteralExpr-diagram-detailed.svg]] #MintCream {
+}
+class MarkerAnnotationExpr [[MarkerAnnotationExpr-diagram-detailed.svg]] #MintCream {
+}
+class MemberValuetuple [[MemberValuetuple-diagram-detailed.svg]] #MintCream {
+}
+class MethodCallExpr [[MethodCallExpr-diagram-detailed.svg]] #MintCream {
+}
+class MethodDeclaration [[MethodDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class MethodReferenceExpr [[MethodReferenceExpr-diagram-detailed.svg]] #MintCream {
+}
+class ModuleDeclaration [[ModuleDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class ModuleExportsDirective [[ModuleExportsDirective-diagram-detailed.svg]] #MintCream {
+}
+class ModuleOpensDirective [[ModuleOpensDirective-diagram-detailed.svg]] #MintCream {
+}
+class ModuleProvidesDirective [[ModuleProvidesDirective-diagram-detailed.svg]] #MintCream {
+}
+class ModuleRequiresDirective [[ModuleRequiresDirective-diagram-detailed.svg]] #MintCream {
+}
+class ModuleUsesDirective [[ModuleUsesDirective-diagram-detailed.svg]] #MintCream {
+}
+class Name [[Name-diagram-detailed.svg]] #MintCream {
+}
+class NameExpr [[NameExpr-diagram-detailed.svg]] #MintCream {
+}
+class Nodelist [[Nodelist-diagram-detailed.svg]] #MintCream {
+}
+class NormalAnnotationExpr [[NormalAnnotationExpr-diagram-detailed.svg]] #MintCream {
+}
+class NullLiteralExpr [[NullLiteralExpr-diagram-detailed.svg]] #MintCream {
+}
+class ObjectCreationExpr [[ObjectCreationExpr-diagram-detailed.svg]] #MintCream {
+}
+class PackageDeclaration [[PackageDeclaration-diagram-detailed.svg]] #MintCream {
+}
+class Parameter [[Parameter-diagram-detailed.svg]] #MintCream {
+}
+class PrimitiveType [[PrimitiveType-diagram-detailed.svg]] #MintCream {
+}
+class ReturnStmt [[ReturnStmt-diagram-detailed.svg]] #MintCream {
+}
+class SimpleName [[SimpleName-diagram-detailed.svg]] #MintCream {
+}
+class SingleMemberAnnotationExpr [[SingleMemberAnnotationExpr-diagram-detailed.svg]] #MintCream {
+}
+class StringLiteralExpr [[StringLiteralExpr-diagram-detailed.svg]] #MintCream {
+}
+class SuperExpr [[SuperExpr-diagram-detailed.svg]] #MintCream {
+}
+class SwitchEntry [[SwitchEntry-diagram-detailed.svg]] #MintCream {
+}
+class SwitchStmt [[SwitchStmt-diagram-detailed.svg]] #MintCream {
+}
+class SynchronizedStmt [[SynchronizedStmt-diagram-detailed.svg]] #MintCream {
+}
+class ThisExpr [[ThisExpr-diagram-detailed.svg]] #MintCream {
+}
+class ThrowStmt [[ThrowStmt-diagram-detailed.svg]] #MintCream {
+}
+class TryStmt [[TryStmt-diagram-detailed.svg]] #MintCream {
+}
+class TypeExpr [[TypeExpr-diagram-detailed.svg]] #MintCream {
+}
+class TypeParameter [[TypeParameter-diagram-detailed.svg]] #MintCream {
+}
+class UnaryExpr [[UnaryExpr-diagram-detailed.svg]] #MintCream {
+}
+class UnionType [[UnionType-diagram-detailed.svg]] #MintCream {
+}
+class UnknownType [[UnknownType-diagram-detailed.svg]] #MintCream {
+}
+class UnparsableStmt [[UnparsableStmt-diagram-detailed.svg]] #MintCream {
+}
+class VariableDeclarationExpr [[VariableDeclarationExpr-diagram-detailed.svg]] #MintCream {
+}
+class VariableDeclarator [[VariableDeclarator-diagram-detailed.svg]] #MintCream {
+}
+class VoidType [[VoidType-diagram-detailed.svg]] #MintCream {
+}
+class WhileStmt [[WhileStmt-diagram-detailed.svg]] #MintCream {
+}
+class WildcardType [[WildcardType-diagram-detailed.svg]] #MintCream {
+}
+class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-detailed.svg]] #MintCream {
+}
+  class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-detailed.svg]] #yellow {
+    + out: PrintStream
+    + deepness: HandleDeepness
+==
+    + visit(<font color="6060BB">visit:AnnotationDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:AnnotationMemberDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayAccessExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayCreationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayCreationLevel, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayInitializerExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ArrayType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:AssertStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:AssignExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BinaryExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BlockComment, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BlockStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BooleanLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:BreakStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:CastExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:CatchClause, visit:Void</font>)
+    + visit(<font color="6060BB">visit:CharLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ClassExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ClassOrInterfaceDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ClassOrInterfaceType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:CompilationUnit, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ConditionalExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ConstructorDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ContinueStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:DoStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:DoubleLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:EmptyStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:EnclosedExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:EnumConstantDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:EnumDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ExplicitConstructorInvocationStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ExpressionStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:FieldAccessExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:FieldDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ForEachStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ForStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:IfStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ImportDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:InitializerDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:InstanceOfExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:IntegerLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:IntersectionType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:JavadocComment, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LabeledStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LambdaExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LineComment, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LocalClassDeclarationStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:LongLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MarkerAnnotationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MemberValuetuple, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MethodCallExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MethodDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:MethodReferenceExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleExportsDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleOpensDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleProvidesDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleRequiresDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ModuleUsesDirective, visit:Void</font>)
+    + visit(<font color="6060BB">visit:Name, visit:Void</font>)
+    + visit(<font color="6060BB">visit:NameExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:Nodelist, visit:Void</font>)
+    + visit(<font color="6060BB">visit:NormalAnnotationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:NullLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ObjectCreationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:PackageDeclaration, visit:Void</font>)
+    + visit(<font color="6060BB">visit:Parameter, visit:Void</font>)
+    + visit(<font color="6060BB">visit:PrimitiveType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ReturnStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SimpleName, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SingleMemberAnnotationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:StringLiteralExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SuperExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SwitchEntry, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SwitchStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:SynchronizedStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ThisExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:ThrowStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:TryStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:TypeExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:TypeParameter, visit:Void</font>)
+    + visit(<font color="6060BB">visit:UnaryExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:UnionType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:UnknownType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:UnparsableStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:VariableDeclarationExpr, visit:Void</font>)
+    + visit(<font color="6060BB">visit:VariableDeclarator, visit:Void</font>)
+    + visit(<font color="6060BB">visit:VoidType, visit:Void</font>)
+    + visit(<font color="6060BB">visit:WhileStmt, visit:Void</font>)
+    + visit(<font color="6060BB">visit:WildcardType, visit:Void</font>)
+--
+    + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
+    - <font color="909090">main.cu: CompilationUnit</font>
+--
+  }
+  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness-diagram-detailed.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitorDebug
+preadapter.domain.ASTVisitorDebug +-[#10BBBB]- preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> PrintStream  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> HandleDeepness  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> Void  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationMemberDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayAccessExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayCreationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayCreationLevel  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayInitializerExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> AssertStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> AssignExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BinaryExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BlockComment  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BlockStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BooleanLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BreakStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> CastExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> CatchClause  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> CharLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ClassExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ClassOrInterfaceDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ClassOrInterfaceType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> CompilationUnit  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ConditionalExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ConstructorDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ContinueStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> DoStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> DoubleLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> EmptyStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> EnclosedExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> EnumConstantDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> EnumDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ExplicitConstructorInvocationStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ExpressionStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> FieldAccessExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> FieldDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ForEachStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ForStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> IfStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ImportDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> InitializerDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> InstanceOfExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> IntegerLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> IntersectionType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> JavadocComment  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LabeledStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LambdaExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LineComment  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LocalClassDeclarationStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LongLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MarkerAnnotationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MemberValuetuple  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MethodCallExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MethodDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MethodReferenceExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleExportsDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleOpensDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleProvidesDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleRequiresDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleUsesDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> Name  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> NameExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> Nodelist  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> NormalAnnotationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> NullLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ObjectCreationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> PackageDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> Parameter  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> PrimitiveType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ReturnStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SimpleName  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SingleMemberAnnotationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> StringLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SuperExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SwitchEntry  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SwitchStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SynchronizedStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ThisExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ThrowStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> TryStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> TypeExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> TypeParameter  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> UnaryExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> UnionType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> UnknownType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> UnparsableStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarator  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> VoidType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> WhileStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> WildcardType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> String_BRQTO__BRQTC  : uses 
+preadapter.domain.ASTVisitorDebug -[#909090]-> CompilationUnit  : uses 
+@enduml

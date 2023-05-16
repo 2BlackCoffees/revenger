@@ -1,0 +1,302 @@
+@startuml
+title <size:20>preadapter.domain.ASTVisitorDebug **simplified** </size>
+note "Your are analyzing:\npreadapter.domain.ASTVisitorDebug **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.ASTVisitorDebug **detailed** :\n   [[preadapter.domain.ASTVisitorDebug-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class VoidVisitorAdapter_BRQTO_Void_BRQTC [[VoidVisitorAdapter_BRQTO_Void_BRQTC-diagram-simplified.svg]] #MintCream {
+}
+class PrintStream [[PrintStream-diagram-simplified.svg]] #MintCream {
+}
+class HandleDeepness [[HandleDeepness-diagram-simplified.svg]] #MintCream {
+}
+class AnnotationDeclaration [[AnnotationDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class Void [[Void-diagram-simplified.svg]] #MintCream {
+}
+class AnnotationMemberDeclaration [[AnnotationMemberDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class ArrayAccessExpr [[ArrayAccessExpr-diagram-simplified.svg]] #MintCream {
+}
+class ArrayCreationExpr [[ArrayCreationExpr-diagram-simplified.svg]] #MintCream {
+}
+class ArrayCreationLevel [[ArrayCreationLevel-diagram-simplified.svg]] #MintCream {
+}
+class ArrayInitializerExpr [[ArrayInitializerExpr-diagram-simplified.svg]] #MintCream {
+}
+class ArrayType [[ArrayType-diagram-simplified.svg]] #MintCream {
+}
+class AssertStmt [[AssertStmt-diagram-simplified.svg]] #MintCream {
+}
+class AssignExpr [[AssignExpr-diagram-simplified.svg]] #MintCream {
+}
+class BinaryExpr [[BinaryExpr-diagram-simplified.svg]] #MintCream {
+}
+class BlockComment [[BlockComment-diagram-simplified.svg]] #MintCream {
+}
+class BlockStmt [[BlockStmt-diagram-simplified.svg]] #MintCream {
+}
+class BooleanLiteralExpr [[BooleanLiteralExpr-diagram-simplified.svg]] #MintCream {
+}
+class BreakStmt [[BreakStmt-diagram-simplified.svg]] #MintCream {
+}
+class CastExpr [[CastExpr-diagram-simplified.svg]] #MintCream {
+}
+class CatchClause [[CatchClause-diagram-simplified.svg]] #MintCream {
+}
+class CharLiteralExpr [[CharLiteralExpr-diagram-simplified.svg]] #MintCream {
+}
+class ClassExpr [[ClassExpr-diagram-simplified.svg]] #MintCream {
+}
+class ClassOrInterfaceDeclaration [[ClassOrInterfaceDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class ClassOrInterfaceType [[ClassOrInterfaceType-diagram-simplified.svg]] #MintCream {
+}
+class CompilationUnit [[CompilationUnit-diagram-simplified.svg]] #MintCream {
+}
+class ConditionalExpr [[ConditionalExpr-diagram-simplified.svg]] #MintCream {
+}
+class ConstructorDeclaration [[ConstructorDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class ContinueStmt [[ContinueStmt-diagram-simplified.svg]] #MintCream {
+}
+class DoStmt [[DoStmt-diagram-simplified.svg]] #MintCream {
+}
+class DoubleLiteralExpr [[DoubleLiteralExpr-diagram-simplified.svg]] #MintCream {
+}
+class EmptyStmt [[EmptyStmt-diagram-simplified.svg]] #MintCream {
+}
+class EnclosedExpr [[EnclosedExpr-diagram-simplified.svg]] #MintCream {
+}
+class EnumConstantDeclaration [[EnumConstantDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class EnumDeclaration [[EnumDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class ExplicitConstructorInvocationStmt [[ExplicitConstructorInvocationStmt-diagram-simplified.svg]] #MintCream {
+}
+class ExpressionStmt [[ExpressionStmt-diagram-simplified.svg]] #MintCream {
+}
+class FieldAccessExpr [[FieldAccessExpr-diagram-simplified.svg]] #MintCream {
+}
+class FieldDeclaration [[FieldDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class ForEachStmt [[ForEachStmt-diagram-simplified.svg]] #MintCream {
+}
+class ForStmt [[ForStmt-diagram-simplified.svg]] #MintCream {
+}
+class IfStmt [[IfStmt-diagram-simplified.svg]] #MintCream {
+}
+class ImportDeclaration [[ImportDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class InitializerDeclaration [[InitializerDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class InstanceOfExpr [[InstanceOfExpr-diagram-simplified.svg]] #MintCream {
+}
+class IntegerLiteralExpr [[IntegerLiteralExpr-diagram-simplified.svg]] #MintCream {
+}
+class IntersectionType [[IntersectionType-diagram-simplified.svg]] #MintCream {
+}
+class JavadocComment [[JavadocComment-diagram-simplified.svg]] #MintCream {
+}
+class LabeledStmt [[LabeledStmt-diagram-simplified.svg]] #MintCream {
+}
+class LambdaExpr [[LambdaExpr-diagram-simplified.svg]] #MintCream {
+}
+class LineComment [[LineComment-diagram-simplified.svg]] #MintCream {
+}
+class LocalClassDeclarationStmt [[LocalClassDeclarationStmt-diagram-simplified.svg]] #MintCream {
+}
+class LongLiteralExpr [[LongLiteralExpr-diagram-simplified.svg]] #MintCream {
+}
+class MarkerAnnotationExpr [[MarkerAnnotationExpr-diagram-simplified.svg]] #MintCream {
+}
+class MemberValuetuple [[MemberValuetuple-diagram-simplified.svg]] #MintCream {
+}
+class MethodCallExpr [[MethodCallExpr-diagram-simplified.svg]] #MintCream {
+}
+class MethodDeclaration [[MethodDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class MethodReferenceExpr [[MethodReferenceExpr-diagram-simplified.svg]] #MintCream {
+}
+class ModuleDeclaration [[ModuleDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class ModuleExportsDirective [[ModuleExportsDirective-diagram-simplified.svg]] #MintCream {
+}
+class ModuleOpensDirective [[ModuleOpensDirective-diagram-simplified.svg]] #MintCream {
+}
+class ModuleProvidesDirective [[ModuleProvidesDirective-diagram-simplified.svg]] #MintCream {
+}
+class ModuleRequiresDirective [[ModuleRequiresDirective-diagram-simplified.svg]] #MintCream {
+}
+class ModuleUsesDirective [[ModuleUsesDirective-diagram-simplified.svg]] #MintCream {
+}
+class Name [[Name-diagram-simplified.svg]] #MintCream {
+}
+class NameExpr [[NameExpr-diagram-simplified.svg]] #MintCream {
+}
+class Nodelist [[Nodelist-diagram-simplified.svg]] #MintCream {
+}
+class NormalAnnotationExpr [[NormalAnnotationExpr-diagram-simplified.svg]] #MintCream {
+}
+class NullLiteralExpr [[NullLiteralExpr-diagram-simplified.svg]] #MintCream {
+}
+class ObjectCreationExpr [[ObjectCreationExpr-diagram-simplified.svg]] #MintCream {
+}
+class PackageDeclaration [[PackageDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class Parameter [[Parameter-diagram-simplified.svg]] #MintCream {
+}
+class PrimitiveType [[PrimitiveType-diagram-simplified.svg]] #MintCream {
+}
+class ReturnStmt [[ReturnStmt-diagram-simplified.svg]] #MintCream {
+}
+class SimpleName [[SimpleName-diagram-simplified.svg]] #MintCream {
+}
+class SingleMemberAnnotationExpr [[SingleMemberAnnotationExpr-diagram-simplified.svg]] #MintCream {
+}
+class StringLiteralExpr [[StringLiteralExpr-diagram-simplified.svg]] #MintCream {
+}
+class SuperExpr [[SuperExpr-diagram-simplified.svg]] #MintCream {
+}
+class SwitchEntry [[SwitchEntry-diagram-simplified.svg]] #MintCream {
+}
+class SwitchStmt [[SwitchStmt-diagram-simplified.svg]] #MintCream {
+}
+class SynchronizedStmt [[SynchronizedStmt-diagram-simplified.svg]] #MintCream {
+}
+class ThisExpr [[ThisExpr-diagram-simplified.svg]] #MintCream {
+}
+class ThrowStmt [[ThrowStmt-diagram-simplified.svg]] #MintCream {
+}
+class TryStmt [[TryStmt-diagram-simplified.svg]] #MintCream {
+}
+class TypeExpr [[TypeExpr-diagram-simplified.svg]] #MintCream {
+}
+class TypeParameter [[TypeParameter-diagram-simplified.svg]] #MintCream {
+}
+class UnaryExpr [[UnaryExpr-diagram-simplified.svg]] #MintCream {
+}
+class UnionType [[UnionType-diagram-simplified.svg]] #MintCream {
+}
+class UnknownType [[UnknownType-diagram-simplified.svg]] #MintCream {
+}
+class UnparsableStmt [[UnparsableStmt-diagram-simplified.svg]] #MintCream {
+}
+class VariableDeclarationExpr [[VariableDeclarationExpr-diagram-simplified.svg]] #MintCream {
+}
+class VariableDeclarator [[VariableDeclarator-diagram-simplified.svg]] #MintCream {
+}
+class VoidType [[VoidType-diagram-simplified.svg]] #MintCream {
+}
+class WhileStmt [[WhileStmt-diagram-simplified.svg]] #MintCream {
+}
+class WildcardType [[WildcardType-diagram-simplified.svg]] #MintCream {
+}
+class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
+}
+  class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified.svg]] #yellow {
+  }
+  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitorDebug
+preadapter.domain.ASTVisitorDebug +-[#10BBBB]- preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> PrintStream  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> HandleDeepness  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> Void  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationMemberDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayAccessExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayCreationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayCreationLevel  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayInitializerExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ArrayType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> AssertStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> AssignExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BinaryExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BlockComment  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BlockStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BooleanLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> BreakStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> CastExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> CatchClause  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> CharLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ClassExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ClassOrInterfaceDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ClassOrInterfaceType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> CompilationUnit  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ConditionalExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ConstructorDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ContinueStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> DoStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> DoubleLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> EmptyStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> EnclosedExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> EnumConstantDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> EnumDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ExplicitConstructorInvocationStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ExpressionStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> FieldAccessExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> FieldDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ForEachStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ForStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> IfStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ImportDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> InitializerDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> InstanceOfExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> IntegerLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> IntersectionType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> JavadocComment  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LabeledStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LambdaExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LineComment  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LocalClassDeclarationStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> LongLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MarkerAnnotationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MemberValuetuple  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MethodCallExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MethodDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> MethodReferenceExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleExportsDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleOpensDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleProvidesDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleRequiresDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ModuleUsesDirective  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> Name  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> NameExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> Nodelist  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> NormalAnnotationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> NullLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ObjectCreationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> PackageDeclaration  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> Parameter  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> PrimitiveType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ReturnStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SimpleName  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SingleMemberAnnotationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> StringLiteralExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SuperExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SwitchEntry  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SwitchStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> SynchronizedStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ThisExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ThrowStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> TryStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> TypeExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> TypeParameter  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> UnaryExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> UnionType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> UnknownType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> UnparsableStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarationExpr  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarator  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> VoidType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> WhileStmt  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> WildcardType  : uses 
+preadapter.domain.ASTVisitorDebug .[#6060BB].> String_BRQTO__BRQTC  : uses 
+preadapter.domain.ASTVisitorDebug -[#909090]-> CompilationUnit  : uses 
+@enduml

@@ -1,0 +1,46 @@
+@startuml
+title <size:20>preadapter.Logger **simplified** </size>
+note "Your are analyzing:\npreadapter.Logger **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.Logger **detailed** :\n   [[preadapter.Logger-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
+}
+class preadapter.Logger [[preadapter.Logger-diagram-simplified.svg]] #yellow {
+}
+class preadapter.LoggingType [[preadapter.LoggingType-diagram-simplified.svg]]  {
+}
+class preadapter.Revenger [[preadapter.Revenger-diagram-simplified.svg]]  {
+}
+  class preadapter.domain.Datastructure [[preadapter.domain.Datastructure-diagram-simplified.svg]]  {
+  }
+  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified.svg]]  {
+  }
+  class preadapter.infrastructure.CreateYML [[preadapter.infrastructure.CreateYML-diagram-simplified.svg]]  {
+  }
+  class preadapter.service.AnalyzeAST [[preadapter.service.AnalyzeAST-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter
+preadapter.Logger .[#6060BB].> preadapter.LoggingType  : uses 
+preadapter.Logger -[#909090]-> String_BRQTO__BRQTC  : uses 
+preadapter.Revenger .[#6060BB].> String_BRQTO__BRQTC  : uses 
+preadapter.Revenger -[#909090]-> preadapter.Logger  : uses 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.Datastructure .[#6060BB].> preadapter.Logger  : uses 
+preadapter.domain.Datastructure -[#909090]-> String_BRQTO__BRQTC  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> preadapter.Logger  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> preadapter.domain.Datastructure  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> String_BRQTO__BRQTC  : uses 
+' Class relations extracted from namespace:
+' preadapter.infrastructure
+preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.domain.Datastructure  : uses 
+preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.Logger  : uses 
+' Class relations extracted from namespace:
+' preadapter.service
+preadapter.service.AnalyzeAST .[#6060BB].> preadapter.Logger  : uses 
+preadapter.service.AnalyzeAST -[#909090]-> preadapter.domain.Datastructure  : uses 
+@enduml

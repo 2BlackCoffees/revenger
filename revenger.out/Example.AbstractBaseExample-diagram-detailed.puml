@@ -1,0 +1,24 @@
+@startuml
+title <size:20>Example.AbstractBaseExample **detailed** </size>
+note "Your are analyzing:\nExample.AbstractBaseExample **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Example.AbstractBaseExample **simplified** :\n   [[Example.AbstractBaseExample-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+abstract class Example.AbstractBaseExample [[Example.AbstractBaseExample-diagram-detailed.svg]] #yellow {
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+}
+class Example.Useless [[Example.Useless-diagram-detailed.svg]]  {
+  + useless(<font color="6060BB"></font>)
+  - <font color="909090">useless.testEnum: Example.SideExample.SideTestEnum</font>
+--
+}
+class Example.BaseExample [[Example.BaseExample-diagram-detailed.svg]]  {
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+  + otherExample(<font color="6060BB"></font>)
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Example
+Example.AbstractBaseExample .[#6060BB].> Example.Useless  : uses 
+Example.AbstractBaseExample <|-[#red]- Example.BaseExample
+Example.BaseExample .[#6060BB].> Example.Useless  : uses 
+@enduml

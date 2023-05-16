@@ -1,0 +1,85 @@
+@startuml
+title <size:20>Example **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExample **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Example **simplified** and **grouped per namespace**:\n   [[Example-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class EnumTest [[EnumTest-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace Example [[Example-diagram-detailed-grouped-per-namespace.svg]] {
+class Example.ClassExample [[Example.ClassExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  + memberVarUseless: Example.Useless
+  + memberVarEnumTest: EnumTest
+==
+  + example(<font color="6060BB">example:Example.Useless, example:Example.Useless</font>)
+  - <font color="909090">example.localVarBaseExample: Example.BaseExample</font>
+--
+  + getExample(<font color="6060BB"></font>)
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+}
+class Example.BaseExample [[Example.BaseExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+  + otherExample(<font color="6060BB"></font>)
+}
+class Example.Useless [[Example.Useless-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  + useless(<font color="6060BB"></font>)
+  - <font color="909090">useless.testEnum: Example.SideExample.SideTestEnum</font>
+--
+}
+class Example.ClassExample_DOT_InnerClassExample [[Example.ClassExample_DOT_InnerClassExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+}
+class Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+}
+interface Example.IExample [[Example.IExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  + example(<font color="6060BB">example:Example.Useless, example:Example.Useless</font>)
+}
+class Example.BaseExample_DOT_EnumTest [[Example.BaseExample_DOT_EnumTest-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+}
+abstract class Example.AbstractBaseExample [[Example.AbstractBaseExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+}
+'Compared namespace Example [[Example-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Example
+}
+namespace Example [[Example-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Example.SideExample [[Example.SideExample-diagram-detailed-grouped-per-namespace.svg]] {
+  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    + TestEnumValue1: EnumTypePlaceHolder
+    + TestEnumValue2: EnumTypePlaceHolder
+==
+  }
+  class Example.SideExample.SideExample [[Example.SideExample.SideExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    + test(<font color="6060BB">test:Example.SideExample.SideTestEnum</font>)
+    + testNoParameter(<font color="6060BB"></font>)
+  }
+'Compared namespace Example.SideExample [[Example.SideExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace SideExample
+}
+' Closing namespace Example
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' Example
+Example.BaseExample <|-[#red]- Example.ClassExample
+Example.ClassExample +-[#10BBBB]- Example.ClassExample_DOT_InnerClassExample 
+Example.ClassExample .[#6060BB].> Example.Useless  : uses 
+Example.ClassExample .[#6060BB].> EnumTest  : uses 
+Example.ClassExample -[#909090]-> Example.BaseExample  : uses 
+Example.AbstractBaseExample <|-[#red]- Example.BaseExample
+Example.BaseExample +-[#10BBBB]- Example.BaseExample_DOT_EnumTest 
+Example.BaseExample .[#6060BB].> Example.Useless  : uses 
+Example.Useless -[#909090]-> Example.SideExample.SideTestEnum  : uses 
+Example.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+Example.IExample .[#6060BB].> Example.Useless  : uses 
+Example.AbstractBaseExample .[#6060BB].> Example.Useless  : uses 
+' Class relations extracted from namespace:
+' Example.SideExample
+Example.SideExample.SideTestEnum .[#6060BB].> EnumTypePlaceHolder  : uses 
+Example.SideExample.SideExample .[#6060BB].> Example.SideExample.SideTestEnum  : uses 
+@enduml

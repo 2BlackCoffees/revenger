@@ -1,0 +1,16 @@
+@startuml
+title <size:20>RecursiveFileProcessor_BRQTO__BRQTC **simplified** </size>
+note "Your are analyzing:\nRecursiveFileProcessor_BRQTO__BRQTC **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* RecursiveFileProcessor_BRQTO__BRQTC **detailed** :\n   [[RecursiveFileProcessor_BRQTO__BRQTC-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class RecursiveFileProcessor_BRQTO__BRQTC [[RecursiveFileProcessor_BRQTO__BRQTC-diagram-simplified.svg]] #yellow {
+}
+  class preadapter.service.AnalyzeAST [[preadapter.service.AnalyzeAST-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.service
+preadapter.service.AnalyzeAST -[#909090]-> RecursiveFileProcessor_BRQTO__BRQTC  : uses 
+@enduml

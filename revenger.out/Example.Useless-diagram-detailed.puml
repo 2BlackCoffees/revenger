@@ -1,0 +1,49 @@
+@startuml
+title <size:20>Example.Useless **detailed** </size>
+note "Your are analyzing:\nExample.Useless **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Example.Useless **simplified** :\n   [[Example.Useless-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Example.Useless [[Example.Useless-diagram-detailed.svg]] #yellow {
+  + useless(<font color="6060BB"></font>)
+  - <font color="909090">useless.testEnum: Example.SideExample.SideTestEnum</font>
+--
+}
+class Example.ClassExample [[Example.ClassExample-diagram-detailed.svg]]  {
+  + memberVarUseless: Example.Useless
+  + memberVarEnumTest: EnumTest
+==
+  + example(<font color="6060BB">example:Example.Useless, example:Example.Useless</font>)
+  - <font color="909090">example.localVarBaseExample: Example.BaseExample</font>
+--
+  + getExample(<font color="6060BB"></font>)
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+}
+interface Example.IExample [[Example.IExample-diagram-detailed.svg]]  {
+  + example(<font color="6060BB">example:Example.Useless, example:Example.Useless</font>)
+}
+abstract class Example.AbstractBaseExample [[Example.AbstractBaseExample-diagram-detailed.svg]]  {
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+}
+class Example.BaseExample [[Example.BaseExample-diagram-detailed.svg]]  {
+  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
+  + otherExample(<font color="6060BB"></font>)
+}
+  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-detailed.svg]]  {
+    + TestEnumValue1: EnumTypePlaceHolder
+    + TestEnumValue2: EnumTypePlaceHolder
+==
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Example
+Example.Useless -[#909090]-> Example.SideExample.SideTestEnum  : uses 
+Example.BaseExample <|-[#red]- Example.ClassExample
+Example.ClassExample .[#6060BB].> Example.Useless  : uses 
+Example.ClassExample -[#909090]-> Example.BaseExample  : uses 
+Example.IExample .[#6060BB].> Example.Useless  : uses 
+Example.AbstractBaseExample .[#6060BB].> Example.Useless  : uses 
+Example.AbstractBaseExample <|-[#red]- Example.BaseExample
+Example.BaseExample .[#6060BB].> Example.Useless  : uses 
+' Class relations extracted from namespace:
+' Example.SideExample
+@enduml

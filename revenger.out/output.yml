@@ -1,0 +1,1631 @@
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.Datastructure
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/Datastructure.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes:
+    - preadapter.domain.Datastructure_DOT_Method
+    - preadapter.domain.Datastructure_DOT_Static
+    - preadapter.domain.Datastructure_DOT_Variable
+    - preadapter.domain.Datastructure_DOT_SubDataStructure
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables:
+    - variable_name: class_to_datastructure
+      variable_type: dict[String,SubDataStructure]
+      is_member: 'True'
+    - variable_name: namespace_to_datastructures
+      variable_type: dict[String,list[SubDataStructure]]
+      is_member: 'True'
+    - variable_name: namespace_to_namespace_list
+      variable_type: dict[String,list[String]]
+      is_member: 'True'
+    - variable_name: skip_types
+      variable_type: list[String]
+      is_member: 'True'
+    - variable_name: logger
+      variable_type: preadapter.Logger
+      is_member: 'True'
+    methods:
+    - method_name: ResolveClassNames
+      parameters: []
+      method_variables:
+      - variable_name: variables
+        variable_type: list_BRQTO_Variable_BRQTC
+      - variable_name: variable
+        variable_type: Variable
+      - variable_name: method
+        variable_type: Method
+      - variable_name: subDataStructure
+        variable_type: SubDataStructure
+      is_private: 'False'
+    - method_name: CorrectClassScope
+      parameters:
+      - parameter_name: CorrectClassScope
+        parameter_type: SubDataStructure
+      - parameter_name: CorrectClassScope
+        parameter_type: list_BRQTO_String_BRQTC
+      method_variables: []
+      is_private: 'True'
+    - method_name: GetFQDNForUsedClassName
+      parameters:
+      - parameter_name: GetFQDNForUsedClassName
+        parameter_type: SubDataStructure
+      method_variables:
+      - variable_name: classnameList
+        variable_type: list_BRQTO_String_BRQTC
+      - variable_name: fittingClassNames
+        variable_type: String_BRQTO__BRQTC
+      - variable_name: bestFittingClassNames
+        variable_type: String_BRQTO__BRQTC
+      is_private: 'False'
+    - method_name: get_skip_types
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: append_sub_datastructure
+      parameters:
+      - parameter_name: append_sub_datastructure
+        parameter_type: SubDataStructure
+      method_variables: []
+      is_private: 'False'
+    - method_name: append_class
+      parameters:
+      - parameter_name: append_class
+        parameter_type: list_BRQTO_String_BRQTC
+      - parameter_name: append_class
+        parameter_type: list_BRQTO_String_BRQTC
+      method_variables:
+      - variable_name: sub_datastructure
+        variable_type: SubDataStructure
+      is_private: 'False'
+    - method_name: get_classname_list
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: get_datastructures_from_class_name
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: Example.ClassExample
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/ClassExample.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: Example
+    from_imports: []
+    inner_classes:
+    - Example.ClassExample_DOT_InnerClassExample
+    anonymous_calls: []
+    base_classes:
+    - Example.BaseExample
+    statics: []
+    variables:
+    - variable_name: memberVarUseless
+      variable_type: Example.Useless
+      is_member: 'True'
+    - variable_name: memberVarEnumTest
+      variable_type: EnumTest
+      is_member: 'True'
+    methods:
+    - method_name: example
+      parameters:
+      - parameter_name: example
+        parameter_type: Example.Useless
+      - parameter_name: example
+        parameter_type: Example.Useless
+      method_variables:
+      - variable_name: localVarBaseExample
+        variable_type: Example.BaseExample
+      is_private: 'False'
+    - method_name: getExample
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: exampleAbstract
+      parameters:
+      - parameter_name: exampleAbstract
+        parameter_type: Example.Useless
+      - parameter_name: exampleAbstract
+        parameter_type: Example.Useless
+      method_variables: []
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.Datastructure_DOT_Static
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/Datastructure.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/ClassExample.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: Example
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.Logger
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/Logger.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables:
+    - variable_name: loggingType
+      variable_type: preadapter.LoggingType
+      is_member: 'True'
+    methods:
+    - method_name: log
+      parameters: []
+      method_variables:
+      - variable_name: result
+        variable_type: String_BRQTO__BRQTC
+      is_private: 'True'
+    - method_name: logError
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logError
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logWarning
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logWarning
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logInfo
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logInfo
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logDebug
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logDebug
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logTrace
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: logTrace
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.ASTVisitor
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/ASTVisitor.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes:
+    - preadapter.domain.ASTVisitor_DOT_ObjectType
+    - preadapter.domain.ASTVisitor_DOT_HandleDeepness
+    anonymous_calls: []
+    base_classes:
+    - VoidVisitorAdapter_BRQTO_Void_BRQTC
+    statics: []
+    variables:
+    - variable_name: logger
+      variable_type: preadapter.Logger
+      is_member: 'True'
+    - variable_name: datastructure
+      variable_type: preadapter.domain.Datastructure
+      is_member: 'True'
+    - variable_name: activeMethodList
+      variable_type: list[String]
+      is_member: 'True'
+    - variable_name: activeClassnameList
+      variable_type: list[String]
+      is_member: 'True'
+    - variable_name: namespaceList
+      variable_type: list[String]
+      is_member: 'True'
+    - variable_name: allUsing
+      variable_type: list[String]
+      is_member: 'True'
+    - variable_name: usingDict
+      variable_type: dict[String,String]
+      is_member: 'True'
+    - variable_name: deepness
+      variable_type: HandleDeepness
+      is_member: 'True'
+    - variable_name: ignoreType
+      variable_type: list[String]
+      is_member: 'True'
+    methods:
+    - method_name: SimplifyType
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: cleanClassName
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+    - method_name: CreateClassInterface
+      parameters:
+      - parameter_name: CreateClassInterface
+        parameter_type: ClassOrInterfaceDeclaration
+      method_variables:
+      - variable_name: parentSubDataStructure
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      - variable_name: subDataStructure
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: MethodDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables:
+      - variable_name: subDataStructure
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      - variable_name: argumentsTuple
+        variable_type: list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC
+      - variable_name: argument
+        variable_type: Optional_DOT_empty
+      - variable_name: subDataStructure
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      - variable_name: variableDeclarator
+        variable_type: VariableDeclarator
+      - variable_name: subDataStructure
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      - variable_name: subDataStructureParent
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      - variable_name: subDataStructureChild
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      - variable_name: subDataStructureParent
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      - variable_name: variableName
+        variable_type: n_DOT_getNameAsString_BRQTO__BRQTC
+      - variable_name: variableType
+        variable_type: n_DOT_getTypeAsString_BRQTO__BRQTC
+      - variable_name: initializer
+        variable_type: n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC
+      - variable_name: method
+        variable_type: preadapter.domain.Datastructure_DOT_Method
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ClassOrInterfaceDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: FieldDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: PackageDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ImportDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: EnumConstantDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: EnumDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: VariableDeclarator
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: main
+      parameters:
+      - parameter_name: main
+        parameter_type: String_BRQTO__BRQTC
+      method_variables:
+      - variable_name: cu
+        variable_type: CompilationUnit
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.Datastructure_DOT_Variable
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/Datastructure.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.Datastructure_DOT_Method
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/Datastructure.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes:
+    - preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType
+    - preadapter.domain.Datastructure_DOT_Method_DOT_Variable
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.service.AnalyzeAST
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/service/AnalyzeAST.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter.service
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods:
+    - method_name: SearchRecurseCSharpToYAML
+      parameters:
+      - parameter_name: SearchRecurseCSharpToYAML
+        parameter_type: preadapter.Logger
+      method_variables:
+      - variable_name: datastructure
+        variable_type: preadapter.domain.Datastructure
+      - variable_name: recurseFileProcess
+        variable_type: RecursiveFileProcessor_BRQTO__BRQTC
+      - variable_name: listFilePaths
+        variable_type: list_BRQTO_String_BRQTC
+      - variable_name: cu
+        variable_type: CompilationUnit
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/ASTVisitorDebug.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.LoggingType
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/LoggingType.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables:
+    - variable_name: TRACE
+      variable_type: EnumTypePlaceHolder
+      is_member: 'True'
+    - variable_name: DEBUG
+      variable_type: EnumTypePlaceHolder
+      is_member: 'True'
+    - variable_name: INFO
+      variable_type: EnumTypePlaceHolder
+      is_member: 'True'
+    - variable_name: WARNING
+      variable_type: EnumTypePlaceHolder
+      is_member: 'True'
+    - variable_name: ERROR
+      variable_type: EnumTypePlaceHolder
+      is_member: 'True'
+    methods:
+    - method_name: getValue
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: Example.Useless
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/ClassExample.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: Example
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods:
+    - method_name: useless
+      parameters: []
+      method_variables:
+      - variable_name: testEnum
+        variable_type: Example.SideExample.SideTestEnum
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: Example.IExample
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/ClassExample.java
+    is_abstract: 'False'
+    is_interface: 'True'
+    is_inner_class: 'False'
+    filemodule: Example
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods:
+    - method_name: example
+      parameters:
+      - parameter_name: example
+        parameter_type: Example.Useless
+      - parameter_name: example
+        parameter_type: Example.Useless
+      method_variables: []
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.ASTVisitorDebug
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/ASTVisitorDebug.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes:
+    - preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness
+    anonymous_calls: []
+    base_classes:
+    - VoidVisitorAdapter_BRQTO_Void_BRQTC
+    statics: []
+    variables:
+    - variable_name: out
+      variable_type: PrintStream
+      is_member: 'True'
+    - variable_name: deepness
+      variable_type: HandleDeepness
+      is_member: 'True'
+    methods:
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: AnnotationDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: AnnotationMemberDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ArrayAccessExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ArrayCreationExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ArrayCreationLevel
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ArrayInitializerExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ArrayType
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: AssertStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: AssignExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: BinaryExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: BlockComment
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: BlockStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: BooleanLiteralExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: BreakStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: CastExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: CatchClause
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: CharLiteralExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ClassExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ClassOrInterfaceDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ClassOrInterfaceType
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: CompilationUnit
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ConditionalExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ConstructorDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ContinueStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: DoStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: DoubleLiteralExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: EmptyStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: EnclosedExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: EnumConstantDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: EnumDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ExplicitConstructorInvocationStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ExpressionStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: FieldAccessExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: FieldDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ForEachStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ForStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: IfStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ImportDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: InitializerDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: InstanceOfExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: IntegerLiteralExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: IntersectionType
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: JavadocComment
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: LabeledStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: LambdaExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: LineComment
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: LocalClassDeclarationStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: LongLiteralExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: MarkerAnnotationExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: MemberValuetuple
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: MethodCallExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: MethodDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: MethodReferenceExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ModuleDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ModuleExportsDirective
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ModuleOpensDirective
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ModuleProvidesDirective
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ModuleRequiresDirective
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ModuleUsesDirective
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: Name
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: NameExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: Nodelist
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: NormalAnnotationExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: NullLiteralExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ObjectCreationExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: PackageDeclaration
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: Parameter
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: PrimitiveType
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ReturnStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: SimpleName
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: SingleMemberAnnotationExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: StringLiteralExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: SuperExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: SwitchEntry
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: SwitchStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: SynchronizedStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ThisExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: ThrowStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: TryStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: TypeExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: TypeParameter
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: UnaryExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: UnionType
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: UnknownType
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: UnparsableStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: VariableDeclarationExpr
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: VariableDeclarator
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: VoidType
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: WhileStmt
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: visit
+      parameters:
+      - parameter_name: visit
+        parameter_type: WildcardType
+      - parameter_name: visit
+        parameter_type: Void
+      method_variables: []
+      is_private: 'False'
+    - method_name: main
+      parameters:
+      - parameter_name: main
+        parameter_type: String_BRQTO__BRQTC
+      method_variables:
+      - variable_name: cu
+        variable_type: CompilationUnit
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: Example.BaseExample_DOT_EnumTest
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/ClassExample.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: Example
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.ASTVisitor_DOT_ObjectType
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/ASTVisitor.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.Revenger
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/Revenger.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods:
+    - method_name: main
+      parameters:
+      - parameter_name: main
+        parameter_type: String_BRQTO__BRQTC
+      method_variables:
+      - variable_name: logger
+        variable_type: preadapter.Logger
+      - variable_name: ast
+        variable_type: AnalyzeAST_BRQTO__BRQTC
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/Datastructure.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.service.RecursiveFileProcessor
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/service/RecursiveFileProcessor.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter.service
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods:
+    - method_name: SearchPath
+      parameters: []
+      method_variables:
+      - variable_name: fileList
+        variable_type: list_BRQTO_String_BRQTC
+      is_private: 'False'
+    - method_name: ProcessDirectory
+      parameters:
+      - parameter_name: ProcessDirectory
+        parameter_type: list_BRQTO_String_BRQTC
+      method_variables:
+      - variable_name: stream
+        variable_type: DirectoryStream_BRQTO_Path_BRQTC
+      - variable_name: path
+        variable_type: Path
+      is_private: 'True'
+- sub_datastructure:
+    fqdn_class_name: preadapter.infrastructure.CreateYML
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/infrastructure/CreateYML.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: preadapter.infrastructure
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables:
+    - variable_name: dummperOptions
+      variable_type: DumperOptions.FlowStyle
+      is_member: 'True'
+    - variable_name: startMark
+      variable_type: Mark
+      is_member: 'True'
+    - variable_name: endMark
+      variable_type: Mark
+      is_member: 'True'
+    methods:
+    - method_name: appendTupleNodeValueSequenceNode
+      parameters:
+      - parameter_name: appendTupleNodeValueSequenceNode
+        parameter_type: dictpingNode
+      - parameter_name: appendTupleNodeValueSequenceNode
+        parameter_type: SequenceNode
+      method_variables: []
+      is_private: 'True'
+    - method_name: appendTupleNodeValueString
+      parameters:
+      - parameter_name: appendTupleNodeValueString
+        parameter_type: dictpingNode
+      method_variables: []
+      is_private: 'True'
+    - method_name: appendTupleNodeValueStringToSequenceNode
+      parameters:
+      - parameter_name: appendTupleNodeValueStringToSequenceNode
+        parameter_type: SequenceNode
+      method_variables:
+      - variable_name: mappingNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      is_private: 'True'
+    - method_name: appendSequence
+      parameters:
+      - parameter_name: appendSequence
+        parameter_type: dictpingNode
+      - parameter_name: appendSequence
+        parameter_type: list_BRQTO_String_BRQTC
+      method_variables:
+      - variable_name: subSequenceNode
+        variable_type: SequenceNode
+      is_private: 'True'
+    - method_name: Create
+      parameters:
+      - parameter_name: Create
+        parameter_type: preadapter.domain.Datastructure
+      - parameter_name: Create
+        parameter_type: preadapter.Logger
+      method_variables:
+      - variable_name: subDataStructureSequenceYmlNode
+        variable_type: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: subDataStructureMappingYmlNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: subDataStructure
+        variable_type: preadapter.domain.Datastructure_DOT_SubDataStructure
+      - variable_name: fromImportsSequenceNode
+        variable_type: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: fromImportsMappingNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: staticsSequenceNode
+        variable_type: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: staticsMappingNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: variablesSequenceNode
+        variable_type: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: variablesMappingNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: methodsSequenceNode
+        variable_type: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: parameters
+        variable_type: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: methodParametersMappingNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: methodVariables
+        variable_type: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: methodVariablesMappingNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: methodNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: tmpMappingNode
+        variable_type: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC
+      - variable_name: yaml
+        variable_type: Yaml
+      - variable_name: writer
+        variable_type: PrintWriter
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: Example.SideExample.SideTestEnum
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/SideExample/SideTestEnum.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: Example.SideExample
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables:
+    - variable_name: TestEnumValue1
+      variable_type: EnumTypePlaceHolder
+      is_member: 'True'
+    - variable_name: TestEnumValue2
+      variable_type: EnumTypePlaceHolder
+      is_member: 'True'
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.Datastructure_DOT_Method_DOT_Variable
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/Datastructure.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: Example.AbstractBaseExample
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/ClassExample.java
+    is_abstract: 'True'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: Example
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods:
+    - method_name: exampleAbstract
+      parameters:
+      - parameter_name: exampleAbstract
+        parameter_type: Example.Useless
+      - parameter_name: exampleAbstract
+        parameter_type: Example.Useless
+      method_variables: []
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: Example.ClassExample_DOT_InnerClassExample
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/ClassExample.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: Example
+    from_imports: []
+    inner_classes:
+    - Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: Example.SideExample.SideExample
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/SideExample/SideExample.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: Example.SideExample
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods:
+    - method_name: test
+      parameters:
+      - parameter_name: test
+        parameter_type: Example.SideExample.SideTestEnum
+      method_variables: []
+      is_private: 'False'
+    - method_name: testNoParameter
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: Example.BaseExample
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/Example/ClassExample.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'False'
+    filemodule: Example
+    from_imports: []
+    inner_classes:
+    - Example.BaseExample_DOT_EnumTest
+    anonymous_calls: []
+    base_classes:
+    - Example.AbstractBaseExample
+    statics: []
+    variables: []
+    methods:
+    - method_name: exampleAbstract
+      parameters:
+      - parameter_name: exampleAbstract
+        parameter_type: Example.Useless
+      - parameter_name: exampleAbstract
+        parameter_type: Example.Useless
+      method_variables: []
+      is_private: 'False'
+    - method_name: otherExample
+      parameters: []
+      method_variables: []
+      is_private: 'False'
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.Datastructure_DOT_SubDataStructure
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/Datastructure.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []
+- sub_datastructure:
+    fqdn_class_name: preadapter.domain.ASTVisitor_DOT_HandleDeepness
+    filename: /Users/jean-philippe.ulpiano/development/revenger/java-adapter/src/main/java/preadapter/domain/ASTVisitor.java
+    is_abstract: 'False'
+    is_interface: 'False'
+    is_inner_class: 'True'
+    filemodule: preadapter.domain
+    from_imports: []
+    inner_classes: []
+    anonymous_calls: []
+    base_classes: []
+    statics: []
+    variables: []
+    methods: []

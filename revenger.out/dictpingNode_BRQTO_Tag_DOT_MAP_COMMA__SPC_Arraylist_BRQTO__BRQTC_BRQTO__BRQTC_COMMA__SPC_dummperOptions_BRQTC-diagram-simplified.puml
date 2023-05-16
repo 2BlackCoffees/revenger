@@ -1,0 +1,16 @@
+@startuml
+title <size:20>dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC **simplified** </size>
+note "Your are analyzing:\ndictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC **detailed** :\n   [[dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC [[dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC-diagram-simplified.svg]] #yellow {
+}
+  class preadapter.infrastructure.CreateYML [[preadapter.infrastructure.CreateYML-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.infrastructure
+preadapter.infrastructure.CreateYML -[#909090]-> dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC  : uses 
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+title <size:20>Example **simplified** </size>
+note "Your are analyzing:\nExample **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Example **detailed** :\n   [[Example-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class EnumTest [[EnumTest-diagram-simplified.svg]] #MintCream {
+}
+class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-simplified.svg]] #MintCream {
+}
+class Example.ClassExample [[Example.ClassExample-diagram-simplified.svg]] #yellow {
+}
+class Example.BaseExample [[Example.BaseExample-diagram-simplified.svg]] #yellow {
+}
+class Example.Useless [[Example.Useless-diagram-simplified.svg]] #yellow {
+}
+class Example.ClassExample_DOT_InnerClassExample [[Example.ClassExample_DOT_InnerClassExample-diagram-simplified.svg]] #yellow {
+}
+class Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample-diagram-simplified.svg]] #yellow {
+}
+interface Example.IExample [[Example.IExample-diagram-simplified.svg]] #yellow {
+}
+class Example.BaseExample_DOT_EnumTest [[Example.BaseExample_DOT_EnumTest-diagram-simplified.svg]] #yellow {
+}
+abstract class Example.AbstractBaseExample [[Example.AbstractBaseExample-diagram-simplified.svg]] #yellow {
+}
+  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-simplified.svg]] #yellow {
+  }
+  class Example.SideExample.SideExample [[Example.SideExample.SideExample-diagram-simplified.svg]] #yellow {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' Example
+Example.BaseExample <|-[#red]- Example.ClassExample
+Example.ClassExample +-[#10BBBB]- Example.ClassExample_DOT_InnerClassExample 
+Example.ClassExample .[#6060BB].> Example.Useless  : uses 
+Example.ClassExample .[#6060BB].> EnumTest  : uses 
+Example.ClassExample -[#909090]-> Example.BaseExample  : uses 
+Example.AbstractBaseExample <|-[#red]- Example.BaseExample
+Example.BaseExample +-[#10BBBB]- Example.BaseExample_DOT_EnumTest 
+Example.BaseExample .[#6060BB].> Example.Useless  : uses 
+Example.Useless -[#909090]-> Example.SideExample.SideTestEnum  : uses 
+Example.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+Example.IExample .[#6060BB].> Example.Useless  : uses 
+Example.AbstractBaseExample .[#6060BB].> Example.Useless  : uses 
+' Class relations extracted from namespace:
+' Example.SideExample
+Example.SideExample.SideTestEnum .[#6060BB].> EnumTypePlaceHolder  : uses 
+Example.SideExample.SideExample .[#6060BB].> Example.SideExample.SideTestEnum  : uses 
+@enduml

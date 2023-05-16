@@ -1,0 +1,16 @@
+@startuml
+title <size:20>ReturnStmt **simplified** </size>
+note "Your are analyzing:\nReturnStmt **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* ReturnStmt **detailed** :\n   [[ReturnStmt-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class ReturnStmt [[ReturnStmt-diagram-simplified.svg]] #yellow {
+}
+  class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.ASTVisitorDebug .[#6060BB].> ReturnStmt  : uses 
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title <size:20>preadapter.Revenger **detailed** </size>
+note "Your are analyzing:\npreadapter.Revenger **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.Revenger **simplified** :\n   [[preadapter.Revenger-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-detailed.svg]] #MintCream {
+}
+class AnalyzeAST_BRQTO__BRQTC [[AnalyzeAST_BRQTO__BRQTC-diagram-detailed.svg]] #MintCream {
+}
+class preadapter.Revenger [[preadapter.Revenger-diagram-detailed.svg]] #yellow {
+  + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
+  - <font color="909090">main.logger: preadapter.Logger</font>
+  - <font color="909090">main.ast: AnalyzeAST_BRQTO__BRQTC</font>
+--
+}
+class preadapter.Logger [[preadapter.Logger-diagram-detailed.svg]]  {
+  + loggingType: preadapter.LoggingType
+==
+  - log(<font color="6060BB"></font>)
+  - <font color="909090">log.result: String_BRQTO__BRQTC</font>
+--
+  + logError(<font color="6060BB"></font>)
+  + logError(<font color="6060BB"></font>)
+  + logWarning(<font color="6060BB"></font>)
+  + logWarning(<font color="6060BB"></font>)
+  + logInfo(<font color="6060BB"></font>)
+  + logInfo(<font color="6060BB"></font>)
+  + logDebug(<font color="6060BB"></font>)
+  + logDebug(<font color="6060BB"></font>)
+  + logTrace(<font color="6060BB"></font>)
+  + logTrace(<font color="6060BB"></font>)
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter
+preadapter.Revenger .[#6060BB].> String_BRQTO__BRQTC  : uses 
+preadapter.Revenger -[#909090]-> preadapter.Logger  : uses 
+preadapter.Revenger -[#909090]-> AnalyzeAST_BRQTO__BRQTC  : uses 
+preadapter.Logger -[#909090]-> String_BRQTO__BRQTC  : uses 
+@enduml

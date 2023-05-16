@@ -1,0 +1,26 @@
+@startuml
+title <size:20>SequenceNode **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nSequenceNode **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* SequenceNode **detailed** and **grouped per namespace**:\n   [[SequenceNode-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class SequenceNode [[SequenceNode-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace preadapter [[preadapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace preadapter.infrastructure [[preadapter.infrastructure-diagram-simplified-grouped-per-namespace.svg]] {
+  class preadapter.infrastructure.CreateYML [[preadapter.infrastructure.CreateYML-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace preadapter.infrastructure [[preadapter.infrastructure-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace infrastructure
+}
+' Closing namespace preadapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.infrastructure
+preadapter.infrastructure.CreateYML .[#6060BB].> SequenceNode  : uses 
+preadapter.infrastructure.CreateYML -[#909090]-> SequenceNode  : uses 
+@enduml

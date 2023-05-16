@@ -1,0 +1,22 @@
+@startuml
+title <size:20>EnumTest **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nEnumTest **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* EnumTest **detailed** and **grouped per namespace**:\n   [[EnumTest-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class EnumTest [[EnumTest-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace Example [[Example-diagram-simplified-grouped-per-namespace.svg]] {
+class Example.ClassExample [[Example.ClassExample-diagram-simplified-grouped-per-namespace.svg]]  {
+}
+'Compared namespace Example [[Example-diagram-simplified-grouped-per-namespace.svg]] { with last element of }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Example
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' Example
+Example.ClassExample .[#6060BB].> EnumTest  : uses 
+@enduml

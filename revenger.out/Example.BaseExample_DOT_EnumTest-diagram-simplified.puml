@@ -1,0 +1,14 @@
+@startuml
+title <size:20>Example.BaseExample_DOT_EnumTest **simplified** </size>
+note "Your are analyzing:\nExample.BaseExample_DOT_EnumTest **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Example.BaseExample_DOT_EnumTest **detailed** :\n   [[Example.BaseExample_DOT_EnumTest-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Example.BaseExample_DOT_EnumTest [[Example.BaseExample_DOT_EnumTest-diagram-simplified.svg]] #yellow {
+}
+class Example.BaseExample [[Example.BaseExample-diagram-simplified.svg]]  {
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Example
+Example.BaseExample +-[#10BBBB]- Example.BaseExample_DOT_EnumTest 
+@enduml

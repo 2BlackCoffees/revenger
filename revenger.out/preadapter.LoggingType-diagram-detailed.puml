@@ -1,0 +1,41 @@
+@startuml
+title <size:20>preadapter.LoggingType **detailed** </size>
+note "Your are analyzing:\npreadapter.LoggingType **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.LoggingType **simplified** :\n   [[preadapter.LoggingType-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-detailed.svg]] #MintCream {
+}
+class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed.svg]] #yellow {
+  + TRACE: EnumTypePlaceHolder
+  + DEBUG: EnumTypePlaceHolder
+  + INFO: EnumTypePlaceHolder
+  + WARNING: EnumTypePlaceHolder
+  + ERROR: EnumTypePlaceHolder
+==
+  + getValue(<font color="6060BB"></font>)
+}
+class preadapter.Logger [[preadapter.Logger-diagram-detailed.svg]]  {
+  + loggingType: preadapter.LoggingType
+==
+  - log(<font color="6060BB"></font>)
+  - <font color="909090">log.result: String_BRQTO__BRQTC</font>
+--
+  + logError(<font color="6060BB"></font>)
+  + logError(<font color="6060BB"></font>)
+  + logWarning(<font color="6060BB"></font>)
+  + logWarning(<font color="6060BB"></font>)
+  + logInfo(<font color="6060BB"></font>)
+  + logInfo(<font color="6060BB"></font>)
+  + logDebug(<font color="6060BB"></font>)
+  + logDebug(<font color="6060BB"></font>)
+  + logTrace(<font color="6060BB"></font>)
+  + logTrace(<font color="6060BB"></font>)
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter
+preadapter.LoggingType .[#6060BB].> EnumTypePlaceHolder  : uses 
+preadapter.Logger .[#6060BB].> preadapter.LoggingType  : uses 
+@enduml

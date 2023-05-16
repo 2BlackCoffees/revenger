@@ -1,0 +1,16 @@
+@startuml
+title <size:20>Variable **simplified** </size>
+note "Your are analyzing:\nVariable **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Variable **detailed** :\n   [[Variable-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Variable [[Variable-diagram-simplified.svg]] #yellow {
+}
+  class preadapter.domain.Datastructure [[preadapter.domain.Datastructure-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.Datastructure -[#909090]-> Variable  : uses 
+@enduml
