@@ -66,7 +66,7 @@ class StatisticsHtml:
 
                         with tr():
                             bgcolor: str = f'#888888'
-                            td_style = f"padding-right: 5px; padding-left: 5px; "
+                            td_style = f"padding-right: 5px; padding-left: 5px; text-align:center"
                             with td(style=td_style, bgcolor = bgcolor, halign="center", valign="center"):
                                 p("Thresholds")
                             bgcolor: str = f'#DDDDDD'
@@ -85,7 +85,7 @@ class StatisticsHtml:
 
                         with tr():
                             bgcolor: str = f'#888888'
-                            td_style = f"padding-right: 5px; padding-left: 5px; "
+                            td_style = f"padding-right: 5px; padding-left: 5px; text-align:center"
                             with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p("Mean")
                             #bgcolor: str = f'#DDDDDD'
@@ -121,7 +121,7 @@ class StatisticsHtml:
 
                         with tr():
                             bgcolor: str = f'#888888'
-                            td_style = f"padding-right: 5px; padding-left: 5px; "
+                            td_style = f"padding-right: 5px; padding-left: 5px; text-align:center"
                             with td(style=td_style, bgcolor = bgcolor, halign="center", valign="center"):
                                 p("Variance")
                             bgcolor: str = f'#DDDDDD'
@@ -140,7 +140,7 @@ class StatisticsHtml:
 
                         with tr():
                             bgcolor: str = f'#888888'
-                            td_style = f"padding-right: 5px; padding-left: 5px; "
+                            td_style = f"padding-right: 5px; padding-left: 5px; text-align:center"
                             with td(style=td_style, color = default_color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p("Max")
                             
@@ -173,8 +173,6 @@ class StatisticsHtml:
                             bgcolor: str = f'#DDDDDD' if self.statistics.max.uses_to < ClassConnectionsDetails.THRESHOLD_USES_TO else '#FF0000'
                             with td(style=td_style, color = color, bgcolor = bgcolor, halign="center", valign="center"):
                                 p('{}'.format(self.statistics.max.uses_to))
-
-
  
         @staticmethod
         def _status_number_connections(connection_type: str,

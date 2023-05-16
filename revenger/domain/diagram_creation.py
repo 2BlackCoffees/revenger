@@ -289,6 +289,7 @@ class DiagramCreation:
                 class_name not in self.datastructure.get_skip_types():
             saver.append_connection(f'{class_name} {connection} {member_type} {note}')
 
+
     def __create_puml_classes_relations(self, saver: Saver, create_all_relation: bool, skip_uses_relation: bool, \
                                         skip_not_defined_classes: bool) -> None:
         for namespace_name in self.datastructure.get_sorted_name_spaces():
