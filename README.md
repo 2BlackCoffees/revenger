@@ -59,6 +59,7 @@ Because sometime the process can take hours or days, it can be useful to see som
 
 The creation of the summary can take a couple of minutes.
 
+See here [Reversed enginnering of the java adapter](https://htmlpreview.github.io/?https://github.com/2BlackCoffees/revenger/blob/main/revenger-java-adapter.out/index.html)
 # TODOs
 
 Currently the Python adapter requires:
