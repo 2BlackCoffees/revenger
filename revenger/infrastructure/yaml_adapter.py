@@ -25,6 +25,9 @@ class YAMLAdapter:
             return value.lower() == 'true'
         return False
 
+    def __cleantype(type: str):
+        return type.replace("?", "_QSTN_").replace(" extends ", "_XTNDS_")
+    
     def read(self, datastructure: GenericDatastructure, filename: str, from_dir: str) -> any:
         self.logger.log_info(f"Opening yaml file {filename}")
         with open(filename, encoding="utf-8") as stream:
@@ -64,7 +67,7 @@ class YAMLAdapter:
             for variable in value_dict['variables']:
                 sub_datastructure.add_variable(\
                     variable['variable_name'],
-                    variable['variable_type'],
+                    YAMLAdapter.__cleantype(variable['variable_type']),
                     variable['is_member'] == True)
             for static in value_dict['statics']:
                 sub_datastructure.add_static(\
