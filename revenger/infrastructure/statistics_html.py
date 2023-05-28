@@ -179,22 +179,18 @@ class StatisticsHtml:
                                     number: int, max_number: int, threshold: int) -> Tuple[str, float]:
             return_string: str = ''
             risk: float = 0.0
+            return_string += f'{connection_type} ({number} = {number * 100 // max_number}% max)'
             if max_number > threshold and number > threshold:
-                return_string = f' <b>{connection_type}</b>'
+                return_string = f' <b>{return_string}</b>'
                 if number < max_number / 100:
-                    return_string += f' ({number} < 1% max)'
                     risk = 0.1
                 elif number < max_number / 10:
-                    return_string += f' ({number} = {number * 100 // max_number}% max)'
                     risk = 0.3
                 elif number < max_number / 2:
-                    return_string += f' ({number} = {number * 100 // max_number}% max)'
                     risk = 0.5
                 elif number < 2 * max_number / 3:
-                    return_string += f' ({number} = {number * 100 // max_number}% max)'
                     risk = 0.8
                 else:
-                    return_string += f' ({number} = {number * 100 // max_number}% max)'
                     risk = 1.0
             return return_string, risk
 
@@ -297,7 +293,7 @@ class StatisticsHtml:
                                 risk = max(status_risk.values()) if self.colorize_type_risk == StatisticsHtml.PageCreator.ColorizeTypeRisk.ANY \
                                                                 else status_risk[self.colorize_type_risk]
                                 red: str = hex(int(255 * risk))[2:] #if risk >= 0.3 else '00'
-                                green: str = hex(int(255 * (1 - risk)))[2:] #if risk < 0.3 else '00'
+                                green: str = hex(int(0xcc * (1 - risk)))[2:] #if risk < 0.3 else '00'
                                 bgcolor: str = f'#{red}{green}00'
                                 td_style = f"padding-right: 5px; padding-left: 5px; font-size: 15 px; color: #FFFFFF"
                                 with td(style=td_style, color = '#FFFFFF', bgcolor = bgcolor, halign="left", valign="center"):
