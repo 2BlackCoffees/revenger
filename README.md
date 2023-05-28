@@ -114,6 +114,6 @@ The application was created to be quickly usable. The Python adapeter needs to b
   
 
 ## What features are missing
-  We have a Trello Board here: https://trello.com/b/ExI3XPoO/candycat-py2plantuml.
+  We have a Trello Board here: https://trello.com/b/KjH1OYzK/revenger.
 
 
