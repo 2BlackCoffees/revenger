@@ -65,11 +65,12 @@ get_list_puml_not_processed() {
   keep_old_svg_and_tmp_files=$1
   process_missing_puml_only=$2
   start_with_biggest_sizes=$3
+  deadletter=$4
   list_remaining_puml_init=$(mktemp)
-  deadletter=DeadLetter
   if [[ $process_svg_only == 1 || $keep_old_svg_and_tmp_files == 1 ]]; then
     test -d $deadletter || mkdir $deadletter
     find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs -I '{}' mv {} $deadletter >/dev/null 2>&1
+
     find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs rm >/dev/null 2>&1
     find . -name "*.svg" -size 0 -type f | xargs rm 
     list_all_puml=$(mktemp)
@@ -92,7 +93,7 @@ get_list_puml_not_processed() {
   if [[ $start_with_biggest_sizes -eq 1 ]]; then
     sort_option="r${sort_option}"
   fi
-  cat $list_remaining_puml_init | xargs ls -l | awk '{print $5 " " $9}' | sort -${sort_option} | awk '{print $2}' > $list_remaining_puml_sorted
+  cat $list_remaining_puml_init | xargs ls -l | awk '{print $5 " " $9}' | sort -${sort_option} | awk '{print $2}' > $list_remaining_puml_sorted 2> /dev/null
 
   if [[ $keep_old_svg_and_tmp_files == 1 ]]; then
     rm $list_remaining_puml_init
@@ -110,7 +111,13 @@ create_svg_files() {
   process_missing_puml_only=$5
   info "Analyzing list of files to be processed"
   pushd $out_dir >/dev/null 
-  list_remaining_puml=$(get_list_puml_not_processed $keep_old_svg_and_tmp_files $process_missing_puml_only $start_with_biggest_sizes)
+  deadletter=DeadLetter
+  list_remaining_puml=$(get_list_puml_not_processed $keep_old_svg_and_tmp_files $process_missing_puml_only $start_with_biggest_sizes $deadletter)
+  number_files_in_dead_letter=$(ls $deadletter | wc -l)
+  number_files_in_dead_letter=$(( number_files_in_dead_letter + 0 ))
+  if [[ $number_files_in_dead_letter -gt 0 ]]; then
+    warning "Number of files in dead letter: $number_files_in_dead_letter"
+  fi
   total_size_puml=$(cat $list_remaining_puml | xargs ls -l | awk '{sum+=$5;} END {print sum;}')
 
   number_files=$(wc -l $list_remaining_puml | perl -npe 's:^\s*::;s:\s+.*$::')
@@ -201,6 +208,7 @@ function usage() {
     echo "               [ --debug ]                      Debug logs"
     echo "               [ --trace ]                      Trace logs"
     echo "               [ --from_language lang_type ]    lang_type can be csharp, java, yaml or python. "
+    echo "               [ --force_clean_out_directory ]  Delete all files in the out directory before processing"
     echo "               [ --force_docker_adapter ]       If the adapter has a docker image use it as prio 1"
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
@@ -264,6 +272,8 @@ keep_old_svg_and_tmp_files=0
 PLANTUML_DOT_JAVA_HEAP_MAX_SIZE=16G
 plantuml_timeout=900
 start_with_biggest_sizes=0
+force_clean_out_directory=0
+script_dir=$(dirname $0)
 while [[ "$1" != "" ]]; do
     case $1 in
         --force_python )
@@ -276,6 +286,9 @@ while [[ "$1" != "" ]]; do
           ;;
         --init )
           force_init=1
+          ;;
+        --force_clean_out_directory )
+          force_clean_out_directory=1
           ;;
         -i | --from_dir | --from-dir | --from )
           tmp_from=$2
@@ -326,8 +339,6 @@ while [[ "$1" != "" ]]; do
         --from_language )
           shift
           from_language=$1
-          info "Transforming from language $from_language: This requires either dotnet for C#, jvm for java or Docker to be installed, nothing for YAML: When using dotnet make sure the project is compiled."
-          dotnet -h > /dev/null 2>&1 || docker -v > /dev/null 2>&1 || error "This feature requires either dotnet or docker to be installed. Please make sure it is installed and accessible."
           statements="$statements --yaml"
           ;;
         -h | --help )
@@ -377,11 +388,12 @@ done
 
 $var_pip -h >/dev/null 2>&1 || var_pip=pip
 $var_pip -h >/dev/null 2>&1 || error "Could not find $var_pip, please make sure $python and $var_pip are installed (See https://www.python.org/downloads/)."
-$var_pip --version | grep $python >/dev/null 2>&1 || error "$var_pip does not support $python! Install $python and $pip."
+# Following is not platform independant
+#$var_pip --version | grep $python >/dev/null 2>&1 || error "$var_pip does not support $python! Install $python and $pip."
 
 if [[ $force_init == 1 ]]; then
-  info "Installing python librairies: $var_pip install -r revenger/requirements.txt"
-  $var_pip install -r revenger/requirements.txt
+  info "Installing python librairies: $var_pip install -r $script_dir/revenger/requirements.txt"
+  $var_pip install -r $script_dir/revenger/requirements.txt
 fi
 basepath=$( dirname -- "$( readlink -f -- "$0" )" )
 
@@ -428,12 +440,14 @@ if [[ $summary_page_only == 0 ]]; then
 fi
 if [[ $process_svg_only == 0 && $summary_page_only == 0 ]]; then
   info "Using adapter from language $from_language"
-  if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
+  if [[ $force_clean_out_directory == 1 ]]; then
     info "Cleaning output directory"
     find $out_dir -type f | xargs rm -f  > /dev/null
   fi
   case $from_language in
     csharp )
+      info "Transforming from language $from_language: This requires either dotnet for C# or Docker to be installed, nothing for YAML: When using dotnet make sure the project is compiled."
+      dotnet -h > /dev/null 2>&1 || docker -v > /dev/null 2>&1 || error "This feature requires either dotnet or docker to be installed. Please make sure it is installed and accessible."
       if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
         rm $out_dir/*.yaml > /dev/null 2>&1
       fi
@@ -450,6 +464,8 @@ if [[ $process_svg_only == 0 && $summary_page_only == 0 ]]; then
 
       ;;
     java )
+      info "Transforming from language $from_language: This requires either the JDK or Docker to be installed, nothing for YAML: When using dotnet make sure the project is compiled."
+      javac -version > /dev/null 2>&1 || docker -v > /dev/null 2>&1 || error "This feature requires either the JDK or docker to be installed. Please make sure it is installed and accessible."
        if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
          rm $out_dir/*.yaml > /dev/null 2>&1
        fi
@@ -468,6 +484,10 @@ if [[ $process_svg_only == 0 && $summary_page_only == 0 ]]; then
     python )
       ;;
     yaml )
+      if [[ $from_dir != $out_dir ]]; then
+        info "Linking all yaml files from $from_dir to $out_dir"
+        cp $from_dir/*.yml $out_dir
+      fi
       ;;
     * )
       error "Language $from_language is currently not supported please make a request if needed (No promise can be made on when it will be ready and if it will be done)"
@@ -476,8 +496,8 @@ if [[ $process_svg_only == 0 && $summary_page_only == 0 ]]; then
 
 
   info "Generating puml files"
-  info "$python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements)"
-  $python revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
+  info "$python $script_dir/revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements)"
+  $python $script_dir/revenger --from_dir $from_dir --out_dir $out_dir $(echo $statements) || error "Could not process source files"
 fi
 
 if [[ $summary_page_only == 0 ]]; then
@@ -500,9 +520,9 @@ if [[ $summary_page_only == 0 ]]; then
   fi
 fi
 
-cp assets/* $out_dir
-info "$python revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements)"
-$python revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements) || error "Could not process source files"
+cp $script_dir/assets/* $out_dir
+info "$python $script_dir/revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements)"
+$python $script_dir/revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements) || error "Could not process source files"
 
 if [[ ! -z $tmp_dir ]]; then
   if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
