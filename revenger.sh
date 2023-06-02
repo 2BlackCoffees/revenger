@@ -278,7 +278,7 @@ plantuml_timeout=900
 start_with_biggest_sizes=0
 force_clean_out_directory=0
 script_dir=$(dirname $0)
-summary_page_title="No title defined"
+summary_page_title="NoTitleDefined"
 while [[ "$1" != "" ]]; do
     case $1 in
         --force_python )
