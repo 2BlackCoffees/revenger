@@ -28,9 +28,9 @@ list_file_to_parameters() {
   plant_uml=$1
   number_files=$2
   list_remaining_puml=$3
-
+  export number_parameters_max=$4
   file_type=".puml"
-  export number_parameters_max=1500
+  #export number_parameters_max=1500
   export number_groups=$(( number_files / number_parameters_max + 1 ))
   number_groups_int=$(printf "%.0f\n" $number_groups)
   if [[ $number_groups_int -gt $number_groups ]]; then
@@ -109,6 +109,7 @@ create_svg_files() {
   keep_old_svg_and_tmp_files=$3
   start_with_biggest_sizes=$4
   process_missing_puml_only=$5
+  number_parameters_max=$6
   info "Analyzing list of files to be processed"
   pushd $out_dir >/dev/null 
   deadletter=DeadLetter
@@ -122,7 +123,7 @@ create_svg_files() {
 
   number_files=$(wc -l $list_remaining_puml | perl -npe 's:^\s*::;s:\s+.*$::')
   info "Number files: $number_files, Total size: $((total_size_puml / 1024/1024)) MB"
-  command_file=$(list_file_to_parameters "$plantuml" "$number_files" "$list_remaining_puml")
+  command_file=$(list_file_to_parameters "$plantuml" "$number_files" "$list_remaining_puml" "$number_parameters_max")
   grep COMMENT $command_file | perl -npe 's:\s*# COMMENT:INFO:'
 
   bash $command_file &
@@ -168,7 +169,7 @@ create_svg_files() {
     if [[ $(diff $previous_svg_list $latest_svg_list) ]]; then
       latest_processed_files=$(diff $previous_svg_list $latest_svg_list | grep "> " | sed 's/^/      /g')
       echo ""
-      info "    Latest processed files:\n$latest_processed_files"
+      info "    Latest processing/processed files:\n$latest_processed_files"
       cp $latest_svg_list $previous_svg_list
       number_seconds_since_last_processed_files=$(date +%s)
       last_processed_files_date_time=$(date '+%d/%m/%Y %H:%M:%S')
@@ -196,6 +197,7 @@ create_svg_files() {
 
 }
 function usage() {
+    number_parameters_max=$1
     echo "$(basename $0) options:"
     echo "               [ -i | --from_dir ]   Mandatory except when process_svg_only is set: Defines where the source files are located."
     echo "               [ -o | --out_dir ]    Mandatory: Where to store the puml and svg files"
@@ -222,6 +224,7 @@ function usage() {
     echo "               [ --plantuml.graphvizdotpath ]       Defines the path to the application graphvizdot"
     echo "               [ --plantuml.plantumljarpath ]       Defines the path to plantuml jar file"
     echo "               [ --plantuml.javapath ]              Defines the path to java binary command"
+    echo "               [ --plantuml.number_parallel_files ] How many parallel files to transform at the same time (Default: $number_parameters_max)"
     echo "  Misc options:"
     echo "               [ --no_full_diagrams ]               Generates no full diagrams (these digrams can be huge)"
     echo "               [ --profiler_output ]                Enable the python profiler: specify the filename for the output"
@@ -255,6 +258,7 @@ function run_dotnet_in_docker() {
     $(echo $statements) 
   return $?
 }
+number_parameters_max=1500
 from_dir=$1
 out_dir=$2
 python=python3
@@ -274,6 +278,7 @@ plantuml_timeout=900
 start_with_biggest_sizes=0
 force_clean_out_directory=0
 script_dir=$(dirname $0)
+summary_page_title="No title defined"
 while [[ "$1" != "" ]]; do
     case $1 in
         --force_python )
@@ -298,10 +303,10 @@ while [[ "$1" != "" ]]; do
           from_dir=$(readlink -f $tmp_from);
           shift;
           ;;
-        -o | --out_dir | --out-dir | --to-dir )
+        -o | --out_dir | --out-dir | --to-dir | --to_dir )
           tmp_out=$2
           if [[ ! -d $tmp_out ]]; then
-            info "Creating dorectory output non existing directory $tmp_out"
+            info "Creating directory output $tmp_out because it does not exist yet"
             mkdir -p $tmp_out
           fi
           out_dir=$(readlink -f $tmp_out);
@@ -312,6 +317,8 @@ while [[ "$1" != "" ]]; do
           ;;
         --summary_page_only)
           summary_page_only=1
+          summary_page_title=$2
+          shift
           ;;
         --force_docker_adapter)
           force_docker_adapter=1
@@ -365,6 +372,10 @@ while [[ "$1" != "" ]]; do
           PLANTUML_JAVAPATH=$2
           shift
           ;;
+        --plantuml.number_parallel_files )
+          number_parameters_max=$2
+          shift
+          ;;
         --profiler_output )
          statements="$statements $1 $2"
          shift
@@ -379,7 +390,7 @@ while [[ "$1" != "" ]]; do
           start_with_biggest_sizes=1
           ;;
         * )
-          usage
+          usage $number_parameters_max
           error "Parameter $1 is not know."
         ;;
     esac
@@ -503,8 +514,8 @@ fi
 if [[ $summary_page_only == 0 ]]; then
   info "Transforming puml to svg"
   if [[ $svg_dep == "secure" ]]; then
-      info "Transforming with plantuml ($plantuml)"
-      create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes" "$process_svg_only"
+      info "Transforming with plantuml ($plantuml) using $number_parameters_max parallel files"
+      create_svg_files "$plantuml -timeout $plantuml_timeout -tsvg -enablestats -realtimestats -htmlstats " "$out_dir" "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes" "$process_svg_only" "$number_parameters_max"
 
   else
       wait_time=5
@@ -516,13 +527,13 @@ if [[ $summary_page_only == 0 ]]; then
         sleep 1;
       done
       cd $out_dir && \
-        create_svg_files "plantweb --engine=plantuml" "." "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes"
+        create_svg_files "plantweb --engine=plantuml" "." "$keep_old_svg_and_tmp_files" "$start_with_biggest_sizes" "$number_parameters_max"
   fi
 fi
 
 cp $script_dir/assets/* $out_dir
-info "$python $script_dir/revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements)"
-$python $script_dir/revenger --from_dir $out_dir --out_dir $out_dir --summary_page_only $(echo $statements) || error "Could not process source files"
+info "$python $script_dir/revenger --from_dir $from_dir --out_dir $out_dir --summary_page_only $summary_page_title $(echo $statements)"
+$python $script_dir/revenger --from_dir $from_dir --out_dir $out_dir --summary_page_only $summary_page_title $(echo $statements) || error "Could not process source files"
 
 if [[ ! -z $tmp_dir ]]; then
   if [[ $keep_old_svg_and_tmp_files == 0 ]]; then

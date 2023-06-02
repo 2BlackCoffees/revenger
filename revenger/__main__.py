@@ -16,13 +16,13 @@ def main(from_dir: str, out_dir: str) -> None:
 
     # create the top-level parser
     source_type: SourceType = SourceType.PYTHON_SOURCE
-    summary_page_only = False
+    summary_page_only = None
     profiler_output = None
 
     #Debug entries:
     # from_dir = '/Users/jean-philippe.ulpiano/development/revenger/out-tmp-dbg'
     # out_dir = '/Users/jean-philippe.ulpiano/development/revenger/out-tmp-dbg'
-    # summary_page_only = False
+    # summary_page_only = "My test"
     # source_type = SourceType.YAML_SOURCE
     # profiler_output = "profiler.txt"
 
@@ -32,7 +32,7 @@ def main(from_dir: str, out_dir: str) -> None:
     parser.add_argument('--skip_uses_relation', action="store_true", help='Do not create use relationship')
     parser.add_argument('--skip_not_defined_classes', action="store_true", help='If a class is referenced but not defined, it will not be displayed (reduces memory needs)')
     parser.add_argument('--no_full_diagrams', action="store_true", help='Generate no full diagrams (These diagrams can be huge)')
-    parser.add_argument('--summary_page_only', action="store_true", help='Use with care: Generate a summary page only (This option will short circuit the processing)')
+    parser.add_argument('--summary_page_only', type=str, help='Generate a summary page only (This option will short circuit the processing), please specify a text for the title')
     parser.add_argument('--info', action="store_true", help='Set logging to info')
     parser.add_argument('--debug', action="store_true", help='Set logging to debug')
     parser.add_argument('--trace', action="store_true", help='Set logging to trace')
@@ -58,14 +58,14 @@ def main(from_dir: str, out_dir: str) -> None:
         logger.log_error(f'Source directory ({from_dir}) is invalid, it requires an absolute path! Exiting!')
         exit(1)
 
-    if not summary_page_only:
-        logger.log_info('Generating all PUML diagrams')
+    if summary_page_only is None:
+        logger.log_warn('Generating all PUML diagrams')
         ApplicationService.generate_all_diagrams(from_dir, out_dir, logger, PythonLanguage(logger), \
                                                 args.skip_uses_relation, args.skip_not_defined_classes,
                                                 args.no_full_diagrams, source_type)
     else:
-        logger.log_info('Generating HTML files')
-        file_name = ApplicationService.create_summary_page(from_dir, out_dir, logger, PythonLanguage(logger), source_type)
+        logger.log_warn('Generating HTML files')
+        file_name = ApplicationService.create_summary_page(from_dir, out_dir, logger, PythonLanguage(logger), source_type, summary_page_only)
         logger.log_warn(f'Please open {file_name} in your browser')
 
     if profiler_output:

@@ -98,7 +98,8 @@ class ApplicationService:
     @staticmethod
     def create_summary_page(from_dir: str, out_dir: str, \
                             logger: Logger, language_dependent: LanguageDependent, \
-                            source_type: SourceType) -> str:
+                            source_type: SourceType,
+                            summary_page_title: str) -> str:
         saver_dummy: Saver = Saver(out_dir, logger)
 
         logger.log_info("Populating data structure")
@@ -113,7 +114,7 @@ class ApplicationService:
         connection_details, statistics = statistics_compute.get_all_classes_and_connections()
 
         logger.log_info("Generating html file")
-        return StatisticsHtml.create(connection_details, statistics, from_dir, out_dir)
+        return StatisticsHtml.create(connection_details, statistics, summary_page_title, out_dir)
 
 
 
