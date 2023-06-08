@@ -226,6 +226,7 @@ function usage() {
     echo "               [ --plantuml.plantumljarpath ]       Defines the path to plantuml jar file"
     echo "               [ --plantuml.javapath ]              Defines the path to java binary command"
     echo "               [ --plantuml.number_parallel_files ] How many parallel files to transform at the same time (Default: $number_parameters_max)"
+    echo "               [ --plantuml.line_type ]             Specify the line type (can be curve, ortho or polyline: Default is ortho)"
     echo "  Misc options:"
     echo "               [ --no_full_diagrams ]               Generates no full diagrams (these digrams can be huge)"
     echo "               [ --profiler_output ]                Enable the python profiler: specify the filename for the output"
@@ -280,6 +281,7 @@ start_with_biggest_sizes=0
 force_clean_out_directory=0
 script_dir=$(dirname $0)
 summary_page_title="NoTitleDefined"
+line_type="ortho"
 while [[ "$1" != "" ]]; do
     case $1 in
         --force_python )
@@ -379,13 +381,17 @@ while [[ "$1" != "" ]]; do
           number_parameters_max=$2
           shift
           ;;
+        --plantuml.line_type )
+          statements="$statements --line_type $2"
+          shift
+          ;;
         --profiler_output )
-         statements="$statements $1 $2"
-         shift
-         ;;
+          statements="$statements $1 $2"
+          shift
+          ;;
         --trace | --info | --debug | --skip_uses_relation | --skip_not_defined_classes | --no_full_diagrams )
-         statements="$statements $1"
-         ;;
+          statements="$statements $1"
+          ;;
         --keep )
           keep_old_svg_and_tmp_files=1
           ;;

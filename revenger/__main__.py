@@ -35,6 +35,7 @@ def main(from_dir: str, out_dir: str) -> None:
     parser.add_argument('--no_full_diagrams', action="store_true", help='Generate no full diagrams (These diagrams can be huge)')
     parser.add_argument('--summary_page_only', action="store_true", help='Generate a summary page only (This option will short circuit the processing), please specify a text for the title')
     parser.add_argument('--summary_page_title', type=str, help='Title for the summary page (Spaces not allowed)')
+    parser.add_argument('--line_type', type=str, help='Can be curve (default), ortho or polyline')
     parser.add_argument('--info', action="store_true", help='Set logging to info')
     parser.add_argument('--debug', action="store_true", help='Set logging to debug')
     parser.add_argument('--trace', action="store_true", help='Set logging to trace')
@@ -66,7 +67,7 @@ def main(from_dir: str, out_dir: str) -> None:
         logger.log_warn('Generating all PUML diagrams')
         ApplicationService.generate_all_diagrams(from_dir, out_dir, logger, PythonLanguage(logger), \
                                                 args.skip_uses_relation, args.skip_not_defined_classes,
-                                                args.no_full_diagrams, source_type)
+                                                args.no_full_diagrams, source_type, args.line_type)
     else:
         logger.log_warn('Generating HTML files')
         file_name = ApplicationService.create_summary_page(from_dir, out_dir, logger, PythonLanguage(logger), source_type, summary_page_title)

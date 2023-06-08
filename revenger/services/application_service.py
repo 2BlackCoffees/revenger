@@ -52,10 +52,13 @@ class ApplicationService:
     @staticmethod
     def generate_all_diagrams(from_dir: str, out_dir: str, \
             logger: Logger, language_dependent: LanguageDependent, skip_uses_relation: bool, \
-            skip_not_defined_classes: bool, no_full_diagrams: bool, source_type: SourceType) -> DiagramCreation:
+            skip_not_defined_classes: bool, no_full_diagrams: bool, source_type: SourceType,
+            line_type: str) -> DiagramCreation:
         saver: Saver = Saver(out_dir, logger)
         diagram_creation: DiagramCreation = DiagramCreation(Datastructure(language_dependent, logger), saver, logger)
         saver.append('@startuml')
+        if line_type is not None and line_type != '' and line_type != 'curve':
+            saver.append(f'skinparam linetype {line_type}')
 
         logger.log_info('Reading source files')
         ApplicationService.fill_datastructure_with_all_source_files(from_dir, diagram_creation, logger, saver, source_type)
