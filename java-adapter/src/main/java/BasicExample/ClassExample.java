@@ -1,13 +1,9 @@
-package Example;
+package BasicExample;
 
-import Example.SideExample.SideTestEnum;
-import org.javatuples.Triplet;
-import preadapter.Logger;
+import BasicExample.SideExample.SideExample;
+import BasicExample.SideExample.SideTestEnum;
 
-import java.util.*;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-import Example.SideExample.SideExample;
+
 class Useless {
     public void useless() {
         System.out.println("Useless");
