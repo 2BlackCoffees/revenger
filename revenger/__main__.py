@@ -16,8 +16,9 @@ def main(from_dir: str, out_dir: str) -> None:
 
     # create the top-level parser
     source_type: SourceType = SourceType.PYTHON_SOURCE
-    summary_page_only = None
-    profiler_output = None
+    summary_page_only: bool = None
+    profiler_output: str = None
+    summary_page_title: str = "No_Page_Title_Defined"
 
     #Debug entries:
     # from_dir = '/Users/jean-philippe.ulpiano/development/revenger/out-tmp-dbg'
@@ -32,7 +33,8 @@ def main(from_dir: str, out_dir: str) -> None:
     parser.add_argument('--skip_uses_relation', action="store_true", help='Do not create use relationship')
     parser.add_argument('--skip_not_defined_classes', action="store_true", help='If a class is referenced but not defined, it will not be displayed (reduces memory needs)')
     parser.add_argument('--no_full_diagrams', action="store_true", help='Generate no full diagrams (These diagrams can be huge)')
-    parser.add_argument('--summary_page_only', type=str, help='Generate a summary page only (This option will short circuit the processing), please specify a text for the title')
+    parser.add_argument('--summary_page_only', action="store_true", help='Generate a summary page only (This option will short circuit the processing), please specify a text for the title')
+    parser.add_argument('--summary_page_title', type=str, help='Title for the summary page (Spaces not allowed)')
     parser.add_argument('--info', action="store_true", help='Set logging to info')
     parser.add_argument('--debug', action="store_true", help='Set logging to debug')
     parser.add_argument('--trace', action="store_true", help='Set logging to trace')
@@ -42,11 +44,13 @@ def main(from_dir: str, out_dir: str) -> None:
     group.add_argument('--yaml', action='store_true', help='Use yaml code as source')
     args = parser.parse_args()
 
-    if args.from_dir:           from_dir = args.from_dir
-    if args.out_dir:            out_dir = args.out_dir
-    if args.summary_page_only:  summary_page_only = args.summary_page_only
-    if args.yaml: source_type = SourceType.YAML_SOURCE
-    if args.profiler_output:    profiler_output = args.profiler_output
+    if args.from_dir:               from_dir            = args.from_dir
+    if args.out_dir:                out_dir             = args.out_dir
+    if args.summary_page_only:      summary_page_only   = args.summary_page_only
+    if args.yaml:                   source_type         = SourceType.YAML_SOURCE
+    if args.profiler_output:        profiler_output     = args.profiler_output
+    if args.summary_page_title:     summary_page_title  = args.summary_page_title
+    else:                           summary_page_title  = from_dir
 
     profiler = None
     if profiler_output:
@@ -65,7 +69,7 @@ def main(from_dir: str, out_dir: str) -> None:
                                                 args.no_full_diagrams, source_type)
     else:
         logger.log_warn('Generating HTML files')
-        file_name = ApplicationService.create_summary_page(from_dir, out_dir, logger, PythonLanguage(logger), source_type, summary_page_only)
+        file_name = ApplicationService.create_summary_page(from_dir, out_dir, logger, PythonLanguage(logger), source_type, summary_page_title)
         logger.log_warn(f'Please open {file_name} in your browser')
 
     if profiler_output:

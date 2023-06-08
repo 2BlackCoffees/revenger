@@ -216,6 +216,7 @@ function usage() {
     echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
     echo "               [ --process_svg_only ]           Skip puml generation and process (or continue processing svg generation)"
     echo "               [ --summary_page_only ]          Generate a summary page (This option will short circuit the analysis processing)"
+    echo "               [ --summary_page_title <title> ] Specifies a title for the summary"
     echo "               [ --force_python ]               Force a specific version of python"
     echo "               [ --force_pip ]                  Force a specific version of pip"
 
@@ -317,6 +318,8 @@ while [[ "$1" != "" ]]; do
           ;;
         --summary_page_only)
           summary_page_only=1
+          ;;
+        --summary_page_title)
           summary_page_title=$2
           shift
           ;;
@@ -532,8 +535,8 @@ if [[ $summary_page_only == 0 ]]; then
 fi
 
 cp $script_dir/assets/* $out_dir
-info "$python $script_dir/revenger --from_dir $from_dir --out_dir $out_dir --summary_page_only $summary_page_title $(echo $statements)"
-$python $script_dir/revenger --from_dir $from_dir --out_dir $out_dir --summary_page_only $summary_page_title $(echo $statements) || error "Could not process source files"
+info "$python $script_dir/revenger --from_dir $from_dir --out_dir $out_dir --summary_page_only --summary_page_title $summary_page_title $(echo $statements)"
+$python $script_dir/revenger --from_dir $from_dir --out_dir $out_dir --summary_page_only --summary_page_title $summary_page_title $(echo $statements) || error "Could not process source files"
 
 if [[ ! -z $tmp_dir ]]; then
   if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
