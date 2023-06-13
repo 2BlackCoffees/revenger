@@ -1,10 +1,12 @@
-package BasicExample;
+package Examples.BadDesign.BasicExample;
 
-import BasicExample.SideExample.SideExample;
-import BasicExample.SideExample.SideTestEnum;
+import Examples.BadDesign.DB;
+import Examples.BadDesign.BasicExample.SideExample.SideExample;
+import Examples.BadDesign.BasicExample.SideExample.SideTestEnum;
 
 
 class Useless {
+    DB db;
     public void useless() {
         System.out.println("Useless");
         SideTestEnum testEnum = SideTestEnum.TestEnumValue1;

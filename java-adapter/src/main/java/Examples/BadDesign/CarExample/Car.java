@@ -1,13 +1,15 @@
-package CarExample;
+package Examples.BadDesign.CarExample;
 
-import CarExample.CarParts.Doors;
-import CarExample.CarParts.Driver;
-import CarExample.CarParts.Seats;
-import CarExample.CarParts.Wheels;
+import Examples.BadDesign.DB;
+import Examples.BadDesign.CarExample.CarParts.Doors;
+import Examples.BadDesign.CarExample.CarParts.Driver;
+import Examples.BadDesign.CarExample.CarParts.Seats;
+import Examples.BadDesign.CarExample.CarParts.Wheels;
 
 class Vehicle
 {
     int speed;
+    DB db;
     public Vehicle()
     {
 
@@ -22,6 +24,7 @@ class Vehicle
 public class Car extends Driver {
     Wheels wheels;
     Vehicle vehicle;
+    DB db;
 
     public Car()
     {}
