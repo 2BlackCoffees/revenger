@@ -6,6 +6,7 @@ import preadapter.Logger;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 public class Datastructure {
     final String NOT_EXTRACTED = "** Not extracted **";
@@ -95,8 +96,7 @@ public class Datastructure {
     {
         String fqdn_class_name;
         String filename;
-        List<String> usings;
-        Map<String, String> from_imports = new HashMap<>();
+        List<String> fromImport;
         String filemodule;
         List<String> nameSpaceList;
 
@@ -117,7 +117,7 @@ public class Datastructure {
                                 List<String> nameSpaceList_) {
             fqdn_class_name = fqdn_class_name_;
             filename = filename_;
-            usings = new ArrayList<String>(usings_);
+            fromImport = new ArrayList<String>(usings_);
             filemodule = filemodule_;
             nameSpaceList = new ArrayList<String>(nameSpaceList_);
                 
@@ -131,15 +131,9 @@ public class Datastructure {
         {
             isInterface = true;
         }
-        public List<String> getUsings()
+        public List<String> getFromImports()
         {
-            return usings;
-        }
-        public void addImport(String fqdnClassName, String namespaceName) {
-            from_imports.put(fqdnClassName, namespaceName);
-        }
-        public Map<String, String> getImports() {
-            return from_imports;
+            return fromImport;
         }
         public void addGenericType(String genericType)
         {
@@ -215,9 +209,6 @@ public class Datastructure {
         }
         public List<String> getGenericTypes(){
             return genericTypes;
-        }
-        public Map<String, String> get_from_imports(){
-            return from_imports;
         }
         public String get_fqdn_class_name(){
             return fqdn_class_name;
@@ -324,26 +315,70 @@ public class Datastructure {
         if (!isAnonymousCall || Pattern.compile("\\(.*\\)\\s*$", Pattern.CASE_INSENSITIVE).matcher(classUsage).find()) {
             className = isAnonymousCall ? classUsage.split("\\(")[0] : classUsage;
             List<String> classnameList = get_classname_list();
-            if (!classnameList.contains(className) || (mostProbableNamespace.length() > 0 && !classnameList.contains(mostProbableNamespace + "." + className))) {
+            if (!classnameList.contains(className) || 
+                (mostProbableNamespace.length() > 0 && !classnameList.contains(mostProbableNamespace + "." + className))) {
                 try {
                     final String finalClassName = className;
-                    String[] fittingClassNames = classnameList.stream()
+                    List<String> fittingClassNames = classnameList.stream()
                             .filter(p -> Pattern.compile("\\." + finalClassName + "$").matcher(p).find())
-                            .toArray(String[]::new);
-                    if (fittingClassNames.length == 1) {
-                        logger.logDebug("GetFQDNForUsedClassName: Found class " + className + " as " + fittingClassNames[0]);
-                        className = fittingClassNames[0];
-                    } else if (fittingClassNames.length > 1) {
-                        String[] bestFittingClassNames = classnameList.stream()
-                                .filter(p -> Pattern.compile(mostProbableNamespace + "\\." + finalClassName + "$").matcher(p).find())
-                                .toArray(String[]::new);
-                        if (bestFittingClassNames.length > 0) {
-                            fittingClassNames = bestFittingClassNames;
-                            logger.logDebug("GetFQDNForUsedClassName: Found class " + className + " with multiple better fitting variants: " + String.join(", ", fittingClassNames));
+                            .collect(Collectors.toList());
+                    if (fittingClassNames.size() == 1) {
+                        logger.logDebug("GetFQDNForUsedClassName: Found class " + className + " as " + fittingClassNames.get(0));
+                        className = fittingClassNames.get(0);
+                    } else if (fittingClassNames.size() > 1) {
+                        logger.logDebug("GetFQDNForUsedClassName: Found class " + className + " with multiple better fitting variants: " + String.join(", ", fittingClassNames));
+                        // First check if we find one option as imported class
+                        List<String> classNameFromImports = subDataStructure.getFromImports().stream()
+                            .filter(currentImportName -> fittingClassNames.contains(currentImportName))
+                            .collect(Collectors.toList());
+                        if(classNameFromImports.size() == 1) {
+                            logger.logDebug("GetFQDNForUsedClassName: Found class " + classNameFromImports.get(0) + " in the import list: " + String.join(", ", classNameFromImports));
+                            className = classNameFromImports.get(0);
+                        } else {
+                            List<String> classNameEndingInPackageImport = classNameFromImports.stream()
+                                .filter(currentImportName -> currentImportName.endsWith("." + finalClassName))
+                                .collect(Collectors.toList());    
+                            logger.logDebug("GetFQDNForUsedClassName: classNameEndingInPackageImport: " + String.join(", ", classNameEndingInPackageImport));
+                            String fqdnClassName = mostProbableNamespace + "." + finalClassName;
+                            if(classNameEndingInPackageImport.size() == 1) {
+                                className = classNameEndingInPackageImport.get(0);
+                                logger.logDebug("GetFQDNForUsedClassName: Only class found in classNameEndingInPackageImport is " + className);
+                            } else if(classNameEndingInPackageImport.size() > 1 && classNameEndingInPackageImport.contains(fqdnClassName)) {
+                                className = fqdnClassName;
+                                logger.logDebug("GetFQDNForUsedClassName: Filtered class out using mostProbableNamespace = " + mostProbableNamespace + " to " + className);
+                            } else {
+                                // Take the multi import
+                                List<String> fqdnFromPackageImport = classNameFromImports.stream()
+                                        .filter(p -> Pattern.compile("\\*\\s*$").matcher(p).find())
+                                        .map(classNameFromImport -> {
+                                            return classNameFromImport.replaceFirst("\\*\\s*$", "") + finalClassName;
+                                        })
+                                        .collect(Collectors.toList());
+                                
+                                List<String> bestFittingClassNames = classnameList.stream()
+                                        .filter(currentClassName -> fqdnFromPackageImport.contains(currentClassName))
+                                        .collect(Collectors.toList());
+                                
+                                if (bestFittingClassNames.size() == 1) {
+                                    className = bestFittingClassNames.get(0);
+                                    logger.logDebug("GetFQDNForUsedClassName: Found class " + className + " from bestFittingClassNames: " + String.join(", ", bestFittingClassNames));
+
+                                } else if (bestFittingClassNames.size() > 1) {
+                                    if(bestFittingClassNames.contains(fqdnClassName)) {
+                                        className = fqdnClassName;
+                                        logger.logDebug("GetFQDNForUsedClassName: Found class " + className + " with multiple better fitting variants: " + String.join(", ", bestFittingClassNames));
+                                    } else {
+                                        logger.logWarning("GetFQDNForUsedClassName: Will be defaulting to the first one: " + className + " as " + fittingClassNames.get(0));
+                                        className = fittingClassNames.get(0);
+
+                                    }
+                                } else {
+                                    logger.logDebug("GetFQDNForUsedClassName: Class " + className + " Not found, defaulting to: " + fqdnClassName);
+                                    className = fqdnClassName;
+
+                                }
+                            }
                         }
-                        logger.logWarning("GetFQDNForUsedClassName: Found class " + className + " with multiple variants: " + String.join(", ", fittingClassNames));
-                        logger.logWarning("GetFQDNForUsedClassName: Will be defaulting to the first one: " + className + " as " + fittingClassNames[0]);
-                        className = fittingClassNames[0];
                     } else {
                         logger.logWarning("GetFQDNForUsedClassName: Class " + className + " not found in the whole list of classes! Class will be left as is.");
                     }

@@ -76,13 +76,13 @@ public class CreateYML {
                 appendTupleNodeValueString(subDataStructureMappingYmlNode, "filemodule", subDataStructure.get_filemodule());
                 var fromImportsSequenceNode = new SequenceNode(
                         Tag.SEQ, new ArrayList<>(), dummperOptions);
-                subDataStructure.get_from_imports().forEach((fqdnClassName, namespaceName) -> {
+                /*subDataStructure.get_from_imports().forEach((fqdnClassName, namespaceName) -> {
                     var fromImportsMappingNode = new MappingNode(
                             Tag.MAP, new ArrayList<>(), dummperOptions);
                     appendTupleNodeValueString(fromImportsMappingNode, "imported_class_name", fqdnClassName);
                     appendTupleNodeValueString(fromImportsMappingNode, "namespace_path", namespaceName);
                     fromImportsSequenceNode.getValue().add(fromImportsMappingNode);
-                });
+                });*/
                 appendTupleNodeValueSequenceNode(subDataStructureMappingYmlNode, "from_imports", fromImportsSequenceNode);
 
                 appendSequence(subDataStructureMappingYmlNode,

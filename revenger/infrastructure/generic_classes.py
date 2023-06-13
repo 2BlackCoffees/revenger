@@ -1,6 +1,16 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Tuple
 
+class LanguageDependent(ABC):
+    @abstractmethod
+    def get_skip_types(self) -> List[str]:
+        """
+        """
+    @abstractmethod
+    def clean_type(self, type: str) -> str:
+        """
+        """
+
 class GenericSubDataStructure(ABC):
     @abstractmethod
     def set_abstract(self) -> None:
@@ -48,6 +58,13 @@ class GenericDatastructure(ABC):
     def get_skip_types(self) -> List[str]:
         """
         """
+
+    @abstractmethod
+    def get_language_dependent(self) -> LanguageDependent:
+        """
+        """
+
+
 
 class GenericSaver(ABC):
     @abstractmethod

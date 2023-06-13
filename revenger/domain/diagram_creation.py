@@ -19,6 +19,8 @@ class DiagramCreation:
     DETAILED_PER_NS_FILE_NAME_SUFFIX: str   = '-diagram-detailed-grouped-per-namespace.puml'
     SIMPLIFIED_PER_NS_FILE_NAME_SUFFIX: str = '-diagram-simplified-grouped-per-namespace.puml'
 
+    PARAMETER_NAME_RETURN_TYPE: str = '!_return_value_!'
+
     def __init__(self, datastructure: Datastructure, saver: Saver, logger: Logger):
         self.datastructure: Datastructure = datastructure
         self.saver = saver
@@ -70,9 +72,9 @@ class DiagramCreation:
                             self.__add_inexistent_class(naked_type)
 
 
-    @staticmethod
-    def get_file_name_from_class_namespace_name(detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
+    def get_file_name_from_class_namespace_name(self, detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
         file_name: str = ''
+        class_name = self.datastructure.get_language_dependent().clean_type(class_name)
         if detailed:
             if grouped_per_ns:
                 file_name = f'{class_name}{DiagramCreation.DETAILED_PER_NS_FILE_NAME_SUFFIX}'
@@ -95,8 +97,7 @@ class DiagramCreation:
         user_info_svg_grouped = 'and **grouped per namespace**' if grouped_per_ns else ''
         return f'{class_namespace_name} **{user_info_detailed}** {user_info_svg_grouped}'
 
-    @staticmethod
-    def __get_file_name(detailed: bool, grouped_per_ns: bool, class_namespace_name: str = None) -> Tuple[str, str, str]:
+    def __get_file_name(self, detailed: bool, grouped_per_ns: bool, class_namespace_name: str = None) -> Tuple[str, str, str]:
 
         puml2svg = lambda file_name :  re.sub('puml$', 'svg', file_name)
         full_detailed_file_name: str            = f'full{DiagramCreation.DETAILED_FILENAME_SUFFIX}'
@@ -130,10 +131,10 @@ class DiagramCreation:
                             "Full diagram **detailed**", full_file_name_detailed
 
         user_info_puml_file: str = DiagramCreation.__get_user_info(detailed, grouped_per_ns, class_namespace_name)
-        puml_file: str = DiagramCreation.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_namespace_name, False)
+        puml_file: str = self.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_namespace_name, False)
 
         user_info_opposite_detailed_svg: str = DiagramCreation.__get_user_info(not detailed, grouped_per_ns, class_namespace_name)
-        svg_file_name_opposite_detailed: str = DiagramCreation.get_file_name_from_class_namespace_name(not detailed, grouped_per_ns, class_namespace_name, True)
+        svg_file_name_opposite_detailed: str = self.get_file_name_from_class_namespace_name(not detailed, grouped_per_ns, class_namespace_name, True)
 
         full_file_name: str = full_file_name_simplified_per_ns
         user_info_full_file_name: str = f"Full diagram **simplified** and **grouped per namespace**"
@@ -146,11 +147,10 @@ class DiagramCreation:
             user_info_opposite_detailed_svg, svg_file_name_opposite_detailed, \
                 user_info_full_file_name, full_file_name
 
-    @staticmethod
-    def __get_namespace_name(namespace_list: List[str], index: int, detailed: bool, grouped_per_ns: bool) -> str:
+    def __get_namespace_name(self, namespace_list: List[str], index: int, detailed: bool, grouped_per_ns: bool) -> str:
         namespace_name: str = '.'.join([ namespace for namespace in namespace_list[0: index]])
 
-        namespace_filtered_filename: str = DiagramCreation.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, namespace_name, True)
+        namespace_filtered_filename: str = self.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, namespace_name, True)
 
         return f'namespace {namespace_name} [[{namespace_filtered_filename}]] {{'
 
@@ -159,7 +159,7 @@ class DiagramCreation:
         if ending_file:
 
             if len(previous_sub_namespace_list) > 0 and \
-                saver.removed_last_line_if_same(DiagramCreation.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
+                saver.removed_last_line_if_same(self.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
                 previous_sub_namespace_list.pop()
             saver.append(f'\' Closing all previous_sub_namespace_list namespace {current_sub_namespace_list} because file analysis is finished.' )  
             while len(previous_sub_namespace_list) > 0:
@@ -171,13 +171,13 @@ class DiagramCreation:
             previous_sub_namespace_list.extend(current_sub_namespace_list)
             #saver.append(f'\' Creating namespaces {current_sub_namespace_list} because previous_sub_namespace_list is empty' )  
             for index in range(0, len(current_sub_namespace_list)):
-                saver.append(DiagramCreation.__get_namespace_name(current_sub_namespace_list, index + 1, detailed, grouped_per_ns))
+                saver.append(self.__get_namespace_name(current_sub_namespace_list, index + 1, detailed, grouped_per_ns))
             return          
         
         root_index: int = 0
         index: int = 0
         if len(current_sub_namespace_list) == 0 or current_sub_namespace_list[0] not in previous_sub_namespace_list:
-            if saver.removed_last_line_if_same(DiagramCreation.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
+            if saver.removed_last_line_if_same(self.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
                 previous_sub_namespace_list.pop()
             saver.append(f'\' Closing all previous_sub_namespace_list namespace because previous_ns: {current_sub_namespace_list} and current_ns: {current_sub_namespace_list})' )  
             while len(previous_sub_namespace_list) > 0:
@@ -194,7 +194,7 @@ class DiagramCreation:
                     break
             
             if not found:
-                if saver.removed_last_line_if_same(DiagramCreation.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
+                if saver.removed_last_line_if_same(self.__get_namespace_name(previous_sub_namespace_list, len(previous_sub_namespace_list), detailed, grouped_per_ns)):
                     previous_sub_namespace_list.pop()
                     index -= 1
                 saver.append(f'\' Closing previous_sub_namespace_list namespace from index {index} because previous_ns: {current_sub_namespace_list} and current_ns: {current_sub_namespace_list})' )  
@@ -205,7 +205,7 @@ class DiagramCreation:
         for sub_index in range(index - root_index, len(current_sub_namespace_list)):
             namespace = current_sub_namespace_list[sub_index]
             previous_sub_namespace_list.append(namespace)
-            saver.append(DiagramCreation.__get_namespace_name(current_sub_namespace_list, sub_index + 1, detailed, grouped_per_ns))
+            saver.append(self.__get_namespace_name(current_sub_namespace_list, sub_index + 1, detailed, grouped_per_ns))
 
     def __get_fqdn_class_name_plant_uml(self, sub_datastructure):
         fqdn_class_name: str = sub_datastructure.get_fqdn_class_name()
@@ -214,7 +214,8 @@ class DiagramCreation:
             if len(fqdn_class_name) > module_name_length + 1:
                 fqdn_class_name = fqdn_class_name[:module_name_length + 1] + \
                                   fqdn_class_name[module_name_length + 1:].replace('.', '_DOT_')
-        return fqdn_class_name
+        return self.datastructure.get_language_dependent().clean_type(fqdn_class_name)
+
     def __create_puml_class(self, sub_datastructure: Datastructure.SubDataStructure, saver: Saver,\
             detailed: bool, grouped_per_ns: bool, empty_spaces: str):
         fqdn_class_name: str = sub_datastructure.get_fqdn_class_name()
@@ -222,7 +223,7 @@ class DiagramCreation:
         self.logger.log_debug(f'{empty_spaces}- Analyzing class {fqdn_class_name}')
         is_abstract: str = 'abstract ' if sub_datastructure.is_abstract() else ''
         class_type: str = 'interface ' if sub_datastructure.is_interface() else 'class '
-        class_link: str = DiagramCreation.get_file_name_from_class_namespace_name(\
+        class_link: str = self.get_file_name_from_class_namespace_name(\
             detailed, grouped_per_ns, fqdn_class_name, True)
         color: str = sub_datastructure.get_color()
         if color is None:
@@ -251,10 +252,15 @@ class DiagramCreation:
                 
                 visible = '+'
                 method_name: str = method_field.method_name
-                parameters: str = ', '.join([f'{parameter.parameter}:{parameter.user_type}' for parameter in method_field.parameters])
+                return_type = ''
+                
+                parameters: str = ', '.join([f'{parameter.parameter}:{parameter.user_type}' for parameter in method_field.parameters if parameter.parameter != DiagramCreation.PARAMETER_NAME_RETURN_TYPE] )
+                for parameter in method_field.parameters:
+                    if parameter.parameter == DiagramCreation.PARAMETER_NAME_RETURN_TYPE:
+                        return_type = f': <font color="BB6060">{parameter.user_type}</font>'
                 if method_field.is_private:
                     visible = '-'
-                saver.append(f'{empty_spaces}  {visible} {method_name}(<font color="6060BB">{parameters}</font>)' )
+                saver.append(f'{empty_spaces}  {visible} {method_name}(<font color="6060BB">{parameters}</font>){return_type}' )
                 for variable in method_field.variables:
                     saver.append(f'{empty_spaces}  - <font color="909090">{method_name}.{variable.variable_name}: {variable.variable_type}</font>' )
                 if len(method_field.variables) > 0:
@@ -287,6 +293,8 @@ class DiagramCreation:
         connection, member_type, note = Common.reduce_member_type(full_member_type, connection_type)
         if member_type not in self.datastructure.get_skip_types() and \
                 class_name not in self.datastructure.get_skip_types():
+            class_name = self.datastructure.get_language_dependent().clean_type(class_name)
+            member_type = self.datastructure.get_language_dependent().clean_type(member_type)
             saver.append_connection(f'{class_name} {connection} {member_type} {note}')
 
 
@@ -298,6 +306,7 @@ class DiagramCreation:
             for sub_datastructure in self.datastructure.get_datastructures_from_namespace(namespace_name):
                 class_name: str = sub_datastructure.get_fqdn_class_name()
                 class_name_puml: str = self.__get_fqdn_class_name_plant_uml(sub_datastructure)
+                class_name_puml = self.datastructure.get_language_dependent().clean_type(class_name_puml)
                 self.logger.log_debug(f' Searching for relations for class {class_name} to be created (create_all_relation: {create_all_relation}, namespace_name: {namespace_name})')
                 self.logger.log_trace(f'  Base classes are: {", ".join(sub_datastructure.get_base_classes())}')
                 for base in sub_datastructure.get_base_classes():
@@ -308,6 +317,7 @@ class DiagramCreation:
                             base_sub_datastructure: Datastructure.SubDataStructure = self.datastructure.get_datastructures_from_class_name(base)
                             if base_sub_datastructure is not None:
                                 base_puml: str = self.__get_fqdn_class_name_plant_uml(base_sub_datastructure)
+                                base_puml = self.datastructure.get_language_dependent().clean_type(base_puml)
                                 saver.append_connection(f'{base_puml} <|-[#red]- {class_name_puml}')
                                 relation_created = "created"
                         self.logger.log_debug(\
@@ -404,7 +414,7 @@ class DiagramCreation:
                               skip_not_defined_classes: bool, class_namespace_name: str = None) -> None:
         saver: Saver = self.saver.clone()
         user_info_filename, filename, user_info_link_1, link_path_1, user_info_link_2, link_path_2 = \
-            DiagramCreation.__get_file_name(detailed, grouped_per_ns, class_namespace_name)
+            self.__get_file_name(detailed, grouped_per_ns, class_namespace_name)
         self.logger.log_debug(f'*** Creating diagram {filename} ***\n  filename: {filename}\n  detailed:{detailed}\n' + \
                               f'  grouped_per_ns:{grouped_per_ns}\n  from_dir: {from_dir}\n  skip_uses_relation: {skip_uses_relation}\n' + \
                               f'  skip_not_defined_classes: {skip_not_defined_classes}\n  class_namespace_name: {class_namespace_name}')

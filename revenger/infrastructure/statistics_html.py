@@ -11,6 +11,10 @@ from dominate.util import raw
 from domain.statistics_compute import StatisticValues                        
 from domain.statistics_compute import ClassConnectionsDetails                        
 from domain.diagram_creation import DiagramCreation
+from domain.datastructure import Datastructure
+from infrastructure.generic_classes import LanguageDependent
+from domain.saver import Saver
+from domain.logger import Logger
 
 class StatisticsHtml:
     class PageCreator(ABC):
@@ -25,13 +29,16 @@ class StatisticsHtml:
 
         def __init__(self, title: str, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str, colorize_type_risk: StatisticsHtml.PageCreator.ColorizeTypeRisk):
+                    summary_page_title: str, colorize_type_risk: StatisticsHtml.PageCreator.ColorizeTypeRisk,
+                    diagram_creation: DiagramCreation):
             self.doc: dominate.document = dominate.document(title=title)
             self.title = title
             self.statistics = statistics
             self.summary_page_title = summary_page_title
             self.colorize_type_risk = colorize_type_risk
             self.dict_connection_details = connection_details
+            self.diagram_creation: DiagramCreation = diagram_creation
+
 
         def _create_summary(self):
             with self.doc:
@@ -234,7 +241,7 @@ class StatisticsHtml:
             main_link = ""
             for grouped_per_ns in [True, False]:
                 for detailed in [True, False]:
-                    svg_file = DiagramCreation.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_name, want_svg_file=True)
+                    svg_file = self.diagram_creation.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, class_name, want_svg_file=True)
                     user_info: str = ('detailed' if detailed else 'concise')
                     user_info += ' AND <b>grouped per NS</b>' if grouped_per_ns else ''
                     link_class = 'table_link'
@@ -343,10 +350,11 @@ class StatisticsHtml:
     class PageCreatorClassNamesSortedPerAnyRisk(PageCreator):
         def __init__(self, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str):
+                    summary_page_title: str, diagram_creation: DiagramCreation):
             super().__init__("List of classes ordered by <b>any risk</b>", statistics,
                              connection_details, summary_page_title, 
-                             StatisticsHtml.PageCreator.ColorizeTypeRisk.ANY)
+                             StatisticsHtml.PageCreator.ColorizeTypeRisk.ANY,
+                             diagram_creation)
         def get_connection_details_keys(self):
             return [k for k, _ in 
                     sorted(self.dict_connection_details.items(), 
@@ -355,20 +363,22 @@ class StatisticsHtml:
     class PageCreatorClassNamesSortedPerName(PageCreator):
         def __init__(self, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str):
+                    summary_page_title: str, diagram_creation: DiagramCreation):
             super().__init__("List of classes <b>ordered alphabetically</b>", statistics,
                              connection_details, summary_page_title, 
-                             StatisticsHtml.PageCreator.ColorizeTypeRisk.ANY)
+                             StatisticsHtml.PageCreator.ColorizeTypeRisk.ANY,
+                             diagram_creation)
         def get_connection_details_keys(self):
             return sorted(self.dict_connection_details.keys())
 
     class PageCreatorClassNamesSortedPerChildClassesRisk(PageCreator):
         def __init__(self, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str):
+                    summary_page_title: str, diagram_creation: DiagramCreation):
             super().__init__("List of classes ordered per <b>child class</b> risk", statistics,
                              connection_details, summary_page_title, 
-                             StatisticsHtml.PageCreator.ColorizeTypeRisk.CHILD_CLASS)
+                             StatisticsHtml.PageCreator.ColorizeTypeRisk.CHILD_CLASS,
+                             diagram_creation)
 
         def get_connection_details_keys(self):
             return [k for k, _ in 
@@ -378,10 +388,11 @@ class StatisticsHtml:
     class PageCreatorClassNamesSortedPerParentClassesRisk(PageCreator):
         def __init__(self, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str):
+                    summary_page_title: str, diagram_creation: DiagramCreation):
             super().__init__("List of classes ordered per <b>parent class</b> risk", statistics,
                              connection_details, summary_page_title, 
-                             StatisticsHtml.PageCreator.ColorizeTypeRisk.PARENT_CLASS)
+                             StatisticsHtml.PageCreator.ColorizeTypeRisk.PARENT_CLASS,
+                             diagram_creation)
 
         def get_connection_details_keys(self):
             return [k for k, _ in 
@@ -391,10 +402,11 @@ class StatisticsHtml:
     class PageCreatorClassNamesSortedPerAggregationFrom(PageCreator):
         def __init__(self, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str):
+                    summary_page_title: str, diagram_creation: DiagramCreation):
             super().__init__("List of classes ordered per <b>aggregation from</b> risk", statistics,
                              connection_details, summary_page_title, 
-                             StatisticsHtml.PageCreator.ColorizeTypeRisk.AGGREGATION_FROM)
+                             StatisticsHtml.PageCreator.ColorizeTypeRisk.AGGREGATION_FROM,
+                             diagram_creation)
 
         def get_connection_details_keys(self):
             return [k for k, _ in 
@@ -404,10 +416,11 @@ class StatisticsHtml:
     class PageCreatorClassNamesSortedPerAggregationTo(PageCreator):
         def __init__(self, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str):
+                    summary_page_title: str, diagram_creation: DiagramCreation):
             super().__init__("List of classes ordered per <b>aggregation to</b> risk", statistics,
                              connection_details, summary_page_title, 
-                             StatisticsHtml.PageCreator.ColorizeTypeRisk.AGGREGATION_TO)
+                             StatisticsHtml.PageCreator.ColorizeTypeRisk.AGGREGATION_TO,
+                             diagram_creation)
 
         def get_connection_details_keys(self):
             return [k for k, _ in 
@@ -417,10 +430,11 @@ class StatisticsHtml:
     class PageCreatorClassNamesSortedPerUsesFrom(PageCreator):
         def __init__(self, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str):
+                    summary_page_title: str, diagram_creation: DiagramCreation):
             super().__init__("List of classes ordered per <b>uses from</b> risk", statistics,
                              connection_details, summary_page_title, 
-                             StatisticsHtml.PageCreator.ColorizeTypeRisk.USES_FROM)
+                             StatisticsHtml.PageCreator.ColorizeTypeRisk.USES_FROM,
+                             diagram_creation)
 
         def get_connection_details_keys(self):
             return [k for k, _ in 
@@ -430,10 +444,11 @@ class StatisticsHtml:
     class PageCreatorClassNamesSortedPerUsesTo(PageCreator):
         def __init__(self, statistics: StatisticValues, 
                     connection_details: Dict[str, ClassConnectionsDetails],
-                    summary_page_title: str):
+                    summary_page_title: str, diagram_creation: DiagramCreation):
             super().__init__("List of classes ordered per <b>uses from</b> risk", statistics,
                              connection_details, summary_page_title, 
-                             StatisticsHtml.PageCreator.ColorizeTypeRisk.USES_TO)
+                             StatisticsHtml.PageCreator.ColorizeTypeRisk.USES_TO,
+                             diagram_creation)
 
         def get_connection_details_keys(self):
             return [k for k, _ in 
@@ -442,7 +457,8 @@ class StatisticsHtml:
 
     def create(connection_details: Dict[str, ClassConnectionsDetails],
                statistics: StatisticValues,
-               summary_page_title: str, out_dir: str):
+               summary_page_title: str, out_dir: str,
+               language_dependent: LanguageDependent, saver: Saver, logger: Logger):
         
         target_directory: str = os.path.join(os.getcwd(), out_dir)
         main_filename: str                  = os.path.join(target_directory, 'index.html')
@@ -465,45 +481,54 @@ class StatisticsHtml:
             ('Classes ordered by uses from risk', index_uses_from_ordered)
         ]
 
+        diagram_creation: DiagramCreation = DiagramCreation(Datastructure(language_dependent, logger), saver, logger)
         StatisticsHtml.PageCreatorClassNamesSortedPerAnyRisk(
             statistics, 
             connection_details,
-            summary_page_title).create_page(main_filename, link_file_names, target_directory)
+            summary_page_title,
+            diagram_creation).create_page(main_filename, link_file_names, target_directory)
 
         StatisticsHtml.PageCreatorClassNamesSortedPerName(
             statistics, 
             connection_details,
-            summary_page_title).create_page(index_alphabetially_ordered, link_file_names, target_directory)
+            summary_page_title,
+            diagram_creation).create_page(index_alphabetially_ordered, link_file_names, target_directory)
 
         StatisticsHtml.PageCreatorClassNamesSortedPerChildClassesRisk(
             statistics, 
             connection_details,
-            summary_page_title).create_page(index_child_classes_ordered, link_file_names, target_directory)
+            summary_page_title,
+            diagram_creation).create_page(index_child_classes_ordered, link_file_names, target_directory)
 
         StatisticsHtml.PageCreatorClassNamesSortedPerParentClassesRisk(
             statistics, 
             connection_details,
-            summary_page_title).create_page(index_parent_classes_ordered, link_file_names, target_directory)
+            summary_page_title,
+            diagram_creation).create_page(index_parent_classes_ordered, link_file_names, target_directory)
 
         StatisticsHtml.PageCreatorClassNamesSortedPerAggregationFrom(
             statistics, 
             connection_details,
-            summary_page_title).create_page(index_aggregation_from_ordered, link_file_names, target_directory)
+            summary_page_title,
+            diagram_creation).create_page(index_aggregation_from_ordered, link_file_names, target_directory)
 
         StatisticsHtml.PageCreatorClassNamesSortedPerAggregationTo(
             statistics, 
             connection_details,
-            summary_page_title).create_page(index_aggregation_to_ordered, link_file_names, target_directory)
+            summary_page_title,
+            diagram_creation).create_page(index_aggregation_to_ordered, link_file_names, target_directory)
 
         StatisticsHtml.PageCreatorClassNamesSortedPerUsesFrom(
             statistics, 
             connection_details,
-            summary_page_title).create_page(index_uses_from_ordered, link_file_names, target_directory)
+            summary_page_title,
+            diagram_creation).create_page(index_uses_from_ordered, link_file_names, target_directory)
 
         StatisticsHtml.PageCreatorClassNamesSortedPerUsesTo(
             statistics, 
             connection_details,
-            summary_page_title).create_page(index_uses_to_ordered, link_file_names, target_directory)
+            summary_page_title,
+            diagram_creation).create_page(index_uses_to_ordered, link_file_names, target_directory)
 
         return main_filename
 

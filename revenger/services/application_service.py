@@ -117,7 +117,8 @@ class ApplicationService:
         connection_details, statistics = statistics_compute.get_all_classes_and_connections()
 
         logger.log_info("Generating html file")
-        return StatisticsHtml.create(connection_details, statistics, summary_page_title, out_dir)
+        return StatisticsHtml.create(connection_details, statistics, summary_page_title, out_dir,
+                                     language_dependent, saver_dummy, logger)
 
 
 

@@ -5,7 +5,9 @@ import argparse
 import cProfile, pstats, io
 from pstats import SortKey
 
+from domain.datastructure import LanguageDependent
 from domain.datastructure import PythonLanguage
+from domain.datastructure import JavaLanguage
 from domain.diagram_creation import DiagramCreation
 from domain.logger import Logger
 from services.application_service import ApplicationService
@@ -19,6 +21,7 @@ def main(from_dir: str, out_dir: str) -> None:
     summary_page_only: bool = None
     profiler_output: str = None
     summary_page_title: str = "No_Page_Title_Defined"
+    language: LanguageDependent = None
 
     #Debug entries:
     # from_dir = '/Users/jean-philippe.ulpiano/development/revenger/out-tmp-dbg'
@@ -40,6 +43,7 @@ def main(from_dir: str, out_dir: str) -> None:
     parser.add_argument('--debug', action="store_true", help='Set logging to debug')
     parser.add_argument('--trace', action="store_true", help='Set logging to trace')
     parser.add_argument('--profiler_output', type=str, help='Enable python profiler and create output in specified file')
+    parser.add_argument('--from_language', type=str, help='Specify original language to be used to filter types out')
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--python', action='store_true', help='Use python code as source')
     group.add_argument('--yaml', action='store_true', help='Use yaml code as source')
@@ -53,6 +57,7 @@ def main(from_dir: str, out_dir: str) -> None:
     if args.summary_page_title:     summary_page_title  = args.summary_page_title
     else:                           summary_page_title  = from_dir
 
+        
     profiler = None
     if profiler_output:
         profiler = cProfile.Profile()
@@ -63,14 +68,20 @@ def main(from_dir: str, out_dir: str) -> None:
         logger.log_error(f'Source directory ({from_dir}) is invalid, it requires an absolute path! Exiting!')
         exit(1)
 
+    if args.from_language and args.from_language.lower() == 'java':
+        language = JavaLanguage(logger)
+    else:
+        language = PythonLanguage(logger)
+
+
     if summary_page_only is None:
         logger.log_warn('Generating all PUML diagrams')
-        ApplicationService.generate_all_diagrams(from_dir, out_dir, logger, PythonLanguage(logger), \
+        ApplicationService.generate_all_diagrams(from_dir, out_dir, logger, language, \
                                                 args.skip_uses_relation, args.skip_not_defined_classes,
                                                 args.no_full_diagrams, source_type, args.line_type)
     else:
         logger.log_warn('Generating HTML files')
-        file_name = ApplicationService.create_summary_page(from_dir, out_dir, logger, PythonLanguage(logger), source_type, summary_page_title)
+        file_name = ApplicationService.create_summary_page(from_dir, out_dir, logger, language, source_type, summary_page_title)
         logger.log_warn(f'Please open {file_name} in your browser')
 
     if profiler_output:

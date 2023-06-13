@@ -95,7 +95,7 @@ get_list_puml_not_processed() {
   fi
   cat $list_remaining_puml_init | xargs ls -l | awk '{print $5 " " $9}' | sort -${sort_option} | awk '{print $2}' > $list_remaining_puml_sorted 2> /dev/null
 
-  if [[ $keep_old_svg_and_tmp_files == 1 ]]; then
+  if [[ $keep_old_svg_and_tmp_files == 0 ]]; then
     rm $list_remaining_puml_init
   else
     info "Keeping list_remaining_puml_init = $list_remaining_puml_init"  >> dbg_info
@@ -349,9 +349,9 @@ while [[ "$1" != "" ]]; do
           info "Finished installing plantweb dependency for the script!!"
           ;;   
         --from_language )
+          from_language=$2
+          statements="$statements --yaml $1 $2"
           shift
-          from_language=$1
-          statements="$statements --yaml"
           ;;
         -h | --help )
           usage;

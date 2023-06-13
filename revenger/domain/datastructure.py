@@ -9,12 +9,8 @@ from domain.common import Common
 from infrastructure.common import CommonInfrastructure
 from infrastructure.generic_classes import GenericDatastructure
 from infrastructure.generic_classes import GenericSubDataStructure
+from infrastructure.generic_classes import LanguageDependent
 
-class LanguageDependent(ABC):
-    @abstractmethod
-    def get_skip_types(self) -> List[str]:
-        """
-        """
 
 class PythonLanguage(LanguageDependent):
     def __init__(self, logger: Logger):
@@ -22,6 +18,26 @@ class PythonLanguage(LanguageDependent):
 
     def get_skip_types(self) -> List[str]:
         return ['int', 'str', 'float', 'bool', 'abc.ABC', 'double']
+    
+    def clean_type(self, type: str) -> str:
+        return type
+
+class JavaLanguage(LanguageDependent):
+    def __init__(self, logger: Logger):
+        self.logger = logger
+
+    def get_skip_types(self) -> List[str]:
+        return ['int', 'String', 'EnumTypePlaceHolder', 'float', 'boolean', 'double', 'void', 'Integer', 'Float', 'Boolean']
+
+    def clean_type(self, class_name: str) -> str:
+        class_name = re.sub('[\[\{\(\<]', '_BRQTO_', class_name)
+        class_name = re.sub('[\>\)\]\}]', '_BRQTC', class_name)
+        class_name = re.sub('\s+extends\s+', '_XTNDS_', class_name)
+        class_name = re.sub('\s+implements\s+', '_MPLMNTS_', class_name)
+        class_name = re.sub('\s+', '_SPC_', class_name)
+        class_name = re.sub(',', '_COMMA_', class_name)
+        return class_name
+
 
 class Datastructure(GenericDatastructure):
     NOT_EXTRACTED: str = '** Not extracted **'
@@ -58,8 +74,6 @@ class Datastructure(GenericDatastructure):
         is_private: bool
 
     class SubDataStructure(GenericSubDataStructure):
-
-
         def __init__(self, filename: str, filemodule: str, from_imports: Dict[str, str], \
                 fqdn_class_name: str, name_space_list: List[str], logger: Logger):
             self.fqdn_class_name: str = fqdn_class_name
