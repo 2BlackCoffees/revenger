@@ -64,33 +64,10 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
                 .replace(">", "]");
     }
 
-    String cleanClassName(String className)
-    {
-        logger.logTrace(String.format("  cleanClassName: Processing special characters of className %s.", className), deepness.getDeepness());
-
-        String namespace = deepness.getCurrentNamespace();
-        if(!className.equals(namespace)) {
-            logger.logTrace(String.format("  className %s, namespace %s has its dots being processed.", className, namespace), deepness.getDeepness());
-            if (className.startsWith(namespace)) {
-                int namespaceLength = namespace.length();
-                className = className.substring(0, namespaceLength + 1) + className.substring(namespaceLength + 1).replace(".", "_DOT_");
-            } else {
-                className = className.replace(".", "_DOT_");
-            }
-            logger.logTrace(String.format("    className was modified to %s.", className), deepness.getDeepness());
-        } else {
-            logger.logTrace(String.format("  className %s, namespace %s did not need to have its dot replaced.", className, namespace), deepness.getDeepness());
-        }
-
-        logger.logTrace(String.format("  cleanClassName: Processed className is %s.", className), deepness.getDeepness());
-
-        return className;
-    }
-
     String CreateClassInterface(ClassOrInterfaceDeclaration node)
     {
-        String fqdnCurrentClassName = cleanClassName(deepness.GetFQDNCurrentClassName(node));
-        final String fqdnParentClassName = cleanClassName(deepness.GetFQDNParentClassName(node));
+        String fqdnCurrentClassName = deepness.GetFQDNCurrentClassName(node);
+        final String fqdnParentClassName = deepness.GetFQDNParentClassName(node);
 
         Datastructure.SubDataStructure parentSubDataStructure =
                 datastructure.get_datastructures_from_class_name(fqdnParentClassName);
@@ -278,7 +255,6 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
     private void addArgumentType(String methodName, String fqdnParentClassName, Type parameterType, String parameterName,
                                  List<Triplet<String, String, String>> argumentsTuple) {
         String argumentTypeString = SimplifyType(parameterType.getElementType().asString());
-        argumentTypeString = cleanClassName(argumentTypeString);
 
         String mostProbableNS = argumentTypeString.contains(".") ?
                 "" :
@@ -412,8 +388,8 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
 
     @Override
     public void visit(EnumDeclaration n, Void arg) {
-        String fqdnCurrentClassName = cleanClassName(deepness.GetFQDNCurrentClassName(n));
-        String fqdnParentClassName = cleanClassName(deepness.GetFQDNParentClassName(n));
+        String fqdnCurrentClassName = deepness.GetFQDNCurrentClassName(n);
+        String fqdnParentClassName = deepness.GetFQDNParentClassName(n);
         logger.logDebug( String.format("Entering EnumDeclaration %s ", fqdnCurrentClassName));
         logger.logDebug("  EnumDeclaration: Context=" + deepness.getCurrentContext(n), deepness.getDeepness());
         Datastructure.SubDataStructure subDataStructureParent =
@@ -438,7 +414,7 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
     @Override
     public void visit(VariableDeclarator n, Void arg) {
         logger.logDebug( String.format("Entering VariableDeclarator %s ", n.getNameAsString()), deepness.getDeepness());
-        String fqdnParentClassName = cleanClassName(deepness.GetFQDNParentClassName(n));
+        String fqdnParentClassName = deepness.GetFQDNParentClassName(n);
         Datastructure.SubDataStructure subDataStructureParent =
                 datastructure.get_datastructures_from_class_name(fqdnParentClassName);
         if(subDataStructureParent != null) {
@@ -456,7 +432,6 @@ public class ASTVisitor extends VoidVisitorAdapter<Void> {
                 variableType = variableType.replace("Optional[", "");
                 variableType = variableType.substring(0, variableType.length() - 1).trim();
             }
-            variableType = cleanClassName(variableType);
 
             logger.logTrace( String.format("  After processing: Variable name: %s, variableType: %s", variableName, variableType), deepness.getDeepness());
 

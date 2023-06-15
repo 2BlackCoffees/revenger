@@ -13,6 +13,7 @@ public class Datastructure {
     final String STATICS = "statics";
     final String METHODS = "methods";
     final String VARIABLES = "variables";
+    final String NAMESPACE_FOR_NOT_YET_READFILE = "<not!yet?read}file>";
 
     public static class Method {
         public class ParameterType
@@ -312,6 +313,9 @@ public class Datastructure {
     }
     public String GetFQDNForUsedClassName(SubDataStructure subDataStructure, String classUsage, boolean isAnonymousCall, String mostProbableNamespace) {
         String className = "";
+        if(classUsage.startsWith(NAMESPACE_FOR_NOT_YET_READFILE, 0)) {
+            classUsage = classUsage.substring(NAMESPACE_FOR_NOT_YET_READFILE.length());
+        }
         if (!isAnonymousCall || Pattern.compile("\\(.*\\)\\s*$", Pattern.CASE_INSENSITIVE).matcher(classUsage).find()) {
             className = isAnonymousCall ? classUsage.split("\\(")[0] : classUsage;
             List<String> classnameList = get_classname_list();
@@ -368,14 +372,13 @@ public class Datastructure {
                                         className = fqdnClassName;
                                         logger.logDebug("GetFQDNForUsedClassName: Found class " + className + " with multiple better fitting variants: " + String.join(", ", bestFittingClassNames));
                                     } else {
-                                        logger.logWarning("GetFQDNForUsedClassName: Will be defaulting to the first one: " + className + " as " + fittingClassNames.get(0));
-                                        className = fittingClassNames.get(0);
+                                        className = NAMESPACE_FOR_NOT_YET_READFILE + className;
+                                        logger.logWarning("GetFQDNForUsedClassName: the file defining the class might not have been read yet, using temporary namespace:" + className );
 
                                     }
                                 } else {
-                                    logger.logDebug("GetFQDNForUsedClassName: Class " + className + " Not found, defaulting to: " + fqdnClassName);
-                                    className = fqdnClassName;
-
+                                    className = NAMESPACE_FOR_NOT_YET_READFILE + className;
+                                    logger.logWarning("GetFQDNForUsedClassName: the file defining the class might not have been read yet, using temporary namespace:" + className );
                                 }
                             }
                         }
