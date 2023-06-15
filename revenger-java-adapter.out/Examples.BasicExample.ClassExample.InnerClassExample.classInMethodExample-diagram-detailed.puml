@@ -1,0 +1,16 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BasicExample.ClassExample.InnerClassExample.classInMethodExample **detailed** </size>
+note "Your are analyzing:\nExamples.BasicExample.ClassExample.InnerClassExample.classInMethodExample **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BasicExample.ClassExample.InnerClassExample.classInMethodExample **simplified** :\n   [[Examples.BasicExample.ClassExample.InnerClassExample.classInMethodExample-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Examples.BasicExample.ClassExample.InnerClassExample.classInMethodExample-diagram-detailed.svg]] #yellow {
+  }
+  class Examples.BasicExample.ClassExample_DOT_InnerClassExample [[Examples.BasicExample.ClassExample.InnerClassExample-diagram-detailed.svg]]  {
+    + methodClassInnerClassExample(<font color="6060BB">useless1:Examples.BasicExample.Useless</font>): <font color="BB6060">void</font>
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Examples.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+@enduml

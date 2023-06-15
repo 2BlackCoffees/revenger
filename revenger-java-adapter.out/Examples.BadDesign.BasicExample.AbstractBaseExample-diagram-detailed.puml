@@ -1,0 +1,25 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.BasicExample.AbstractBaseExample **detailed** </size>
+note "Your are analyzing:\nExamples.BadDesign.BasicExample.AbstractBaseExample **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.BasicExample.AbstractBaseExample **simplified** :\n   [[Examples.BadDesign.BasicExample.AbstractBaseExample-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+    abstract class Examples.BadDesign.BasicExample.AbstractBaseExample [[Examples.BadDesign.BasicExample.AbstractBaseExample-diagram-detailed.svg]] #yellow {
+      + exampleAbstract(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">Examples.BadDesign.BasicExample.Useless</font>
+    }
+    class Examples.BadDesign.BasicExample.Useless [[Examples.BadDesign.BasicExample.Useless-diagram-detailed.svg]]  {
+      + useless(<font color="6060BB"></font>): <font color="BB6060">void</font>
+      - <font color="909090">useless.testEnum: Examples.BadDesign.BasicExample.SideExample.SideTestEnum</font>
+--
+    }
+    class Examples.BadDesign.BasicExample.BaseExample [[Examples.BadDesign.BasicExample.BaseExample-diagram-detailed.svg]]  {
+      + exampleAbstract(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">Examples.BadDesign.BasicExample.Useless</font>
+      + otherExample(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign.BasicExample
+Examples.BadDesign.BasicExample.AbstractBaseExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+Examples.BadDesign.BasicExample.AbstractBaseExample <|-[#red]- Examples.BadDesign.BasicExample.BaseExample
+Examples.BadDesign.BasicExample.BaseExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+@enduml

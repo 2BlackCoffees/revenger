@@ -1,0 +1,44 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.CarExample **simplified** </size>
+note "Your are analyzing:\nExamples.BetterDesign.CarExample **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.CarExample **detailed** :\n   [[Examples.BetterDesign.CarExample-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BetterDesign.DBCar [[Examples.BetterDesign.DBCar-diagram-simplified.svg]]  {
+  }
+    class Examples.BetterDesign.CarExample.Vehicle [[Examples.BetterDesign.CarExample.Vehicle-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BetterDesign.CarExample.Car [[Examples.BetterDesign.CarExample.Car-diagram-simplified.svg]] #yellow {
+    }
+      class Examples.BetterDesign.CarExample.CarParts.Wheels [[Examples.BetterDesign.CarExample.CarParts.Wheels-diagram-simplified.svg]] #yellow {
+      }
+      class Examples.BetterDesign.CarExample.CarParts.Seats [[Examples.BetterDesign.CarExample.CarParts.Seats-diagram-simplified.svg]] #yellow {
+      }
+      class Examples.BetterDesign.CarExample.CarParts.Driver [[Examples.BetterDesign.CarExample.CarParts.Driver-diagram-simplified.svg]] #yellow {
+      }
+      class Examples.BetterDesign.CarExample.CarParts.Doors [[Examples.BetterDesign.CarExample.CarParts.Doors-diagram-simplified.svg]] #yellow {
+      }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.CarParts.Driver  : uses 
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.Car  : uses 
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.CarParts.Seats  : uses 
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.CarParts.Wheels  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.CarExample
+Examples.BetterDesign.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.DBCar 
+Examples.BetterDesign.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.CarExample.Car
+Examples.BetterDesign.CarExample.Car *-[#10BB10]- Examples.BetterDesign.CarExample.CarParts.Wheels 
+Examples.BetterDesign.CarExample.Car *-[#10BB10]- Examples.BetterDesign.CarExample.CarParts.Seats 
+Examples.BetterDesign.CarExample.Car *-[#10BB10]- Examples.BetterDesign.CarExample.CarParts.Driver 
+Examples.BetterDesign.CarExample.Car *-[#10BB10]- Examples.BetterDesign.CarExample.CarParts.Doors 
+Examples.BetterDesign.CarExample.Car .[#6060BB].> Examples.BetterDesign.CarExample.CarParts.Doors  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.CarExample.CarParts
+Examples.BetterDesign.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.DBCar 
+Examples.BetterDesign.CarExample.CarParts.Seats *-[#10BB10]- Examples.BetterDesign.DBCar 
+Examples.BetterDesign.CarExample.CarParts.Driver *-[#10BB10]- Examples.BetterDesign.DBCar 
+Examples.BetterDesign.CarExample.CarParts.Doors *-[#10BB10]- Examples.BetterDesign.DBCar 
+@enduml

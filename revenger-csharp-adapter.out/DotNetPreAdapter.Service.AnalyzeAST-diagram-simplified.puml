@@ -1,0 +1,49 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Service.AnalyzeAST **simplified** </size>
+note "Your are analyzing:\nDotNetPreAdapter.Service.AnalyzeAST **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Service.AnalyzeAST **detailed** :\n   [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class SyntaxTree [[SyntaxTree-diagram-simplified.svg]] #MintCream {
+}
+class CompilationUnitSyntax [[CompilationUnitSyntax-diagram-simplified.svg]] #MintCream {
+}
+class SemanticModel [[SemanticModel-diagram-simplified.svg]] #MintCream {
+}
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-simplified.svg]]  {
+}
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-simplified.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Service.RecursiveFileProcessor [[DotNetPreAdapter.Service.RecursiveFileProcessor-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Service.AnalyzeAST  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- SemanticModel 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Service.RecursiveFileProcessor  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> SyntaxTree  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> CompilationUnitSyntax  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> SemanticModel  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.ASTVisitor  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+@enduml

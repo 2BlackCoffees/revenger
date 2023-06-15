@@ -1,0 +1,30 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.UnusedClass **detailed** </size>
+note "Your are analyzing:\nMyNamespace.UnusedClass **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.UnusedClass **simplified** :\n   [[MyNamespace.UnusedClass-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-detailed.svg]]  {
+  - removeMe(<font color="6060BB"></font>)
+  - <font color="909090">removeMe.u1: MyNamespace.UnusedClass</font>
+  - <font color="909090">removeMe.u2: DotNetPreAdapter.UnusedClass</font>
+  - <font color="909090">removeMe.u3: MyNamespace.UnusedClass1</font>
+--
+  - Main(<font color="6060BB"></font>)
+  - <font color="909090">Main.logger: DotNetPreAdapter.Utils.Logger</font>
+  - <font color="909090">Main.ast: DotNetPreAdapter.Service.AnalyzeAST</font>
+--
+}
+abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-detailed.svg]] #yellow {
+}
+abstract class MyNamespace.UnusedClass1_DOT_InnerClass [[MyNamespace.UnusedClass1.InnerClass-diagram-detailed.svg]]  {
+  + UnusedInnerClass(<font color="6060BB">unusedClass:MyNamespace.UnusedClass</font>)
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass  : uses 
+' Class relations extracted from namespace:
+' MyNamespace
+MyNamespace.UnusedClass1.InnerClass .[#6060BB].> MyNamespace.UnusedClass  : uses 
+@enduml

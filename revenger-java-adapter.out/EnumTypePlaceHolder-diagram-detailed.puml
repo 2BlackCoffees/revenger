@@ -1,13 +1,14 @@
 @startuml
+skinparam linetype ortho
 title <size:20>EnumTypePlaceHolder **detailed** </size>
 note "Your are analyzing:\nEnumTypePlaceHolder **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* EnumTypePlaceHolder **simplified** :\n   [[EnumTypePlaceHolder-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-detailed.svg]] #yellow {
 }
-  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-detailed.svg]]  {
-    + TestEnumValue1: EnumTypePlaceHolder
-    + TestEnumValue2: EnumTypePlaceHolder
+      class Examples.BadDesign.BasicExample.SideExample.SideTestEnum [[Examples.BadDesign.BasicExample.SideExample.SideTestEnum-diagram-detailed.svg]]  {
+        + TestEnumValue1: EnumTypePlaceHolder
+        + TestEnumValue2: EnumTypePlaceHolder
 ==
-  }
+      }
 class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed.svg]]  {
   + TRACE: EnumTypePlaceHolder
   + DEBUG: EnumTypePlaceHolder
@@ -15,7 +16,7 @@ class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed.svg]]  {
   + WARNING: EnumTypePlaceHolder
   + ERROR: EnumTypePlaceHolder
 ==
-  + getValue(<font color="6060BB"></font>)
+  + getValue(<font color="6060BB"></font>): <font color="BB6060">int</font>
 }
  ' *************************************** 
  ' *************************************** 
@@ -23,9 +24,9 @@ class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed.svg]]  {
 ' Class relations extracted from namespace:
 ' 
 ' Class relations extracted from namespace:
-' Example.SideExample
-Example.SideExample.SideTestEnum .[#6060BB].> EnumTypePlaceHolder  : uses 
+' Examples.BadDesign.BasicExample.SideExample
+Examples.BadDesign.BasicExample.SideExample.SideTestEnum *-[#10BB10]- EnumTypePlaceHolder 
 ' Class relations extracted from namespace:
 ' preadapter
-preadapter.LoggingType .[#6060BB].> EnumTypePlaceHolder  : uses 
+preadapter.LoggingType *-[#10BB10]- EnumTypePlaceHolder 
 @enduml

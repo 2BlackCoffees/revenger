@@ -1,0 +1,94 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.DotNetPreAdapter **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nMyNamespace.DotNetPreAdapter **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.DotNetPreAdapter **detailed** and **grouped per namespace**:\n   [[MyNamespace.DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Enum [[Enum-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
+}
+class IComparable [[IComparable-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
+}
+class IFormattable [[IFormattable-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
+}
+class IConvertible [[IConvertible-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
+}
+class CSharpSyntaxWalker [[CSharpSyntaxWalker-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Domain
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Utils
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace MyNamespace [[MyNamespace-diagram-simplified-grouped-per-namespace.svg]] {
+namespace MyNamespace.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+  interface MyNamespace.DotNetPreAdapter.IMyTest [[MyNamespace.DotNetPreAdapter.IMyTest-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClassBase [[MyNamespace.DotNetPreAdapter.InnerClassBase-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass [[MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+'Compared namespace MyNamespace.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace DotNetPreAdapter
+}
+' Closing namespace MyNamespace
+}
+namespace MyNamespace [[MyNamespace-diagram-simplified-grouped-per-namespace.svg]] {
+namespace MyNamespace.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace MyNamespace.DotNetPreAdapter.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor-diagram-simplified-grouped-per-namespace.svg]] {
+      abstract class MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+      }
+'Compared namespace MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor-diagram-simplified-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace RecursiveFileProcessor
+}
+' Closing namespace DotNetPreAdapter
+}
+' Closing namespace DotNetPreAdapter
+}
+' Closing namespace MyNamespace
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+MyNamespace.DotNetPreAdapter.InnerClassBase <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass
+MyNamespace.DotNetPreAdapter.IMyTest <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass
+MyNamespace.DotNetPreAdapter.InnerClass +-[#10BBBB]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass 
+Enum <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IComparable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IFormattable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IConvertible <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+CSharpSyntaxWalker <|-[#red]- MyNamespace.DotNetPreAdapter.UnusedASTVisitor
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor
+@enduml

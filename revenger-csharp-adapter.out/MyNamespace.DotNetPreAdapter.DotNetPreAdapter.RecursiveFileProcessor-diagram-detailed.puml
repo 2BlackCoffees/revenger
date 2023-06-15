@@ -1,0 +1,12 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor **detailed** </size>
+note "Your are analyzing:\nMyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor **simplified** :\n   [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+      abstract class MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass-diagram-detailed.svg]] #yellow {
+      }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor
+@enduml

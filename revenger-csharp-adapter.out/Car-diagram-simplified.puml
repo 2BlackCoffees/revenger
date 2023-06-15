@@ -1,0 +1,17 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Car **simplified** </size>
+note "Your are analyzing:\nCar **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Car **detailed** :\n   [[Car-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Car [[Car-diagram-simplified.svg]] #yellow {
+}
+    abstract class Examples.BadDesign.CarExample.DB [[Examples.BadDesign.CarExample.DB-diagram-simplified.svg]]  {
+    }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample
+Examples.BadDesign.CarExample.DB .[#6060BB].> Car  : uses 
+@enduml

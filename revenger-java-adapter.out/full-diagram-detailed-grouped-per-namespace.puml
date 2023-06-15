@@ -1,61 +1,14 @@
 @startuml
+skinparam linetype ortho
 title <size:20>Full diagram **detailed** and **grouped per namespace**</size>
 note "Your are analyzing:\nFull diagram **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Full diagram **detailed**:\n   [[full-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
-class EnumTest [[EnumTest-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class AnalyzeAST_BRQTO__BRQTC [[AnalyzeAST_BRQTO__BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class list_BRQTO_Variable_BRQTC [[list_BRQTO_Variable_BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class Variable [[Variable-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class Method [[Method-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class SubDataStructure [[SubDataStructure-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class list_BRQTO_String_BRQTC [[list_BRQTO_String_BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
 class VoidVisitorAdapter_BRQTO_Void_BRQTC [[VoidVisitorAdapter_BRQTO_Void_BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class HandleDeepness [[HandleDeepness-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class ClassOrInterfaceDeclaration [[ClassOrInterfaceDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class MethodDeclaration [[MethodDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class Void [[Void-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC [[list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class Optional_DOT_empty [[Optional_DOT_empty-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class VariableDeclarator [[VariableDeclarator-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class n_DOT_getNameAsString_BRQTO__BRQTC [[n_DOT_getNameAsString_BRQTO__BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class n_DOT_getTypeAsString_BRQTO__BRQTC [[n_DOT_getTypeAsString_BRQTO__BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC [[n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class FieldDeclaration [[FieldDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class PackageDeclaration [[PackageDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class ImportDeclaration [[ImportDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class EnumConstantDeclaration [[EnumConstantDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class EnumDeclaration [[EnumDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class CompilationUnit [[CompilationUnit-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class PrintStream [[PrintStream-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class AnnotationDeclaration [[AnnotationDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class Void [[Void-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class AnnotationMemberDeclaration [[AnnotationMemberDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
@@ -91,7 +44,11 @@ class CharLiteralExpr [[CharLiteralExpr-diagram-detailed-grouped-per-namespace.s
 }
 class ClassExpr [[ClassExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
+class ClassOrInterfaceDeclaration [[ClassOrInterfaceDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
 class ClassOrInterfaceType [[ClassOrInterfaceType-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class CompilationUnit [[CompilationUnit-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class ConditionalExpr [[ConditionalExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
@@ -107,17 +64,25 @@ class EmptyStmt [[EmptyStmt-diagram-detailed-grouped-per-namespace.svg]] #MintCr
 }
 class EnclosedExpr [[EnclosedExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
+class EnumConstantDeclaration [[EnumConstantDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class EnumDeclaration [[EnumDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
 class ExplicitConstructorInvocationStmt [[ExplicitConstructorInvocationStmt-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class ExpressionStmt [[ExpressionStmt-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class FieldAccessExpr [[FieldAccessExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
+class FieldDeclaration [[FieldDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
 class ForEachStmt [[ForEachStmt-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class ForStmt [[ForStmt-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class IfStmt [[IfStmt-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class ImportDeclaration [[ImportDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class InitializerDeclaration [[InitializerDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
@@ -145,6 +110,8 @@ class MemberValuetuple [[MemberValuetuple-diagram-detailed-grouped-per-namespace
 }
 class MethodCallExpr [[MethodCallExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
+class MethodDeclaration [[MethodDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
 class MethodReferenceExpr [[MethodReferenceExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class ModuleDeclaration [[ModuleDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
@@ -170,6 +137,8 @@ class NormalAnnotationExpr [[NormalAnnotationExpr-diagram-detailed-grouped-per-n
 class NullLiteralExpr [[NullLiteralExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class ObjectCreationExpr [[ObjectCreationExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class PackageDeclaration [[PackageDeclaration-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class Parameter [[Parameter-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
@@ -211,11 +180,17 @@ class UnparsableStmt [[UnparsableStmt-diagram-detailed-grouped-per-namespace.svg
 }
 class VariableDeclarationExpr [[VariableDeclarationExpr-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
+class VariableDeclarator [[VariableDeclarator-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
 class VoidType [[VoidType-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class WhileStmt [[WhileStmt-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class WildcardType [[WildcardType-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class Type [[Type-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class Node [[Node-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class DumperOptions.FlowStyle [[DumperOptions.FlowStyle-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
@@ -225,91 +200,341 @@ class dictpingNode [[dictpingNode-diagram-detailed-grouped-per-namespace.svg]] #
 }
 class SequenceNode [[SequenceNode-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
-class dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC [[dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC [[SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
 class Yaml [[Yaml-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 class PrintWriter [[PrintWriter-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
-class RecursiveFileProcessor_BRQTO__BRQTC [[RecursiveFileProcessor_BRQTO__BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-class DirectoryStream_BRQTO_Path_BRQTC [[DirectoryStream_BRQTO_Path_BRQTC-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
 class Path [[Path-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
 }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
-namespace Example [[Example-diagram-detailed-grouped-per-namespace.svg]] {
-class Example.ClassExample [[Example.ClassExample-diagram-detailed-grouped-per-namespace.svg]]  {
-  + memberVarUseless: Example.Useless
-  + memberVarEnumTest: EnumTest
-==
-  + example(<font color="6060BB">example:Example.Useless, example:Example.Useless</font>)
-  - <font color="909090">example.localVarBaseExample: Example.BaseExample</font>
---
-  + getExample(<font color="6060BB"></font>)
-  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
-}
-class Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample-diagram-detailed-grouped-per-namespace.svg]]  {
-}
-class Example.Useless [[Example.Useless-diagram-detailed-grouped-per-namespace.svg]]  {
-  + useless(<font color="6060BB"></font>)
-  - <font color="909090">useless.testEnum: Example.SideExample.SideTestEnum</font>
---
-}
-interface Example.IExample [[Example.IExample-diagram-detailed-grouped-per-namespace.svg]]  {
-  + example(<font color="6060BB">example:Example.Useless, example:Example.Useless</font>)
-}
-class Example.BaseExample_DOT_EnumTest [[Example.BaseExample_DOT_EnumTest-diagram-detailed-grouped-per-namespace.svg]]  {
-}
-abstract class Example.AbstractBaseExample [[Example.AbstractBaseExample-diagram-detailed-grouped-per-namespace.svg]]  {
-  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
-}
-class Example.ClassExample_DOT_InnerClassExample [[Example.ClassExample_DOT_InnerClassExample-diagram-detailed-grouped-per-namespace.svg]]  {
-}
-class Example.BaseExample [[Example.BaseExample-diagram-detailed-grouped-per-namespace.svg]]  {
-  + exampleAbstract(<font color="6060BB">exampleAbstract:Example.Useless, exampleAbstract:Example.Useless</font>)
-  + otherExample(<font color="6060BB"></font>)
-}
-'Compared namespace Example [[Example-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+  class Examples.BadDesign.DB [[Examples.BadDesign.DB-diagram-detailed-grouped-per-namespace.svg]]  {
+    + get(<font color="6060BB">queryString:String</font>): <font color="BB6060">String</font>
+    + getCarsWhere(<font color="6060BB">whereQueryString:String</font>): <font color="BB6060">String</font>
+    + set(<font color="6060BB">queryString:String</font>): <font color="BB6060">void</font>
+    + update(<font color="6060BB">queryString:String</font>): <font color="BB6060">void</font>
+    + getUserWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.User</font>
+    + getCustomerWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Customer</font>
+    + getWarehouseCarWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Car</font>
+    + getInvoiceWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Invoice</font>
+    + getComplaintsWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Complaints</font>
+    + getFirstCustomerWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Customer</font>
+    + getUserFromWarehouseCar(<font color="6060BB">item:Examples.BadDesign.WarehouseEntitities.Car</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.User</font>
+    + getCustomerFromComplaint(<font color="6060BB">complaint:Examples.BadDesign.WarehouseEntitities.Complaints</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Customer</font>
+    + getWarehouseCarFromUser(<font color="6060BB">user:Examples.BadDesign.WarehouseEntitities.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.Car</font>
+    + getInvoiceFromCustomer(<font color="6060BB">c:Examples.BadDesign.WarehouseEntitities.Customer</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Invoice</font>
+    + getComplaintsFromWarehouseCar(<font color="6060BB">item:Examples.BadDesign.WarehouseEntitities.Car</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Complaints</font>
+    + getCarFromDriver(<font color="6060BB">d:Examples.BadDesign.CarExample.CarParts.Driver</font>): <font color="BB6060">Examples.BadDesign.CarExample.Car</font>
+    + getDriverFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Driver</font>
+    + getWheelsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Wheels</font>
+    + getDoorsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Doors</font>
+    + getSeatsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Seats</font>
+  }
+'Compared namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
-' Closing namespace Example
+' Closing namespace BadDesign
 }
-namespace Example [[Example-diagram-detailed-grouped-per-namespace.svg]] {
-namespace Example.SideExample [[Example.SideExample-diagram-detailed-grouped-per-namespace.svg]] {
-  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-detailed-grouped-per-namespace.svg]]  {
-    + TestEnumValue1: EnumTypePlaceHolder
-    + TestEnumValue2: EnumTypePlaceHolder
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+    class Examples.BadDesign.CarExample.Vehicle [[Examples.BadDesign.CarExample.Vehicle-diagram-detailed-grouped-per-namespace.svg]]  {
+      + db: Examples.BadDesign.DB
+==
+      + setSpeed(<font color="6060BB">speed:int</font>): <font color="BB6060">void</font>
+      + getSpeed(<font color="6060BB"></font>): <font color="BB6060">int</font>
+    }
+    class Examples.BadDesign.CarExample.Car [[Examples.BadDesign.CarExample.Car-diagram-detailed-grouped-per-namespace.svg]]  {
+      + wheels: Examples.BadDesign.CarExample.CarParts.Wheels
+      + vehicle: <not!yet_QSTN_read}file>Vehicle
+      + db: Examples.BadDesign.DB
+==
+      + createCar(<font color="6060BB">doors:Examples.BadDesign.CarExample.CarParts.Doors</font>): <font color="BB6060">void</font>
+      - <font color="909090">createCar.seats: Examples.BadDesign.CarExample.CarParts.Seats</font>
+--
+    }
+'Compared namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample.CarParts [[Examples.BadDesign.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]] {
+      class Examples.BadDesign.CarExample.CarParts.Driver [[Examples.BadDesign.CarExample.CarParts.Driver-diagram-detailed-grouped-per-namespace.svg]]  {
+        + db: Examples.BadDesign.DB
+==
+        + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+      }
+      class Examples.BadDesign.CarExample.CarParts.Seats [[Examples.BadDesign.CarExample.CarParts.Seats-diagram-detailed-grouped-per-namespace.svg]]  {
+        + db: Examples.BadDesign.DB
+==
+        + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+      }
+      class Examples.BadDesign.CarExample.CarParts.Wheels [[Examples.BadDesign.CarExample.CarParts.Wheels-diagram-detailed-grouped-per-namespace.svg]]  {
+        + db: Examples.BadDesign.DB
+==
+        + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+      }
+      class Examples.BadDesign.CarExample.CarParts.Doors [[Examples.BadDesign.CarExample.CarParts.Doors-diagram-detailed-grouped-per-namespace.svg]]  {
+        + db: Examples.BadDesign.DB
+==
+        + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+      }
+'Compared namespace Examples.BadDesign.CarExample.CarParts [[Examples.BadDesign.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarParts
+}
+' Closing namespace CarExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.WarehouseEntitities [[Examples.BadDesign.WarehouseEntitities-diagram-detailed-grouped-per-namespace.svg]] {
+    class Examples.BadDesign.WarehouseEntitities.Complaints [[Examples.BadDesign.WarehouseEntitities.Complaints-diagram-detailed-grouped-per-namespace.svg]]  {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Invoice [[Examples.BadDesign.WarehouseEntitities.Invoice-diagram-detailed-grouped-per-namespace.svg]]  {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Car [[Examples.BadDesign.WarehouseEntitities.Car-diagram-detailed-grouped-per-namespace.svg]]  {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Customer [[Examples.BadDesign.WarehouseEntitities.Customer-diagram-detailed-grouped-per-namespace.svg]]  {
+    }
+    class Examples.BadDesign.WarehouseEntitities.User [[Examples.BadDesign.WarehouseEntitities.User-diagram-detailed-grouped-per-namespace.svg]]  {
+    }
+'Compared namespace Examples.BadDesign.WarehouseEntitities [[Examples.BadDesign.WarehouseEntitities-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace WarehouseEntitities
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BasicExample [[Examples.BasicExample-diagram-detailed-grouped-per-namespace.svg]] {
+  class Examples.BasicExample.ClassExample_DOT_InnerClassExample [[Examples.BasicExample.ClassExample.InnerClassExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    + methodClassInnerClassExample(<font color="6060BB">useless1:Examples.BasicExample.Useless</font>): <font color="BB6060">void</font>
+  }
+  class Examples.BasicExample.Useless [[Examples.BasicExample.Useless-diagram-detailed-grouped-per-namespace.svg]]  {
+    + useless(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - <font color="909090">useless.testEnum: Examples.BasicExample.SideExample.SideTestEnum</font>
+--
+  }
+  class Examples.BasicExample.BaseExample [[Examples.BasicExample.BaseExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+    + otherExample(<font color="6060BB"></font>): <font color="BB6060">void</font>
+  }
+  abstract class Examples.BasicExample.AbstractBaseExample [[Examples.BasicExample.AbstractBaseExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+  }
+  interface Examples.BasicExample.IExample [[Examples.BasicExample.IExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    + example(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">void</font>
+  }
+  class Examples.BasicExample.BaseExample_DOT_EnumTest [[Examples.BasicExample.BaseExample.EnumTest-diagram-detailed-grouped-per-namespace.svg]]  {
+    + EnumValue1: EnumTypePlaceHolder
+    + EnumValue2: EnumTypePlaceHolder
 ==
   }
-  class Example.SideExample.SideExample [[Example.SideExample.SideExample-diagram-detailed-grouped-per-namespace.svg]]  {
-    + test(<font color="6060BB">test:Example.SideExample.SideTestEnum</font>)
-    + testNoParameter(<font color="6060BB"></font>)
+  class Examples.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Examples.BasicExample.ClassExample.InnerClassExample.classInMethodExample-diagram-detailed-grouped-per-namespace.svg]]  {
   }
-'Compared namespace Example.SideExample [[Example.SideExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+  class Examples.BasicExample.ClassExample [[Examples.BasicExample.ClassExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    + memberVarUseless: Examples.BasicExample.Useless
+    + memberVarEnumTest: Examples.BasicExample.BaseExample.EnumTest
+==
+    + example(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">void</font>
+    - <font color="909090">example.localVarBaseExample: Examples.BasicExample.BaseExample</font>
+--
+    + getExample(<font color="6060BB"></font>): <font color="BB6060">Examples.BasicExample.IExample</font>
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+  }
+'Compared namespace Examples.BasicExample [[Examples.BasicExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BasicExample
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BasicExample [[Examples.BasicExample-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BasicExample.SideExample [[Examples.BasicExample.SideExample-diagram-detailed-grouped-per-namespace.svg]] {
+    class Examples.BasicExample.SideExample.SideExample [[Examples.BasicExample.SideExample.SideExample-diagram-detailed-grouped-per-namespace.svg]]  {
+      + test(<font color="6060BB">testEnum:Examples.BasicExample.SideExample.SideTestEnum</font>): <font color="BB6060">void</font>
+      + testNoParameter(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    }
+    class Examples.BasicExample.SideExample.SideTestEnum [[Examples.BasicExample.SideExample.SideTestEnum-diagram-detailed-grouped-per-namespace.svg]]  {
+      + TestEnumValue1: EnumTypePlaceHolder
+      + TestEnumValue2: EnumTypePlaceHolder
+==
+    }
+'Compared namespace Examples.BasicExample.SideExample [[Examples.BasicExample.SideExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
 ' Closing namespace SideExample
 }
-' Closing namespace Example
+' Closing namespace BasicExample
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+  class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-detailed-grouped-per-namespace.svg]]  {
+    + getOrderedCar(<font color="6060BB">physicalCar:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Car</font>
+    + getPhysicalCar(<font color="6060BB">car:Examples.BetterDesign.Repository.WarehouseEntities.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.Car</font>
+  }
+'Compared namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] {
+    class Examples.BetterDesign.Repository.DBCar [[Examples.BetterDesign.Repository.DBCar-diagram-detailed-grouped-per-namespace.svg]]  {
+      + getCarsForDriver(<font color="6060BB">driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>): <font color="BB6060">String</font>
+      + updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, seats:Examples.BetterDesign.Repository.CarExample.CarParts.Seats</font>): <font color="BB6060">void</font>
+      + updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>): <font color="BB6060">void</font>
+      + sellCarTo(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>): <font color="BB6060">void</font>
+      + getCar(<font color="6060BB">d:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.Car</font>
+      + getDriver(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>
+      + getWheels(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.CarParts.Wheels</font>
+      + getDoors(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>
+      + getSeats(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.CarParts.Seats</font>
+    }
+    class Examples.BetterDesign.Repository.DBWarehouse [[Examples.BetterDesign.Repository.DBWarehouse-diagram-detailed-grouped-per-namespace.svg]]  {
+      + getCustomer(<font color="6060BB">i:Examples.BetterDesign.Repository.WarehouseEntities.Invoice</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Customer</font>
+      + getCar(<font color="6060BB">c:Examples.BetterDesign.Repository.WarehouseEntities.Complaints</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Car</font>
+      + getInvoice(<font color="6060BB">c:Examples.BetterDesign.Repository.WarehouseEntities.Customer</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Invoice</font>
+      + getComplaints(<font color="6060BB">c:Examples.BetterDesign.Repository.WarehouseEntities.Customer</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Complaints</font>
+      + getUser(<font color="6060BB">car:Examples.BetterDesign.Repository.WarehouseEntities.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.User</font>
+      + getCustomer(<font color="6060BB">complaint:Examples.BetterDesign.Repository.WarehouseEntities.Complaints</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Customer</font>
+      + getCar(<font color="6060BB">user:Examples.BetterDesign.Repository.WarehouseEntities.User</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Car</font>
+      + getComplaints(<font color="6060BB">car:Examples.BetterDesign.Repository.WarehouseEntities.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Complaints</font>
+      + getFirstUser(<font color="6060BB"></font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.User</font>
+      + getFirstCar(<font color="6060BB"></font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Car</font>
+      + getFirstInvoice(<font color="6060BB"></font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Invoice</font>
+      + getFirstComplaints(<font color="6060BB"></font>): <font color="BB6060">Examples.BetterDesign.Repository.WarehouseEntities.Complaints</font>
+    }
+'Compared namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+      class Examples.BetterDesign.Repository.CarExample.Vehicle [[Examples.BetterDesign.Repository.CarExample.Vehicle-diagram-detailed-grouped-per-namespace.svg]]  {
+        + db: Examples.BetterDesign.Repository.DBCar
+==
+        + setSpeed(<font color="6060BB">speed:int</font>): <font color="BB6060">void</font>
+        + getSpeed(<font color="6060BB"></font>): <font color="BB6060">int</font>
+      }
+      class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-detailed-grouped-per-namespace.svg]]  {
+        + wheels: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
+        + seats: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
+        + driver: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+        + doors: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+==
+        + createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>): <font color="BB6060">void</font>
+      }
+'Compared namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample.CarParts [[Examples.BetterDesign.Repository.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]] {
+        class Examples.BetterDesign.Repository.CarExample.CarParts.Seats [[Examples.BetterDesign.Repository.CarExample.CarParts.Seats-diagram-detailed-grouped-per-namespace.svg]]  {
+          + db: Examples.BetterDesign.Repository.DBCar
+==
+          + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+        }
+        class Examples.BetterDesign.Repository.CarExample.CarParts.Driver [[Examples.BetterDesign.Repository.CarExample.CarParts.Driver-diagram-detailed-grouped-per-namespace.svg]]  {
+          + db: Examples.BetterDesign.Repository.DBCar
+==
+          + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+        }
+        class Examples.BetterDesign.Repository.CarExample.CarParts.Wheels [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-detailed-grouped-per-namespace.svg]]  {
+          + db: Examples.BetterDesign.Repository.DBCar
+==
+          + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+        }
+        class Examples.BetterDesign.Repository.CarExample.CarParts.Doors [[Examples.BetterDesign.Repository.CarExample.CarParts.Doors-diagram-detailed-grouped-per-namespace.svg]]  {
+          + db: Examples.BetterDesign.Repository.DBCar
+==
+          + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+        }
+'Compared namespace Examples.BetterDesign.Repository.CarExample.CarParts [[Examples.BetterDesign.Repository.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]] { with last element of         }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarParts
+}
+' Closing namespace CarExample
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.WarehouseEntities [[Examples.BetterDesign.Repository.WarehouseEntities-diagram-detailed-grouped-per-namespace.svg]] {
+      class Examples.BetterDesign.Repository.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.WarehouseEntities.Customer-diagram-detailed-grouped-per-namespace.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.User [[Examples.BetterDesign.Repository.WarehouseEntities.User-diagram-detailed-grouped-per-namespace.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.WarehouseEntities.Invoice-diagram-detailed-grouped-per-namespace.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Car [[Examples.BetterDesign.Repository.WarehouseEntities.Car-diagram-detailed-grouped-per-namespace.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.WarehouseEntities.Complaints-diagram-detailed-grouped-per-namespace.svg]]  {
+      }
+'Compared namespace Examples.BetterDesign.Repository.WarehouseEntities [[Examples.BetterDesign.Repository.WarehouseEntities-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace WarehouseEntities
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
 }
 namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
 class preadapter.Logger [[preadapter.Logger-diagram-detailed-grouped-per-namespace.svg]]  {
   + loggingType: preadapter.LoggingType
 ==
-  - log(<font color="6060BB"></font>)
-  - <font color="909090">log.result: String_BRQTO__BRQTC</font>
+  - log(<font color="6060BB">logType:String, text:String, startText:String</font>): <font color="BB6060">void</font>
+  - <font color="909090">log.result: String[]</font>
 --
-  + logError(<font color="6060BB"></font>)
-  + logError(<font color="6060BB"></font>)
-  + logWarning(<font color="6060BB"></font>)
-  + logWarning(<font color="6060BB"></font>)
-  + logInfo(<font color="6060BB"></font>)
-  + logInfo(<font color="6060BB"></font>)
-  + logDebug(<font color="6060BB"></font>)
-  + logDebug(<font color="6060BB"></font>)
-  + logTrace(<font color="6060BB"></font>)
-  + logTrace(<font color="6060BB"></font>)
+  + logError(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logError(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logWarning(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logWarning(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logInfo(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logInfo(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logDebug(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logDebug(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logTrace(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logTrace(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
 }
 class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed-grouped-per-namespace.svg]]  {
   + TRACE: EnumTypePlaceHolder
@@ -318,12 +543,14 @@ class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed-grouped-p
   + WARNING: EnumTypePlaceHolder
   + ERROR: EnumTypePlaceHolder
 ==
-  + getValue(<font color="6060BB"></font>)
+  + getValue(<font color="6060BB"></font>): <font color="BB6060">int</font>
 }
 class preadapter.Revenger [[preadapter.Revenger-diagram-detailed-grouped-per-namespace.svg]]  {
-  + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
+  + main(<font color="6060BB">args:String</font>): <font color="BB6060">void</font>
+  - <font color="909090">main.from_dir: String</font>
+  - <font color="909090">main.to_dir: String</font>
   - <font color="909090">main.logger: preadapter.Logger</font>
-  - <font color="909090">main.ast: AnalyzeAST_BRQTO__BRQTC</font>
+  - <font color="909090">main.index: int</font>
 --
 }
 'Compared namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
@@ -339,29 +566,155 @@ namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-nam
     + skip_types: list[String]
     + logger: preadapter.Logger
 ==
-    + ResolveClassNames(<font color="6060BB"></font>)
-    - <font color="909090">ResolveClassNames.variables: list_BRQTO_Variable_BRQTC</font>
-    - <font color="909090">ResolveClassNames.variable: Variable</font>
-    - <font color="909090">ResolveClassNames.method: Method</font>
-    - <font color="909090">ResolveClassNames.subDataStructure: SubDataStructure</font>
+    + ResolveClassNames(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - <font color="909090">ResolveClassNames.variables: list[Variable]</font>
+    - <font color="909090">ResolveClassNames.variable: <not!yet?read}file>Variable</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.method: preadapter.domain.Datastructure.Method</font>
+    - <font color="909090">ResolveClassNames.subDataStructure: preadapter.domain.Datastructure.SubDataStructure</font>
 --
-    - CorrectClassScope(<font color="6060BB">CorrectClassScope:SubDataStructure, CorrectClassScope:list_BRQTO_String_BRQTC</font>)
+    - CorrectClassScope(<font color="6060BB">subDataStructure:preadapter.domain.Datastructure.SubDataStructure, classNameList:list[String], isAnymousCall:boolean</font>): <font color="BB6060">void</font>
+    - <font color="909090">CorrectClassScope.index: int</font>
 --
-    + GetFQDNForUsedClassName(<font color="6060BB">GetFQDNForUsedClassName:SubDataStructure</font>)
-    - <font color="909090">GetFQDNForUsedClassName.classnameList: list_BRQTO_String_BRQTC</font>
-    - <font color="909090">GetFQDNForUsedClassName.fittingClassNames: String_BRQTO__BRQTC</font>
-    - <font color="909090">GetFQDNForUsedClassName.bestFittingClassNames: String_BRQTO__BRQTC</font>
+    + GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:preadapter.domain.Datastructure.SubDataStructure, classUsage:String, isAnonymousCall:boolean, mostProbableNamespace:String</font>): <font color="BB6060">String</font>
+    - <font color="909090">GetFQDNForUsedClassName.className: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.classnameList: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.finalClassName: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.fittingClassNames: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.classNameFromImports: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.classNameEndingInPackageImport: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.fqdnClassName: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.fqdnFromPackageImport: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.bestFittingClassNames: list[String]</font>
 --
-    + get_skip_types(<font color="6060BB"></font>)
-    + append_sub_datastructure(<font color="6060BB">append_sub_datastructure:SubDataStructure</font>)
+    + get_skip_types(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
 --
-    + append_class(<font color="6060BB">append_class:list_BRQTO_String_BRQTC, append_class:list_BRQTO_String_BRQTC</font>)
-    - <font color="909090">append_class.sub_datastructure: SubDataStructure</font>
+    + append_sub_datastructure(<font color="6060BB">sub_datastructure:preadapter.domain.Datastructure.SubDataStructure</font>): <font color="BB6060">void</font>
+    - <font color="909090">append_sub_datastructure.fqdn_class_name: String</font>
+    - <font color="909090">append_sub_datastructure.namespace_name: String</font>
 --
-    + get_classname_list(<font color="6060BB"></font>)
-    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+    + append_class(<font color="6060BB">filename:String, filemodule:String, usings:list[String], fqdn_class_name:String, nameSpaceList:list[String]</font>): <font color="BB6060">preadapter.domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">append_class.sub_datastructure: preadapter.domain.Datastructure.SubDataStructure</font>
+--
+    + get_classname_list(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + get_datastructures_from_class_name(<font color="6060BB">class_name:String</font>): <font color="BB6060">preadapter.domain.Datastructure.SubDataStructure</font>
   }
-  class preadapter.domain.Datastructure_DOT_Static [[preadapter.domain.Datastructure_DOT_Static-diagram-detailed-grouped-per-namespace.svg]]  {
+  class preadapter.domain.Datastructure_DOT_Method_DOT_Variable [[preadapter.domain.Datastructure.Method.Variable-diagram-detailed-grouped-per-namespace.svg]]  {
+  }
+  class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-detailed-grouped-per-namespace.svg]]  {
+    + out: PrintStream
+    + deepness: <not!yet_QSTN_read}file>HandleDeepness
+==
+    + visit(<font color="6060BB">n:AnnotationDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:AnnotationMemberDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayAccessExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayCreationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayCreationLevel, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayInitializerExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:AssertStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:AssignExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BinaryExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BlockComment, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BlockStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BooleanLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BreakStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:CastExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:CatchClause, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:CharLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ClassExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ClassOrInterfaceDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ClassOrInterfaceType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:CompilationUnit, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ConditionalExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ConstructorDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ContinueStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:DoStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:DoubleLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EmptyStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnclosedExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumConstantDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ExplicitConstructorInvocationStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ExpressionStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:FieldAccessExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:FieldDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ForEachStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ForStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:IfStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ImportDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:InitializerDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:InstanceOfExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:IntegerLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:IntersectionType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:JavadocComment, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LabeledStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LambdaExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LineComment, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LocalClassDeclarationStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LongLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MarkerAnnotationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MemberValuetuple, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MethodCallExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MethodDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MethodReferenceExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleExportsDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleOpensDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleProvidesDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleRequiresDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleUsesDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:Name, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:NameExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:Nodelist, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:NormalAnnotationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:NullLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ObjectCreationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:PackageDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:Parameter, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:PrimitiveType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ReturnStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SimpleName, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SingleMemberAnnotationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:StringLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SuperExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SwitchEntry, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SwitchStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SynchronizedStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ThisExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ThrowStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:TryStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:TypeExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:TypeParameter, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:UnaryExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:UnionType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:UnknownType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:UnparsableStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VariableDeclarationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VariableDeclarator, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VoidType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:WhileStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:WildcardType, arg:Void</font>): <font color="BB6060">void</font>
+--
+    + main(<font color="6060BB">args:String</font>): <font color="BB6060">void</font>
+    - <font color="909090">main.cu: CompilationUnit</font>
+    - <font color="909090">main.file: String</font>
+--
+  }
+  class preadapter.domain.Datastructure_DOT_Variable [[preadapter.domain.Datastructure.Variable-diagram-detailed-grouped-per-namespace.svg]]  {
+  }
+  class preadapter.domain.ASTVisitor_DOT_ObjectType [[preadapter.domain.ASTVisitor.ObjectType-diagram-detailed-grouped-per-namespace.svg]]  {
+    + CLASS: EnumTypePlaceHolder
+    + METHOD: EnumTypePlaceHolder
+    + NONE: EnumTypePlaceHolder
+==
+  }
+  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug.HandleDeepness-diagram-detailed-grouped-per-namespace.svg]]  {
+    - increase(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + decrease(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + getDeepness(<font color="6060BB"></font>): <font color="BB6060">String</font>
   }
   class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-detailed-grouped-per-namespace.svg]]  {
     + logger: preadapter.Logger
@@ -371,157 +724,134 @@ namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-nam
     + namespaceList: list[String]
     + allUsing: list[String]
     + usingDict: dict[String,String]
-    + deepness: HandleDeepness
+    + deepness: <not!yet_QSTN_read}file>HandleDeepness
     + ignoreType: list[String]
 ==
-    + SimplifyType(<font color="6060BB"></font>)
-    + cleanClassName(<font color="6060BB"></font>)
+    + SimplifyType(<font color="6060BB">type:String</font>): <font color="BB6060">String</font>
 --
-    + CreateClassInterface(<font color="6060BB">CreateClassInterface:ClassOrInterfaceDeclaration</font>)
-    - <font color="909090">CreateClassInterface.parentSubDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">CreateClassInterface.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
+    + CreateClassInterface(<font color="6060BB">node:ClassOrInterfaceDeclaration</font>): <font color="BB6060">String</font>
+    - <font color="909090">CreateClassInterface.fqdnCurrentClassName: String</font>
+    - <font color="909090">CreateClassInterface.fqdnParentClassName: String</font>
+    - <font color="909090">CreateClassInterface.fqdnCurrentClassNameFinal: String</font>
+    - <font color="909090">CreateClassInterface.extendedTypeStr: String</font>
 --
-    + visit(<font color="6060BB">visit:MethodDeclaration, visit:Void</font>)
-    - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.argumentsTuple: list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC</font>
-    - <font color="909090">visit.argument: Optional_DOT_empty</font>
-    - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
+    - addArgumentType(<font color="6060BB">methodName:String, fqdnParentClassName:String, parameterType:Type, parameterName:String, argumentsTuple:list[tuple[String,String,String]]</font>): <font color="BB6060">void</font>
+    - <font color="909090">addArgumentType.argumentTypeString: String</font>
+    - <font color="909090">addArgumentType.mostProbableNS: String</font>
+--
+    + visit(<font color="6060BB">n:MethodDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    - <font color="909090">visit.methodName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.className: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.argumentTypeString: String</font>
+    - <font color="909090">visit.mostProbableNS: String</font>
     - <font color="909090">visit.variableDeclarator: VariableDeclarator</font>
-    - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.subDataStructureParent: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.subDataStructureChild: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.subDataStructureParent: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.variableName: n_DOT_getNameAsString_BRQTO__BRQTC</font>
-    - <font color="909090">visit.variableType: n_DOT_getTypeAsString_BRQTO__BRQTC</font>
-    - <font color="909090">visit.initializer: n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC</font>
-    - <font color="909090">visit.method: preadapter.domain.Datastructure_DOT_Method</font>
+    - <font color="909090">visit.importName: String</font>
+    - <font color="909090">visit.enumValueName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.fqdnCurrentClassName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.methodName: String</font>
 --
-    + visit(<font color="6060BB">visit:ClassOrInterfaceDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:FieldDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:PackageDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ImportDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnumConstantDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnumDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:VariableDeclarator, visit:Void</font>)
+    + visit(<font color="6060BB">n:ClassOrInterfaceDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:FieldDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:PackageDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ImportDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumConstantDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VariableDeclarator, arg:Void</font>): <font color="BB6060">void</font>
 --
-    + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
+    + main(<font color="6060BB">args:String</font>): <font color="BB6060">void</font>
     - <font color="909090">main.cu: CompilationUnit</font>
+    - <font color="909090">main.file: String</font>
 --
   }
-  class preadapter.domain.Datastructure_DOT_Variable [[preadapter.domain.Datastructure_DOT_Variable-diagram-detailed-grouped-per-namespace.svg]]  {
-  }
-  class preadapter.domain.Datastructure_DOT_Method [[preadapter.domain.Datastructure_DOT_Method-diagram-detailed-grouped-per-namespace.svg]]  {
-  }
-  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness-diagram-detailed-grouped-per-namespace.svg]]  {
-  }
-  class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-detailed-grouped-per-namespace.svg]]  {
-    + out: PrintStream
-    + deepness: HandleDeepness
+  class preadapter.domain.Datastructure_DOT_Method [[preadapter.domain.Datastructure.Method-diagram-detailed-grouped-per-namespace.svg]]  {
+    + variables: list[Variable]
+    + parameters: list[ParameterType]
 ==
-    + visit(<font color="6060BB">visit:AnnotationDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:AnnotationMemberDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ArrayAccessExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ArrayCreationExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ArrayCreationLevel, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ArrayInitializerExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ArrayType, visit:Void</font>)
-    + visit(<font color="6060BB">visit:AssertStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:AssignExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:BinaryExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:BlockComment, visit:Void</font>)
-    + visit(<font color="6060BB">visit:BlockStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:BooleanLiteralExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:BreakStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:CastExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:CatchClause, visit:Void</font>)
-    + visit(<font color="6060BB">visit:CharLiteralExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ClassExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ClassOrInterfaceDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ClassOrInterfaceType, visit:Void</font>)
-    + visit(<font color="6060BB">visit:CompilationUnit, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ConditionalExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ConstructorDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ContinueStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:DoStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:DoubleLiteralExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EmptyStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnclosedExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnumConstantDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnumDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ExplicitConstructorInvocationStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ExpressionStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:FieldAccessExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:FieldDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ForEachStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ForStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:IfStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ImportDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:InitializerDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:InstanceOfExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:IntegerLiteralExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:IntersectionType, visit:Void</font>)
-    + visit(<font color="6060BB">visit:JavadocComment, visit:Void</font>)
-    + visit(<font color="6060BB">visit:LabeledStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:LambdaExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:LineComment, visit:Void</font>)
-    + visit(<font color="6060BB">visit:LocalClassDeclarationStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:LongLiteralExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:MarkerAnnotationExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:MemberValuetuple, visit:Void</font>)
-    + visit(<font color="6060BB">visit:MethodCallExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:MethodDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:MethodReferenceExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ModuleDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ModuleExportsDirective, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ModuleOpensDirective, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ModuleProvidesDirective, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ModuleRequiresDirective, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ModuleUsesDirective, visit:Void</font>)
-    + visit(<font color="6060BB">visit:Name, visit:Void</font>)
-    + visit(<font color="6060BB">visit:NameExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:Nodelist, visit:Void</font>)
-    + visit(<font color="6060BB">visit:NormalAnnotationExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:NullLiteralExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ObjectCreationExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:PackageDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:Parameter, visit:Void</font>)
-    + visit(<font color="6060BB">visit:PrimitiveType, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ReturnStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:SimpleName, visit:Void</font>)
-    + visit(<font color="6060BB">visit:SingleMemberAnnotationExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:StringLiteralExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:SuperExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:SwitchEntry, visit:Void</font>)
-    + visit(<font color="6060BB">visit:SwitchStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:SynchronizedStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ThisExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ThrowStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:TryStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:TypeExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:TypeParameter, visit:Void</font>)
-    + visit(<font color="6060BB">visit:UnaryExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:UnionType, visit:Void</font>)
-    + visit(<font color="6060BB">visit:UnknownType, visit:Void</font>)
-    + visit(<font color="6060BB">visit:UnparsableStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:VariableDeclarationExpr, visit:Void</font>)
-    + visit(<font color="6060BB">visit:VariableDeclarator, visit:Void</font>)
-    + visit(<font color="6060BB">visit:VoidType, visit:Void</font>)
-    + visit(<font color="6060BB">visit:WhileStmt, visit:Void</font>)
-    + visit(<font color="6060BB">visit:WildcardType, visit:Void</font>)
+    + getParameters(<font color="6060BB"></font>): <font color="BB6060">list[ParameterType]</font>
+    + AddVariable(<font color="6060BB">variableName_:String, variableType_:String, mostProbableNamespace_:String</font>): <font color="BB6060">void</font>
+  }
+  class preadapter.domain.Datastructure_DOT_Static [[preadapter.domain.Datastructure.Static-diagram-detailed-grouped-per-namespace.svg]]  {
+  }
+  class preadapter.domain.Datastructure_DOT_SubDataStructure [[preadapter.domain.Datastructure.SubDataStructure-diagram-detailed-grouped-per-namespace.svg]]  {
+    + fromImport: list[String]
+    + nameSpaceList: list[String]
+    + bases: list[String]
+    + inner_classes: list[String]
+    + anonymousStaticInvocations: list[String]
+    + anonymousInvocations: list[String]
+    + genericTypes: list[String]
+    + statics: list[Static]
+    + variables: list[Variable]
+    + methods: list[Method]
+==
+    + set_abstract(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + setInterface(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + getFromImports(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + addGenericType(<font color="6060BB">genericType:String</font>): <font color="BB6060">void</font>
+    + addAnonymousInvocation(<font color="6060BB">className:String</font>): <font color="BB6060">void</font>
+    + addAnonymousStaticInvocation(<font color="6060BB">className:String</font>): <font color="BB6060">void</font>
+    + add_base_class(<font color="6060BB">base_class:String</font>): <font color="BB6060">void</font>
+    + add_static(<font color="6060BB">static_name:String, static_type:String</font>): <font color="BB6060">void</font>
+    + add_method(<font color="6060BB">method_name_:String, arguments_tuple_:list[tuple[String,String,String]], is_private_:Boolean</font>): <font color="BB6060">void</font>
+    + getMethod(<font color="6060BB">methodName:String</font>): <font color="BB6060">preadapter.domain.Datastructure.Method</font>
+    + add_variable(<font color="6060BB">variableName:String, variableType:String, mostProbableNamespace:String, is_member:Boolean</font>): <font color="BB6060">void</font>
+    + add_inner_class(<font color="6060BB">inner_class_name:String</font>): <font color="BB6060">void</font>
+    + is_abstract(<font color="6060BB"></font>): <font color="BB6060">Boolean</font>
+    + IsInterface(<font color="6060BB"></font>): <font color="BB6060">boolean</font>
+    + isInnerClass(<font color="6060BB"></font>): <font color="BB6060">boolean</font>
+    + has_static_fields(<font color="6060BB"></font>): <font color="BB6060">Boolean</font>
+    + has_method_fields(<font color="6060BB"></font>): <font color="BB6060">Boolean</font>
+    + has_variables_fields(<font color="6060BB"></font>): <font color="BB6060">Boolean</font>
+    + getAnonymousInvocation(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + getAnonymousStaticInvocation(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + getGenericTypes(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + get_fqdn_class_name(<font color="6060BB"></font>): <font color="BB6060">String</font>
+    + get_base_classes(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + get_static_fields(<font color="6060BB"></font>): <font color="BB6060">list[Static]</font>
+    + get_method_fields(<font color="6060BB"></font>): <font color="BB6060">list[Method]</font>
+    + get_variable_fields(<font color="6060BB"></font>): <font color="BB6060">list[Variable]</font>
+    + get_inner_class_name(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + get_filename(<font color="6060BB"></font>): <font color="BB6060">String</font>
+    + get_filemodule(<font color="6060BB"></font>): <font color="BB6060">String</font>
+    + get_name_space_list(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + setInnerClass(<font color="6060BB">isInnerClass_:boolean</font>): <font color="BB6060">void</font>
+  }
+  class preadapter.domain.ASTVisitor_DOT_HandleDeepness [[preadapter.domain.ASTVisitor.HandleDeepness-diagram-detailed-grouped-per-namespace.svg]]  {
+    + activeClassnameList: list[String]
+    + namespaceList: list[String]
+    + activeMethodList: list[String]
+    + listObjectType: list[ObjectType]
+==
+    + getCurrentNamespace(<font color="6060BB"></font>): <font color="BB6060">String</font>
 --
-    + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
-    - <font color="909090">main.cu: CompilationUnit</font>
+    - getCurrentNamespaceWithClasses(<font color="6060BB">node:Node</font>): <font color="BB6060">String</font>
+    - <font color="909090">getCurrentNamespaceWithClasses.currentNS: String</font>
+    - <font color="909090">getCurrentNamespaceWithClasses.classList: list[String]</font>
+    - <font color="909090">getCurrentNamespaceWithClasses.nameClass: String</font>
+    - <font color="909090">getCurrentNamespaceWithClasses.currentClassList: String</font>
 --
+    + getCurrentActiveObjectType(<font color="6060BB"></font>): <font color="BB6060">preadapter.domain.ASTVisitor.ObjectType</font>
+    + GetFQDNParentClassName(<font color="6060BB">node:Node</font>): <font color="BB6060">String</font>
+    + GetFQDNCurrentClassName(<font color="6060BB">node:Node</font>): <font color="BB6060">String</font>
+    - GetCurrentMethodName(<font color="6060BB"></font>): <font color="BB6060">String</font>
+    + getCurrentContext(<font color="6060BB">node:Node</font>): <font color="BB6060">String</font>
+    - increase(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - appendObjectName(<font color="6060BB">objectName:String</font>): <font color="BB6060">void</font>
+    + appendPackageName(<font color="6060BB">packageName:String</font>): <font color="BB6060">void</font>
+    + appendClassName(<font color="6060BB">className:String</font>): <font color="BB6060">void</font>
+    + appendMethodName(<font color="6060BB">methodName:String</font>): <font color="BB6060">void</font>
+    - removeLastObject(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + removeLastClassName(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + removeLastMethodName(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + decrease(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + getDeepness(<font color="6060BB"></font>): <font color="BB6060">String</font>
   }
-  class preadapter.domain.ASTVisitor_DOT_ObjectType [[preadapter.domain.ASTVisitor_DOT_ObjectType-diagram-detailed-grouped-per-namespace.svg]]  {
-  }
-  class preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType [[preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType-diagram-detailed-grouped-per-namespace.svg]]  {
-  }
-  class preadapter.domain.Datastructure_DOT_Method_DOT_Variable [[preadapter.domain.Datastructure_DOT_Method_DOT_Variable-diagram-detailed-grouped-per-namespace.svg]]  {
-  }
-  class preadapter.domain.Datastructure_DOT_SubDataStructure [[preadapter.domain.Datastructure_DOT_SubDataStructure-diagram-detailed-grouped-per-namespace.svg]]  {
-  }
-  class preadapter.domain.ASTVisitor_DOT_HandleDeepness [[preadapter.domain.ASTVisitor_DOT_HandleDeepness-diagram-detailed-grouped-per-namespace.svg]]  {
+  class preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType [[preadapter.domain.Datastructure.Method.ParameterType-diagram-detailed-grouped-per-namespace.svg]]  {
   }
 'Compared namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -536,32 +866,14 @@ namespace preadapter.infrastructure [[preadapter.infrastructure-diagram-detailed
     + startMark: Mark
     + endMark: Mark
 ==
-    - appendTupleNodeValueSequenceNode(<font color="6060BB">appendTupleNodeValueSequenceNode:dictpingNode, appendTupleNodeValueSequenceNode:SequenceNode</font>)
-    - appendTupleNodeValueString(<font color="6060BB">appendTupleNodeValueString:dictpingNode</font>)
+    - appendTupleNodeValueSequenceNode(<font color="6060BB">mappingNode:dictpingNode, key:String, value:SequenceNode</font>): <font color="BB6060">boolean</font>
+    - appendTupleNodeValueString(<font color="6060BB">mappingNode:dictpingNode, key:String, value:String</font>): <font color="BB6060">boolean</font>
+    - appendTupleNodeValueStringToSequenceNode(<font color="6060BB">sequenceNode:SequenceNode, key:String, value:String</font>): <font color="BB6060">boolean</font>
 --
-    - appendTupleNodeValueStringToSequenceNode(<font color="6060BB">appendTupleNodeValueStringToSequenceNode:SequenceNode</font>)
-    - <font color="909090">appendTupleNodeValueStringToSequenceNode.mappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
---
-    - appendSequence(<font color="6060BB">appendSequence:dictpingNode, appendSequence:list_BRQTO_String_BRQTC</font>)
+    - appendSequence(<font color="6060BB">mappingNode:dictpingNode, list:list[String], nodeName:String</font>): <font color="BB6060">void</font>
     - <font color="909090">appendSequence.subSequenceNode: SequenceNode</font>
 --
-    + Create(<font color="6060BB">Create:preadapter.domain.Datastructure, Create:preadapter.Logger</font>)
-    - <font color="909090">Create.subDataStructureSequenceYmlNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.subDataStructureMappingYmlNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">Create.fromImportsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.fromImportsMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.staticsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.staticsMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.variablesSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.variablesMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.parameters: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodParametersMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodVariables: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodVariablesMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.tmpMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
+    + Create(<font color="6060BB">datastructure:preadapter.domain.Datastructure, toFile:String, logger:preadapter.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">Create.yaml: Yaml</font>
     - <font color="909090">Create.writer: PrintWriter</font>
 --
@@ -575,19 +887,21 @@ namespace preadapter.infrastructure [[preadapter.infrastructure-diagram-detailed
 namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
 namespace preadapter.service [[preadapter.service-diagram-detailed-grouped-per-namespace.svg]] {
   class preadapter.service.AnalyzeAST [[preadapter.service.AnalyzeAST-diagram-detailed-grouped-per-namespace.svg]]  {
-    + SearchRecurseCSharpToYAML(<font color="6060BB">SearchRecurseCSharpToYAML:preadapter.Logger</font>)
+    + SearchRecurseCSharpToYAML(<font color="6060BB">fromDir:String, toDir:String, logger:preadapter.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">SearchRecurseCSharpToYAML.datastructure: preadapter.domain.Datastructure</font>
-    - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: RecursiveFileProcessor_BRQTO__BRQTC</font>
-    - <font color="909090">SearchRecurseCSharpToYAML.listFilePaths: list_BRQTO_String_BRQTC</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.listFilePaths: list[String]</font>
     - <font color="909090">SearchRecurseCSharpToYAML.cu: CompilationUnit</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.filePath: String</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.toFile: String</font>
 --
   }
   class preadapter.service.RecursiveFileProcessor [[preadapter.service.RecursiveFileProcessor-diagram-detailed-grouped-per-namespace.svg]]  {
-    + SearchPath(<font color="6060BB"></font>)
-    - <font color="909090">SearchPath.fileList: list_BRQTO_String_BRQTC</font>
+    + SearchPath(<font color="6060BB">path:String</font>): <font color="BB6060">list[String]</font>
+    - <font color="909090">SearchPath.fileList: list[String]</font>
 --
-    - ProcessDirectory(<font color="6060BB">ProcessDirectory:list_BRQTO_String_BRQTC</font>)
-    - <font color="909090">ProcessDirectory.stream: DirectoryStream_BRQTO_Path_BRQTC</font>
+    - ProcessDirectory(<font color="6060BB">sourceDirectory:String, fileList:list[String]</font>): <font color="BB6060">void</font>
+    - <font color="909090">ProcessDirectory.stream: DirectoryStream[Path]</font>
+    - <font color="909090">ProcessDirectory.isDirectory: boolean</font>
     - <font color="909090">ProcessDirectory.path: Path</font>
 --
   }
@@ -603,77 +917,103 @@ namespace preadapter.service [[preadapter.service-diagram-detailed-grouped-per-n
 ' Class relations extracted from namespace:
 ' 
 ' Class relations extracted from namespace:
-' Example
-Example.BaseExample <|-[#red]- Example.ClassExample
-Example.ClassExample +-[#10BBBB]- Example.ClassExample_DOT_InnerClassExample 
-Example.ClassExample .[#6060BB].> Example.Useless  : uses 
-Example.ClassExample .[#6060BB].> EnumTest  : uses 
-Example.ClassExample -[#909090]-> Example.BaseExample  : uses 
-Example.Useless -[#909090]-> Example.SideExample.SideTestEnum  : uses 
-Example.IExample .[#6060BB].> Example.Useless  : uses 
-Example.AbstractBaseExample .[#6060BB].> Example.Useless  : uses 
-Example.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
-Example.AbstractBaseExample <|-[#red]- Example.BaseExample
-Example.BaseExample +-[#10BBBB]- Example.BaseExample_DOT_EnumTest 
-Example.BaseExample .[#6060BB].> Example.Useless  : uses 
+' Examples.BadDesign
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.User  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Customer  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Car  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Invoice  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Complaints  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Wheels  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
 ' Class relations extracted from namespace:
-' Example.SideExample
-Example.SideExample.SideTestEnum .[#6060BB].> EnumTypePlaceHolder  : uses 
-Example.SideExample.SideExample .[#6060BB].> Example.SideExample.SideTestEnum  : uses 
+' Examples.BadDesign.CarExample
+Examples.BadDesign.CarExample.Vehicle *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Driver <|-[#red]- Examples.BadDesign.CarExample.Car
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.CarParts.Wheels 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.Car .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.CarExample.Car -[#909090]-> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.CarParts
+Examples.BadDesign.CarExample.CarParts.Driver *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Seats *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Doors *-[#10BB10]- Examples.BadDesign.DB 
+' Class relations extracted from namespace:
+' Examples.BadDesign.WarehouseEntitities
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Examples.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+Examples.BasicExample.ClassExample.InnerClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.Useless -[#909090]-> Examples.BasicExample.SideExample.SideTestEnum  : uses 
+Examples.BasicExample.AbstractBaseExample <|-[#red]- Examples.BasicExample.BaseExample
+Examples.BasicExample.BaseExample +-[#10BBBB]- Examples.BasicExample.BaseExample_DOT_EnumTest 
+Examples.BasicExample.BaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.AbstractBaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.IExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.BaseExample <|-[#red]- Examples.BasicExample.ClassExample
+Examples.BasicExample.ClassExample +-[#10BBBB]- Examples.BasicExample.ClassExample_DOT_InnerClassExample 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.Useless 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.BaseExample.EnumTest 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.ClassExample -[#909090]-> Examples.BasicExample.BaseExample  : uses 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.IExample  : uses 
+' Class relations extracted from namespace:
+' Examples.BasicExample.SideExample
+Examples.BasicExample.SideExample.SideExample .[#6060BB].> Examples.BasicExample.SideExample.SideTestEnum  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Driver  : uses 
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Seats  : uses 
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Wheels  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Invoice  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Complaints  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+Examples.BetterDesign.Repository.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Seats 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Driver 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Doors 
+Examples.BetterDesign.Repository.CarExample.Car .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.CarParts
+Examples.BetterDesign.Repository.CarExample.CarParts.Seats *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Driver *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Doors *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.WarehouseEntities
 ' Class relations extracted from namespace:
 ' preadapter
-preadapter.Logger .[#6060BB].> preadapter.LoggingType  : uses 
-preadapter.Logger -[#909090]-> String_BRQTO__BRQTC  : uses 
-preadapter.LoggingType .[#6060BB].> EnumTypePlaceHolder  : uses 
-preadapter.Revenger .[#6060BB].> String_BRQTO__BRQTC  : uses 
+preadapter.Logger *-[#10BB10]- preadapter.LoggingType 
 preadapter.Revenger -[#909090]-> preadapter.Logger  : uses 
-preadapter.Revenger -[#909090]-> AnalyzeAST_BRQTO__BRQTC  : uses 
 ' Class relations extracted from namespace:
 ' preadapter.domain
 preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method 
 preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Static 
 preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Variable 
 preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_SubDataStructure 
-preadapter.domain.Datastructure .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.Datastructure -[#909090]-> list_BRQTO_Variable_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> Variable  : uses 
-preadapter.domain.Datastructure -[#909090]-> Method  : uses 
-preadapter.domain.Datastructure -[#909090]-> SubDataStructure  : uses 
-preadapter.domain.Datastructure .[#6060BB].> SubDataStructure  : uses 
-preadapter.domain.Datastructure .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> list_BRQTO_String_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> String_BRQTO__BRQTC  : uses 
-VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitor
-preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_ObjectType 
-preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_HandleDeepness 
-preadapter.domain.ASTVisitor .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> preadapter.domain.Datastructure  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> HandleDeepness  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> ClassOrInterfaceDeclaration  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> MethodDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> Void  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> Optional_DOT_empty  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> VariableDeclarator  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> n_DOT_getNameAsString_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> n_DOT_getTypeAsString_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> preadapter.domain.Datastructure_DOT_Method  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> FieldDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> PackageDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> ImportDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> EnumConstantDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> EnumDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> VariableDeclarator  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> String_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> CompilationUnit  : uses 
-preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType 
-preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_Variable 
+preadapter.domain.Datastructure *-[#10BB10]- preadapter.Logger 
+preadapter.domain.Datastructure -[#909090]-> preadapter.domain.Datastructure_DOT_Method  : uses 
+preadapter.domain.Datastructure -[#909090]-> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
+preadapter.domain.Datastructure .[#6060BB].> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
 VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitorDebug
 preadapter.domain.ASTVisitorDebug +-[#10BBBB]- preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> PrintStream  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> HandleDeepness  : uses 
+preadapter.domain.ASTVisitorDebug *-[#10BB10]- PrintStream 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationDeclaration  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> Void  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationMemberDeclaration  : uses 
@@ -765,32 +1105,44 @@ preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarator  : uses
 preadapter.domain.ASTVisitorDebug .[#6060BB].> VoidType  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> WhileStmt  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> WildcardType  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> String_BRQTO__BRQTC  : uses 
 preadapter.domain.ASTVisitorDebug -[#909090]-> CompilationUnit  : uses 
+VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitor
+preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_ObjectType 
+preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_HandleDeepness 
+preadapter.domain.ASTVisitor *-[#10BB10]- preadapter.Logger 
+preadapter.domain.ASTVisitor *-[#10BB10]- preadapter.domain.Datastructure 
+preadapter.domain.ASTVisitor .[#6060BB].> ClassOrInterfaceDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> Type  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> MethodDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> Void  : uses 
+preadapter.domain.ASTVisitor -[#909090]-> VariableDeclarator  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> FieldDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> PackageDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> ImportDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> EnumConstantDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> EnumDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> VariableDeclarator  : uses 
+preadapter.domain.ASTVisitor -[#909090]-> CompilationUnit  : uses 
+preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType 
+preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_Variable 
+preadapter.domain.Datastructure.SubDataStructure .[#6060BB].> preadapter.domain.Datastructure_DOT_Method  : uses 
+preadapter.domain.ASTVisitor.HandleDeepness .[#6060BB].> Node  : uses 
+preadapter.domain.ASTVisitor.HandleDeepness .[#6060BB].> preadapter.domain.ASTVisitor_DOT_ObjectType  : uses 
 ' Class relations extracted from namespace:
 ' preadapter.infrastructure
-preadapter.infrastructure.CreateYML .[#6060BB].> DumperOptions.FlowStyle  : uses 
-preadapter.infrastructure.CreateYML .[#6060BB].> Mark  : uses 
+preadapter.infrastructure.CreateYML *-[#10BB10]- DumperOptions.FlowStyle 
+preadapter.infrastructure.CreateYML *-[#10BB10]- Mark 
 preadapter.infrastructure.CreateYML .[#6060BB].> dictpingNode  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> SequenceNode  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC  : uses 
-preadapter.infrastructure.CreateYML .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> SequenceNode  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.domain.Datastructure  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.Logger  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> Yaml  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> PrintWriter  : uses 
 ' Class relations extracted from namespace:
 ' preadapter.service
 preadapter.service.AnalyzeAST .[#6060BB].> preadapter.Logger  : uses 
 preadapter.service.AnalyzeAST -[#909090]-> preadapter.domain.Datastructure  : uses 
-preadapter.service.AnalyzeAST -[#909090]-> RecursiveFileProcessor_BRQTO__BRQTC  : uses 
-preadapter.service.AnalyzeAST -[#909090]-> list_BRQTO_String_BRQTC  : uses 
 preadapter.service.AnalyzeAST -[#909090]-> CompilationUnit  : uses 
-preadapter.service.RecursiveFileProcessor -[#909090]-> list_BRQTO_String_BRQTC  : uses 
-preadapter.service.RecursiveFileProcessor .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.service.RecursiveFileProcessor -[#909090]-> DirectoryStream_BRQTO_Path_BRQTC  : uses 
 preadapter.service.RecursiveFileProcessor -[#909090]-> Path  : uses 
 @enduml

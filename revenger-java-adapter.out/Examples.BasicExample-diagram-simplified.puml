@@ -1,0 +1,48 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BasicExample **simplified** </size>
+note "Your are analyzing:\nExamples.BasicExample **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BasicExample **detailed** :\n   [[Examples.BasicExample-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BasicExample.ClassExample_DOT_InnerClassExample [[Examples.BasicExample.ClassExample.InnerClassExample-diagram-simplified.svg]] #yellow {
+  }
+  class Examples.BasicExample.Useless [[Examples.BasicExample.Useless-diagram-simplified.svg]] #yellow {
+  }
+  class Examples.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Examples.BasicExample.ClassExample.InnerClassExample.classInMethodExample-diagram-simplified.svg]] #yellow {
+  }
+  class Examples.BasicExample.BaseExample [[Examples.BasicExample.BaseExample-diagram-simplified.svg]] #yellow {
+  }
+  abstract class Examples.BasicExample.AbstractBaseExample [[Examples.BasicExample.AbstractBaseExample-diagram-simplified.svg]] #yellow {
+  }
+  class Examples.BasicExample.BaseExample_DOT_EnumTest [[Examples.BasicExample.BaseExample.EnumTest-diagram-simplified.svg]] #yellow {
+  }
+  interface Examples.BasicExample.IExample [[Examples.BasicExample.IExample-diagram-simplified.svg]] #yellow {
+  }
+  class Examples.BasicExample.ClassExample [[Examples.BasicExample.ClassExample-diagram-simplified.svg]] #yellow {
+  }
+    class Examples.BasicExample.SideExample.SideTestEnum [[Examples.BasicExample.SideExample.SideTestEnum-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BasicExample.SideExample.SideExample [[Examples.BasicExample.SideExample.SideExample-diagram-simplified.svg]] #yellow {
+    }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Examples.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+Examples.BasicExample.ClassExample.InnerClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.Useless -[#909090]-> Examples.BasicExample.SideExample.SideTestEnum  : uses 
+Examples.BasicExample.AbstractBaseExample <|-[#red]- Examples.BasicExample.BaseExample
+Examples.BasicExample.BaseExample +-[#10BBBB]- Examples.BasicExample.BaseExample_DOT_EnumTest 
+Examples.BasicExample.BaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.AbstractBaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.IExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.BaseExample <|-[#red]- Examples.BasicExample.ClassExample
+Examples.BasicExample.ClassExample +-[#10BBBB]- Examples.BasicExample.ClassExample_DOT_InnerClassExample 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.Useless 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.BaseExample.EnumTest 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.ClassExample -[#909090]-> Examples.BasicExample.BaseExample  : uses 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.IExample  : uses 
+' Class relations extracted from namespace:
+' Examples.BasicExample.SideExample
+Examples.BasicExample.SideExample.SideExample .[#6060BB].> Examples.BasicExample.SideExample.SideTestEnum  : uses 
+@enduml

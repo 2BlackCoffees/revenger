@@ -1,0 +1,20 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.UnusedClass **simplified** </size>
+note "Your are analyzing:\nMyNamespace.UnusedClass **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.UnusedClass **detailed** :\n   [[MyNamespace.UnusedClass-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-simplified.svg]]  {
+}
+abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-simplified.svg]] #yellow {
+}
+abstract class MyNamespace.UnusedClass1_DOT_InnerClass [[MyNamespace.UnusedClass1.InnerClass-diagram-simplified.svg]]  {
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass  : uses 
+' Class relations extracted from namespace:
+' MyNamespace
+MyNamespace.UnusedClass1.InnerClass .[#6060BB].> MyNamespace.UnusedClass  : uses 
+@enduml

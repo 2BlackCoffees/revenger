@@ -1,0 +1,15 @@
+@startuml
+skinparam linetype ortho
+title <size:20>preadapter.domain.Datastructure.Static **simplified** </size>
+note "Your are analyzing:\npreadapter.domain.Datastructure.Static **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.Datastructure.Static **detailed** :\n   [[preadapter.domain.Datastructure.Static-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class preadapter.domain.Datastructure_DOT_Static [[preadapter.domain.Datastructure.Static-diagram-simplified.svg]] #yellow {
+  }
+  class preadapter.domain.Datastructure [[preadapter.domain.Datastructure-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Static 
+@enduml

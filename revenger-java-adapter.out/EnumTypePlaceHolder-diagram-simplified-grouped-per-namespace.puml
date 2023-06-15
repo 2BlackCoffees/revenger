@@ -1,18 +1,25 @@
 @startuml
+skinparam linetype ortho
 title <size:20>EnumTypePlaceHolder **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\nEnumTypePlaceHolder **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* EnumTypePlaceHolder **detailed** and **grouped per namespace**:\n   [[EnumTypePlaceHolder-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-simplified-grouped-per-namespace.svg]] #yellow {
 }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
-namespace Example [[Example-diagram-simplified-grouped-per-namespace.svg]] {
-namespace Example.SideExample [[Example.SideExample-diagram-simplified-grouped-per-namespace.svg]] {
-  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-simplified-grouped-per-namespace.svg]]  {
-  }
-'Compared namespace Example.SideExample [[Example.SideExample-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.BasicExample [[Examples.BadDesign.BasicExample-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.BasicExample.SideExample [[Examples.BadDesign.BasicExample.SideExample-diagram-simplified-grouped-per-namespace.svg]] {
+      class Examples.BadDesign.BasicExample.SideExample.SideTestEnum [[Examples.BadDesign.BasicExample.SideExample.SideTestEnum-diagram-simplified-grouped-per-namespace.svg]]  {
+      }
+'Compared namespace Examples.BadDesign.BasicExample.SideExample [[Examples.BadDesign.BasicExample.SideExample-diagram-simplified-grouped-per-namespace.svg]] { with last element of       }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
 ' Closing namespace SideExample
 }
-' Closing namespace Example
+' Closing namespace BasicExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
 }
 namespace preadapter [[preadapter-diagram-simplified-grouped-per-namespace.svg]] {
 class preadapter.LoggingType [[preadapter.LoggingType-diagram-simplified-grouped-per-namespace.svg]]  {
@@ -27,9 +34,9 @@ class preadapter.LoggingType [[preadapter.LoggingType-diagram-simplified-grouped
 ' Class relations extracted from namespace:
 ' 
 ' Class relations extracted from namespace:
-' Example.SideExample
-Example.SideExample.SideTestEnum .[#6060BB].> EnumTypePlaceHolder  : uses 
+' Examples.BadDesign.BasicExample.SideExample
+Examples.BadDesign.BasicExample.SideExample.SideTestEnum *-[#10BB10]- EnumTypePlaceHolder 
 ' Class relations extracted from namespace:
 ' preadapter
-preadapter.LoggingType .[#6060BB].> EnumTypePlaceHolder  : uses 
+preadapter.LoggingType *-[#10BB10]- EnumTypePlaceHolder 
 @enduml

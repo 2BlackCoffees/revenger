@@ -1,0 +1,86 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.CarExample.WarehouseEntities **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.WarehouseEntities **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.CarExample.WarehouseEntities **simplified** and **grouped per namespace**:\n   [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-detailed-grouped-per-namespace.svg]]  {
+    - getOrderedCar(<font color="6060BB">physicalCar:Examples.BetterDesign.Repository.CarExample.Car</font>)
+    - getPhysicalCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car</font>)
+  }
+'Compared namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+      abstract class Examples.BetterDesign.Repository.CarExample.DBWarehouse [[Examples.BetterDesign.Repository.CarExample.DBWarehouse-diagram-detailed-grouped-per-namespace.svg]]  {
+        - getCustomer(<font color="6060BB">i:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice</font>)
+        - getCar(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>)
+        - getInvoice(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>)
+        - getComplaints(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>)
+        - getUser(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getCustomer(<font color="6060BB">complaint:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>)
+        - getCar(<font color="6060BB">user:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User</font>)
+        - getComplaints(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getFirstUser(<font color="6060BB"></font>)
+        - getFirstCar(<font color="6060BB"></font>)
+        - getFirstInvoice(<font color="6060BB"></font>)
+        - getFirstComplaints(<font color="6060BB"></font>)
+      }
+'Compared namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample.WarehouseEntities [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities-diagram-detailed-grouped-per-namespace.svg]] {
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        }
+'Compared namespace Examples.BetterDesign.Repository.CarExample.WarehouseEntities [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities-diagram-detailed-grouped-per-namespace.svg]] { with last element of         }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace WarehouseEntities
+}
+' Closing namespace CarExample
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+@enduml

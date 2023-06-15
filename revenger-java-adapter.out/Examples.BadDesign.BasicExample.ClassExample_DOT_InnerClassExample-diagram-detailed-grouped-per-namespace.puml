@@ -1,0 +1,37 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample **simplified** and **grouped per namespace**:\n   [[Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.BasicExample [[Examples.BadDesign.BasicExample-diagram-detailed-grouped-per-namespace.svg]] {
+    class Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample [[Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    }
+    class Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    }
+    class Examples.BadDesign.BasicExample.ClassExample [[Examples.BadDesign.BasicExample.ClassExample-diagram-detailed-grouped-per-namespace.svg]]  {
+      + memberVarUseless: Examples.BadDesign.BasicExample.Useless
+      + memberVarEnumTest: EnumTest
+==
+      + example(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">void</font>
+      - <font color="909090">example.localVarBaseExample: Examples.BadDesign.BasicExample.BaseExample</font>
+--
+      + getExample(<font color="6060BB"></font>): <font color="BB6060">Examples.BadDesign.BasicExample.IExample</font>
+      + exampleAbstract(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">Examples.BadDesign.BasicExample.Useless</font>
+    }
+'Compared namespace Examples.BadDesign.BasicExample [[Examples.BadDesign.BasicExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BasicExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign.BasicExample
+Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+Examples.BadDesign.BasicExample.ClassExample +-[#10BBBB]- Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample 
+@enduml

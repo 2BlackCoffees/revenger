@@ -1,0 +1,24 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.CarExample.CarParts.Wheels **simplified** </size>
+note "Your are analyzing:\nExamples.BetterDesign.CarExample.CarParts.Wheels **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.CarExample.CarParts.Wheels **detailed** :\n   [[Examples.BetterDesign.CarExample.CarParts.Wheels-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BetterDesign.DBCar [[Examples.BetterDesign.DBCar-diagram-simplified.svg]]  {
+  }
+    class Examples.BetterDesign.CarExample.Car [[Examples.BetterDesign.CarExample.Car-diagram-simplified.svg]]  {
+    }
+      class Examples.BetterDesign.CarExample.CarParts.Wheels [[Examples.BetterDesign.CarExample.CarParts.Wheels-diagram-simplified.svg]] #yellow {
+      }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.Car  : uses 
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.CarParts.Wheels  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.CarExample
+Examples.BetterDesign.CarExample.Car *-[#10BB10]- Examples.BetterDesign.CarExample.CarParts.Wheels 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.CarExample.CarParts
+Examples.BetterDesign.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.DBCar 
+@enduml

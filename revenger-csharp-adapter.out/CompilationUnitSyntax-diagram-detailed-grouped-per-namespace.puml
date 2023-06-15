@@ -1,0 +1,34 @@
+@startuml
+skinparam linetype ortho
+title <size:20>CompilationUnitSyntax **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nCompilationUnitSyntax **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* CompilationUnitSyntax **simplified** and **grouped per namespace**:\n   [[CompilationUnitSyntax-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class CompilationUnitSyntax [[CompilationUnitSyntax-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed-grouped-per-namespace.svg]]  {
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.tree: SyntaxTree</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.root: CompilationUnitSyntax</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.model: SemanticModel</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.visitor: DotNetPreAdapter.Domain.ASTVisitor</font>
+--
+  }
+'Compared namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Service
+}
+' Closing namespace DotNetPreAdapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> CompilationUnitSyntax  : uses 
+@enduml

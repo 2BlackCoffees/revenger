@@ -1,0 +1,163 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Service.AnalyzeAST **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nDotNetPreAdapter.Service.AnalyzeAST **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Service.AnalyzeAST **simplified** and **grouped per namespace**:\n   [[DotNetPreAdapter.Service.AnalyzeAST-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class SyntaxTree [[SyntaxTree-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class CompilationUnitSyntax [[CompilationUnitSyntax-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+class SemanticModel [[SemanticModel-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-detailed-grouped-per-namespace.svg]]  {
+  - removeMe(<font color="6060BB"></font>)
+  - <font color="909090">removeMe.u1: MyNamespace.UnusedClass</font>
+  - <font color="909090">removeMe.u2: DotNetPreAdapter.UnusedClass</font>
+  - <font color="909090">removeMe.u3: MyNamespace.UnusedClass1</font>
+--
+  - Main(<font color="6060BB"></font>)
+  - <font color="909090">Main.logger: DotNetPreAdapter.Utils.Logger</font>
+  - <font color="909090">Main.ast: DotNetPreAdapter.Service.AnalyzeAST</font>
+--
+}
+'Compared namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-detailed-grouped-per-namespace.svg]]  {
+    + class_to_datastructure: dict[string, DotNetPreAdapter.Domain.Datastructure.SubDataStructure]
+    + namespace_to_datastructures: dict[string, list[DotNetPreAdapter.Domain.Datastructure.SubDataStructure]]
+    + namespace_to_namespace_list: dict[string, list[string]]
+    + logger: DotNetPreAdapter.Utils.Logger
+==
+    + ResolveClassNames(<font color="6060BB"></font>)
+    - <font color="909090">ResolveClassNames.variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]</font>
+    - <font color="909090">ResolveClassNames.variable: DotNetPreAdapter.Domain.Datastructure.Variable</font>
+--
+    - CorrectClassScope(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    - getFQDNClassNameFromNamespacelist(<font color="6060BB"></font>)
+    - GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    + get_skip_types(<font color="6060BB"></font>)
+    - append_sub_datastructure(<font color="6060BB">sub_datastructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+--
+    + append_class(<font color="6060BB"></font>)
+    - <font color="909090">append_class.sub_datastructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+--
+    + get_classname_list(<font color="6060BB"></font>)
+    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+  }
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-detailed-grouped-per-namespace.svg]]  {
+    + datastructure: DotNetPreAdapter.Domain.Datastructure
+    + model: SemanticModel
+    + usingDict: dict[string, string]
+    + logger: DotNetPreAdapter.Utils.Logger
+==
+    - SimplifyType(<font color="6060BB"></font>)
+--
+    + SyntaxNode(<font color="6060BB">node:SyntaxNode</font>)
+    - <font color="909090">SyntaxNode.convertedType: ITypeSymbol</font>
+--
+    - GetCurrentClassName(<font color="6060BB"></font>)
+--
+    - CreateClassInterface(<font color="6060BB">node:T</font>)
+    - <font color="909090">CreateClassInterface.parentSubDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">CreateClassInterface.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">CreateClassInterface.tmpBase: ITypeSymbol</font>
+--
+    - getCurrentContext(<font color="6060BB"></font>)
+    - ArgumentsTupleToString(<font color="6060BB">arguments_tuple:list[Tuple[string, string, string]]</font>)
+    - cleanForRegEx(<font color="6060BB"></font>)
+    + VisitNamespaceDeclaration(<font color="6060BB">node:NamespaceDeclarationSyntax</font>)
+    + VisitUsingDirective(<font color="6060BB">node:UsingDirectiveSyntax</font>)
+    + VisitEnumDeclaration(<font color="6060BB">node:EnumDeclarationSyntax</font>)
+    + VisitInterfaceDeclaration(<font color="6060BB">node:InterfaceDeclarationSyntax</font>)
+    + VisitClassDeclaration(<font color="6060BB">node:ClassDeclarationSyntax</font>)
+--
+    + VisitMethodDeclaration(<font color="6060BB">node:MethodDeclarationSyntax</font>)
+    - <font color="909090">VisitMethodDeclaration.arguments_tuple: list[Tuple[string, string, string]]</font>
+    - <font color="909090">VisitMethodDeclaration.parameterSymbol: IParameterSymbol</font>
+    - <font color="909090">VisitMethodDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+--
+    + VisitVariableDeclaration(<font color="6060BB">node:VariableDeclarationSyntax</font>)
+    - <font color="909090">VisitVariableDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">VisitVariableDeclaration.aliasInfo: IAliasSymbol</font>
+    - <font color="909090">VisitVariableDeclaration.type: ITypeSymbol</font>
+    - <font color="909090">VisitVariableDeclaration.method: DotNetPreAdapter.Domain.Datastructure.Method</font>
+--
+  }
+'Compared namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Domain
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.tree: SyntaxTree</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.root: CompilationUnitSyntax</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.model: SemanticModel</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.visitor: DotNetPreAdapter.Domain.ASTVisitor</font>
+--
+  }
+  abstract class DotNetPreAdapter.Service.RecursiveFileProcessor [[DotNetPreAdapter.Service.RecursiveFileProcessor-diagram-detailed-grouped-per-namespace.svg]]  {
+    + SearchPath(<font color="6060BB"></font>)
+    - ProcessDirectory(<font color="6060BB"></font>)
+  }
+'Compared namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Service
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed-grouped-per-namespace.svg]]  {
+    + loggingType: DotNetPreAdapter.Utils.LoggingType
+==
+    - log(<font color="6060BB"></font>)
+    + LogError(<font color="6060BB"></font>)
+    + LogWarning(<font color="6060BB"></font>)
+    + LogInfo(<font color="6060BB"></font>)
+    + LogDebug(<font color="6060BB"></font>)
+    + LogTrace(<font color="6060BB"></font>)
+  }
+'Compared namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Utils
+}
+' Closing namespace DotNetPreAdapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Service.AnalyzeAST  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- SemanticModel 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Service.RecursiveFileProcessor  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> SyntaxTree  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> CompilationUnitSyntax  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> SemanticModel  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.ASTVisitor  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+@enduml

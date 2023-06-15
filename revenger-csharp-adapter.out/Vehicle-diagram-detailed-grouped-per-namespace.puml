@@ -1,0 +1,38 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Vehicle **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nVehicle **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Vehicle **simplified** and **grouped per namespace**:\n   [[Vehicle-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Vehicle [[Vehicle-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+      abstract class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-detailed-grouped-per-namespace.svg]]  {
+        + wheels: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
+        + seats: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
+        + driver: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+        + doors: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+==
+        + createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+      }
+'Compared namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
+@enduml

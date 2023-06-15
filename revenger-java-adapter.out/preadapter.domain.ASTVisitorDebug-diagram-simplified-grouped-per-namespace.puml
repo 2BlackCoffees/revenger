@@ -1,11 +1,10 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.domain.ASTVisitorDebug **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\npreadapter.domain.ASTVisitorDebug **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.ASTVisitorDebug **detailed** and **grouped per namespace**:\n   [[preadapter.domain.ASTVisitorDebug-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class VoidVisitorAdapter_BRQTO_Void_BRQTC [[VoidVisitorAdapter_BRQTO_Void_BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 }
 class PrintStream [[PrintStream-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
-class HandleDeepness [[HandleDeepness-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 }
 class AnnotationDeclaration [[AnnotationDeclaration-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 }
@@ -189,14 +188,12 @@ class WhileStmt [[WhileStmt-diagram-simplified-grouped-per-namespace.svg]] #Mint
 }
 class WildcardType [[WildcardType-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 }
-class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
 namespace preadapter [[preadapter-diagram-simplified-grouped-per-namespace.svg]] {
 namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] {
   class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified-grouped-per-namespace.svg]] #yellow {
   }
-  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness-diagram-simplified-grouped-per-namespace.svg]]  {
+  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug.HandleDeepness-diagram-simplified-grouped-per-namespace.svg]] #yellow {
   }
 'Compared namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -213,8 +210,7 @@ namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-n
 ' preadapter.domain
 VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitorDebug
 preadapter.domain.ASTVisitorDebug +-[#10BBBB]- preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> PrintStream  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> HandleDeepness  : uses 
+preadapter.domain.ASTVisitorDebug *-[#10BB10]- PrintStream 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationDeclaration  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> Void  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationMemberDeclaration  : uses 
@@ -306,6 +302,5 @@ preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarator  : uses
 preadapter.domain.ASTVisitorDebug .[#6060BB].> VoidType  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> WhileStmt  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> WildcardType  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> String_BRQTO__BRQTC  : uses 
 preadapter.domain.ASTVisitorDebug -[#909090]-> CompilationUnit  : uses 
 @enduml

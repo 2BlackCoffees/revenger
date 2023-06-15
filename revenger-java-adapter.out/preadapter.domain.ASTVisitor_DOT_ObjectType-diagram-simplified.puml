@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.domain.ASTVisitor_DOT_ObjectType **simplified** </size>
 note "Your are analyzing:\npreadapter.domain.ASTVisitor_DOT_ObjectType **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.ASTVisitor_DOT_ObjectType **detailed** :\n   [[preadapter.domain.ASTVisitor_DOT_ObjectType-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
   class preadapter.domain.ASTVisitor_DOT_ObjectType [[preadapter.domain.ASTVisitor_DOT_ObjectType-diagram-simplified.svg]] #yellow {

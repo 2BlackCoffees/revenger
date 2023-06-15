@@ -1,10 +1,11 @@
 @startuml
+skinparam linetype ortho
 title <size:20>EnumTypePlaceHolder **simplified** </size>
 note "Your are analyzing:\nEnumTypePlaceHolder **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* EnumTypePlaceHolder **detailed** :\n   [[EnumTypePlaceHolder-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-simplified.svg]] #yellow {
 }
-  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-simplified.svg]]  {
-  }
+      class Examples.BadDesign.BasicExample.SideExample.SideTestEnum [[Examples.BadDesign.BasicExample.SideExample.SideTestEnum-diagram-simplified.svg]]  {
+      }
 class preadapter.LoggingType [[preadapter.LoggingType-diagram-simplified.svg]]  {
 }
  ' *************************************** 
@@ -13,9 +14,9 @@ class preadapter.LoggingType [[preadapter.LoggingType-diagram-simplified.svg]]  
 ' Class relations extracted from namespace:
 ' 
 ' Class relations extracted from namespace:
-' Example.SideExample
-Example.SideExample.SideTestEnum .[#6060BB].> EnumTypePlaceHolder  : uses 
+' Examples.BadDesign.BasicExample.SideExample
+Examples.BadDesign.BasicExample.SideExample.SideTestEnum *-[#10BB10]- EnumTypePlaceHolder 
 ' Class relations extracted from namespace:
 ' preadapter
-preadapter.LoggingType .[#6060BB].> EnumTypePlaceHolder  : uses 
+preadapter.LoggingType *-[#10BB10]- EnumTypePlaceHolder 
 @enduml

@@ -1,0 +1,116 @@
+@startuml
+skinparam linetype ortho
+title <size:20>preadapter.domain.ASTVisitorDebug.HandleDeepness **detailed** </size>
+note "Your are analyzing:\npreadapter.domain.ASTVisitorDebug.HandleDeepness **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.ASTVisitorDebug.HandleDeepness **simplified** :\n   [[preadapter.domain.ASTVisitorDebug.HandleDeepness-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug.HandleDeepness-diagram-detailed.svg]] #yellow {
+    - increase(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + decrease(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + getDeepness(<font color="6060BB"></font>): <font color="BB6060">String</font>
+  }
+  class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-detailed.svg]]  {
+    + out: PrintStream
+    + deepness: <not!yet_QSTN_read}file>HandleDeepness
+==
+    + visit(<font color="6060BB">n:AnnotationDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:AnnotationMemberDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayAccessExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayCreationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayCreationLevel, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayInitializerExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ArrayType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:AssertStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:AssignExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BinaryExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BlockComment, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BlockStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BooleanLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:BreakStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:CastExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:CatchClause, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:CharLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ClassExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ClassOrInterfaceDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ClassOrInterfaceType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:CompilationUnit, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ConditionalExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ConstructorDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ContinueStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:DoStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:DoubleLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EmptyStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnclosedExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumConstantDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ExplicitConstructorInvocationStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ExpressionStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:FieldAccessExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:FieldDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ForEachStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ForStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:IfStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ImportDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:InitializerDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:InstanceOfExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:IntegerLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:IntersectionType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:JavadocComment, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LabeledStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LambdaExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LineComment, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LocalClassDeclarationStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:LongLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MarkerAnnotationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MemberValuetuple, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MethodCallExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MethodDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:MethodReferenceExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleExportsDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleOpensDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleProvidesDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleRequiresDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ModuleUsesDirective, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:Name, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:NameExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:Nodelist, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:NormalAnnotationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:NullLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ObjectCreationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:PackageDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:Parameter, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:PrimitiveType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ReturnStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SimpleName, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SingleMemberAnnotationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:StringLiteralExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SuperExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SwitchEntry, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SwitchStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:SynchronizedStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ThisExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ThrowStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:TryStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:TypeExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:TypeParameter, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:UnaryExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:UnionType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:UnknownType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:UnparsableStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VariableDeclarationExpr, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VariableDeclarator, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VoidType, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:WhileStmt, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:WildcardType, arg:Void</font>): <font color="BB6060">void</font>
+--
+    + main(<font color="6060BB">args:String</font>): <font color="BB6060">void</font>
+    - <font color="909090">main.cu: CompilationUnit</font>
+    - <font color="909090">main.file: String</font>
+--
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.ASTVisitorDebug +-[#10BBBB]- preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness 
+@enduml

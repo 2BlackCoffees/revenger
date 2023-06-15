@@ -1,10 +1,7 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.service.RecursiveFileProcessor **simplified** </size>
 note "Your are analyzing:\npreadapter.service.RecursiveFileProcessor **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.service.RecursiveFileProcessor **detailed** :\n   [[preadapter.service.RecursiveFileProcessor-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
-class list_BRQTO_String_BRQTC [[list_BRQTO_String_BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class DirectoryStream_BRQTO_Path_BRQTC [[DirectoryStream_BRQTO_Path_BRQTC-diagram-simplified.svg]] #MintCream {
-}
 class Path [[Path-diagram-simplified.svg]] #MintCream {
 }
   class preadapter.service.RecursiveFileProcessor [[preadapter.service.RecursiveFileProcessor-diagram-simplified.svg]] #yellow {
@@ -16,8 +13,5 @@ class Path [[Path-diagram-simplified.svg]] #MintCream {
 ' 
 ' Class relations extracted from namespace:
 ' preadapter.service
-preadapter.service.RecursiveFileProcessor -[#909090]-> list_BRQTO_String_BRQTC  : uses 
-preadapter.service.RecursiveFileProcessor .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.service.RecursiveFileProcessor -[#909090]-> DirectoryStream_BRQTO_Path_BRQTC  : uses 
 preadapter.service.RecursiveFileProcessor -[#909090]-> Path  : uses 
 @enduml

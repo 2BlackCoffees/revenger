@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>Mark **simplified** </size>
 note "Your are analyzing:\nMark **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Mark **detailed** :\n   [[Mark-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class Mark [[Mark-diagram-simplified.svg]] #yellow {
@@ -12,5 +13,5 @@ class Mark [[Mark-diagram-simplified.svg]] #yellow {
 ' 
 ' Class relations extracted from namespace:
 ' preadapter.infrastructure
-preadapter.infrastructure.CreateYML .[#6060BB].> Mark  : uses 
+preadapter.infrastructure.CreateYML *-[#10BB10]- Mark 
 @enduml

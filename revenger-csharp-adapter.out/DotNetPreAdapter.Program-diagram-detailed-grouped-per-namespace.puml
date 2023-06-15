@@ -1,0 +1,87 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Program **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nDotNetPreAdapter.Program **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Program **simplified** and **grouped per namespace**:\n   [[DotNetPreAdapter.Program-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  - removeMe(<font color="6060BB"></font>)
+  - <font color="909090">removeMe.u1: MyNamespace.UnusedClass</font>
+  - <font color="909090">removeMe.u2: DotNetPreAdapter.UnusedClass</font>
+  - <font color="909090">removeMe.u3: MyNamespace.UnusedClass1</font>
+--
+  - Main(<font color="6060BB"></font>)
+  - <font color="909090">Main.logger: DotNetPreAdapter.Utils.Logger</font>
+  - <font color="909090">Main.ast: DotNetPreAdapter.Service.AnalyzeAST</font>
+--
+}
+abstract class DotNetPreAdapter.UnusedClass [[DotNetPreAdapter.UnusedClass-diagram-detailed-grouped-per-namespace.svg]]  {
+  + doNothing(<font color="6060BB"></font>)
+}
+'Compared namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed-grouped-per-namespace.svg]]  {
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.tree: SyntaxTree</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.root: CompilationUnitSyntax</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.model: SemanticModel</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.visitor: DotNetPreAdapter.Domain.ASTVisitor</font>
+--
+  }
+'Compared namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Service
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed-grouped-per-namespace.svg]]  {
+    + loggingType: DotNetPreAdapter.Utils.LoggingType
+==
+    - log(<font color="6060BB"></font>)
+    + LogError(<font color="6060BB"></font>)
+    + LogWarning(<font color="6060BB"></font>)
+    + LogInfo(<font color="6060BB"></font>)
+    + LogDebug(<font color="6060BB"></font>)
+    + LogTrace(<font color="6060BB"></font>)
+  }
+'Compared namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Utils
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace MyNamespace [[MyNamespace-diagram-detailed-grouped-per-namespace.svg]] {
+abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-detailed-grouped-per-namespace.svg]]  {
+}
+abstract class MyNamespace.UnusedClass1 [[MyNamespace.UnusedClass1-diagram-detailed-grouped-per-namespace.svg]]  {
+  + doNothing(<font color="6060BB"></font>)
+}
+'Compared namespace MyNamespace [[MyNamespace-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace MyNamespace
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.UnusedClass  : uses 
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass1  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Service.AnalyzeAST  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+' Class relations extracted from namespace:
+' MyNamespace
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Domain.Datastructure.Method.ParameterType **simplified** </size>
+note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure.Method.ParameterType **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Domain.Datastructure.Method.ParameterType **detailed** :\n   [[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType [[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType-diagram-simplified.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method [[DotNetPreAdapter.Domain.Datastructure.Method-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType 
+@enduml

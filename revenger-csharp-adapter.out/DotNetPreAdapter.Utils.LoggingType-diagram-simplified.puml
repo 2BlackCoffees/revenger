@@ -1,0 +1,29 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Utils.LoggingType **simplified** </size>
+note "Your are analyzing:\nDotNetPreAdapter.Utils.LoggingType **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Utils.LoggingType **detailed** :\n   [[DotNetPreAdapter.Utils.LoggingType-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Enum [[Enum-diagram-simplified.svg]] #MintCream {
+}
+class IComparable [[IComparable-diagram-simplified.svg]] #MintCream {
+}
+class IFormattable [[IFormattable-diagram-simplified.svg]] #MintCream {
+}
+class IConvertible [[IConvertible-diagram-simplified.svg]] #MintCream {
+}
+  abstract class DotNetPreAdapter.Utils.LoggingType [[DotNetPreAdapter.Utils.LoggingType-diagram-simplified.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+Enum <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IComparable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IFormattable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IConvertible <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+DotNetPreAdapter.Utils.Logger *-[#10BB10]- DotNetPreAdapter.Utils.LoggingType 
+@enduml

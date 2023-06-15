@@ -1,0 +1,26 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample **simplified** and **grouped per namespace**:\n   [[Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.BasicExample [[Examples.BadDesign.BasicExample-diagram-detailed-grouped-per-namespace.svg]] {
+    class Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    }
+    class Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample [[Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    }
+'Compared namespace Examples.BadDesign.BasicExample [[Examples.BadDesign.BasicExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BasicExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign.BasicExample
+Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+@enduml

@@ -1,10 +1,7 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.service.AnalyzeAST **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\npreadapter.service.AnalyzeAST **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.service.AnalyzeAST **detailed** and **grouped per namespace**:\n   [[preadapter.service.AnalyzeAST-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
-class RecursiveFileProcessor_BRQTO__BRQTC [[RecursiveFileProcessor_BRQTO__BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
-class list_BRQTO_String_BRQTC [[list_BRQTO_String_BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
 class CompilationUnit [[CompilationUnit-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -44,14 +41,10 @@ namespace preadapter.service [[preadapter.service-diagram-simplified-grouped-per
 ' preadapter
 ' Class relations extracted from namespace:
 ' preadapter.domain
-preadapter.domain.Datastructure .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.Datastructure .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> list_BRQTO_String_BRQTC  : uses 
+preadapter.domain.Datastructure *-[#10BB10]- preadapter.Logger 
 ' Class relations extracted from namespace:
 ' preadapter.service
 preadapter.service.AnalyzeAST .[#6060BB].> preadapter.Logger  : uses 
 preadapter.service.AnalyzeAST -[#909090]-> preadapter.domain.Datastructure  : uses 
-preadapter.service.AnalyzeAST -[#909090]-> RecursiveFileProcessor_BRQTO__BRQTC  : uses 
-preadapter.service.AnalyzeAST -[#909090]-> list_BRQTO_String_BRQTC  : uses 
 preadapter.service.AnalyzeAST -[#909090]-> CompilationUnit  : uses 
 @enduml

@@ -1,0 +1,25 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.UnusedClass **detailed** </size>
+note "Your are analyzing:\nDotNetPreAdapter.UnusedClass **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.UnusedClass **simplified** :\n   [[DotNetPreAdapter.UnusedClass-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+abstract class DotNetPreAdapter.UnusedClass [[DotNetPreAdapter.UnusedClass-diagram-detailed.svg]] #yellow {
+  + doNothing(<font color="6060BB"></font>)
+}
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-detailed.svg]]  {
+  - removeMe(<font color="6060BB"></font>)
+  - <font color="909090">removeMe.u1: MyNamespace.UnusedClass</font>
+  - <font color="909090">removeMe.u2: DotNetPreAdapter.UnusedClass</font>
+  - <font color="909090">removeMe.u3: MyNamespace.UnusedClass1</font>
+--
+  - Main(<font color="6060BB"></font>)
+  - <font color="909090">Main.logger: DotNetPreAdapter.Utils.Logger</font>
+  - <font color="909090">Main.ast: DotNetPreAdapter.Service.AnalyzeAST</font>
+--
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.UnusedClass  : uses 
+@enduml

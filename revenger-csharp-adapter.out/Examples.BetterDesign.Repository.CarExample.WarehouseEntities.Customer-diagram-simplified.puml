@@ -1,0 +1,17 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer **simplified** </size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer **detailed** :\n   [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+      abstract class Examples.BetterDesign.Repository.CarExample.DBWarehouse [[Examples.BetterDesign.Repository.CarExample.DBWarehouse-diagram-simplified.svg]]  {
+      }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-simplified.svg]] #yellow {
+        }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+@enduml

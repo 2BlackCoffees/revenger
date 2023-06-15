@@ -1,0 +1,63 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Utils **simplified** </size>
+note "Your are analyzing:\nDotNetPreAdapter.Utils **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Utils **detailed** :\n   [[DotNetPreAdapter.Utils-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Enum [[Enum-diagram-simplified.svg]] #MintCream {
+}
+class IComparable [[IComparable-diagram-simplified.svg]] #MintCream {
+}
+class IFormattable [[IFormattable-diagram-simplified.svg]] #MintCream {
+}
+class IConvertible [[IConvertible-diagram-simplified.svg]] #MintCream {
+}
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-simplified.svg]]  {
+}
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Infrastructure.CreateYml [[DotNetPreAdapter.Infrastructure.CreateYml-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Utils.LoggingType [[DotNetPreAdapter.Utils.LoggingType-diagram-simplified.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-simplified.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Service.AnalyzeAST  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Infrastructure
+DotNetPreAdapter.Infrastructure.CreateYml .[#6060BB].> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Infrastructure.CreateYml .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.ASTVisitor  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+Enum <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IComparable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IFormattable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IConvertible <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+DotNetPreAdapter.Utils.Logger *-[#10BB10]- DotNetPreAdapter.Utils.LoggingType 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+@enduml

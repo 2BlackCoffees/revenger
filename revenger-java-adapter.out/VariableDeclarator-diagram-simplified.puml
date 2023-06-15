@@ -1,11 +1,12 @@
 @startuml
+skinparam linetype ortho
 title <size:20>VariableDeclarator **simplified** </size>
 note "Your are analyzing:\nVariableDeclarator **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* VariableDeclarator **detailed** :\n   [[VariableDeclarator-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class VariableDeclarator [[VariableDeclarator-diagram-simplified.svg]] #yellow {
 }
-  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified.svg]]  {
-  }
   class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified.svg]]  {
+  }
+  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified.svg]]  {
   }
  ' *************************************** 
  ' *************************************** 
@@ -14,7 +15,7 @@ class VariableDeclarator [[VariableDeclarator-diagram-simplified.svg]] #yellow {
 ' 
 ' Class relations extracted from namespace:
 ' preadapter.domain
+preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarator  : uses 
 preadapter.domain.ASTVisitor -[#909090]-> VariableDeclarator  : uses 
 preadapter.domain.ASTVisitor .[#6060BB].> VariableDeclarator  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarator  : uses 
 @enduml

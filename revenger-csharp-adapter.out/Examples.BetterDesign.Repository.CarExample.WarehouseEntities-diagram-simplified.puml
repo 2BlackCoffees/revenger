@@ -1,0 +1,33 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.CarExample.WarehouseEntities **simplified** </size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.WarehouseEntities **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.CarExample.WarehouseEntities **detailed** :\n   [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  abstract class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-simplified.svg]]  {
+  }
+      abstract class Examples.BetterDesign.Repository.CarExample.DBWarehouse [[Examples.BetterDesign.Repository.CarExample.DBWarehouse-diagram-simplified.svg]]  {
+      }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car-diagram-simplified.svg]] #yellow {
+        }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+@enduml

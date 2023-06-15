@@ -1,0 +1,72 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.FakeEntitities **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BadDesign.FakeEntitities **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.FakeEntitities **simplified** and **grouped per namespace**:\n   [[Examples.BadDesign.FakeEntitities-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+  class Examples.BadDesign.DB [[Examples.BadDesign.DB-diagram-detailed-grouped-per-namespace.svg]]  {
+    + get(<font color="6060BB">queryString:String</font>): <font color="BB6060">String</font>
+    + getCarsWhere(<font color="6060BB">whereQueryString:String</font>): <font color="BB6060">String</font>
+    + set(<font color="6060BB">queryString:String</font>): <font color="BB6060">void</font>
+    + update(<font color="6060BB">queryString:String</font>): <font color="BB6060">void</font>
+    + getUserWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.User</font>
+    + getCustomerWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Customer</font>
+    + getItemWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Item</font>
+    + getInvoiceWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Invoice</font>
+    + getComplaintsWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Complaints</font>
+    + getUserHavingItem(<font color="6060BB">item:Examples.BadDesign.FakeEntitities.Item</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.User</font>
+    + getCustomerFromComplaint(<font color="6060BB">complaint:Examples.BadDesign.FakeEntitities.Complaints</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Customer</font>
+    + getItemFromUser(<font color="6060BB">user:Examples.BadDesign.FakeEntitities.User</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Item</font>
+    + getInvoiceFromCustomer(<font color="6060BB">c:Examples.BadDesign.FakeEntitities.Customer</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Invoice</font>
+    + getComplaintsFromItem(<font color="6060BB">item:Examples.BadDesign.FakeEntitities.Item</font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Complaints</font>
+    + getFirstUser(<font color="6060BB"></font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.User</font>
+    + getFirstCustomerWhere(<font color="6060BB"></font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Customer</font>
+    + getFirstItem(<font color="6060BB"></font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Item</font>
+    + getFirstInvoice(<font color="6060BB"></font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Invoice</font>
+    + getFirstComplaints(<font color="6060BB"></font>): <font color="BB6060">Examples.BadDesign.FakeEntitities.Complaints</font>
+    + getCarFromDriver(<font color="6060BB">d:Examples.BadDesign.CarExample.CarParts.Driver</font>): <font color="BB6060">Examples.BadDesign.CarExample.Car</font>
+    + getDriverFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Driver</font>
+    + getWheelsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Wheels</font>
+    + getDoorsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Doors</font>
+    + getSeatsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Seats</font>
+  }
+'Compared namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.FakeEntitities [[Examples.BadDesign.FakeEntitities-diagram-detailed-grouped-per-namespace.svg]] {
+    class Examples.BadDesign.FakeEntitities.Invoice [[Examples.BadDesign.FakeEntitities.Invoice-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    }
+    class Examples.BadDesign.FakeEntitities.Item [[Examples.BadDesign.FakeEntitities.Item-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    }
+    class Examples.BadDesign.FakeEntitities.Customer [[Examples.BadDesign.FakeEntitities.Customer-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    }
+    class Examples.BadDesign.FakeEntitities.User [[Examples.BadDesign.FakeEntitities.User-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    }
+    class Examples.BadDesign.FakeEntitities.Complaints [[Examples.BadDesign.FakeEntitities.Complaints-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    }
+'Compared namespace Examples.BadDesign.FakeEntitities [[Examples.BadDesign.FakeEntitities-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace FakeEntitities
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.User  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.Customer  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.Item  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.Invoice  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.Complaints  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.FakeEntitities
+@enduml

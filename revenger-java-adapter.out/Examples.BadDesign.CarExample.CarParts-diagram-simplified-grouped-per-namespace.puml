@@ -1,0 +1,73 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.CarExample.CarParts **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BadDesign.CarExample.CarParts **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.CarExample.CarParts **detailed** and **grouped per namespace**:\n   [[Examples.BadDesign.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-simplified-grouped-per-namespace.svg]] {
+  class Examples.BadDesign.DB [[Examples.BadDesign.DB-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace Examples.BadDesign [[Examples.BadDesign-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-simplified-grouped-per-namespace.svg]] {
+    class Examples.BadDesign.CarExample.Car [[Examples.BadDesign.CarExample.Car-diagram-simplified-grouped-per-namespace.svg]]  {
+    }
+'Compared namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-simplified-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample.CarParts [[Examples.BadDesign.CarExample.CarParts-diagram-simplified-grouped-per-namespace.svg]] {
+      class Examples.BadDesign.CarExample.CarParts.Driver [[Examples.BadDesign.CarExample.CarParts.Driver-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+      }
+      class Examples.BadDesign.CarExample.CarParts.Seats [[Examples.BadDesign.CarExample.CarParts.Seats-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+      }
+      class Examples.BadDesign.CarExample.CarParts.Wheels [[Examples.BadDesign.CarExample.CarParts.Wheels-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+      }
+      class Examples.BadDesign.CarExample.CarParts.Doors [[Examples.BadDesign.CarExample.CarParts.Doors-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+      }
+'Compared namespace Examples.BadDesign.CarExample.CarParts [[Examples.BadDesign.CarExample.CarParts-diagram-simplified-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarParts
+}
+' Closing namespace CarExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Wheels  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample
+Examples.BadDesign.CarExample.CarParts.Driver <|-[#red]- Examples.BadDesign.CarExample.Car
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.CarParts.Wheels 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.Car .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.CarExample.Car -[#909090]-> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.CarParts
+Examples.BadDesign.CarExample.CarParts.Driver *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Seats *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Doors *-[#10BB10]- Examples.BadDesign.DB 
+@enduml

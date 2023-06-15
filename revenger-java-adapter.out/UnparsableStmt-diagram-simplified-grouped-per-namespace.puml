@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>UnparsableStmt **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\nUnparsableStmt **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* UnparsableStmt **detailed** and **grouped per namespace**:\n   [[UnparsableStmt-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class UnparsableStmt [[UnparsableStmt-diagram-simplified-grouped-per-namespace.svg]] #yellow {

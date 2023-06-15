@@ -1,0 +1,72 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace **simplified** </size>
+note "Your are analyzing:\nMyNamespace **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace **detailed** :\n   [[MyNamespace-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Enum [[Enum-diagram-simplified.svg]] #MintCream {
+}
+class IComparable [[IComparable-diagram-simplified.svg]] #MintCream {
+}
+class IFormattable [[IFormattable-diagram-simplified.svg]] #MintCream {
+}
+class IConvertible [[IConvertible-diagram-simplified.svg]] #MintCream {
+}
+class CSharpSyntaxWalker [[CSharpSyntaxWalker-diagram-simplified.svg]] #MintCream {
+}
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-simplified.svg]]  {
+}
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-simplified.svg]]  {
+  }
+abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-simplified.svg]] #yellow {
+}
+abstract class MyNamespace.UnusedClass1 [[MyNamespace.UnusedClass1-diagram-simplified.svg]] #yellow {
+}
+abstract class MyNamespace.UnusedClass1_DOT_InnerClass [[MyNamespace.UnusedClass1.InnerClass-diagram-simplified.svg]] #yellow {
+}
+  interface MyNamespace.DotNetPreAdapter.IMyTest [[MyNamespace.DotNetPreAdapter.IMyTest-diagram-simplified.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClassBase [[MyNamespace.DotNetPreAdapter.InnerClassBase-diagram-simplified.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-simplified.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass [[MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-simplified.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-simplified.svg]] #yellow {
+  }
+      abstract class MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass-diagram-simplified.svg]] #yellow {
+      }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass  : uses 
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass1  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Utils.Logger  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+' Class relations extracted from namespace:
+' MyNamespace
+MyNamespace.UnusedClass1 +-[#10BBBB]- MyNamespace.UnusedClass1_DOT_InnerClass 
+MyNamespace.UnusedClass1.InnerClass .[#6060BB].> MyNamespace.UnusedClass  : uses 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+MyNamespace.DotNetPreAdapter.InnerClassBase <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass
+MyNamespace.DotNetPreAdapter.IMyTest <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass
+MyNamespace.DotNetPreAdapter.InnerClass +-[#10BBBB]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass 
+Enum <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IComparable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IFormattable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IConvertible <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+CSharpSyntaxWalker <|-[#red]- MyNamespace.DotNetPreAdapter.UnusedASTVisitor
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor
+@enduml

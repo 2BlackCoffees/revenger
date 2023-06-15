@@ -1,0 +1,29 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.DBCustomers **simplified** </size>
+note "Your are analyzing:\nExamples.BetterDesign.DBCustomers **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.DBCustomers **detailed** :\n   [[Examples.BetterDesign.DBCustomers-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BetterDesign.DBCustomers [[Examples.BetterDesign.DBCustomers-diagram-simplified.svg]] #yellow {
+  }
+    class Examples.BetterDesign.FakeEntitities.Customer [[Examples.BetterDesign.FakeEntitities.Customer-diagram-simplified.svg]]  {
+    }
+    class Examples.BetterDesign.FakeEntitities.Invoice [[Examples.BetterDesign.FakeEntitities.Invoice-diagram-simplified.svg]]  {
+    }
+    class Examples.BetterDesign.FakeEntitities.Item [[Examples.BetterDesign.FakeEntitities.Item-diagram-simplified.svg]]  {
+    }
+    class Examples.BetterDesign.FakeEntitities.Complaints [[Examples.BetterDesign.FakeEntitities.Complaints-diagram-simplified.svg]]  {
+    }
+    class Examples.BetterDesign.FakeEntitities.User [[Examples.BetterDesign.FakeEntitities.User-diagram-simplified.svg]]  {
+    }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.DBCustomers .[#6060BB].> Examples.BetterDesign.FakeEntitities.Customer  : uses 
+Examples.BetterDesign.DBCustomers .[#6060BB].> Examples.BetterDesign.FakeEntitities.Invoice  : uses 
+Examples.BetterDesign.DBCustomers .[#6060BB].> Examples.BetterDesign.FakeEntitities.Item  : uses 
+Examples.BetterDesign.DBCustomers .[#6060BB].> Examples.BetterDesign.FakeEntitities.Complaints  : uses 
+Examples.BetterDesign.DBCustomers .[#6060BB].> Examples.BetterDesign.FakeEntitities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.FakeEntitities
+@enduml

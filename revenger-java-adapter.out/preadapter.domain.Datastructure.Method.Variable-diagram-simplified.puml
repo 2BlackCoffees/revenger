@@ -1,0 +1,15 @@
+@startuml
+skinparam linetype ortho
+title <size:20>preadapter.domain.Datastructure.Method.Variable **simplified** </size>
+note "Your are analyzing:\npreadapter.domain.Datastructure.Method.Variable **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.Datastructure.Method.Variable **detailed** :\n   [[preadapter.domain.Datastructure.Method.Variable-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class preadapter.domain.Datastructure_DOT_Method_DOT_Variable [[preadapter.domain.Datastructure.Method.Variable-diagram-simplified.svg]] #yellow {
+  }
+  class preadapter.domain.Datastructure_DOT_Method [[preadapter.domain.Datastructure.Method-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_Variable 
+@enduml

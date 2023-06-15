@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>Yaml **detailed** and **grouped per namespace**</size>
 note "Your are analyzing:\nYaml **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Yaml **simplified** and **grouped per namespace**:\n   [[Yaml-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class Yaml [[Yaml-diagram-detailed-grouped-per-namespace.svg]] #yellow {
@@ -11,32 +12,14 @@ namespace preadapter.infrastructure [[preadapter.infrastructure-diagram-detailed
     + startMark: Mark
     + endMark: Mark
 ==
-    - appendTupleNodeValueSequenceNode(<font color="6060BB">appendTupleNodeValueSequenceNode:dictpingNode, appendTupleNodeValueSequenceNode:SequenceNode</font>)
-    - appendTupleNodeValueString(<font color="6060BB">appendTupleNodeValueString:dictpingNode</font>)
+    - appendTupleNodeValueSequenceNode(<font color="6060BB">mappingNode:dictpingNode, key:String, value:SequenceNode</font>): <font color="BB6060">boolean</font>
+    - appendTupleNodeValueString(<font color="6060BB">mappingNode:dictpingNode, key:String, value:String</font>): <font color="BB6060">boolean</font>
+    - appendTupleNodeValueStringToSequenceNode(<font color="6060BB">sequenceNode:SequenceNode, key:String, value:String</font>): <font color="BB6060">boolean</font>
 --
-    - appendTupleNodeValueStringToSequenceNode(<font color="6060BB">appendTupleNodeValueStringToSequenceNode:SequenceNode</font>)
-    - <font color="909090">appendTupleNodeValueStringToSequenceNode.mappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
---
-    - appendSequence(<font color="6060BB">appendSequence:dictpingNode, appendSequence:list_BRQTO_String_BRQTC</font>)
+    - appendSequence(<font color="6060BB">mappingNode:dictpingNode, list:list[String], nodeName:String</font>): <font color="BB6060">void</font>
     - <font color="909090">appendSequence.subSequenceNode: SequenceNode</font>
 --
-    + Create(<font color="6060BB">Create:preadapter.domain.Datastructure, Create:preadapter.Logger</font>)
-    - <font color="909090">Create.subDataStructureSequenceYmlNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.subDataStructureMappingYmlNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">Create.fromImportsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.fromImportsMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.staticsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.staticsMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.variablesSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.variablesMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.parameters: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodParametersMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodVariables: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodVariablesMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.tmpMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
+    + Create(<font color="6060BB">datastructure:preadapter.domain.Datastructure, toFile:String, logger:preadapter.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">Create.yaml: Yaml</font>
     - <font color="909090">Create.writer: PrintWriter</font>
 --

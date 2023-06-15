@@ -1,32 +1,27 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.service **detailed** </size>
 note "Your are analyzing:\npreadapter.service **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.service **simplified** :\n   [[preadapter.service-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
-class RecursiveFileProcessor_BRQTO__BRQTC [[RecursiveFileProcessor_BRQTO__BRQTC-diagram-detailed.svg]] #MintCream {
-}
-class list_BRQTO_String_BRQTC [[list_BRQTO_String_BRQTC-diagram-detailed.svg]] #MintCream {
-}
 class CompilationUnit [[CompilationUnit-diagram-detailed.svg]] #MintCream {
-}
-class DirectoryStream_BRQTO_Path_BRQTC [[DirectoryStream_BRQTO_Path_BRQTC-diagram-detailed.svg]] #MintCream {
 }
 class Path [[Path-diagram-detailed.svg]] #MintCream {
 }
 class preadapter.Logger [[preadapter.Logger-diagram-detailed.svg]]  {
   + loggingType: preadapter.LoggingType
 ==
-  - log(<font color="6060BB"></font>)
-  - <font color="909090">log.result: String_BRQTO__BRQTC</font>
+  - log(<font color="6060BB">logType:String, text:String, startText:String</font>): <font color="BB6060">void</font>
+  - <font color="909090">log.result: String[]</font>
 --
-  + logError(<font color="6060BB"></font>)
-  + logError(<font color="6060BB"></font>)
-  + logWarning(<font color="6060BB"></font>)
-  + logWarning(<font color="6060BB"></font>)
-  + logInfo(<font color="6060BB"></font>)
-  + logInfo(<font color="6060BB"></font>)
-  + logDebug(<font color="6060BB"></font>)
-  + logDebug(<font color="6060BB"></font>)
-  + logTrace(<font color="6060BB"></font>)
-  + logTrace(<font color="6060BB"></font>)
+  + logError(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logError(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logWarning(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logWarning(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logInfo(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logInfo(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logDebug(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logDebug(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logTrace(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logTrace(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
 }
   class preadapter.domain.Datastructure [[preadapter.domain.Datastructure-diagram-detailed.svg]]  {
     + class_to_datastructure: dict[String,SubDataStructure]
@@ -35,42 +30,57 @@ class preadapter.Logger [[preadapter.Logger-diagram-detailed.svg]]  {
     + skip_types: list[String]
     + logger: preadapter.Logger
 ==
-    + ResolveClassNames(<font color="6060BB"></font>)
-    - <font color="909090">ResolveClassNames.variables: list_BRQTO_Variable_BRQTC</font>
-    - <font color="909090">ResolveClassNames.variable: Variable</font>
-    - <font color="909090">ResolveClassNames.method: Method</font>
-    - <font color="909090">ResolveClassNames.subDataStructure: SubDataStructure</font>
+    + ResolveClassNames(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - <font color="909090">ResolveClassNames.variables: list[Variable]</font>
+    - <font color="909090">ResolveClassNames.variable: <not!yet?read}file>Variable</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.method: preadapter.domain.Datastructure.Method</font>
+    - <font color="909090">ResolveClassNames.subDataStructure: preadapter.domain.Datastructure.SubDataStructure</font>
 --
-    - CorrectClassScope(<font color="6060BB">CorrectClassScope:SubDataStructure, CorrectClassScope:list_BRQTO_String_BRQTC</font>)
+    - CorrectClassScope(<font color="6060BB">subDataStructure:preadapter.domain.Datastructure.SubDataStructure, classNameList:list[String], isAnymousCall:boolean</font>): <font color="BB6060">void</font>
+    - <font color="909090">CorrectClassScope.index: int</font>
 --
-    + GetFQDNForUsedClassName(<font color="6060BB">GetFQDNForUsedClassName:SubDataStructure</font>)
-    - <font color="909090">GetFQDNForUsedClassName.classnameList: list_BRQTO_String_BRQTC</font>
-    - <font color="909090">GetFQDNForUsedClassName.fittingClassNames: String_BRQTO__BRQTC</font>
-    - <font color="909090">GetFQDNForUsedClassName.bestFittingClassNames: String_BRQTO__BRQTC</font>
+    + GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:preadapter.domain.Datastructure.SubDataStructure, classUsage:String, isAnonymousCall:boolean, mostProbableNamespace:String</font>): <font color="BB6060">String</font>
+    - <font color="909090">GetFQDNForUsedClassName.className: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.classnameList: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.finalClassName: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.fittingClassNames: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.classNameFromImports: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.classNameEndingInPackageImport: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.fqdnClassName: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.fqdnFromPackageImport: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.bestFittingClassNames: list[String]</font>
 --
-    + get_skip_types(<font color="6060BB"></font>)
-    + append_sub_datastructure(<font color="6060BB">append_sub_datastructure:SubDataStructure</font>)
+    + get_skip_types(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
 --
-    + append_class(<font color="6060BB">append_class:list_BRQTO_String_BRQTC, append_class:list_BRQTO_String_BRQTC</font>)
-    - <font color="909090">append_class.sub_datastructure: SubDataStructure</font>
+    + append_sub_datastructure(<font color="6060BB">sub_datastructure:preadapter.domain.Datastructure.SubDataStructure</font>): <font color="BB6060">void</font>
+    - <font color="909090">append_sub_datastructure.fqdn_class_name: String</font>
+    - <font color="909090">append_sub_datastructure.namespace_name: String</font>
 --
-    + get_classname_list(<font color="6060BB"></font>)
-    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+    + append_class(<font color="6060BB">filename:String, filemodule:String, usings:list[String], fqdn_class_name:String, nameSpaceList:list[String]</font>): <font color="BB6060">preadapter.domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">append_class.sub_datastructure: preadapter.domain.Datastructure.SubDataStructure</font>
+--
+    + get_classname_list(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + get_datastructures_from_class_name(<font color="6060BB">class_name:String</font>): <font color="BB6060">preadapter.domain.Datastructure.SubDataStructure</font>
   }
   class preadapter.service.AnalyzeAST [[preadapter.service.AnalyzeAST-diagram-detailed.svg]] #yellow {
-    + SearchRecurseCSharpToYAML(<font color="6060BB">SearchRecurseCSharpToYAML:preadapter.Logger</font>)
+    + SearchRecurseCSharpToYAML(<font color="6060BB">fromDir:String, toDir:String, logger:preadapter.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">SearchRecurseCSharpToYAML.datastructure: preadapter.domain.Datastructure</font>
-    - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: RecursiveFileProcessor_BRQTO__BRQTC</font>
-    - <font color="909090">SearchRecurseCSharpToYAML.listFilePaths: list_BRQTO_String_BRQTC</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.listFilePaths: list[String]</font>
     - <font color="909090">SearchRecurseCSharpToYAML.cu: CompilationUnit</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.filePath: String</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.toFile: String</font>
 --
   }
   class preadapter.service.RecursiveFileProcessor [[preadapter.service.RecursiveFileProcessor-diagram-detailed.svg]] #yellow {
-    + SearchPath(<font color="6060BB"></font>)
-    - <font color="909090">SearchPath.fileList: list_BRQTO_String_BRQTC</font>
+    + SearchPath(<font color="6060BB">path:String</font>): <font color="BB6060">list[String]</font>
+    - <font color="909090">SearchPath.fileList: list[String]</font>
 --
-    - ProcessDirectory(<font color="6060BB">ProcessDirectory:list_BRQTO_String_BRQTC</font>)
-    - <font color="909090">ProcessDirectory.stream: DirectoryStream_BRQTO_Path_BRQTC</font>
+    - ProcessDirectory(<font color="6060BB">sourceDirectory:String, fileList:list[String]</font>): <font color="BB6060">void</font>
+    - <font color="909090">ProcessDirectory.stream: DirectoryStream[Path]</font>
+    - <font color="909090">ProcessDirectory.isDirectory: boolean</font>
     - <font color="909090">ProcessDirectory.path: Path</font>
 --
   }
@@ -83,18 +93,11 @@ class preadapter.Logger [[preadapter.Logger-diagram-detailed.svg]]  {
 ' preadapter
 ' Class relations extracted from namespace:
 ' preadapter.domain
-preadapter.domain.Datastructure .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.Datastructure .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> list_BRQTO_String_BRQTC  : uses 
+preadapter.domain.Datastructure *-[#10BB10]- preadapter.Logger 
 ' Class relations extracted from namespace:
 ' preadapter.service
 preadapter.service.AnalyzeAST .[#6060BB].> preadapter.Logger  : uses 
 preadapter.service.AnalyzeAST -[#909090]-> preadapter.domain.Datastructure  : uses 
-preadapter.service.AnalyzeAST -[#909090]-> RecursiveFileProcessor_BRQTO__BRQTC  : uses 
-preadapter.service.AnalyzeAST -[#909090]-> list_BRQTO_String_BRQTC  : uses 
 preadapter.service.AnalyzeAST -[#909090]-> CompilationUnit  : uses 
-preadapter.service.RecursiveFileProcessor -[#909090]-> list_BRQTO_String_BRQTC  : uses 
-preadapter.service.RecursiveFileProcessor .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.service.RecursiveFileProcessor -[#909090]-> DirectoryStream_BRQTO_Path_BRQTC  : uses 
 preadapter.service.RecursiveFileProcessor -[#909090]-> Path  : uses 
 @enduml

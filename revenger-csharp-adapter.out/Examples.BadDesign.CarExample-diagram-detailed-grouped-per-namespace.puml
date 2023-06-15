@@ -1,0 +1,136 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.CarExample **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BadDesign.CarExample **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.CarExample **simplified** and **grouped per namespace**:\n   [[Examples.BadDesign.CarExample-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+    abstract class Examples.BadDesign.CarExample.DB [[Examples.BadDesign.CarExample.DB-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      - get(<font color="6060BB"></font>)
+      - getCarsWhere(<font color="6060BB"></font>)
+      - set(<font color="6060BB"></font>)
+      - update(<font color="6060BB"></font>)
+      - getUserWhere(<font color="6060BB"></font>)
+      - getCustomerWhere(<font color="6060BB"></font>)
+      - getWarehouseCarWhere(<font color="6060BB"></font>)
+      - getInvoiceWhere(<font color="6060BB"></font>)
+      - getComplaintsWhere(<font color="6060BB"></font>)
+      - getFirstCustomerWhere(<font color="6060BB"></font>)
+      - getUserFromWarehouseCar(<font color="6060BB">item:Examples.BadDesign.CarExample.WarehouseEntities.Car</font>)
+      - getCustomerFromComplaint(<font color="6060BB">complaint:Examples.BadDesign.CarExample.WarehouseEntities.Complaints</font>)
+      - getWarehouseCarFromUser(<font color="6060BB">user:Examples.BadDesign.CarExample.WarehouseEntities.Car</font>)
+      - getInvoiceFromCustomer(<font color="6060BB">c:Examples.BadDesign.CarExample.WarehouseEntities.Customer</font>)
+      - getComplaintsFromWarehouseCar(<font color="6060BB">item:Examples.BadDesign.CarExample.WarehouseEntities.Car</font>)
+      - getCarFromDriver(<font color="6060BB">d:Examples.BadDesign.CarExample.CarParts.Driver</font>)
+      - getDriverFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>)
+      - getWheelsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>)
+      - getDoorsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>)
+      - getSeatsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>)
+    }
+    abstract class Examples.BadDesign.CarExample.Car [[Examples.BadDesign.CarExample.Car-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      + wheels: Examples.BadDesign.CarExample.CarParts.Wheels
+      + vehicle: Examples.BadDesign.CarExample.Vehicle
+      + db: Examples.BadDesign.CarExample.DB
+==
+      - createCar(<font color="6060BB">doors:Examples.BadDesign.CarExample.CarParts.Doors</font>)
+      - <font color="909090">createCar.seats: Examples.BadDesign.CarExample.CarParts.Seats</font>
+--
+    }
+    abstract class Examples.BadDesign.CarExample.Vehicle [[Examples.BadDesign.CarExample.Vehicle-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      + db: Examples.BadDesign.CarExample.DB
+==
+      - setSpeed(<font color="6060BB"></font>)
+      - getSpeed(<font color="6060BB"></font>)
+    }
+'Compared namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample.CarParts [[Examples.BadDesign.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]] {
+      abstract class Examples.BadDesign.CarExample.CarParts.Driver [[Examples.BadDesign.CarExample.CarParts.Driver-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        + db: Examples.BadDesign.CarExample.DB
+==
+        - getWeight(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Wheels [[Examples.BadDesign.CarExample.CarParts.Wheels-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        + db: Examples.BadDesign.CarExample.DB
+==
+        - getWeight(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Doors [[Examples.BadDesign.CarExample.CarParts.Doors-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        + db: Examples.BadDesign.CarExample.DB
+==
+        - getWeight(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Seats [[Examples.BadDesign.CarExample.CarParts.Seats-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        + db: Examples.BadDesign.CarExample.DB
+==
+        - getWeight(<font color="6060BB"></font>)
+      }
+'Compared namespace Examples.BadDesign.CarExample.CarParts [[Examples.BadDesign.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarParts
+}
+' Closing namespace CarExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample [[Examples.BadDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.CarExample.WarehouseEntities [[Examples.BadDesign.CarExample.WarehouseEntities-diagram-detailed-grouped-per-namespace.svg]] {
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Car [[Examples.BadDesign.CarExample.WarehouseEntities.Car-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Complaints [[Examples.BadDesign.CarExample.WarehouseEntities.Complaints-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Customer [[Examples.BadDesign.CarExample.WarehouseEntities.Customer-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.User [[Examples.BadDesign.CarExample.WarehouseEntities.User-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Invoice [[Examples.BadDesign.CarExample.WarehouseEntities.Invoice-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      }
+'Compared namespace Examples.BadDesign.CarExample.WarehouseEntities [[Examples.BadDesign.CarExample.WarehouseEntities-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace WarehouseEntities
+}
+' Closing namespace CarExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Car  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Complaints  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.CarExample.CarParts.Driver <|-[#red]- Examples.BadDesign.CarExample.Car
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.CarParts.Wheels 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.Vehicle 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.Car .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.CarExample.Car -[#909090]-> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
+Examples.BadDesign.CarExample.Vehicle *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.CarParts
+Examples.BadDesign.CarExample.CarParts.Driver *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Doors *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Seats *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.WarehouseEntities
+@enduml

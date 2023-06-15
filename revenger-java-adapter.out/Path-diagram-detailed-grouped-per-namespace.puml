@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>Path **detailed** and **grouped per namespace**</size>
 note "Your are analyzing:\nPath **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Path **simplified** and **grouped per namespace**:\n   [[Path-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class Path [[Path-diagram-detailed-grouped-per-namespace.svg]] #yellow {
@@ -7,11 +8,12 @@ class Path [[Path-diagram-detailed-grouped-per-namespace.svg]] #yellow {
 namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
 namespace preadapter.service [[preadapter.service-diagram-detailed-grouped-per-namespace.svg]] {
   class preadapter.service.RecursiveFileProcessor [[preadapter.service.RecursiveFileProcessor-diagram-detailed-grouped-per-namespace.svg]]  {
-    + SearchPath(<font color="6060BB"></font>)
-    - <font color="909090">SearchPath.fileList: list_BRQTO_String_BRQTC</font>
+    + SearchPath(<font color="6060BB">path:String</font>): <font color="BB6060">list[String]</font>
+    - <font color="909090">SearchPath.fileList: list[String]</font>
 --
-    - ProcessDirectory(<font color="6060BB">ProcessDirectory:list_BRQTO_String_BRQTC</font>)
-    - <font color="909090">ProcessDirectory.stream: DirectoryStream_BRQTO_Path_BRQTC</font>
+    - ProcessDirectory(<font color="6060BB">sourceDirectory:String, fileList:list[String]</font>): <font color="BB6060">void</font>
+    - <font color="909090">ProcessDirectory.stream: DirectoryStream[Path]</font>
+    - <font color="909090">ProcessDirectory.isDirectory: boolean</font>
     - <font color="909090">ProcessDirectory.path: Path</font>
 --
   }

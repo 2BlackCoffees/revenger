@@ -1,0 +1,20 @@
+@startuml
+skinparam linetype ortho
+title <size:20>preadapter.domain.Datastructure.Method.ParameterType **detailed** </size>
+note "Your are analyzing:\npreadapter.domain.Datastructure.Method.ParameterType **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.Datastructure.Method.ParameterType **simplified** :\n   [[preadapter.domain.Datastructure.Method.ParameterType-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType [[preadapter.domain.Datastructure.Method.ParameterType-diagram-detailed.svg]] #yellow {
+  }
+  class preadapter.domain.Datastructure_DOT_Method [[preadapter.domain.Datastructure.Method-diagram-detailed.svg]]  {
+    + variables: list[Variable]
+    + parameters: list[ParameterType]
+==
+    + getParameters(<font color="6060BB"></font>): <font color="BB6060">list[ParameterType]</font>
+    + AddVariable(<font color="6060BB">variableName_:String, variableType_:String, mostProbableNamespace_:String</font>): <font color="BB6060">void</font>
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType 
+@enduml

@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>NameExpr **simplified** </size>
 note "Your are analyzing:\nNameExpr **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* NameExpr **detailed** :\n   [[NameExpr-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class NameExpr [[NameExpr-diagram-simplified.svg]] #yellow {

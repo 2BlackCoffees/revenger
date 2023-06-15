@@ -1,9 +1,7 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.LoggingType **detailed** and **grouped per namespace**</size>
 note "Your are analyzing:\npreadapter.LoggingType **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.LoggingType **simplified** and **grouped per namespace**:\n   [[preadapter.LoggingType-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
-class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-detailed-grouped-per-namespace.svg]] #MintCream {
-}
-' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
 namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
 class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed-grouped-per-namespace.svg]] #yellow {
   + TRACE: EnumTypePlaceHolder
@@ -12,24 +10,24 @@ class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed-grouped-p
   + WARNING: EnumTypePlaceHolder
   + ERROR: EnumTypePlaceHolder
 ==
-  + getValue(<font color="6060BB"></font>)
+  + getValue(<font color="6060BB"></font>): <font color="BB6060">int</font>
 }
 class preadapter.Logger [[preadapter.Logger-diagram-detailed-grouped-per-namespace.svg]]  {
   + loggingType: preadapter.LoggingType
 ==
-  - log(<font color="6060BB"></font>)
-  - <font color="909090">log.result: String_BRQTO__BRQTC</font>
+  - log(<font color="6060BB">logType:String, text:String, startText:String</font>): <font color="BB6060">void</font>
+  - <font color="909090">log.result: String[]</font>
 --
-  + logError(<font color="6060BB"></font>)
-  + logError(<font color="6060BB"></font>)
-  + logWarning(<font color="6060BB"></font>)
-  + logWarning(<font color="6060BB"></font>)
-  + logInfo(<font color="6060BB"></font>)
-  + logInfo(<font color="6060BB"></font>)
-  + logDebug(<font color="6060BB"></font>)
-  + logDebug(<font color="6060BB"></font>)
-  + logTrace(<font color="6060BB"></font>)
-  + logTrace(<font color="6060BB"></font>)
+  + logError(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logError(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logWarning(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logWarning(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logInfo(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logInfo(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logDebug(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logDebug(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logTrace(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logTrace(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
 }
 'Compared namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -39,9 +37,6 @@ class preadapter.Logger [[preadapter.Logger-diagram-detailed-grouped-per-namespa
  ' *************************************** 
  ' *************************************** 
 ' Class relations extracted from namespace:
-' 
-' Class relations extracted from namespace:
 ' preadapter
-preadapter.LoggingType .[#6060BB].> EnumTypePlaceHolder  : uses 
-preadapter.Logger .[#6060BB].> preadapter.LoggingType  : uses 
+preadapter.Logger *-[#10BB10]- preadapter.LoggingType 
 @enduml

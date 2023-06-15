@@ -1,0 +1,16 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.DotNetPreAdapter.InnerClassBase **detailed** </size>
+note "Your are analyzing:\nMyNamespace.DotNetPreAdapter.InnerClassBase **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.DotNetPreAdapter.InnerClassBase **simplified** :\n   [[MyNamespace.DotNetPreAdapter.InnerClassBase-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  abstract class MyNamespace.DotNetPreAdapter.InnerClassBase [[MyNamespace.DotNetPreAdapter.InnerClassBase-diagram-detailed.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-detailed.svg]]  {
+    - unused(<font color="6060BB"></font>)
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+MyNamespace.DotNetPreAdapter.InnerClassBase <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass
+@enduml

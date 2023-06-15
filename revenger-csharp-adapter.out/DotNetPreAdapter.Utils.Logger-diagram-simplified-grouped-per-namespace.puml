@@ -1,0 +1,94 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Utils.Logger **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nDotNetPreAdapter.Utils.Logger **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Utils.Logger **detailed** and **grouped per namespace**:\n   [[DotNetPreAdapter.Utils.Logger-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-simplified-grouped-per-namespace.svg]]  {
+}
+'Compared namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] { with last element of }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Domain
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Infrastructure [[DotNetPreAdapter.Infrastructure-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Infrastructure.CreateYml [[DotNetPreAdapter.Infrastructure.CreateYml-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Infrastructure [[DotNetPreAdapter.Infrastructure-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Infrastructure
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Service
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Utils.LoggingType [[DotNetPreAdapter.Utils.LoggingType-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Utils
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace MyNamespace [[MyNamespace-diagram-simplified-grouped-per-namespace.svg]] {
+namespace MyNamespace.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace MyNamespace.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace DotNetPreAdapter
+}
+' Closing namespace MyNamespace
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Service.AnalyzeAST  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Infrastructure
+DotNetPreAdapter.Infrastructure.CreateYml .[#6060BB].> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Infrastructure.CreateYml .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.ASTVisitor  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+DotNetPreAdapter.Utils.Logger *-[#10BB10]- DotNetPreAdapter.Utils.LoggingType 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+@enduml

@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.domain.ASTVisitor_DOT_HandleDeepness **detailed** and **grouped per namespace**</size>
 note "Your are analyzing:\npreadapter.domain.ASTVisitor_DOT_HandleDeepness **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.ASTVisitor_DOT_HandleDeepness **simplified** and **grouped per namespace**:\n   [[preadapter.domain.ASTVisitor_DOT_HandleDeepness-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
@@ -16,38 +17,59 @@ namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-nam
     + deepness: HandleDeepness
     + ignoreType: list[String]
 ==
-    + SimplifyType(<font color="6060BB"></font>)
-    + cleanClassName(<font color="6060BB"></font>)
+    + SimplifyType(<font color="6060BB">type:String</font>): <font color="BB6060">String</font>
 --
-    + CreateClassInterface(<font color="6060BB">CreateClassInterface:ClassOrInterfaceDeclaration</font>)
+    + cleanClassName(<font color="6060BB">className:String</font>): <font color="BB6060">String</font>
+    - <font color="909090">cleanClassName.namespace: String</font>
+    - <font color="909090">cleanClassName.namespaceLength: int</font>
+--
+    + CreateClassInterface(<font color="6060BB">node:ClassOrInterfaceDeclaration</font>): <font color="BB6060">String</font>
+    - <font color="909090">CreateClassInterface.fqdnCurrentClassName: String</font>
+    - <font color="909090">CreateClassInterface.fqdnParentClassName: String</font>
     - <font color="909090">CreateClassInterface.parentSubDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
     - <font color="909090">CreateClassInterface.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
+    - <font color="909090">CreateClassInterface.fqdnCurrentClassNameFinal: String</font>
+    - <font color="909090">CreateClassInterface.extendedTypeStr: String</font>
 --
-    + visit(<font color="6060BB">visit:MethodDeclaration, visit:Void</font>)
+    - addArgumentType(<font color="6060BB">methodName:String, fqdnParentClassName:String, parameterType:Type, parameterName:String, argumentsTuple:list[tuple[String,String,String]]</font>): <font color="BB6060">void</font>
+    - <font color="909090">addArgumentType.argumentTypeString: String</font>
+    - <font color="909090">addArgumentType.mostProbableNS: String</font>
+--
+    + visit(<font color="6060BB">n:MethodDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    - <font color="909090">visit.methodName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
     - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.argumentsTuple: list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC</font>
     - <font color="909090">visit.argument: Optional_DOT_empty</font>
+    - <font color="909090">visit.className: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
     - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
+    - <font color="909090">visit.argumentTypeString: String</font>
+    - <font color="909090">visit.mostProbableNS: String</font>
     - <font color="909090">visit.variableDeclarator: VariableDeclarator</font>
+    - <font color="909090">visit.importName: String</font>
+    - <font color="909090">visit.enumValueName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
     - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
+    - <font color="909090">visit.fqdnCurrentClassName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
     - <font color="909090">visit.subDataStructureParent: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
     - <font color="909090">visit.subDataStructureChild: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
     - <font color="909090">visit.subDataStructureParent: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.variableName: n_DOT_getNameAsString_BRQTO__BRQTC</font>
-    - <font color="909090">visit.variableType: n_DOT_getTypeAsString_BRQTO__BRQTC</font>
-    - <font color="909090">visit.initializer: n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC</font>
+    - <font color="909090">visit.methodName: String</font>
     - <font color="909090">visit.method: preadapter.domain.Datastructure_DOT_Method</font>
 --
-    + visit(<font color="6060BB">visit:ClassOrInterfaceDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:FieldDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:PackageDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ImportDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnumConstantDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnumDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:VariableDeclarator, visit:Void</font>)
+    + visit(<font color="6060BB">n:ClassOrInterfaceDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:FieldDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:PackageDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ImportDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumConstantDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VariableDeclarator, arg:Void</font>): <font color="BB6060">void</font>
 --
-    + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
+    + main(<font color="6060BB">args:String</font>): <font color="BB6060">void</font>
     - <font color="909090">main.cu: CompilationUnit</font>
+    - <font color="909090">main.file: String</font>
 --
   }
 'Compared namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }

@@ -1,0 +1,28 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.DotNetPreAdapter.UnusedASTVisitor **simplified** </size>
+note "Your are analyzing:\nMyNamespace.DotNetPreAdapter.UnusedASTVisitor **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.DotNetPreAdapter.UnusedASTVisitor **detailed** :\n   [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class CSharpSyntaxWalker [[CSharpSyntaxWalker-diagram-simplified.svg]] #MintCream {
+}
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-simplified.svg]]  {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-simplified.svg]] #yellow {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+CSharpSyntaxWalker <|-[#red]- MyNamespace.DotNetPreAdapter.UnusedASTVisitor
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+@enduml

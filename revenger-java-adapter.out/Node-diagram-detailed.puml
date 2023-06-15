@@ -1,0 +1,45 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Node **detailed** </size>
+note "Your are analyzing:\nNode **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Node **simplified** :\n   [[Node-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Node [[Node-diagram-detailed.svg]] #yellow {
+}
+  class preadapter.domain.ASTVisitor_DOT_HandleDeepness [[preadapter.domain.ASTVisitor.HandleDeepness-diagram-detailed.svg]]  {
+    + activeClassnameList: list[String]
+    + namespaceList: list[String]
+    + activeMethodList: list[String]
+    + listObjectType: list[ObjectType]
+==
+    + getCurrentNamespace(<font color="6060BB"></font>): <font color="BB6060">String</font>
+--
+    - getCurrentNamespaceWithClasses(<font color="6060BB">node:Node</font>): <font color="BB6060">String</font>
+    - <font color="909090">getCurrentNamespaceWithClasses.currentNS: String</font>
+    - <font color="909090">getCurrentNamespaceWithClasses.classList: list[String]</font>
+    - <font color="909090">getCurrentNamespaceWithClasses.nameClass: String</font>
+    - <font color="909090">getCurrentNamespaceWithClasses.currentClassList: String</font>
+--
+    + getCurrentActiveObjectType(<font color="6060BB"></font>): <font color="BB6060">preadapter.domain.ASTVisitor.ObjectType</font>
+    + GetFQDNParentClassName(<font color="6060BB">node:Node</font>): <font color="BB6060">String</font>
+    + GetFQDNCurrentClassName(<font color="6060BB">node:Node</font>): <font color="BB6060">String</font>
+    - GetCurrentMethodName(<font color="6060BB"></font>): <font color="BB6060">String</font>
+    + getCurrentContext(<font color="6060BB">node:Node</font>): <font color="BB6060">String</font>
+    - increase(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - appendObjectName(<font color="6060BB">objectName:String</font>): <font color="BB6060">void</font>
+    + appendPackageName(<font color="6060BB">packageName:String</font>): <font color="BB6060">void</font>
+    + appendClassName(<font color="6060BB">className:String</font>): <font color="BB6060">void</font>
+    + appendMethodName(<font color="6060BB">methodName:String</font>): <font color="BB6060">void</font>
+    - removeLastObject(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + removeLastClassName(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + removeLastMethodName(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + decrease(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + getDeepness(<font color="6060BB"></font>): <font color="BB6060">String</font>
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.ASTVisitor.HandleDeepness .[#6060BB].> Node  : uses 
+@enduml

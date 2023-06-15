@@ -1,0 +1,23 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Service.RecursiveFileProcessor **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nDotNetPreAdapter.Service.RecursiveFileProcessor **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Service.RecursiveFileProcessor **detailed** and **grouped per namespace**:\n   [[DotNetPreAdapter.Service.RecursiveFileProcessor-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Service.RecursiveFileProcessor [[DotNetPreAdapter.Service.RecursiveFileProcessor-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Service [[DotNetPreAdapter.Service-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Service
+}
+' Closing namespace DotNetPreAdapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Service.RecursiveFileProcessor  : uses 
+@enduml

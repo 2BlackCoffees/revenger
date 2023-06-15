@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>ModuleOpensDirective **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\nModuleOpensDirective **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* ModuleOpensDirective **detailed** and **grouped per namespace**:\n   [[ModuleOpensDirective-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class ModuleOpensDirective [[ModuleOpensDirective-diagram-simplified-grouped-per-namespace.svg]] #yellow {

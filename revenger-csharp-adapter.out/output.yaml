@@ -1,0 +1,1531 @@
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.UnusedClass
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: MyNamespace
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.UnusedClass1
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes:
+    - MyNamespace.UnusedClass1.InnerClass
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: doNothing
+      parameters: []
+      method_variables: []
+      is_private: False
+    filemodule: MyNamespace
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.UnusedClass1.InnerClass
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: True
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: UnusedInnerClass
+      parameters:
+      - parameter_name: unusedClass
+        parameter_type: MyNamespace.UnusedClass
+      method_variables: []
+      is_private: False
+    filemodule: MyNamespace
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.DotNetPreAdapter.IMyTest
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: False
+    is_interface: True
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: unused
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: MyNamespace.DotNetPreAdapter
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.DotNetPreAdapter.InnerClassBase
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: MyNamespace.DotNetPreAdapter
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.DotNetPreAdapter.InnerClass
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes:
+    - MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes:
+    - MyNamespace.DotNetPreAdapter.InnerClassBase
+    - MyNamespace.DotNetPreAdapter.IMyTest
+    statics: []
+    methods:
+    - method_name: unused
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: MyNamespace.DotNetPreAdapter
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: True
+    base_classes:
+    - Enum
+    - IComparable
+    - IFormattable
+    - IConvertible
+    statics: []
+    methods: []
+    filemodule: MyNamespace.DotNetPreAdapter
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.DotNetPreAdapter.UnusedASTVisitor
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: logger
+      variable_type: DotNetPreAdapter.Utils.Logger
+      is_member: True
+    - variable_name: unusedD
+      variable_type: DotNetPreAdapter.Domain.Datastructure
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes:
+    - CSharpSyntaxWalker
+    statics: []
+    methods: []
+    filemodule: MyNamespace.DotNetPreAdapter
+- sub_datastructure:
+    fqdn_class_name: MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass
+    filename: DotnetPreAdapter/ZDemoFirstUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.UnusedClass
+    filename: DotnetPreAdapter/ZDemoSecondUselessClass.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: doNothing
+      parameters: []
+      method_variables: []
+      is_private: False
+    filemodule: DotNetPreAdapter
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Utils.LoggingType
+    filename: DotnetPreAdapter/Utils.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes:
+    - Enum
+    - IComparable
+    - IFormattable
+    - IConvertible
+    statics: []
+    methods: []
+    filemodule: DotNetPreAdapter.Utils
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Utils.Logger
+    filename: DotnetPreAdapter/Utils.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: loggingType
+      variable_type: DotNetPreAdapter.Utils.LoggingType
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: log
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: LogError
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: LogWarning
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: LogInfo
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: LogDebug
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: LogTrace
+      parameters: []
+      method_variables: []
+      is_private: False
+    filemodule: DotNetPreAdapter.Utils
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Program
+    filename: DotnetPreAdapter/Program.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: removeMe
+      parameters: []
+      method_variables:
+      - variable_name: u1
+        variable_type: MyNamespace.UnusedClass
+      - variable_name: u2
+        variable_type: DotNetPreAdapter.UnusedClass
+      - variable_name: u3
+        variable_type: MyNamespace.UnusedClass1
+      is_private: True
+    - method_name: Main
+      parameters: []
+      method_variables:
+      - variable_name: logger
+        variable_type: DotNetPreAdapter.Utils.Logger
+      - variable_name: ast
+        variable_type: DotNetPreAdapter.Service.AnalyzeAST
+      is_private: True
+    filemodule: DotNetPreAdapter
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Service
+    filename: DotnetPreAdapter/example/betterdesign/Service.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getOrderedCar
+      parameters:
+      - parameter_name: physicalCar
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getPhysicalCar
+      parameters:
+      - parameter_name: car
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.DBCar
+    filename: DotnetPreAdapter/example/betterdesign/repository/DBCar.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getCarsForDriver
+      parameters:
+      - parameter_name: driver
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+      method_variables: []
+      is_private: True
+    - method_name: updateCar
+      parameters:
+      - parameter_name: car
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      - parameter_name: seats
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
+      method_variables: []
+      is_private: True
+    - method_name: updateCar
+      parameters:
+      - parameter_name: car
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      - parameter_name: doors
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+      method_variables: []
+      is_private: True
+    - method_name: sellCarTo
+      parameters:
+      - parameter_name: car
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      - parameter_name: driver
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+      method_variables: []
+      is_private: True
+    - method_name: getCar
+      parameters:
+      - parameter_name: d
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+      method_variables: []
+      is_private: True
+    - method_name: getDriver
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getWheels
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getDoors
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getSeats
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign.Repository.CarExample
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.DBWarehouse
+    filename: DotnetPreAdapter/example/betterdesign/repository/DBWarehouse.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getCustomer
+      parameters:
+      - parameter_name: i
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice
+      method_variables: []
+      is_private: True
+    - method_name: getCar
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints
+      method_variables: []
+      is_private: True
+    - method_name: getInvoice
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer
+      method_variables: []
+      is_private: True
+    - method_name: getComplaints
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer
+      method_variables: []
+      is_private: True
+    - method_name: getUser
+      parameters:
+      - parameter_name: car
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getCustomer
+      parameters:
+      - parameter_name: complaint
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints
+      method_variables: []
+      is_private: True
+    - method_name: getCar
+      parameters:
+      - parameter_name: user
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User
+      method_variables: []
+      is_private: True
+    - method_name: getComplaints
+      parameters:
+      - parameter_name: car
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getFirstUser
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getFirstCar
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getFirstInvoice
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getFirstComplaints
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign.Repository.CarExample
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User
+    filename: DotnetPreAdapter/example/betterdesign/repository/warehouseentities/User.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer
+    filename: DotnetPreAdapter/example/betterdesign/repository/warehouseentities/Customer.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints
+    filename: DotnetPreAdapter/example/betterdesign/repository/warehouseentities/Complaints.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice
+    filename: DotnetPreAdapter/example/betterdesign/repository/warehouseentities/Invoice.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car
+    filename: DotnetPreAdapter/example/betterdesign/repository/warehouseentities/Car.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.Vehicle
+    filename: DotnetPreAdapter/example/betterdesign/repository/carexample/Car.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BetterDesign.Repository.CarExample.DBCar
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: setSpeed
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getSpeed
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign.Repository.CarExample
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.Car
+    filename: DotnetPreAdapter/example/betterdesign/repository/carexample/Car.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: wheels
+      variable_type: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
+      is_member: True
+    - variable_name: seats
+      variable_type: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
+      is_member: True
+    - variable_name: driver
+      variable_type: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+      is_member: True
+    - variable_name: doors
+      variable_type: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes:
+    - Examples.BetterDesign.Repository.CarExample.Vehicle
+    statics: []
+    methods:
+    - method_name: createCar
+      parameters:
+      - parameter_name: doors
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign.Repository.CarExample
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
+    filename: DotnetPreAdapter/example/betterdesign/repository/carexample/carparts/Seats.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BetterDesign.Repository.CarExample.DBCar
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getWeight
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign.Repository.CarExample.CarParts
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
+    filename: DotnetPreAdapter/example/betterdesign/repository/carexample/carparts/Wheels.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BetterDesign.Repository.CarExample.DBCar
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getWeight
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign.Repository.CarExample.CarParts
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+    filename: DotnetPreAdapter/example/betterdesign/repository/carexample/carparts/Driver.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BetterDesign.Repository.CarExample.DBCar
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getWeight
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign.Repository.CarExample.CarParts
+- sub_datastructure:
+    fqdn_class_name: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+    filename: DotnetPreAdapter/example/betterdesign/repository/carexample/carparts/Doors.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BetterDesign.Repository.CarExample.DBCar
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getWeight
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BetterDesign.Repository.CarExample.CarParts
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.DB
+    filename: DotnetPreAdapter/example/baddesign/DB.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: get
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getCarsWhere
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: set
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: update
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getUserWhere
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getCustomerWhere
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getWarehouseCarWhere
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getInvoiceWhere
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getComplaintsWhere
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getFirstCustomerWhere
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getUserFromWarehouseCar
+      parameters:
+      - parameter_name: item
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Car
+      method_variables: []
+      is_private: True
+    - method_name: getCustomerFromComplaint
+      parameters:
+      - parameter_name: complaint
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Complaints
+      method_variables: []
+      is_private: True
+    - method_name: getWarehouseCarFromUser
+      parameters:
+      - parameter_name: user
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Car
+      method_variables: []
+      is_private: True
+    - method_name: getInvoiceFromCustomer
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Customer
+      method_variables: []
+      is_private: True
+    - method_name: getComplaintsFromWarehouseCar
+      parameters:
+      - parameter_name: item
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Car
+      method_variables: []
+      is_private: True
+    - method_name: getCarFromDriver
+      parameters:
+      - parameter_name: d
+        parameter_type: Examples.BadDesign.CarExample.CarParts.Driver
+      method_variables: []
+      is_private: True
+    - method_name: getDriverFromCar
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BadDesign.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getWheelsFromCar
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BadDesign.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getDoorsFromCar
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BadDesign.CarExample.Car
+      method_variables: []
+      is_private: True
+    - method_name: getSeatsFromCar
+      parameters:
+      - parameter_name: c
+        parameter_type: Examples.BadDesign.CarExample.Car
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BadDesign.CarExample
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.WarehouseEntities.User
+    filename: DotnetPreAdapter/example/baddesign/warehouseentities/User.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BadDesign.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.WarehouseEntities.Customer
+    filename: DotnetPreAdapter/example/baddesign/warehouseentities/Customer.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BadDesign.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.WarehouseEntities.Complaints
+    filename: DotnetPreAdapter/example/baddesign/warehouseentities/Complaints.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BadDesign.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.WarehouseEntities.Invoice
+    filename: DotnetPreAdapter/example/baddesign/warehouseentities/Invoice.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BadDesign.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.WarehouseEntities.Car
+    filename: DotnetPreAdapter/example/baddesign/warehouseentities/Car.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: Examples.BadDesign.CarExample.WarehouseEntities
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.Vehicle
+    filename: DotnetPreAdapter/example/baddesign/carexample/Car.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BadDesign.CarExample.DB
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: setSpeed
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: getSpeed
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BadDesign.CarExample
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.Car
+    filename: DotnetPreAdapter/example/baddesign/carexample/Car.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: wheels
+      variable_type: Examples.BadDesign.CarExample.CarParts.Wheels
+      is_member: True
+    - variable_name: vehicle
+      variable_type: Examples.BadDesign.CarExample.Vehicle
+      is_member: True
+    - variable_name: db
+      variable_type: Examples.BadDesign.CarExample.DB
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes:
+    - Examples.BadDesign.CarExample.CarParts.Driver
+    statics: []
+    methods:
+    - method_name: createCar
+      parameters:
+      - parameter_name: doors
+        parameter_type: Examples.BadDesign.CarExample.CarParts.Doors
+      method_variables:
+      - variable_name: seats
+        variable_type: Examples.BadDesign.CarExample.CarParts.Seats
+      is_private: True
+    filemodule: Examples.BadDesign.CarExample
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.CarParts.Seats
+    filename: DotnetPreAdapter/example/baddesign/carexample/carparts/Seats.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BadDesign.CarExample.DB
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getWeight
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BadDesign.CarExample.CarParts
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.CarParts.Wheels
+    filename: DotnetPreAdapter/example/baddesign/carexample/carparts/Wheels.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BadDesign.CarExample.DB
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getWeight
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BadDesign.CarExample.CarParts
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.CarParts.Driver
+    filename: DotnetPreAdapter/example/baddesign/carexample/carparts/Driver.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BadDesign.CarExample.DB
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getWeight
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BadDesign.CarExample.CarParts
+- sub_datastructure:
+    fqdn_class_name: Examples.BadDesign.CarExample.CarParts.Doors
+    filename: DotnetPreAdapter/example/baddesign/carexample/carparts/Doors.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: db
+      variable_type: Examples.BadDesign.CarExample.DB
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: getWeight
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: Examples.BadDesign.CarExample.CarParts
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Service.AnalyzeAST
+    filename: DotnetPreAdapter/service/AnalyzeAST.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: SearchRecurseCSharpToYAML
+      parameters:
+      - parameter_name: logger
+        parameter_type: DotNetPreAdapter.Utils.Logger
+      method_variables:
+      - variable_name: datastructure
+        variable_type: DotNetPreAdapter.Domain.Datastructure
+      - variable_name: recurseFileProcess
+        variable_type: DotNetPreAdapter.Service.RecursiveFileProcessor
+      - variable_name: tree
+        variable_type: SyntaxTree
+      - variable_name: root
+        variable_type: CompilationUnitSyntax
+      - variable_name: model
+        variable_type: SemanticModel
+      - variable_name: visitor
+        variable_type: DotNetPreAdapter.Domain.ASTVisitor
+      is_private: False
+    filemodule: DotNetPreAdapter.Service
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Service.RecursiveFileProcessor
+    filename: DotnetPreAdapter/service/RecurseFileProcessor.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: SearchPath
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: ProcessDirectory
+      parameters: []
+      method_variables: []
+      is_private: True
+    filemodule: DotNetPreAdapter.Service
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Infrastructure.CreateYml
+    filename: DotnetPreAdapter/infrastructure/CreateYml.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: Create
+      parameters:
+      - parameter_name: datastructure
+        parameter_type: DotNetPreAdapter.Domain.Datastructure
+      - parameter_name: logger
+        parameter_type: DotNetPreAdapter.Utils.Logger
+      method_variables:
+      - variable_name: subDatastructureYmlNode
+        variable_type: YamlSequenceNode
+      - variable_name: subDataStructure
+        variable_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      - variable_name: fromImports
+        variable_type: YamlSequenceNode
+      - variable_name: innerClasses
+        variable_type: YamlSequenceNode
+      - variable_name: anonymousCalls
+        variable_type: YamlSequenceNode
+      - variable_name: baseClasses
+        variable_type: YamlSequenceNode
+      - variable_name: statics
+        variable_type: YamlSequenceNode
+      - variable_name: variables
+        variable_type: YamlSequenceNode
+      - variable_name: methods
+        variable_type: YamlSequenceNode
+      - variable_name: parameters
+        variable_type: YamlSequenceNode
+      - variable_name: methodVariables
+        variable_type: YamlSequenceNode
+      - variable_name: stream
+        variable_type: YamlStream
+      - variable_name: writer
+        variable_type: System.IO.TextWriter
+      is_private: False
+    filemodule: DotNetPreAdapter.Infrastructure
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Domain.Datastructure
+    filename: DotnetPreAdapter/domain/Datastructure.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes:
+    - DotNetPreAdapter.Domain.Datastructure.Method
+    - DotNetPreAdapter.Domain.Datastructure.Static
+    - DotNetPreAdapter.Domain.Datastructure.Variable
+    - DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+    variables:
+    - variable_name: class_to_datastructure
+      variable_type: dict[string, DotNetPreAdapter.Domain.Datastructure.SubDataStructure]
+      is_member: True
+    - variable_name: namespace_to_datastructures
+      variable_type: dict[string, list[DotNetPreAdapter.Domain.Datastructure.SubDataStructure]]
+      is_member: True
+    - variable_name: namespace_to_namespace_list
+      variable_type: dict[string, list[string]]
+      is_member: True
+    - variable_name: logger
+      variable_type: DotNetPreAdapter.Utils.Logger
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: ResolveClassNames
+      parameters: []
+      method_variables:
+      - variable_name: variables
+        variable_type: list[DotNetPreAdapter.Domain.Datastructure.Variable]
+      - variable_name: variable
+        variable_type: DotNetPreAdapter.Domain.Datastructure.Variable
+      is_private: False
+    - method_name: CorrectClassScope
+      parameters:
+      - parameter_name: subDataStructure
+        parameter_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      method_variables: []
+      is_private: True
+    - method_name: getFQDNClassNameFromNamespacelist
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: GetFQDNForUsedClassName
+      parameters:
+      - parameter_name: subDataStructure
+        parameter_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      method_variables: []
+      is_private: True
+    - method_name: get_skip_types
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: append_sub_datastructure
+      parameters:
+      - parameter_name: sub_datastructure
+        parameter_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      method_variables: []
+      is_private: True
+    - method_name: append_class
+      parameters: []
+      method_variables:
+      - variable_name: sub_datastructure
+        variable_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      is_private: False
+    - method_name: get_classname_list
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_datastructures_from_class_name
+      parameters: []
+      method_variables: []
+      is_private: False
+    filemodule: DotNetPreAdapter.Domain
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Domain.Datastructure.Method
+    filename: DotnetPreAdapter/domain/Datastructure.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes:
+    - DotNetPreAdapter.Domain.Datastructure.Method.ParameterType
+    - DotNetPreAdapter.Domain.Datastructure.Method.Variable
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: True
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: AddVariable
+      parameters: []
+      method_variables: []
+      is_private: False
+    filemodule: DotNetPreAdapter.Domain
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Domain.Datastructure.Method.ParameterType
+    filename: DotnetPreAdapter/domain/Datastructure.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: True
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: DotNetPreAdapter.Domain
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Domain.Datastructure.Method.Variable
+    filename: DotnetPreAdapter/domain/Datastructure.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: True
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: DotNetPreAdapter.Domain
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Domain.Datastructure.Static
+    filename: DotnetPreAdapter/domain/Datastructure.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: True
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: DotNetPreAdapter.Domain
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Domain.Datastructure.Variable
+    filename: DotnetPreAdapter/domain/Datastructure.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables: []
+    is_abstract: True
+    is_interface: False
+    is_inner_class: True
+    base_classes: []
+    statics: []
+    methods: []
+    filemodule: DotNetPreAdapter.Domain
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+    filename: DotnetPreAdapter/domain/Datastructure.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: from_imports
+      variable_type: dict[string, string]
+      is_member: True
+    - variable_name: statics
+      variable_type: list[DotNetPreAdapter.Domain.Datastructure.Static]
+      is_member: True
+    - variable_name: variables
+      variable_type: list[DotNetPreAdapter.Domain.Datastructure.Variable]
+      is_member: True
+    - variable_name: methods
+      variable_type: list[DotNetPreAdapter.Domain.Datastructure.Method]
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: True
+    base_classes: []
+    statics: []
+    methods:
+    - method_name: set_abstract
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: setInterface
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: setInnerClass
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: getUsings
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: addImport
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: getImports
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: addGenericType
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: addAnonymousInvocation
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: addAnonymousStaticInvocation
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: add_base_class
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: add_static
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: add_method
+      parameters:
+      - parameter_name: arguments_tuple_
+        parameter_type: list[tuple[string, string, string]]
+      method_variables:
+      - variable_name: Arguments_
+        variable_type: list[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType]
+      is_private: False
+    - method_name: GetMethod
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: add_variable
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: add_inner_class
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: is_abstract
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: IsInterface
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: IsInnerClass
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: has_static_fields
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: has_method_fields
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: has_variables_fields
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: getAnonymousInvocation
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: getAnonymousStaticInvocation
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: getGenericTypes
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_from_imports
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_fqdn_class_name
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_base_classes
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_static_fields
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_method_fields
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_variable_fields
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_inner_class_name
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_filename
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_filemodule
+      parameters: []
+      method_variables: []
+      is_private: False
+    - method_name: get_name_space_list
+      parameters: []
+      method_variables: []
+      is_private: False
+    filemodule: DotNetPreAdapter.Domain
+- sub_datastructure:
+    fqdn_class_name: DotNetPreAdapter.Domain.ASTVisitor
+    filename: DotnetPreAdapter/domain/ASTVisitor.cs
+    from_imports: []
+    anonymous_calls: []
+    inner_classes: []
+    variables:
+    - variable_name: datastructure
+      variable_type: DotNetPreAdapter.Domain.Datastructure
+      is_member: True
+    - variable_name: model
+      variable_type: SemanticModel
+      is_member: True
+    - variable_name: usingDict
+      variable_type: dict[string, string]
+      is_member: True
+    - variable_name: logger
+      variable_type: DotNetPreAdapter.Utils.Logger
+      is_member: True
+    is_abstract: True
+    is_interface: False
+    is_inner_class: False
+    base_classes:
+    - CSharpSyntaxWalker
+    statics: []
+    methods:
+    - method_name: SimplifyType
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: SyntaxNode
+      parameters:
+      - parameter_name: node
+        parameter_type: SyntaxNode
+      method_variables:
+      - variable_name: convertedType
+        variable_type: ITypeSymbol
+      is_private: False
+    - method_name: GetCurrentClassName
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: CreateClassInterface
+      parameters:
+      - parameter_name: node
+        parameter_type: T
+      method_variables:
+      - variable_name: parentSubDataStructure
+        variable_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      - variable_name: subDataStructure
+        variable_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      - variable_name: tmpBase
+        variable_type: ITypeSymbol
+      is_private: True
+    - method_name: getCurrentContext
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: ArgumentsTupleToString
+      parameters:
+      - parameter_name: arguments_tuple
+        parameter_type: list[Tuple[string, string, string]]
+      method_variables: []
+      is_private: True
+    - method_name: cleanForRegEx
+      parameters: []
+      method_variables: []
+      is_private: True
+    - method_name: VisitNamespaceDeclaration
+      parameters:
+      - parameter_name: node
+        parameter_type: NamespaceDeclarationSyntax
+      method_variables: []
+      is_private: False
+    - method_name: VisitUsingDirective
+      parameters:
+      - parameter_name: node
+        parameter_type: UsingDirectiveSyntax
+      method_variables: []
+      is_private: False
+    - method_name: VisitEnumDeclaration
+      parameters:
+      - parameter_name: node
+        parameter_type: EnumDeclarationSyntax
+      method_variables: []
+      is_private: False
+    - method_name: VisitInterfaceDeclaration
+      parameters:
+      - parameter_name: node
+        parameter_type: InterfaceDeclarationSyntax
+      method_variables: []
+      is_private: False
+    - method_name: VisitClassDeclaration
+      parameters:
+      - parameter_name: node
+        parameter_type: ClassDeclarationSyntax
+      method_variables: []
+      is_private: False
+    - method_name: VisitMethodDeclaration
+      parameters:
+      - parameter_name: node
+        parameter_type: MethodDeclarationSyntax
+      method_variables:
+      - variable_name: arguments_tuple
+        variable_type: list[Tuple[string, string, string]]
+      - variable_name: parameterSymbol
+        variable_type: IParameterSymbol
+      - variable_name: subDataStructure
+        variable_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      is_private: False
+    - method_name: VisitVariableDeclaration
+      parameters:
+      - parameter_name: node
+        parameter_type: VariableDeclarationSyntax
+      method_variables:
+      - variable_name: subDataStructure
+        variable_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
+      - variable_name: aliasInfo
+        variable_type: IAliasSymbol
+      - variable_name: type
+        variable_type: ITypeSymbol
+      - variable_name: method
+        variable_type: DotNetPreAdapter.Domain.Datastructure.Method
+      is_private: False
+    filemodule: DotNetPreAdapter.Domain
+...

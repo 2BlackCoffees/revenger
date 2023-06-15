@@ -1,0 +1,22 @@
+@startuml
+skinparam linetype ortho
+title <size:20>IComparable **simplified** </size>
+note "Your are analyzing:\nIComparable **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* IComparable **detailed** :\n   [[IComparable-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class IComparable [[IComparable-diagram-simplified.svg]] #yellow {
+}
+  abstract class DotNetPreAdapter.Utils.LoggingType [[DotNetPreAdapter.Utils.LoggingType-diagram-simplified.svg]]  {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass [[MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+IComparable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+IComparable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+@enduml

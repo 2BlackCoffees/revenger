@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.infrastructure.CreateYML **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\npreadapter.infrastructure.CreateYML **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.infrastructure.CreateYML **detailed** and **grouped per namespace**:\n   [[preadapter.infrastructure.CreateYML-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class DumperOptions.FlowStyle [[DumperOptions.FlowStyle-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
@@ -8,12 +9,6 @@ class Mark [[Mark-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 class dictpingNode [[dictpingNode-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 }
 class SequenceNode [[SequenceNode-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
-class dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC [[dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
-class list_BRQTO_String_BRQTC [[list_BRQTO_String_BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
-class SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC [[SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 }
 class Yaml [[Yaml-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
 }
@@ -30,8 +25,6 @@ class preadapter.Logger [[preadapter.Logger-diagram-simplified-grouped-per-names
 namespace preadapter [[preadapter-diagram-simplified-grouped-per-namespace.svg]] {
 namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] {
   class preadapter.domain.Datastructure [[preadapter.domain.Datastructure-diagram-simplified-grouped-per-namespace.svg]]  {
-  }
-  class preadapter.domain.Datastructure_DOT_SubDataStructure [[preadapter.domain.Datastructure_DOT_SubDataStructure-diagram-simplified-grouped-per-namespace.svg]]  {
   }
 'Compared namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -58,23 +51,16 @@ namespace preadapter.infrastructure [[preadapter.infrastructure-diagram-simplifi
 ' preadapter
 ' Class relations extracted from namespace:
 ' preadapter.domain
-preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_SubDataStructure 
-preadapter.domain.Datastructure .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.Datastructure .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> list_BRQTO_String_BRQTC  : uses 
+preadapter.domain.Datastructure *-[#10BB10]- preadapter.Logger 
 ' Class relations extracted from namespace:
 ' preadapter.infrastructure
-preadapter.infrastructure.CreateYML .[#6060BB].> DumperOptions.FlowStyle  : uses 
-preadapter.infrastructure.CreateYML .[#6060BB].> Mark  : uses 
+preadapter.infrastructure.CreateYML *-[#10BB10]- DumperOptions.FlowStyle 
+preadapter.infrastructure.CreateYML *-[#10BB10]- Mark 
 preadapter.infrastructure.CreateYML .[#6060BB].> dictpingNode  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> SequenceNode  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC  : uses 
-preadapter.infrastructure.CreateYML .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> SequenceNode  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.domain.Datastructure  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.Logger  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> Yaml  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> PrintWriter  : uses 
 @enduml

@@ -1,0 +1,28 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BasicExample.IExample **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BasicExample.IExample **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BasicExample.IExample **detailed** and **grouped per namespace**:\n   [[Examples.BasicExample.IExample-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BasicExample [[Examples.BasicExample-diagram-simplified-grouped-per-namespace.svg]] {
+  interface Examples.BasicExample.IExample [[Examples.BasicExample.IExample-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  class Examples.BasicExample.Useless [[Examples.BasicExample.Useless-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+  class Examples.BasicExample.ClassExample [[Examples.BasicExample.ClassExample-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace Examples.BasicExample [[Examples.BasicExample-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BasicExample
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.IExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.Useless 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.IExample  : uses 
+@enduml

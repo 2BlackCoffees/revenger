@@ -1,0 +1,76 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Type **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nType **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Type **simplified** and **grouped per namespace**:\n   [[Type-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Type [[Type-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] {
+  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-detailed-grouped-per-namespace.svg]]  {
+    + logger: preadapter.Logger
+    + datastructure: preadapter.domain.Datastructure
+    + activeMethodList: list[String]
+    + activeClassnameList: list[String]
+    + namespaceList: list[String]
+    + allUsing: list[String]
+    + usingDict: dict[String,String]
+    + deepness: <not!yet_QSTN_read}file>HandleDeepness
+    + ignoreType: list[String]
+==
+    + SimplifyType(<font color="6060BB">type:String</font>): <font color="BB6060">String</font>
+--
+    + CreateClassInterface(<font color="6060BB">node:ClassOrInterfaceDeclaration</font>): <font color="BB6060">String</font>
+    - <font color="909090">CreateClassInterface.fqdnCurrentClassName: String</font>
+    - <font color="909090">CreateClassInterface.fqdnParentClassName: String</font>
+    - <font color="909090">CreateClassInterface.fqdnCurrentClassNameFinal: String</font>
+    - <font color="909090">CreateClassInterface.extendedTypeStr: String</font>
+--
+    - addArgumentType(<font color="6060BB">methodName:String, fqdnParentClassName:String, parameterType:Type, parameterName:String, argumentsTuple:list[tuple[String,String,String]]</font>): <font color="BB6060">void</font>
+    - <font color="909090">addArgumentType.argumentTypeString: String</font>
+    - <font color="909090">addArgumentType.mostProbableNS: String</font>
+--
+    + visit(<font color="6060BB">n:MethodDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    - <font color="909090">visit.methodName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.className: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.argumentTypeString: String</font>
+    - <font color="909090">visit.mostProbableNS: String</font>
+    - <font color="909090">visit.variableDeclarator: VariableDeclarator</font>
+    - <font color="909090">visit.importName: String</font>
+    - <font color="909090">visit.enumValueName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.fqdnCurrentClassName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.methodName: String</font>
+--
+    + visit(<font color="6060BB">n:ClassOrInterfaceDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:FieldDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:PackageDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ImportDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumConstantDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VariableDeclarator, arg:Void</font>): <font color="BB6060">void</font>
+--
+    + main(<font color="6060BB">args:String</font>): <font color="BB6060">void</font>
+    - <font color="909090">main.cu: CompilationUnit</font>
+    - <font color="909090">main.file: String</font>
+--
+  }
+'Compared namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace domain
+}
+' Closing namespace preadapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.ASTVisitor .[#6060BB].> Type  : uses 
+@enduml

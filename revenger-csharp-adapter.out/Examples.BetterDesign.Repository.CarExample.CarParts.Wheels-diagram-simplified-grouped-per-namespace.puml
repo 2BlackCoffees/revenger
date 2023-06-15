@@ -1,0 +1,52 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.CarExample.CarParts.Wheels **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.CarParts.Wheels **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.CarExample.CarParts.Wheels **detailed** and **grouped per namespace**:\n   [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-simplified-grouped-per-namespace.svg]] {
+      abstract class Examples.BetterDesign.Repository.CarExample.DBCar [[Examples.BetterDesign.Repository.CarExample.DBCar-diagram-simplified-grouped-per-namespace.svg]]  {
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-simplified-grouped-per-namespace.svg]]  {
+      }
+'Compared namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-simplified-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample.CarParts [[Examples.BetterDesign.Repository.CarExample.CarParts-diagram-simplified-grouped-per-namespace.svg]] {
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Wheels [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+        }
+'Compared namespace Examples.BetterDesign.Repository.CarExample.CarParts [[Examples.BetterDesign.Repository.CarExample.CarParts-diagram-simplified-grouped-per-namespace.svg]] { with last element of         }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarParts
+}
+' Closing namespace CarExample
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.CarParts
+Examples.BetterDesign.Repository.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+@enduml

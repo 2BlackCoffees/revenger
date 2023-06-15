@@ -1,0 +1,25 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BasicExample.AbstractBaseExample **detailed** </size>
+note "Your are analyzing:\nExamples.BasicExample.AbstractBaseExample **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BasicExample.AbstractBaseExample **simplified** :\n   [[Examples.BasicExample.AbstractBaseExample-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  abstract class Examples.BasicExample.AbstractBaseExample [[Examples.BasicExample.AbstractBaseExample-diagram-detailed.svg]] #yellow {
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+  }
+  class Examples.BasicExample.Useless [[Examples.BasicExample.Useless-diagram-detailed.svg]]  {
+    + useless(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - <font color="909090">useless.testEnum: Examples.BasicExample.SideExample.SideTestEnum</font>
+--
+  }
+  class Examples.BasicExample.BaseExample [[Examples.BasicExample.BaseExample-diagram-detailed.svg]]  {
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+    + otherExample(<font color="6060BB"></font>): <font color="BB6060">void</font>
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.AbstractBaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.AbstractBaseExample <|-[#red]- Examples.BasicExample.BaseExample
+Examples.BasicExample.BaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+@enduml

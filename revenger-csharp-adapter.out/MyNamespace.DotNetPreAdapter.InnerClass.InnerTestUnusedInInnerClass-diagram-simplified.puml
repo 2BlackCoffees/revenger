@@ -1,0 +1,29 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass **simplified** </size>
+note "Your are analyzing:\nMyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass **detailed** :\n   [[MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Enum [[Enum-diagram-simplified.svg]] #MintCream {
+}
+class IComparable [[IComparable-diagram-simplified.svg]] #MintCream {
+}
+class IFormattable [[IFormattable-diagram-simplified.svg]] #MintCream {
+}
+class IConvertible [[IConvertible-diagram-simplified.svg]] #MintCream {
+}
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass [[MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-simplified.svg]] #yellow {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+Enum <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IComparable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IFormattable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IConvertible <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+MyNamespace.DotNetPreAdapter.InnerClass +-[#10BBBB]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass 
+@enduml

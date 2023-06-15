@@ -1,0 +1,59 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.DotNetPreAdapter.UnusedASTVisitor **detailed** </size>
+note "Your are analyzing:\nMyNamespace.DotNetPreAdapter.UnusedASTVisitor **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.DotNetPreAdapter.UnusedASTVisitor **simplified** :\n   [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class CSharpSyntaxWalker [[CSharpSyntaxWalker-diagram-detailed.svg]] #MintCream {
+}
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-detailed.svg]]  {
+    + class_to_datastructure: dict[string, DotNetPreAdapter.Domain.Datastructure.SubDataStructure]
+    + namespace_to_datastructures: dict[string, list[DotNetPreAdapter.Domain.Datastructure.SubDataStructure]]
+    + namespace_to_namespace_list: dict[string, list[string]]
+    + logger: DotNetPreAdapter.Utils.Logger
+==
+    + ResolveClassNames(<font color="6060BB"></font>)
+    - <font color="909090">ResolveClassNames.variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]</font>
+    - <font color="909090">ResolveClassNames.variable: DotNetPreAdapter.Domain.Datastructure.Variable</font>
+--
+    - CorrectClassScope(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    - getFQDNClassNameFromNamespacelist(<font color="6060BB"></font>)
+    - GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    + get_skip_types(<font color="6060BB"></font>)
+    - append_sub_datastructure(<font color="6060BB">sub_datastructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+--
+    + append_class(<font color="6060BB"></font>)
+    - <font color="909090">append_class.sub_datastructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+--
+    + get_classname_list(<font color="6060BB"></font>)
+    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed.svg]]  {
+    + loggingType: DotNetPreAdapter.Utils.LoggingType
+==
+    - log(<font color="6060BB"></font>)
+    + LogError(<font color="6060BB"></font>)
+    + LogWarning(<font color="6060BB"></font>)
+    + LogInfo(<font color="6060BB"></font>)
+    + LogDebug(<font color="6060BB"></font>)
+    + LogTrace(<font color="6060BB"></font>)
+  }
+  abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-detailed.svg]] #yellow {
+    + logger: DotNetPreAdapter.Utils.Logger
+    + unusedD: DotNetPreAdapter.Domain.Datastructure
+==
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+CSharpSyntaxWalker <|-[#red]- MyNamespace.DotNetPreAdapter.UnusedASTVisitor
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+@enduml

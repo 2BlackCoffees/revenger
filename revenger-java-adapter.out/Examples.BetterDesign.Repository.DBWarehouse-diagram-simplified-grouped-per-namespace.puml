@@ -1,0 +1,54 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.DBWarehouse **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.DBWarehouse **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.DBWarehouse **detailed** and **grouped per namespace**:\n   [[Examples.BetterDesign.Repository.DBWarehouse-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-simplified-grouped-per-namespace.svg]] {
+    class Examples.BetterDesign.Repository.DBWarehouse [[Examples.BetterDesign.Repository.DBWarehouse-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+    }
+'Compared namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-simplified-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.WarehouseEntities [[Examples.BetterDesign.Repository.WarehouseEntities-diagram-simplified-grouped-per-namespace.svg]] {
+      class Examples.BetterDesign.Repository.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.WarehouseEntities.Customer-diagram-simplified-grouped-per-namespace.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.WarehouseEntities.Invoice-diagram-simplified-grouped-per-namespace.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Car [[Examples.BetterDesign.Repository.WarehouseEntities.Car-diagram-simplified-grouped-per-namespace.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.WarehouseEntities.Complaints-diagram-simplified-grouped-per-namespace.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.User [[Examples.BetterDesign.Repository.WarehouseEntities.User-diagram-simplified-grouped-per-namespace.svg]]  {
+      }
+'Compared namespace Examples.BetterDesign.Repository.WarehouseEntities [[Examples.BetterDesign.Repository.WarehouseEntities-diagram-simplified-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace WarehouseEntities
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Invoice  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Complaints  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.WarehouseEntities
+@enduml

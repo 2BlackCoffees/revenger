@@ -1,0 +1,25 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Service.SemanticModel **detailed** </size>
+note "Your are analyzing:\nDotNetPreAdapter.Service.SemanticModel **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Service.SemanticModel **simplified** :\n   [[DotNetPreAdapter.Service.SemanticModel-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class DotNetPreAdapter.Service.SemanticModel [[DotNetPreAdapter.Service.SemanticModel-diagram-detailed.svg]] #yellow {
+}
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed.svg]]  {
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.tree: DotNetPreAdapter.Service.SyntaxTree</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.root: DotNetPreAdapter.Service.CompilationUnitSyntax</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.model: DotNetPreAdapter.Service.SemanticModel</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.visitor: DotNetPreAdapter.Domain.ASTVisitor</font>
+--
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Service.SemanticModel  : uses 
+@enduml

@@ -1,61 +1,14 @@
 @startuml
+skinparam linetype ortho
 title <size:20>Full diagram **simplified**</size>
 note "Your are analyzing:\nFull diagram **simplified**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed**:\n   [[full-diagram-detailed.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
-class EnumTest [[EnumTest-diagram-simplified.svg]] #MintCream {
-}
-class EnumTypePlaceHolder [[EnumTypePlaceHolder-diagram-simplified.svg]] #MintCream {
-}
-class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class AnalyzeAST_BRQTO__BRQTC [[AnalyzeAST_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class list_BRQTO_Variable_BRQTC [[list_BRQTO_Variable_BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class Variable [[Variable-diagram-simplified.svg]] #MintCream {
-}
-class Method [[Method-diagram-simplified.svg]] #MintCream {
-}
-class SubDataStructure [[SubDataStructure-diagram-simplified.svg]] #MintCream {
-}
-class list_BRQTO_String_BRQTC [[list_BRQTO_String_BRQTC-diagram-simplified.svg]] #MintCream {
-}
 class VoidVisitorAdapter_BRQTO_Void_BRQTC [[VoidVisitorAdapter_BRQTO_Void_BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class HandleDeepness [[HandleDeepness-diagram-simplified.svg]] #MintCream {
-}
-class ClassOrInterfaceDeclaration [[ClassOrInterfaceDeclaration-diagram-simplified.svg]] #MintCream {
-}
-class MethodDeclaration [[MethodDeclaration-diagram-simplified.svg]] #MintCream {
-}
-class Void [[Void-diagram-simplified.svg]] #MintCream {
-}
-class list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC [[list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class Optional_DOT_empty [[Optional_DOT_empty-diagram-simplified.svg]] #MintCream {
-}
-class VariableDeclarator [[VariableDeclarator-diagram-simplified.svg]] #MintCream {
-}
-class n_DOT_getNameAsString_BRQTO__BRQTC [[n_DOT_getNameAsString_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class n_DOT_getTypeAsString_BRQTO__BRQTC [[n_DOT_getTypeAsString_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC [[n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class FieldDeclaration [[FieldDeclaration-diagram-simplified.svg]] #MintCream {
-}
-class PackageDeclaration [[PackageDeclaration-diagram-simplified.svg]] #MintCream {
-}
-class ImportDeclaration [[ImportDeclaration-diagram-simplified.svg]] #MintCream {
-}
-class EnumConstantDeclaration [[EnumConstantDeclaration-diagram-simplified.svg]] #MintCream {
-}
-class EnumDeclaration [[EnumDeclaration-diagram-simplified.svg]] #MintCream {
-}
-class CompilationUnit [[CompilationUnit-diagram-simplified.svg]] #MintCream {
 }
 class PrintStream [[PrintStream-diagram-simplified.svg]] #MintCream {
 }
 class AnnotationDeclaration [[AnnotationDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class Void [[Void-diagram-simplified.svg]] #MintCream {
 }
 class AnnotationMemberDeclaration [[AnnotationMemberDeclaration-diagram-simplified.svg]] #MintCream {
 }
@@ -91,7 +44,11 @@ class CharLiteralExpr [[CharLiteralExpr-diagram-simplified.svg]] #MintCream {
 }
 class ClassExpr [[ClassExpr-diagram-simplified.svg]] #MintCream {
 }
+class ClassOrInterfaceDeclaration [[ClassOrInterfaceDeclaration-diagram-simplified.svg]] #MintCream {
+}
 class ClassOrInterfaceType [[ClassOrInterfaceType-diagram-simplified.svg]] #MintCream {
+}
+class CompilationUnit [[CompilationUnit-diagram-simplified.svg]] #MintCream {
 }
 class ConditionalExpr [[ConditionalExpr-diagram-simplified.svg]] #MintCream {
 }
@@ -107,17 +64,25 @@ class EmptyStmt [[EmptyStmt-diagram-simplified.svg]] #MintCream {
 }
 class EnclosedExpr [[EnclosedExpr-diagram-simplified.svg]] #MintCream {
 }
+class EnumConstantDeclaration [[EnumConstantDeclaration-diagram-simplified.svg]] #MintCream {
+}
+class EnumDeclaration [[EnumDeclaration-diagram-simplified.svg]] #MintCream {
+}
 class ExplicitConstructorInvocationStmt [[ExplicitConstructorInvocationStmt-diagram-simplified.svg]] #MintCream {
 }
 class ExpressionStmt [[ExpressionStmt-diagram-simplified.svg]] #MintCream {
 }
 class FieldAccessExpr [[FieldAccessExpr-diagram-simplified.svg]] #MintCream {
 }
+class FieldDeclaration [[FieldDeclaration-diagram-simplified.svg]] #MintCream {
+}
 class ForEachStmt [[ForEachStmt-diagram-simplified.svg]] #MintCream {
 }
 class ForStmt [[ForStmt-diagram-simplified.svg]] #MintCream {
 }
 class IfStmt [[IfStmt-diagram-simplified.svg]] #MintCream {
+}
+class ImportDeclaration [[ImportDeclaration-diagram-simplified.svg]] #MintCream {
 }
 class InitializerDeclaration [[InitializerDeclaration-diagram-simplified.svg]] #MintCream {
 }
@@ -145,6 +110,8 @@ class MemberValuetuple [[MemberValuetuple-diagram-simplified.svg]] #MintCream {
 }
 class MethodCallExpr [[MethodCallExpr-diagram-simplified.svg]] #MintCream {
 }
+class MethodDeclaration [[MethodDeclaration-diagram-simplified.svg]] #MintCream {
+}
 class MethodReferenceExpr [[MethodReferenceExpr-diagram-simplified.svg]] #MintCream {
 }
 class ModuleDeclaration [[ModuleDeclaration-diagram-simplified.svg]] #MintCream {
@@ -170,6 +137,8 @@ class NormalAnnotationExpr [[NormalAnnotationExpr-diagram-simplified.svg]] #Mint
 class NullLiteralExpr [[NullLiteralExpr-diagram-simplified.svg]] #MintCream {
 }
 class ObjectCreationExpr [[ObjectCreationExpr-diagram-simplified.svg]] #MintCream {
+}
+class PackageDeclaration [[PackageDeclaration-diagram-simplified.svg]] #MintCream {
 }
 class Parameter [[Parameter-diagram-simplified.svg]] #MintCream {
 }
@@ -211,11 +180,17 @@ class UnparsableStmt [[UnparsableStmt-diagram-simplified.svg]] #MintCream {
 }
 class VariableDeclarationExpr [[VariableDeclarationExpr-diagram-simplified.svg]] #MintCream {
 }
+class VariableDeclarator [[VariableDeclarator-diagram-simplified.svg]] #MintCream {
+}
 class VoidType [[VoidType-diagram-simplified.svg]] #MintCream {
 }
 class WhileStmt [[WhileStmt-diagram-simplified.svg]] #MintCream {
 }
 class WildcardType [[WildcardType-diagram-simplified.svg]] #MintCream {
+}
+class Type [[Type-diagram-simplified.svg]] #MintCream {
+}
+class Node [[Node-diagram-simplified.svg]] #MintCream {
 }
 class DumperOptions.FlowStyle [[DumperOptions.FlowStyle-diagram-simplified.svg]] #MintCream {
 }
@@ -225,40 +200,84 @@ class dictpingNode [[dictpingNode-diagram-simplified.svg]] #MintCream {
 }
 class SequenceNode [[SequenceNode-diagram-simplified.svg]] #MintCream {
 }
-class dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC [[dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC [[SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC-diagram-simplified.svg]] #MintCream {
-}
 class Yaml [[Yaml-diagram-simplified.svg]] #MintCream {
 }
 class PrintWriter [[PrintWriter-diagram-simplified.svg]] #MintCream {
 }
-class RecursiveFileProcessor_BRQTO__BRQTC [[RecursiveFileProcessor_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
-}
-class DirectoryStream_BRQTO_Path_BRQTC [[DirectoryStream_BRQTO_Path_BRQTC-diagram-simplified.svg]] #MintCream {
-}
 class Path [[Path-diagram-simplified.svg]] #MintCream {
 }
-class Example.ClassExample [[Example.ClassExample-diagram-simplified.svg]]  {
-}
-class Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample-diagram-simplified.svg]]  {
-}
-class Example.Useless [[Example.Useless-diagram-simplified.svg]]  {
-}
-interface Example.IExample [[Example.IExample-diagram-simplified.svg]]  {
-}
-class Example.BaseExample_DOT_EnumTest [[Example.BaseExample_DOT_EnumTest-diagram-simplified.svg]]  {
-}
-abstract class Example.AbstractBaseExample [[Example.AbstractBaseExample-diagram-simplified.svg]]  {
-}
-class Example.ClassExample_DOT_InnerClassExample [[Example.ClassExample_DOT_InnerClassExample-diagram-simplified.svg]]  {
-}
-class Example.BaseExample [[Example.BaseExample-diagram-simplified.svg]]  {
-}
-  class Example.SideExample.SideTestEnum [[Example.SideExample.SideTestEnum-diagram-simplified.svg]]  {
+  class Examples.BadDesign.DB [[Examples.BadDesign.DB-diagram-simplified.svg]]  {
   }
-  class Example.SideExample.SideExample [[Example.SideExample.SideExample-diagram-simplified.svg]]  {
+    class Examples.BadDesign.CarExample.Vehicle [[Examples.BadDesign.CarExample.Vehicle-diagram-simplified.svg]]  {
+    }
+    class Examples.BadDesign.CarExample.Car [[Examples.BadDesign.CarExample.Car-diagram-simplified.svg]]  {
+    }
+      class Examples.BadDesign.CarExample.CarParts.Driver [[Examples.BadDesign.CarExample.CarParts.Driver-diagram-simplified.svg]]  {
+      }
+      class Examples.BadDesign.CarExample.CarParts.Seats [[Examples.BadDesign.CarExample.CarParts.Seats-diagram-simplified.svg]]  {
+      }
+      class Examples.BadDesign.CarExample.CarParts.Wheels [[Examples.BadDesign.CarExample.CarParts.Wheels-diagram-simplified.svg]]  {
+      }
+      class Examples.BadDesign.CarExample.CarParts.Doors [[Examples.BadDesign.CarExample.CarParts.Doors-diagram-simplified.svg]]  {
+      }
+    class Examples.BadDesign.WarehouseEntitities.Complaints [[Examples.BadDesign.WarehouseEntitities.Complaints-diagram-simplified.svg]]  {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Invoice [[Examples.BadDesign.WarehouseEntitities.Invoice-diagram-simplified.svg]]  {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Car [[Examples.BadDesign.WarehouseEntitities.Car-diagram-simplified.svg]]  {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Customer [[Examples.BadDesign.WarehouseEntitities.Customer-diagram-simplified.svg]]  {
+    }
+    class Examples.BadDesign.WarehouseEntitities.User [[Examples.BadDesign.WarehouseEntitities.User-diagram-simplified.svg]]  {
+    }
+  class Examples.BasicExample.ClassExample_DOT_InnerClassExample [[Examples.BasicExample.ClassExample.InnerClassExample-diagram-simplified.svg]]  {
   }
+  class Examples.BasicExample.Useless [[Examples.BasicExample.Useless-diagram-simplified.svg]]  {
+  }
+  class Examples.BasicExample.BaseExample [[Examples.BasicExample.BaseExample-diagram-simplified.svg]]  {
+  }
+  abstract class Examples.BasicExample.AbstractBaseExample [[Examples.BasicExample.AbstractBaseExample-diagram-simplified.svg]]  {
+  }
+  interface Examples.BasicExample.IExample [[Examples.BasicExample.IExample-diagram-simplified.svg]]  {
+  }
+  class Examples.BasicExample.BaseExample_DOT_EnumTest [[Examples.BasicExample.BaseExample.EnumTest-diagram-simplified.svg]]  {
+  }
+  class Examples.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Examples.BasicExample.ClassExample.InnerClassExample.classInMethodExample-diagram-simplified.svg]]  {
+  }
+  class Examples.BasicExample.ClassExample [[Examples.BasicExample.ClassExample-diagram-simplified.svg]]  {
+  }
+    class Examples.BasicExample.SideExample.SideExample [[Examples.BasicExample.SideExample.SideExample-diagram-simplified.svg]]  {
+    }
+    class Examples.BasicExample.SideExample.SideTestEnum [[Examples.BasicExample.SideExample.SideTestEnum-diagram-simplified.svg]]  {
+    }
+  class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-simplified.svg]]  {
+  }
+    class Examples.BetterDesign.Repository.DBCar [[Examples.BetterDesign.Repository.DBCar-diagram-simplified.svg]]  {
+    }
+    class Examples.BetterDesign.Repository.DBWarehouse [[Examples.BetterDesign.Repository.DBWarehouse-diagram-simplified.svg]]  {
+    }
+      class Examples.BetterDesign.Repository.CarExample.Vehicle [[Examples.BetterDesign.Repository.CarExample.Vehicle-diagram-simplified.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-simplified.svg]]  {
+      }
+        class Examples.BetterDesign.Repository.CarExample.CarParts.Seats [[Examples.BetterDesign.Repository.CarExample.CarParts.Seats-diagram-simplified.svg]]  {
+        }
+        class Examples.BetterDesign.Repository.CarExample.CarParts.Driver [[Examples.BetterDesign.Repository.CarExample.CarParts.Driver-diagram-simplified.svg]]  {
+        }
+        class Examples.BetterDesign.Repository.CarExample.CarParts.Wheels [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-simplified.svg]]  {
+        }
+        class Examples.BetterDesign.Repository.CarExample.CarParts.Doors [[Examples.BetterDesign.Repository.CarExample.CarParts.Doors-diagram-simplified.svg]]  {
+        }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.WarehouseEntities.Customer-diagram-simplified.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.User [[Examples.BetterDesign.Repository.WarehouseEntities.User-diagram-simplified.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.WarehouseEntities.Invoice-diagram-simplified.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Car [[Examples.BetterDesign.Repository.WarehouseEntities.Car-diagram-simplified.svg]]  {
+      }
+      class Examples.BetterDesign.Repository.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.WarehouseEntities.Complaints-diagram-simplified.svg]]  {
+      }
 class preadapter.Logger [[preadapter.Logger-diagram-simplified.svg]]  {
 }
 class preadapter.LoggingType [[preadapter.LoggingType-diagram-simplified.svg]]  {
@@ -267,27 +286,27 @@ class preadapter.Revenger [[preadapter.Revenger-diagram-simplified.svg]]  {
 }
   class preadapter.domain.Datastructure [[preadapter.domain.Datastructure-diagram-simplified.svg]]  {
   }
-  class preadapter.domain.Datastructure_DOT_Static [[preadapter.domain.Datastructure_DOT_Static-diagram-simplified.svg]]  {
-  }
-  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified.svg]]  {
-  }
-  class preadapter.domain.Datastructure_DOT_Variable [[preadapter.domain.Datastructure_DOT_Variable-diagram-simplified.svg]]  {
-  }
-  class preadapter.domain.Datastructure_DOT_Method [[preadapter.domain.Datastructure_DOT_Method-diagram-simplified.svg]]  {
-  }
-  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness-diagram-simplified.svg]]  {
+  class preadapter.domain.Datastructure_DOT_Method_DOT_Variable [[preadapter.domain.Datastructure.Method.Variable-diagram-simplified.svg]]  {
   }
   class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified.svg]]  {
   }
-  class preadapter.domain.ASTVisitor_DOT_ObjectType [[preadapter.domain.ASTVisitor_DOT_ObjectType-diagram-simplified.svg]]  {
+  class preadapter.domain.Datastructure_DOT_Variable [[preadapter.domain.Datastructure.Variable-diagram-simplified.svg]]  {
   }
-  class preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType [[preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType-diagram-simplified.svg]]  {
+  class preadapter.domain.ASTVisitor_DOT_ObjectType [[preadapter.domain.ASTVisitor.ObjectType-diagram-simplified.svg]]  {
   }
-  class preadapter.domain.Datastructure_DOT_Method_DOT_Variable [[preadapter.domain.Datastructure_DOT_Method_DOT_Variable-diagram-simplified.svg]]  {
+  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug.HandleDeepness-diagram-simplified.svg]]  {
   }
-  class preadapter.domain.Datastructure_DOT_SubDataStructure [[preadapter.domain.Datastructure_DOT_SubDataStructure-diagram-simplified.svg]]  {
+  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified.svg]]  {
   }
-  class preadapter.domain.ASTVisitor_DOT_HandleDeepness [[preadapter.domain.ASTVisitor_DOT_HandleDeepness-diagram-simplified.svg]]  {
+  class preadapter.domain.Datastructure_DOT_Method [[preadapter.domain.Datastructure.Method-diagram-simplified.svg]]  {
+  }
+  class preadapter.domain.Datastructure_DOT_Static [[preadapter.domain.Datastructure.Static-diagram-simplified.svg]]  {
+  }
+  class preadapter.domain.Datastructure_DOT_SubDataStructure [[preadapter.domain.Datastructure.SubDataStructure-diagram-simplified.svg]]  {
+  }
+  class preadapter.domain.ASTVisitor_DOT_HandleDeepness [[preadapter.domain.ASTVisitor.HandleDeepness-diagram-simplified.svg]]  {
+  }
+  class preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType [[preadapter.domain.Datastructure.Method.ParameterType-diagram-simplified.svg]]  {
   }
   class preadapter.infrastructure.CreateYML [[preadapter.infrastructure.CreateYML-diagram-simplified.svg]]  {
   }
@@ -301,77 +320,103 @@ class preadapter.Revenger [[preadapter.Revenger-diagram-simplified.svg]]  {
 ' Class relations extracted from namespace:
 ' 
 ' Class relations extracted from namespace:
-' Example
-Example.BaseExample <|-[#red]- Example.ClassExample
-Example.ClassExample +-[#10BBBB]- Example.ClassExample_DOT_InnerClassExample 
-Example.ClassExample .[#6060BB].> Example.Useless  : uses 
-Example.ClassExample .[#6060BB].> EnumTest  : uses 
-Example.ClassExample -[#909090]-> Example.BaseExample  : uses 
-Example.Useless -[#909090]-> Example.SideExample.SideTestEnum  : uses 
-Example.IExample .[#6060BB].> Example.Useless  : uses 
-Example.AbstractBaseExample .[#6060BB].> Example.Useless  : uses 
-Example.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Example.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
-Example.AbstractBaseExample <|-[#red]- Example.BaseExample
-Example.BaseExample +-[#10BBBB]- Example.BaseExample_DOT_EnumTest 
-Example.BaseExample .[#6060BB].> Example.Useless  : uses 
+' Examples.BadDesign
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.User  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Customer  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Car  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Invoice  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Complaints  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Wheels  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
 ' Class relations extracted from namespace:
-' Example.SideExample
-Example.SideExample.SideTestEnum .[#6060BB].> EnumTypePlaceHolder  : uses 
-Example.SideExample.SideExample .[#6060BB].> Example.SideExample.SideTestEnum  : uses 
+' Examples.BadDesign.CarExample
+Examples.BadDesign.CarExample.Vehicle *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Driver <|-[#red]- Examples.BadDesign.CarExample.Car
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.CarParts.Wheels 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.Car .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.CarExample.Car -[#909090]-> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.CarParts
+Examples.BadDesign.CarExample.CarParts.Driver *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Seats *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BadDesign.DB 
+Examples.BadDesign.CarExample.CarParts.Doors *-[#10BB10]- Examples.BadDesign.DB 
+' Class relations extracted from namespace:
+' Examples.BadDesign.WarehouseEntitities
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Examples.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+Examples.BasicExample.ClassExample.InnerClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.Useless -[#909090]-> Examples.BasicExample.SideExample.SideTestEnum  : uses 
+Examples.BasicExample.AbstractBaseExample <|-[#red]- Examples.BasicExample.BaseExample
+Examples.BasicExample.BaseExample +-[#10BBBB]- Examples.BasicExample.BaseExample_DOT_EnumTest 
+Examples.BasicExample.BaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.AbstractBaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.IExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.BaseExample <|-[#red]- Examples.BasicExample.ClassExample
+Examples.BasicExample.ClassExample +-[#10BBBB]- Examples.BasicExample.ClassExample_DOT_InnerClassExample 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.Useless 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.BaseExample.EnumTest 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.ClassExample -[#909090]-> Examples.BasicExample.BaseExample  : uses 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.IExample  : uses 
+' Class relations extracted from namespace:
+' Examples.BasicExample.SideExample
+Examples.BasicExample.SideExample.SideExample .[#6060BB].> Examples.BasicExample.SideExample.SideTestEnum  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Driver  : uses 
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Seats  : uses 
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Wheels  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Invoice  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.Complaints  : uses 
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+Examples.BetterDesign.Repository.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Seats 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Driver 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Doors 
+Examples.BetterDesign.Repository.CarExample.Car .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.CarParts
+Examples.BetterDesign.Repository.CarExample.CarParts.Seats *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Driver *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Doors *-[#10BB10]- Examples.BetterDesign.Repository.DBCar 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.WarehouseEntities
 ' Class relations extracted from namespace:
 ' preadapter
-preadapter.Logger .[#6060BB].> preadapter.LoggingType  : uses 
-preadapter.Logger -[#909090]-> String_BRQTO__BRQTC  : uses 
-preadapter.LoggingType .[#6060BB].> EnumTypePlaceHolder  : uses 
-preadapter.Revenger .[#6060BB].> String_BRQTO__BRQTC  : uses 
+preadapter.Logger *-[#10BB10]- preadapter.LoggingType 
 preadapter.Revenger -[#909090]-> preadapter.Logger  : uses 
-preadapter.Revenger -[#909090]-> AnalyzeAST_BRQTO__BRQTC  : uses 
 ' Class relations extracted from namespace:
 ' preadapter.domain
 preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method 
 preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Static 
 preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Variable 
 preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_SubDataStructure 
-preadapter.domain.Datastructure .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.Datastructure -[#909090]-> list_BRQTO_Variable_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> Variable  : uses 
-preadapter.domain.Datastructure -[#909090]-> Method  : uses 
-preadapter.domain.Datastructure -[#909090]-> SubDataStructure  : uses 
-preadapter.domain.Datastructure .[#6060BB].> SubDataStructure  : uses 
-preadapter.domain.Datastructure .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> list_BRQTO_String_BRQTC  : uses 
-preadapter.domain.Datastructure -[#909090]-> String_BRQTO__BRQTC  : uses 
-VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitor
-preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_ObjectType 
-preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_HandleDeepness 
-preadapter.domain.ASTVisitor .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> preadapter.domain.Datastructure  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> HandleDeepness  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> ClassOrInterfaceDeclaration  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> MethodDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> Void  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> Optional_DOT_empty  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> VariableDeclarator  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> n_DOT_getNameAsString_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> n_DOT_getTypeAsString_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> preadapter.domain.Datastructure_DOT_Method  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> FieldDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> PackageDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> ImportDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> EnumConstantDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> EnumDeclaration  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> VariableDeclarator  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> String_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor -[#909090]-> CompilationUnit  : uses 
-preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType 
-preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_Variable 
+preadapter.domain.Datastructure *-[#10BB10]- preadapter.Logger 
+preadapter.domain.Datastructure -[#909090]-> preadapter.domain.Datastructure_DOT_Method  : uses 
+preadapter.domain.Datastructure -[#909090]-> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
+preadapter.domain.Datastructure .[#6060BB].> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
 VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitorDebug
 preadapter.domain.ASTVisitorDebug +-[#10BBBB]- preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> PrintStream  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> HandleDeepness  : uses 
+preadapter.domain.ASTVisitorDebug *-[#10BB10]- PrintStream 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationDeclaration  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> Void  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationMemberDeclaration  : uses 
@@ -463,32 +508,44 @@ preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarator  : uses
 preadapter.domain.ASTVisitorDebug .[#6060BB].> VoidType  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> WhileStmt  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> WildcardType  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> String_BRQTO__BRQTC  : uses 
 preadapter.domain.ASTVisitorDebug -[#909090]-> CompilationUnit  : uses 
+VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitor
+preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_ObjectType 
+preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_HandleDeepness 
+preadapter.domain.ASTVisitor *-[#10BB10]- preadapter.Logger 
+preadapter.domain.ASTVisitor *-[#10BB10]- preadapter.domain.Datastructure 
+preadapter.domain.ASTVisitor .[#6060BB].> ClassOrInterfaceDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> Type  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> MethodDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> Void  : uses 
+preadapter.domain.ASTVisitor -[#909090]-> VariableDeclarator  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> FieldDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> PackageDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> ImportDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> EnumConstantDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> EnumDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> VariableDeclarator  : uses 
+preadapter.domain.ASTVisitor -[#909090]-> CompilationUnit  : uses 
+preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_ParameterType 
+preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_Variable 
+preadapter.domain.Datastructure.SubDataStructure .[#6060BB].> preadapter.domain.Datastructure_DOT_Method  : uses 
+preadapter.domain.ASTVisitor.HandleDeepness .[#6060BB].> Node  : uses 
+preadapter.domain.ASTVisitor.HandleDeepness .[#6060BB].> preadapter.domain.ASTVisitor_DOT_ObjectType  : uses 
 ' Class relations extracted from namespace:
 ' preadapter.infrastructure
-preadapter.infrastructure.CreateYML .[#6060BB].> DumperOptions.FlowStyle  : uses 
-preadapter.infrastructure.CreateYML .[#6060BB].> Mark  : uses 
+preadapter.infrastructure.CreateYML *-[#10BB10]- DumperOptions.FlowStyle 
+preadapter.infrastructure.CreateYML *-[#10BB10]- Mark 
 preadapter.infrastructure.CreateYML .[#6060BB].> dictpingNode  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> SequenceNode  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC  : uses 
-preadapter.infrastructure.CreateYML .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> SequenceNode  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.domain.Datastructure  : uses 
 preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.Logger  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC  : uses 
-preadapter.infrastructure.CreateYML -[#909090]-> preadapter.domain.Datastructure_DOT_SubDataStructure  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> Yaml  : uses 
 preadapter.infrastructure.CreateYML -[#909090]-> PrintWriter  : uses 
 ' Class relations extracted from namespace:
 ' preadapter.service
 preadapter.service.AnalyzeAST .[#6060BB].> preadapter.Logger  : uses 
 preadapter.service.AnalyzeAST -[#909090]-> preadapter.domain.Datastructure  : uses 
-preadapter.service.AnalyzeAST -[#909090]-> RecursiveFileProcessor_BRQTO__BRQTC  : uses 
-preadapter.service.AnalyzeAST -[#909090]-> list_BRQTO_String_BRQTC  : uses 
 preadapter.service.AnalyzeAST -[#909090]-> CompilationUnit  : uses 
-preadapter.service.RecursiveFileProcessor -[#909090]-> list_BRQTO_String_BRQTC  : uses 
-preadapter.service.RecursiveFileProcessor .[#6060BB].> list_BRQTO_String_BRQTC  : uses 
-preadapter.service.RecursiveFileProcessor -[#909090]-> DirectoryStream_BRQTO_Path_BRQTC  : uses 
 preadapter.service.RecursiveFileProcessor -[#909090]-> Path  : uses 
 @enduml

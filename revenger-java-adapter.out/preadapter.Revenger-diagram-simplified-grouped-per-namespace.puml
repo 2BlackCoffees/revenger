@@ -1,11 +1,7 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.Revenger **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\npreadapter.Revenger **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.Revenger **detailed** and **grouped per namespace**:\n   [[preadapter.Revenger-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
-class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
-class AnalyzeAST_BRQTO__BRQTC [[AnalyzeAST_BRQTO__BRQTC-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
-}
-' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
 namespace preadapter [[preadapter-diagram-simplified-grouped-per-namespace.svg]] {
 class preadapter.Revenger [[preadapter.Revenger-diagram-simplified-grouped-per-namespace.svg]] #yellow {
 }
@@ -19,11 +15,6 @@ class preadapter.Logger [[preadapter.Logger-diagram-simplified-grouped-per-names
  ' *************************************** 
  ' *************************************** 
 ' Class relations extracted from namespace:
-' 
-' Class relations extracted from namespace:
 ' preadapter
-preadapter.Revenger .[#6060BB].> String_BRQTO__BRQTC  : uses 
 preadapter.Revenger -[#909090]-> preadapter.Logger  : uses 
-preadapter.Revenger -[#909090]-> AnalyzeAST_BRQTO__BRQTC  : uses 
-preadapter.Logger -[#909090]-> String_BRQTO__BRQTC  : uses 
 @enduml

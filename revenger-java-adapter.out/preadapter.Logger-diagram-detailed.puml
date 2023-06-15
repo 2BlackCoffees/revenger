@@ -1,24 +1,23 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.Logger **detailed** </size>
 note "Your are analyzing:\npreadapter.Logger **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.Logger **simplified** :\n   [[preadapter.Logger-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
-class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-detailed.svg]] #MintCream {
-}
 class preadapter.Logger [[preadapter.Logger-diagram-detailed.svg]] #yellow {
   + loggingType: preadapter.LoggingType
 ==
-  - log(<font color="6060BB"></font>)
-  - <font color="909090">log.result: String_BRQTO__BRQTC</font>
+  - log(<font color="6060BB">logType:String, text:String, startText:String</font>): <font color="BB6060">void</font>
+  - <font color="909090">log.result: String[]</font>
 --
-  + logError(<font color="6060BB"></font>)
-  + logError(<font color="6060BB"></font>)
-  + logWarning(<font color="6060BB"></font>)
-  + logWarning(<font color="6060BB"></font>)
-  + logInfo(<font color="6060BB"></font>)
-  + logInfo(<font color="6060BB"></font>)
-  + logDebug(<font color="6060BB"></font>)
-  + logDebug(<font color="6060BB"></font>)
-  + logTrace(<font color="6060BB"></font>)
-  + logTrace(<font color="6060BB"></font>)
+  + logError(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logError(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logWarning(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logWarning(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logInfo(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logInfo(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logDebug(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logDebug(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
+  + logTrace(<font color="6060BB">text:String, startText:String</font>): <font color="BB6060">void</font>
+  + logTrace(<font color="6060BB">text:String</font>): <font color="BB6060">void</font>
 }
 class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed.svg]]  {
   + TRACE: EnumTypePlaceHolder
@@ -27,12 +26,14 @@ class preadapter.LoggingType [[preadapter.LoggingType-diagram-detailed.svg]]  {
   + WARNING: EnumTypePlaceHolder
   + ERROR: EnumTypePlaceHolder
 ==
-  + getValue(<font color="6060BB"></font>)
+  + getValue(<font color="6060BB"></font>): <font color="BB6060">int</font>
 }
 class preadapter.Revenger [[preadapter.Revenger-diagram-detailed.svg]]  {
-  + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
+  + main(<font color="6060BB">args:String</font>): <font color="BB6060">void</font>
+  - <font color="909090">main.from_dir: String</font>
+  - <font color="909090">main.to_dir: String</font>
   - <font color="909090">main.logger: preadapter.Logger</font>
-  - <font color="909090">main.ast: AnalyzeAST_BRQTO__BRQTC</font>
+  - <font color="909090">main.index: int</font>
 --
 }
   class preadapter.domain.Datastructure [[preadapter.domain.Datastructure-diagram-detailed.svg]]  {
@@ -42,27 +43,40 @@ class preadapter.Revenger [[preadapter.Revenger-diagram-detailed.svg]]  {
     + skip_types: list[String]
     + logger: preadapter.Logger
 ==
-    + ResolveClassNames(<font color="6060BB"></font>)
-    - <font color="909090">ResolveClassNames.variables: list_BRQTO_Variable_BRQTC</font>
-    - <font color="909090">ResolveClassNames.variable: Variable</font>
-    - <font color="909090">ResolveClassNames.method: Method</font>
-    - <font color="909090">ResolveClassNames.subDataStructure: SubDataStructure</font>
+    + ResolveClassNames(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - <font color="909090">ResolveClassNames.variables: list[Variable]</font>
+    - <font color="909090">ResolveClassNames.variable: <not!yet?read}file>Variable</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.method: preadapter.domain.Datastructure.Method</font>
+    - <font color="909090">ResolveClassNames.subDataStructure: preadapter.domain.Datastructure.SubDataStructure</font>
 --
-    - CorrectClassScope(<font color="6060BB">CorrectClassScope:SubDataStructure, CorrectClassScope:list_BRQTO_String_BRQTC</font>)
+    - CorrectClassScope(<font color="6060BB">subDataStructure:preadapter.domain.Datastructure.SubDataStructure, classNameList:list[String], isAnymousCall:boolean</font>): <font color="BB6060">void</font>
+    - <font color="909090">CorrectClassScope.index: int</font>
 --
-    + GetFQDNForUsedClassName(<font color="6060BB">GetFQDNForUsedClassName:SubDataStructure</font>)
-    - <font color="909090">GetFQDNForUsedClassName.classnameList: list_BRQTO_String_BRQTC</font>
-    - <font color="909090">GetFQDNForUsedClassName.fittingClassNames: String_BRQTO__BRQTC</font>
-    - <font color="909090">GetFQDNForUsedClassName.bestFittingClassNames: String_BRQTO__BRQTC</font>
+    + GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:preadapter.domain.Datastructure.SubDataStructure, classUsage:String, isAnonymousCall:boolean, mostProbableNamespace:String</font>): <font color="BB6060">String</font>
+    - <font color="909090">GetFQDNForUsedClassName.className: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.classnameList: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.finalClassName: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.fittingClassNames: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.classNameFromImports: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.classNameEndingInPackageImport: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.fqdnClassName: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.fqdnFromPackageImport: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.bestFittingClassNames: list[String]</font>
 --
-    + get_skip_types(<font color="6060BB"></font>)
-    + append_sub_datastructure(<font color="6060BB">append_sub_datastructure:SubDataStructure</font>)
+    + get_skip_types(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
 --
-    + append_class(<font color="6060BB">append_class:list_BRQTO_String_BRQTC, append_class:list_BRQTO_String_BRQTC</font>)
-    - <font color="909090">append_class.sub_datastructure: SubDataStructure</font>
+    + append_sub_datastructure(<font color="6060BB">sub_datastructure:preadapter.domain.Datastructure.SubDataStructure</font>): <font color="BB6060">void</font>
+    - <font color="909090">append_sub_datastructure.fqdn_class_name: String</font>
+    - <font color="909090">append_sub_datastructure.namespace_name: String</font>
 --
-    + get_classname_list(<font color="6060BB"></font>)
-    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+    + append_class(<font color="6060BB">filename:String, filemodule:String, usings:list[String], fqdn_class_name:String, nameSpaceList:list[String]</font>): <font color="BB6060">preadapter.domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">append_class.sub_datastructure: preadapter.domain.Datastructure.SubDataStructure</font>
+--
+    + get_classname_list(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + get_datastructures_from_class_name(<font color="6060BB">class_name:String</font>): <font color="BB6060">preadapter.domain.Datastructure.SubDataStructure</font>
   }
   class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-detailed.svg]]  {
     + logger: preadapter.Logger
@@ -72,41 +86,48 @@ class preadapter.Revenger [[preadapter.Revenger-diagram-detailed.svg]]  {
     + namespaceList: list[String]
     + allUsing: list[String]
     + usingDict: dict[String,String]
-    + deepness: HandleDeepness
+    + deepness: <not!yet_QSTN_read}file>HandleDeepness
     + ignoreType: list[String]
 ==
-    + SimplifyType(<font color="6060BB"></font>)
-    + cleanClassName(<font color="6060BB"></font>)
+    + SimplifyType(<font color="6060BB">type:String</font>): <font color="BB6060">String</font>
 --
-    + CreateClassInterface(<font color="6060BB">CreateClassInterface:ClassOrInterfaceDeclaration</font>)
-    - <font color="909090">CreateClassInterface.parentSubDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">CreateClassInterface.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
+    + CreateClassInterface(<font color="6060BB">node:ClassOrInterfaceDeclaration</font>): <font color="BB6060">String</font>
+    - <font color="909090">CreateClassInterface.fqdnCurrentClassName: String</font>
+    - <font color="909090">CreateClassInterface.fqdnParentClassName: String</font>
+    - <font color="909090">CreateClassInterface.fqdnCurrentClassNameFinal: String</font>
+    - <font color="909090">CreateClassInterface.extendedTypeStr: String</font>
 --
-    + visit(<font color="6060BB">visit:MethodDeclaration, visit:Void</font>)
-    - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.argumentsTuple: list_BRQTO_tuple_BRQTO_String_COMMA_String_COMMA_String_BRQTC_BRQTC</font>
-    - <font color="909090">visit.argument: Optional_DOT_empty</font>
-    - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
+    - addArgumentType(<font color="6060BB">methodName:String, fqdnParentClassName:String, parameterType:Type, parameterName:String, argumentsTuple:list[tuple[String,String,String]]</font>): <font color="BB6060">void</font>
+    - <font color="909090">addArgumentType.argumentTypeString: String</font>
+    - <font color="909090">addArgumentType.mostProbableNS: String</font>
+--
+    + visit(<font color="6060BB">n:MethodDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    - <font color="909090">visit.methodName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.className: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.argumentTypeString: String</font>
+    - <font color="909090">visit.mostProbableNS: String</font>
     - <font color="909090">visit.variableDeclarator: VariableDeclarator</font>
-    - <font color="909090">visit.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.subDataStructureParent: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.subDataStructureChild: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.subDataStructureParent: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">visit.variableName: n_DOT_getNameAsString_BRQTO__BRQTC</font>
-    - <font color="909090">visit.variableType: n_DOT_getTypeAsString_BRQTO__BRQTC</font>
-    - <font color="909090">visit.initializer: n_DOT_getInitializer_BRQTO__BRQTC_DOT_toString_BRQTO__BRQTC</font>
-    - <font color="909090">visit.method: preadapter.domain.Datastructure_DOT_Method</font>
+    - <font color="909090">visit.importName: String</font>
+    - <font color="909090">visit.enumValueName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.fqdnCurrentClassName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.fqdnParentClassName: String</font>
+    - <font color="909090">visit.methodName: String</font>
 --
-    + visit(<font color="6060BB">visit:ClassOrInterfaceDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:FieldDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:PackageDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:ImportDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnumConstantDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:EnumDeclaration, visit:Void</font>)
-    + visit(<font color="6060BB">visit:VariableDeclarator, visit:Void</font>)
+    + visit(<font color="6060BB">n:ClassOrInterfaceDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:FieldDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:PackageDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:ImportDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumConstantDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:EnumDeclaration, arg:Void</font>): <font color="BB6060">void</font>
+    + visit(<font color="6060BB">n:VariableDeclarator, arg:Void</font>): <font color="BB6060">void</font>
 --
-    + main(<font color="6060BB">main:String_BRQTO__BRQTC</font>)
+    + main(<font color="6060BB">args:String</font>): <font color="BB6060">void</font>
     - <font color="909090">main.cu: CompilationUnit</font>
+    - <font color="909090">main.file: String</font>
 --
   }
   class preadapter.infrastructure.CreateYML [[preadapter.infrastructure.CreateYML-diagram-detailed.svg]]  {
@@ -114,62 +135,39 @@ class preadapter.Revenger [[preadapter.Revenger-diagram-detailed.svg]]  {
     + startMark: Mark
     + endMark: Mark
 ==
-    - appendTupleNodeValueSequenceNode(<font color="6060BB">appendTupleNodeValueSequenceNode:dictpingNode, appendTupleNodeValueSequenceNode:SequenceNode</font>)
-    - appendTupleNodeValueString(<font color="6060BB">appendTupleNodeValueString:dictpingNode</font>)
+    - appendTupleNodeValueSequenceNode(<font color="6060BB">mappingNode:dictpingNode, key:String, value:SequenceNode</font>): <font color="BB6060">boolean</font>
+    - appendTupleNodeValueString(<font color="6060BB">mappingNode:dictpingNode, key:String, value:String</font>): <font color="BB6060">boolean</font>
+    - appendTupleNodeValueStringToSequenceNode(<font color="6060BB">sequenceNode:SequenceNode, key:String, value:String</font>): <font color="BB6060">boolean</font>
 --
-    - appendTupleNodeValueStringToSequenceNode(<font color="6060BB">appendTupleNodeValueStringToSequenceNode:SequenceNode</font>)
-    - <font color="909090">appendTupleNodeValueStringToSequenceNode.mappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
---
-    - appendSequence(<font color="6060BB">appendSequence:dictpingNode, appendSequence:list_BRQTO_String_BRQTC</font>)
+    - appendSequence(<font color="6060BB">mappingNode:dictpingNode, list:list[String], nodeName:String</font>): <font color="BB6060">void</font>
     - <font color="909090">appendSequence.subSequenceNode: SequenceNode</font>
 --
-    + Create(<font color="6060BB">Create:preadapter.domain.Datastructure, Create:preadapter.Logger</font>)
-    - <font color="909090">Create.subDataStructureSequenceYmlNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.subDataStructureMappingYmlNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.subDataStructure: preadapter.domain.Datastructure_DOT_SubDataStructure</font>
-    - <font color="909090">Create.fromImportsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.fromImportsMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.staticsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.staticsMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.variablesSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.variablesMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodsSequenceNode: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.parameters: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodParametersMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodVariables: SequenceNode_BRQTO_Tag_DOT_SEQ_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodVariablesMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.methodNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
-    - <font color="909090">Create.tmpMappingNode: dictpingNode_BRQTO_Tag_DOT_MAP_COMMA__SPC_Arraylist_BRQTO__BRQTC_BRQTO__BRQTC_COMMA__SPC_dummperOptions_BRQTC</font>
+    + Create(<font color="6060BB">datastructure:preadapter.domain.Datastructure, toFile:String, logger:preadapter.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">Create.yaml: Yaml</font>
     - <font color="909090">Create.writer: PrintWriter</font>
 --
   }
   class preadapter.service.AnalyzeAST [[preadapter.service.AnalyzeAST-diagram-detailed.svg]]  {
-    + SearchRecurseCSharpToYAML(<font color="6060BB">SearchRecurseCSharpToYAML:preadapter.Logger</font>)
+    + SearchRecurseCSharpToYAML(<font color="6060BB">fromDir:String, toDir:String, logger:preadapter.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">SearchRecurseCSharpToYAML.datastructure: preadapter.domain.Datastructure</font>
-    - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: RecursiveFileProcessor_BRQTO__BRQTC</font>
-    - <font color="909090">SearchRecurseCSharpToYAML.listFilePaths: list_BRQTO_String_BRQTC</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.listFilePaths: list[String]</font>
     - <font color="909090">SearchRecurseCSharpToYAML.cu: CompilationUnit</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.filePath: String</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.toFile: String</font>
 --
   }
  ' *************************************** 
  ' *************************************** 
  ' *************************************** 
 ' Class relations extracted from namespace:
-' 
-' Class relations extracted from namespace:
 ' preadapter
-preadapter.Logger .[#6060BB].> preadapter.LoggingType  : uses 
-preadapter.Logger -[#909090]-> String_BRQTO__BRQTC  : uses 
-preadapter.Revenger .[#6060BB].> String_BRQTO__BRQTC  : uses 
+preadapter.Logger *-[#10BB10]- preadapter.LoggingType 
 preadapter.Revenger -[#909090]-> preadapter.Logger  : uses 
 ' Class relations extracted from namespace:
 ' preadapter.domain
-preadapter.domain.Datastructure .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.Datastructure -[#909090]-> String_BRQTO__BRQTC  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> preadapter.Logger  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> preadapter.domain.Datastructure  : uses 
-preadapter.domain.ASTVisitor .[#6060BB].> String_BRQTO__BRQTC  : uses 
+preadapter.domain.Datastructure *-[#10BB10]- preadapter.Logger 
+preadapter.domain.ASTVisitor *-[#10BB10]- preadapter.Logger 
+preadapter.domain.ASTVisitor *-[#10BB10]- preadapter.domain.Datastructure 
 ' Class relations extracted from namespace:
 ' preadapter.infrastructure
 preadapter.infrastructure.CreateYML .[#6060BB].> preadapter.domain.Datastructure  : uses 

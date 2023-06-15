@@ -1,0 +1,63 @@
+@startuml
+skinparam linetype ortho
+title <size:20>preadapter.domain.Datastructure.Static **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\npreadapter.domain.Datastructure.Static **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.Datastructure.Static **simplified** and **grouped per namespace**:\n   [[preadapter.domain.Datastructure.Static-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] {
+  class preadapter.domain.Datastructure_DOT_Static [[preadapter.domain.Datastructure.Static-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  }
+  class preadapter.domain.Datastructure [[preadapter.domain.Datastructure-diagram-detailed-grouped-per-namespace.svg]]  {
+    + class_to_datastructure: dict[String,SubDataStructure]
+    + namespace_to_datastructures: dict[String,list[SubDataStructure]]
+    + namespace_to_namespace_list: dict[String,list[String]]
+    + skip_types: list[String]
+    + logger: preadapter.Logger
+==
+    + ResolveClassNames(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - <font color="909090">ResolveClassNames.variables: list[Variable]</font>
+    - <font color="909090">ResolveClassNames.variable: <not!yet?read}file>Variable</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.index: int</font>
+    - <font color="909090">ResolveClassNames.method: preadapter.domain.Datastructure.Method</font>
+    - <font color="909090">ResolveClassNames.subDataStructure: preadapter.domain.Datastructure.SubDataStructure</font>
+--
+    - CorrectClassScope(<font color="6060BB">subDataStructure:preadapter.domain.Datastructure.SubDataStructure, classNameList:list[String], isAnymousCall:boolean</font>): <font color="BB6060">void</font>
+    - <font color="909090">CorrectClassScope.index: int</font>
+--
+    + GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:preadapter.domain.Datastructure.SubDataStructure, classUsage:String, isAnonymousCall:boolean, mostProbableNamespace:String</font>): <font color="BB6060">String</font>
+    - <font color="909090">GetFQDNForUsedClassName.className: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.classnameList: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.finalClassName: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.fittingClassNames: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.classNameFromImports: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.classNameEndingInPackageImport: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.fqdnClassName: String</font>
+    - <font color="909090">GetFQDNForUsedClassName.fqdnFromPackageImport: list[String]</font>
+    - <font color="909090">GetFQDNForUsedClassName.bestFittingClassNames: list[String]</font>
+--
+    + get_skip_types(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+--
+    + append_sub_datastructure(<font color="6060BB">sub_datastructure:preadapter.domain.Datastructure.SubDataStructure</font>): <font color="BB6060">void</font>
+    - <font color="909090">append_sub_datastructure.fqdn_class_name: String</font>
+    - <font color="909090">append_sub_datastructure.namespace_name: String</font>
+--
+    + append_class(<font color="6060BB">filename:String, filemodule:String, usings:list[String], fqdn_class_name:String, nameSpaceList:list[String]</font>): <font color="BB6060">preadapter.domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">append_class.sub_datastructure: preadapter.domain.Datastructure.SubDataStructure</font>
+--
+    + get_classname_list(<font color="6060BB"></font>): <font color="BB6060">list[String]</font>
+    + get_datastructures_from_class_name(<font color="6060BB">class_name:String</font>): <font color="BB6060">preadapter.domain.Datastructure.SubDataStructure</font>
+  }
+'Compared namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace domain
+}
+' Closing namespace preadapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.Datastructure +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Static 
+@enduml

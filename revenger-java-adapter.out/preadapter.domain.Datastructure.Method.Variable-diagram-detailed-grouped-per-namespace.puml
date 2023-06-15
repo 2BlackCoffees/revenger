@@ -1,0 +1,28 @@
+@startuml
+skinparam linetype ortho
+title <size:20>preadapter.domain.Datastructure.Method.Variable **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\npreadapter.domain.Datastructure.Method.Variable **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.Datastructure.Method.Variable **simplified** and **grouped per namespace**:\n   [[preadapter.domain.Datastructure.Method.Variable-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace preadapter [[preadapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] {
+  class preadapter.domain.Datastructure_DOT_Method_DOT_Variable [[preadapter.domain.Datastructure.Method.Variable-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  }
+  class preadapter.domain.Datastructure_DOT_Method [[preadapter.domain.Datastructure.Method-diagram-detailed-grouped-per-namespace.svg]]  {
+    + variables: list[Variable]
+    + parameters: list[ParameterType]
+==
+    + getParameters(<font color="6060BB"></font>): <font color="BB6060">list[ParameterType]</font>
+    + AddVariable(<font color="6060BB">variableName_:String, variableType_:String, mostProbableNamespace_:String</font>): <font color="BB6060">void</font>
+  }
+'Compared namespace preadapter.domain [[preadapter.domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace domain
+}
+' Closing namespace preadapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.Datastructure_DOT_Method +-[#10BBBB]- preadapter.domain.Datastructure_DOT_Method_DOT_Variable 
+@enduml

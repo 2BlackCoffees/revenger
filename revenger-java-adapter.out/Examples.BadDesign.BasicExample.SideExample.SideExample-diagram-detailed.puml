@@ -1,0 +1,20 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.BasicExample.SideExample.SideExample **detailed** </size>
+note "Your are analyzing:\nExamples.BadDesign.BasicExample.SideExample.SideExample **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.BasicExample.SideExample.SideExample **simplified** :\n   [[Examples.BadDesign.BasicExample.SideExample.SideExample-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+      class Examples.BadDesign.BasicExample.SideExample.SideExample [[Examples.BadDesign.BasicExample.SideExample.SideExample-diagram-detailed.svg]] #yellow {
+        + test(<font color="6060BB">testEnum:Examples.BadDesign.BasicExample.SideExample.SideTestEnum</font>): <font color="BB6060">void</font>
+        + testNoParameter(<font color="6060BB"></font>): <font color="BB6060">void</font>
+      }
+      class Examples.BadDesign.BasicExample.SideExample.SideTestEnum [[Examples.BadDesign.BasicExample.SideExample.SideTestEnum-diagram-detailed.svg]]  {
+        + TestEnumValue1: EnumTypePlaceHolder
+        + TestEnumValue2: EnumTypePlaceHolder
+==
+      }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign.BasicExample.SideExample
+Examples.BadDesign.BasicExample.SideExample.SideExample .[#6060BB].> Examples.BadDesign.BasicExample.SideExample.SideTestEnum  : uses 
+@enduml

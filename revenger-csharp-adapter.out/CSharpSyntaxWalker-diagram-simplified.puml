@@ -1,0 +1,22 @@
+@startuml
+skinparam linetype ortho
+title <size:20>CSharpSyntaxWalker **simplified** </size>
+note "Your are analyzing:\nCSharpSyntaxWalker **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* CSharpSyntaxWalker **detailed** :\n   [[CSharpSyntaxWalker-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class CSharpSyntaxWalker [[CSharpSyntaxWalker-diagram-simplified.svg]] #yellow {
+}
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-simplified.svg]]  {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+CSharpSyntaxWalker <|-[#red]- DotNetPreAdapter.Domain.ASTVisitor
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+CSharpSyntaxWalker <|-[#red]- MyNamespace.DotNetPreAdapter.UnusedASTVisitor
+@enduml

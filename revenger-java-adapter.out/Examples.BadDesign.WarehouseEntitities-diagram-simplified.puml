@@ -1,0 +1,29 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.WarehouseEntitities **simplified** </size>
+note "Your are analyzing:\nExamples.BadDesign.WarehouseEntitities **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.WarehouseEntitities **detailed** :\n   [[Examples.BadDesign.WarehouseEntitities-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BadDesign.DB [[Examples.BadDesign.DB-diagram-simplified.svg]]  {
+  }
+    class Examples.BadDesign.WarehouseEntitities.Complaints [[Examples.BadDesign.WarehouseEntitities.Complaints-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Invoice [[Examples.BadDesign.WarehouseEntitities.Invoice-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Car [[Examples.BadDesign.WarehouseEntitities.Car-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BadDesign.WarehouseEntitities.Customer [[Examples.BadDesign.WarehouseEntitities.Customer-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BadDesign.WarehouseEntitities.User [[Examples.BadDesign.WarehouseEntitities.User-diagram-simplified.svg]] #yellow {
+    }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.User  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Customer  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Car  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Invoice  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.Complaints  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.WarehouseEntitities
+@enduml

@@ -1,0 +1,49 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.CarExample.Car **simplified** </size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.Car **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.CarExample.Car **detailed** :\n   [[Examples.BetterDesign.Repository.CarExample.Car-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  abstract class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-simplified.svg]]  {
+  }
+      abstract class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.Vehicle [[Examples.BetterDesign.Repository.CarExample.Vehicle-diagram-simplified.svg]]  {
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.DBCar [[Examples.BetterDesign.Repository.CarExample.DBCar-diagram-simplified.svg]]  {
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.DBWarehouse [[Examples.BetterDesign.Repository.CarExample.DBWarehouse-diagram-simplified.svg]]  {
+      }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Wheels [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-simplified.svg]]  {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Seats [[Examples.BetterDesign.Repository.CarExample.CarParts.Seats-diagram-simplified.svg]]  {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Driver [[Examples.BetterDesign.Repository.CarExample.CarParts.Driver-diagram-simplified.svg]]  {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Doors [[Examples.BetterDesign.Repository.CarExample.CarParts.Doors-diagram-simplified.svg]]  {
+        }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Seats 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Driver 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Doors 
+Examples.BetterDesign.Repository.CarExample.Car .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Driver  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Seats  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.CarParts
+Examples.BetterDesign.Repository.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Seats *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Driver *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Doors *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Utils.LoggingType **detailed** </size>
+note "Your are analyzing:\nDotNetPreAdapter.Utils.LoggingType **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Utils.LoggingType **simplified** :\n   [[DotNetPreAdapter.Utils.LoggingType-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Enum [[Enum-diagram-detailed.svg]] #MintCream {
+}
+class IComparable [[IComparable-diagram-detailed.svg]] #MintCream {
+}
+class IFormattable [[IFormattable-diagram-detailed.svg]] #MintCream {
+}
+class IConvertible [[IConvertible-diagram-detailed.svg]] #MintCream {
+}
+  abstract class DotNetPreAdapter.Utils.LoggingType [[DotNetPreAdapter.Utils.LoggingType-diagram-detailed.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed.svg]]  {
+    + loggingType: DotNetPreAdapter.Utils.LoggingType
+==
+    - log(<font color="6060BB"></font>)
+    + LogError(<font color="6060BB"></font>)
+    + LogWarning(<font color="6060BB"></font>)
+    + LogInfo(<font color="6060BB"></font>)
+    + LogDebug(<font color="6060BB"></font>)
+    + LogTrace(<font color="6060BB"></font>)
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+Enum <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IComparable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IFormattable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IConvertible <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+DotNetPreAdapter.Utils.Logger *-[#10BB10]- DotNetPreAdapter.Utils.LoggingType 
+@enduml

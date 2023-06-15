@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>ThrowStmt **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\nThrowStmt **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* ThrowStmt **detailed** and **grouped per namespace**:\n   [[ThrowStmt-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class ThrowStmt [[ThrowStmt-diagram-simplified-grouped-per-namespace.svg]] #yellow {

@@ -1,0 +1,43 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.BasicExample.IExample **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BadDesign.BasicExample.IExample **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.BasicExample.IExample **simplified** and **grouped per namespace**:\n   [[Examples.BadDesign.BasicExample.IExample-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.BasicExample [[Examples.BadDesign.BasicExample-diagram-detailed-grouped-per-namespace.svg]] {
+    interface Examples.BadDesign.BasicExample.IExample [[Examples.BadDesign.BasicExample.IExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+      + example(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">void</font>
+    }
+    class Examples.BadDesign.BasicExample.Useless [[Examples.BadDesign.BasicExample.Useless-diagram-detailed-grouped-per-namespace.svg]]  {
+      + useless(<font color="6060BB"></font>): <font color="BB6060">void</font>
+      - <font color="909090">useless.testEnum: Examples.BadDesign.BasicExample.SideExample.SideTestEnum</font>
+--
+    }
+    class Examples.BadDesign.BasicExample.ClassExample [[Examples.BadDesign.BasicExample.ClassExample-diagram-detailed-grouped-per-namespace.svg]]  {
+      + memberVarUseless: Examples.BadDesign.BasicExample.Useless
+      + memberVarEnumTest: Examples.BadDesign.BasicExample.BaseExample.EnumTest
+==
+      + example(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">void</font>
+      - <font color="909090">example.localVarBaseExample: Examples.BadDesign.BasicExample.BaseExample</font>
+--
+      + getExample(<font color="6060BB"></font>): <font color="BB6060">Examples.BadDesign.BasicExample.IExample</font>
+      + exampleAbstract(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">Examples.BadDesign.BasicExample.Useless</font>
+    }
+'Compared namespace Examples.BadDesign.BasicExample [[Examples.BadDesign.BasicExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BasicExample
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign.BasicExample
+Examples.BadDesign.BasicExample.IExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+Examples.BadDesign.BasicExample.ClassExample *-[#10BB10]- Examples.BadDesign.BasicExample.Useless 
+Examples.BadDesign.BasicExample.ClassExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+Examples.BadDesign.BasicExample.ClassExample .[#6060BB].> Examples.BadDesign.BasicExample.IExample  : uses 
+@enduml

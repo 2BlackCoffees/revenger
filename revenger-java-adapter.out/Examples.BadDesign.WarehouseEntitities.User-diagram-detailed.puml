@@ -1,0 +1,37 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.WarehouseEntitities.User **detailed** </size>
+note "Your are analyzing:\nExamples.BadDesign.WarehouseEntitities.User **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.WarehouseEntitities.User **simplified** :\n   [[Examples.BadDesign.WarehouseEntitities.User-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BadDesign.DB [[Examples.BadDesign.DB-diagram-detailed.svg]]  {
+    + get(<font color="6060BB">queryString:String</font>): <font color="BB6060">String</font>
+    + getCarsWhere(<font color="6060BB">whereQueryString:String</font>): <font color="BB6060">String</font>
+    + set(<font color="6060BB">queryString:String</font>): <font color="BB6060">void</font>
+    + update(<font color="6060BB">queryString:String</font>): <font color="BB6060">void</font>
+    + getUserWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.User</font>
+    + getCustomerWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Customer</font>
+    + getWarehouseCarWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Car</font>
+    + getInvoiceWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Invoice</font>
+    + getComplaintsWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Complaints</font>
+    + getFirstCustomerWhere(<font color="6060BB">query:String</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Customer</font>
+    + getUserFromWarehouseCar(<font color="6060BB">item:Examples.BadDesign.WarehouseEntitities.Car</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.User</font>
+    + getCustomerFromComplaint(<font color="6060BB">complaint:Examples.BadDesign.WarehouseEntitities.Complaints</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Customer</font>
+    + getWarehouseCarFromUser(<font color="6060BB">user:Examples.BadDesign.WarehouseEntitities.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.Car</font>
+    + getInvoiceFromCustomer(<font color="6060BB">c:Examples.BadDesign.WarehouseEntitities.Customer</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Invoice</font>
+    + getComplaintsFromWarehouseCar(<font color="6060BB">item:Examples.BadDesign.WarehouseEntitities.Car</font>): <font color="BB6060">Examples.BadDesign.WarehouseEntitities.Complaints</font>
+    + getCarFromDriver(<font color="6060BB">d:Examples.BadDesign.CarExample.CarParts.Driver</font>): <font color="BB6060">Examples.BadDesign.CarExample.Car</font>
+    + getDriverFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Driver</font>
+    + getWheelsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Wheels</font>
+    + getDoorsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Doors</font>
+    + getSeatsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>): <font color="BB6060">Examples.BadDesign.CarExample.CarParts.Seats</font>
+  }
+    class Examples.BadDesign.WarehouseEntitities.User [[Examples.BadDesign.WarehouseEntitities.User-diagram-detailed.svg]] #yellow {
+    }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.WarehouseEntitities
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nMyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass **detailed** and **grouped per namespace**:\n   [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace MyNamespace [[MyNamespace-diagram-simplified-grouped-per-namespace.svg]] {
+namespace MyNamespace.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace MyNamespace.DotNetPreAdapter.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor-diagram-simplified-grouped-per-namespace.svg]] {
+      abstract class MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+      }
+'Compared namespace MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor-diagram-simplified-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace RecursiveFileProcessor
+}
+' Closing namespace DotNetPreAdapter
+}
+' Closing namespace DotNetPreAdapter
+}
+' Closing namespace MyNamespace
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor
+@enduml

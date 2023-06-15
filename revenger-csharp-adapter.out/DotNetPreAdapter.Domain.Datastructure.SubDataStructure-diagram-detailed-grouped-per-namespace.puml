@@ -1,0 +1,157 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Domain.Datastructure.SubDataStructure **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure.SubDataStructure **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Domain.Datastructure.SubDataStructure **simplified** and **grouped per namespace**:\n   [[DotNetPreAdapter.Domain.Datastructure.SubDataStructure-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure [[DotNetPreAdapter.Domain.Datastructure.SubDataStructure-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    + from_imports: dict[string, string]
+    + statics: list[DotNetPreAdapter.Domain.Datastructure.Static]
+    + variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]
+    + methods: list[DotNetPreAdapter.Domain.Datastructure.Method]
+==
+    + set_abstract(<font color="6060BB"></font>)
+    + setInterface(<font color="6060BB"></font>)
+    + setInnerClass(<font color="6060BB"></font>)
+    + getUsings(<font color="6060BB"></font>)
+    + addImport(<font color="6060BB"></font>)
+    + getImports(<font color="6060BB"></font>)
+    + addGenericType(<font color="6060BB"></font>)
+    + addAnonymousInvocation(<font color="6060BB"></font>)
+    + addAnonymousStaticInvocation(<font color="6060BB"></font>)
+    + add_base_class(<font color="6060BB"></font>)
+    + add_static(<font color="6060BB"></font>)
+--
+    + add_method(<font color="6060BB">arguments_tuple_:list[tuple[string, string, string]]</font>)
+    - <font color="909090">add_method.Arguments_: list[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType]</font>
+--
+    + GetMethod(<font color="6060BB"></font>)
+    + add_variable(<font color="6060BB"></font>)
+    + add_inner_class(<font color="6060BB"></font>)
+    + is_abstract(<font color="6060BB"></font>)
+    + IsInterface(<font color="6060BB"></font>)
+    + IsInnerClass(<font color="6060BB"></font>)
+    + has_static_fields(<font color="6060BB"></font>)
+    + has_method_fields(<font color="6060BB"></font>)
+    + has_variables_fields(<font color="6060BB"></font>)
+    + getAnonymousInvocation(<font color="6060BB"></font>)
+    + getAnonymousStaticInvocation(<font color="6060BB"></font>)
+    + getGenericTypes(<font color="6060BB"></font>)
+    + get_from_imports(<font color="6060BB"></font>)
+    + get_fqdn_class_name(<font color="6060BB"></font>)
+    + get_base_classes(<font color="6060BB"></font>)
+    + get_static_fields(<font color="6060BB"></font>)
+    + get_method_fields(<font color="6060BB"></font>)
+    + get_variable_fields(<font color="6060BB"></font>)
+    + get_inner_class_name(<font color="6060BB"></font>)
+    + get_filename(<font color="6060BB"></font>)
+    + get_filemodule(<font color="6060BB"></font>)
+    + get_name_space_list(<font color="6060BB"></font>)
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-detailed-grouped-per-namespace.svg]]  {
+    + class_to_datastructure: dict[string, DotNetPreAdapter.Domain.Datastructure.SubDataStructure]
+    + namespace_to_datastructures: dict[string, list[DotNetPreAdapter.Domain.Datastructure.SubDataStructure]]
+    + namespace_to_namespace_list: dict[string, list[string]]
+    + logger: DotNetPreAdapter.Utils.Logger
+==
+    + ResolveClassNames(<font color="6060BB"></font>)
+    - <font color="909090">ResolveClassNames.variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]</font>
+    - <font color="909090">ResolveClassNames.variable: DotNetPreAdapter.Domain.Datastructure.Variable</font>
+--
+    - CorrectClassScope(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    - getFQDNClassNameFromNamespacelist(<font color="6060BB"></font>)
+    - GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    + get_skip_types(<font color="6060BB"></font>)
+    - append_sub_datastructure(<font color="6060BB">sub_datastructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+--
+    + append_class(<font color="6060BB"></font>)
+    - <font color="909090">append_class.sub_datastructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+--
+    + get_classname_list(<font color="6060BB"></font>)
+    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+  }
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-detailed-grouped-per-namespace.svg]]  {
+    + datastructure: DotNetPreAdapter.Domain.Datastructure
+    + model: SemanticModel
+    + usingDict: dict[string, string]
+    + logger: DotNetPreAdapter.Utils.Logger
+==
+    - SimplifyType(<font color="6060BB"></font>)
+--
+    + SyntaxNode(<font color="6060BB">node:SyntaxNode</font>)
+    - <font color="909090">SyntaxNode.convertedType: ITypeSymbol</font>
+--
+    - GetCurrentClassName(<font color="6060BB"></font>)
+--
+    - CreateClassInterface(<font color="6060BB">node:T</font>)
+    - <font color="909090">CreateClassInterface.parentSubDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">CreateClassInterface.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">CreateClassInterface.tmpBase: ITypeSymbol</font>
+--
+    - getCurrentContext(<font color="6060BB"></font>)
+    - ArgumentsTupleToString(<font color="6060BB">arguments_tuple:list[Tuple[string, string, string]]</font>)
+    - cleanForRegEx(<font color="6060BB"></font>)
+    + VisitNamespaceDeclaration(<font color="6060BB">node:NamespaceDeclarationSyntax</font>)
+    + VisitUsingDirective(<font color="6060BB">node:UsingDirectiveSyntax</font>)
+    + VisitEnumDeclaration(<font color="6060BB">node:EnumDeclarationSyntax</font>)
+    + VisitInterfaceDeclaration(<font color="6060BB">node:InterfaceDeclarationSyntax</font>)
+    + VisitClassDeclaration(<font color="6060BB">node:ClassDeclarationSyntax</font>)
+--
+    + VisitMethodDeclaration(<font color="6060BB">node:MethodDeclarationSyntax</font>)
+    - <font color="909090">VisitMethodDeclaration.arguments_tuple: list[Tuple[string, string, string]]</font>
+    - <font color="909090">VisitMethodDeclaration.parameterSymbol: IParameterSymbol</font>
+    - <font color="909090">VisitMethodDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+--
+    + VisitVariableDeclaration(<font color="6060BB">node:VariableDeclarationSyntax</font>)
+    - <font color="909090">VisitVariableDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">VisitVariableDeclaration.aliasInfo: IAliasSymbol</font>
+    - <font color="909090">VisitVariableDeclaration.type: ITypeSymbol</font>
+    - <font color="909090">VisitVariableDeclaration.method: DotNetPreAdapter.Domain.Datastructure.Method</font>
+--
+  }
+'Compared namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Domain
+}
+' Closing namespace DotNetPreAdapter
+}
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Infrastructure [[DotNetPreAdapter.Infrastructure-diagram-detailed-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Infrastructure.CreateYml [[DotNetPreAdapter.Infrastructure.CreateYml-diagram-detailed-grouped-per-namespace.svg]]  {
+    + Create(<font color="6060BB">datastructure:DotNetPreAdapter.Domain.Datastructure, logger:DotNetPreAdapter.Utils.Logger</font>)
+    - <font color="909090">Create.subDatastructureYmlNode: YamlSequenceNode</font>
+    - <font color="909090">Create.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">Create.fromImports: YamlSequenceNode</font>
+    - <font color="909090">Create.innerClasses: YamlSequenceNode</font>
+    - <font color="909090">Create.anonymousCalls: YamlSequenceNode</font>
+    - <font color="909090">Create.baseClasses: YamlSequenceNode</font>
+    - <font color="909090">Create.statics: YamlSequenceNode</font>
+    - <font color="909090">Create.variables: YamlSequenceNode</font>
+    - <font color="909090">Create.methods: YamlSequenceNode</font>
+    - <font color="909090">Create.parameters: YamlSequenceNode</font>
+    - <font color="909090">Create.methodVariables: YamlSequenceNode</font>
+    - <font color="909090">Create.stream: YamlStream</font>
+    - <font color="909090">Create.writer: System.IO.TextWriter</font>
+--
+  }
+'Compared namespace DotNetPreAdapter.Infrastructure [[DotNetPreAdapter.Infrastructure-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Infrastructure
+}
+' Closing namespace DotNetPreAdapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure 
+DotNetPreAdapter.Domain.Datastructure .[#6060BB].> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+DotNetPreAdapter.Domain.Datastructure -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Infrastructure
+DotNetPreAdapter.Infrastructure.CreateYml .[#6060BB].> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Infrastructure.CreateYml -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+skinparam linetype ortho
+title <size:20>MyNamespace.UnusedClass1.InnerClass **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nMyNamespace.UnusedClass1.InnerClass **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.UnusedClass1.InnerClass **simplified** and **grouped per namespace**:\n   [[MyNamespace.UnusedClass1.InnerClass-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace MyNamespace [[MyNamespace-diagram-detailed-grouped-per-namespace.svg]] {
+abstract class MyNamespace.UnusedClass1_DOT_InnerClass [[MyNamespace.UnusedClass1.InnerClass-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  + UnusedInnerClass(<font color="6060BB">unusedClass:MyNamespace.UnusedClass</font>)
+}
+abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-detailed-grouped-per-namespace.svg]]  {
+}
+abstract class MyNamespace.UnusedClass1 [[MyNamespace.UnusedClass1-diagram-detailed-grouped-per-namespace.svg]]  {
+  + doNothing(<font color="6060BB"></font>)
+}
+'Compared namespace MyNamespace [[MyNamespace-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace MyNamespace
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' MyNamespace
+MyNamespace.UnusedClass1.InnerClass .[#6060BB].> MyNamespace.UnusedClass  : uses 
+MyNamespace.UnusedClass1 +-[#10BBBB]- MyNamespace.UnusedClass1_DOT_InnerClass 
+@enduml

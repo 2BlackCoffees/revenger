@@ -1,11 +1,12 @@
 @startuml
+skinparam linetype ortho
 title <size:20>CompilationUnit **simplified** </size>
 note "Your are analyzing:\nCompilationUnit **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* CompilationUnit **detailed** :\n   [[CompilationUnit-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class CompilationUnit [[CompilationUnit-diagram-simplified.svg]] #yellow {
 }
-  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified.svg]]  {
-  }
   class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified.svg]]  {
+  }
+  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified.svg]]  {
   }
   class preadapter.service.AnalyzeAST [[preadapter.service.AnalyzeAST-diagram-simplified.svg]]  {
   }
@@ -16,9 +17,9 @@ class CompilationUnit [[CompilationUnit-diagram-simplified.svg]] #yellow {
 ' 
 ' Class relations extracted from namespace:
 ' preadapter.domain
-preadapter.domain.ASTVisitor -[#909090]-> CompilationUnit  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> CompilationUnit  : uses 
 preadapter.domain.ASTVisitorDebug -[#909090]-> CompilationUnit  : uses 
+preadapter.domain.ASTVisitor -[#909090]-> CompilationUnit  : uses 
 ' Class relations extracted from namespace:
 ' preadapter.service
 preadapter.service.AnalyzeAST -[#909090]-> CompilationUnit  : uses 

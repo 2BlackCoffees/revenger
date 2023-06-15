@@ -1,0 +1,23 @@
+@startuml
+skinparam linetype ortho
+title <size:20>SemanticModel **simplified** </size>
+note "Your are analyzing:\nSemanticModel **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* SemanticModel **detailed** :\n   [[SemanticModel-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class SemanticModel [[SemanticModel-diagram-simplified.svg]] #yellow {
+}
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-simplified.svg]]  {
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- SemanticModel 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> SemanticModel  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.ASTVisitor  : uses 
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Domain.Datastructure.Method.ParameterType **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure.Method.ParameterType **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Domain.Datastructure.Method.ParameterType **detailed** and **grouped per namespace**:\n   [[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType [[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method [[DotNetPreAdapter.Domain.Datastructure.Method-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Domain
+}
+' Closing namespace DotNetPreAdapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType 
+@enduml

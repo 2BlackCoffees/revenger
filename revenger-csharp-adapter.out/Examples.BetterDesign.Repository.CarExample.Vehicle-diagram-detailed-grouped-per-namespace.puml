@@ -1,0 +1,52 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.CarExample.Vehicle **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.Vehicle **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.CarExample.Vehicle **simplified** and **grouped per namespace**:\n   [[Examples.BetterDesign.Repository.CarExample.Vehicle-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+      abstract class Examples.BetterDesign.Repository.CarExample.Vehicle [[Examples.BetterDesign.Repository.CarExample.Vehicle-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        + db: Examples.BetterDesign.Repository.CarExample.DBCar
+==
+        - setSpeed(<font color="6060BB"></font>)
+        - getSpeed(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.DBCar [[Examples.BetterDesign.Repository.CarExample.DBCar-diagram-detailed-grouped-per-namespace.svg]]  {
+        - getCarsForDriver(<font color="6060BB">driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, seats:Examples.BetterDesign.Repository.CarExample.CarParts.Seats</font>)
+        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+        - sellCarTo(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - getCar(<font color="6060BB">d:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - getDriver(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getWheels(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getDoors(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getSeats(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-detailed-grouped-per-namespace.svg]]  {
+        + wheels: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
+        + seats: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
+        + driver: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+        + doors: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+==
+        - createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+      }
+'Compared namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace Repository
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
+@enduml

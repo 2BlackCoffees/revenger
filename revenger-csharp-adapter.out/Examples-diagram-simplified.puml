@@ -1,0 +1,112 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples **simplified** </size>
+note "Your are analyzing:\nExamples **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples **detailed** :\n   [[Examples-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+    abstract class Examples.BadDesign.CarExample.DB [[Examples.BadDesign.CarExample.DB-diagram-simplified.svg]] #yellow {
+    }
+    abstract class Examples.BadDesign.CarExample.Car [[Examples.BadDesign.CarExample.Car-diagram-simplified.svg]] #yellow {
+    }
+    abstract class Examples.BadDesign.CarExample.Vehicle [[Examples.BadDesign.CarExample.Vehicle-diagram-simplified.svg]] #yellow {
+    }
+      abstract class Examples.BadDesign.CarExample.CarParts.Driver [[Examples.BadDesign.CarExample.CarParts.Driver-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Wheels [[Examples.BadDesign.CarExample.CarParts.Wheels-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Doors [[Examples.BadDesign.CarExample.CarParts.Doors-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Seats [[Examples.BadDesign.CarExample.CarParts.Seats-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Car [[Examples.BadDesign.CarExample.WarehouseEntities.Car-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Complaints [[Examples.BadDesign.CarExample.WarehouseEntities.Complaints-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Customer [[Examples.BadDesign.CarExample.WarehouseEntities.Customer-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.User [[Examples.BadDesign.CarExample.WarehouseEntities.User-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Invoice [[Examples.BadDesign.CarExample.WarehouseEntities.Invoice-diagram-simplified.svg]] #yellow {
+      }
+  abstract class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-simplified.svg]] #yellow {
+  }
+      abstract class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.DBCar [[Examples.BetterDesign.Repository.CarExample.DBCar-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.DBWarehouse [[Examples.BetterDesign.Repository.CarExample.DBWarehouse-diagram-simplified.svg]] #yellow {
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.Vehicle [[Examples.BetterDesign.Repository.CarExample.Vehicle-diagram-simplified.svg]] #yellow {
+      }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Driver [[Examples.BetterDesign.Repository.CarExample.CarParts.Driver-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Seats [[Examples.BetterDesign.Repository.CarExample.CarParts.Seats-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Doors [[Examples.BetterDesign.Repository.CarExample.CarParts.Doors-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Wheels [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-simplified.svg]] #yellow {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User-diagram-simplified.svg]] #yellow {
+        }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Car  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Complaints  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.CarExample.CarParts.Driver <|-[#red]- Examples.BadDesign.CarExample.Car
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.CarParts.Wheels 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.Vehicle 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.Car .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.CarExample.Car -[#909090]-> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
+Examples.BadDesign.CarExample.Vehicle *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.CarParts
+Examples.BadDesign.CarExample.CarParts.Driver *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Doors *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Seats *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.WarehouseEntities
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Seats 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Driver 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Doors 
+Examples.BetterDesign.Repository.CarExample.Car .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Driver  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Seats  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User  : uses 
+Examples.BetterDesign.Repository.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.CarParts
+Examples.BetterDesign.Repository.CarExample.CarParts.Driver *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Seats *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Doors *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+@enduml

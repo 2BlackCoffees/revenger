@@ -1,0 +1,20 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BasicExample.SideExample.SideTestEnum **simplified** </size>
+note "Your are analyzing:\nExamples.BasicExample.SideExample.SideTestEnum **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BasicExample.SideExample.SideTestEnum **detailed** :\n   [[Examples.BasicExample.SideExample.SideTestEnum-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BasicExample.Useless [[Examples.BasicExample.Useless-diagram-simplified.svg]]  {
+  }
+    class Examples.BasicExample.SideExample.SideTestEnum [[Examples.BasicExample.SideExample.SideTestEnum-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BasicExample.SideExample.SideExample [[Examples.BasicExample.SideExample.SideExample-diagram-simplified.svg]]  {
+    }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.Useless -[#909090]-> Examples.BasicExample.SideExample.SideTestEnum  : uses 
+' Class relations extracted from namespace:
+' Examples.BasicExample.SideExample
+Examples.BasicExample.SideExample.SideExample .[#6060BB].> Examples.BasicExample.SideExample.SideTestEnum  : uses 
+@enduml

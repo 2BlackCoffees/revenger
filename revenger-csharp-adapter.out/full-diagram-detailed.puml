@@ -1,0 +1,525 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Full diagram **detailed**</size>
+note "Your are analyzing:\nFull diagram **detailed**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified**:\n   [[full-diagram-simplified.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class CSharpSyntaxWalker [[CSharpSyntaxWalker-diagram-detailed.svg]] #MintCream {
+}
+class SemanticModel [[SemanticModel-diagram-detailed.svg]] #MintCream {
+}
+class SyntaxNode [[SyntaxNode-diagram-detailed.svg]] #MintCream {
+}
+class ITypeSymbol [[ITypeSymbol-diagram-detailed.svg]] #MintCream {
+}
+class T [[T-diagram-detailed.svg]] #MintCream {
+}
+class NamespaceDeclarationSyntax [[NamespaceDeclarationSyntax-diagram-detailed.svg]] #MintCream {
+}
+class UsingDirectiveSyntax [[UsingDirectiveSyntax-diagram-detailed.svg]] #MintCream {
+}
+class EnumDeclarationSyntax [[EnumDeclarationSyntax-diagram-detailed.svg]] #MintCream {
+}
+class InterfaceDeclarationSyntax [[InterfaceDeclarationSyntax-diagram-detailed.svg]] #MintCream {
+}
+class ClassDeclarationSyntax [[ClassDeclarationSyntax-diagram-detailed.svg]] #MintCream {
+}
+class MethodDeclarationSyntax [[MethodDeclarationSyntax-diagram-detailed.svg]] #MintCream {
+}
+class IParameterSymbol [[IParameterSymbol-diagram-detailed.svg]] #MintCream {
+}
+class VariableDeclarationSyntax [[VariableDeclarationSyntax-diagram-detailed.svg]] #MintCream {
+}
+class IAliasSymbol [[IAliasSymbol-diagram-detailed.svg]] #MintCream {
+}
+class YamlSequenceNode [[YamlSequenceNode-diagram-detailed.svg]] #MintCream {
+}
+class YamlStream [[YamlStream-diagram-detailed.svg]] #MintCream {
+}
+class System.IO.TextWriter [[System.IO.TextWriter-diagram-detailed.svg]] #MintCream {
+}
+class SyntaxTree [[SyntaxTree-diagram-detailed.svg]] #MintCream {
+}
+class CompilationUnitSyntax [[CompilationUnitSyntax-diagram-detailed.svg]] #MintCream {
+}
+class Enum [[Enum-diagram-detailed.svg]] #MintCream {
+}
+class IComparable [[IComparable-diagram-detailed.svg]] #MintCream {
+}
+class IFormattable [[IFormattable-diagram-detailed.svg]] #MintCream {
+}
+class IConvertible [[IConvertible-diagram-detailed.svg]] #MintCream {
+}
+abstract class DotNetPreAdapter.UnusedClass [[DotNetPreAdapter.UnusedClass-diagram-detailed.svg]]  {
+  + doNothing(<font color="6060BB"></font>)
+}
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-detailed.svg]]  {
+  - removeMe(<font color="6060BB"></font>)
+  - <font color="909090">removeMe.u1: MyNamespace.UnusedClass</font>
+  - <font color="909090">removeMe.u2: DotNetPreAdapter.UnusedClass</font>
+  - <font color="909090">removeMe.u3: MyNamespace.UnusedClass1</font>
+--
+  - Main(<font color="6060BB"></font>)
+  - <font color="909090">Main.logger: DotNetPreAdapter.Utils.Logger</font>
+  - <font color="909090">Main.ast: DotNetPreAdapter.Service.AnalyzeAST</font>
+--
+}
+  abstract class DotNetPreAdapter.Domain.Datastructure [[DotNetPreAdapter.Domain.Datastructure-diagram-detailed.svg]]  {
+    + class_to_datastructure: dict[string, DotNetPreAdapter.Domain.Datastructure.SubDataStructure]
+    + namespace_to_datastructures: dict[string, list[DotNetPreAdapter.Domain.Datastructure.SubDataStructure]]
+    + namespace_to_namespace_list: dict[string, list[string]]
+    + logger: DotNetPreAdapter.Utils.Logger
+==
+    + ResolveClassNames(<font color="6060BB"></font>)
+    - <font color="909090">ResolveClassNames.variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]</font>
+    - <font color="909090">ResolveClassNames.variable: DotNetPreAdapter.Domain.Datastructure.Variable</font>
+--
+    - CorrectClassScope(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    - getFQDNClassNameFromNamespacelist(<font color="6060BB"></font>)
+    - GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    + get_skip_types(<font color="6060BB"></font>)
+    - append_sub_datastructure(<font color="6060BB">sub_datastructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+--
+    + append_class(<font color="6060BB"></font>)
+    - <font color="909090">append_class.sub_datastructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+--
+    + get_classname_list(<font color="6060BB"></font>)
+    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method [[DotNetPreAdapter.Domain.Datastructure.Method-diagram-detailed.svg]]  {
+    + AddVariable(<font color="6060BB"></font>)
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType [[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType-diagram-detailed.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_Variable [[DotNetPreAdapter.Domain.Datastructure.Method.Variable-diagram-detailed.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Static [[DotNetPreAdapter.Domain.Datastructure.Static-diagram-detailed.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Variable [[DotNetPreAdapter.Domain.Datastructure.Variable-diagram-detailed.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure [[DotNetPreAdapter.Domain.Datastructure.SubDataStructure-diagram-detailed.svg]]  {
+    + from_imports: dict[string, string]
+    + statics: list[DotNetPreAdapter.Domain.Datastructure.Static]
+    + variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]
+    + methods: list[DotNetPreAdapter.Domain.Datastructure.Method]
+==
+    + set_abstract(<font color="6060BB"></font>)
+    + setInterface(<font color="6060BB"></font>)
+    + setInnerClass(<font color="6060BB"></font>)
+    + getUsings(<font color="6060BB"></font>)
+    + addImport(<font color="6060BB"></font>)
+    + getImports(<font color="6060BB"></font>)
+    + addGenericType(<font color="6060BB"></font>)
+    + addAnonymousInvocation(<font color="6060BB"></font>)
+    + addAnonymousStaticInvocation(<font color="6060BB"></font>)
+    + add_base_class(<font color="6060BB"></font>)
+    + add_static(<font color="6060BB"></font>)
+--
+    + add_method(<font color="6060BB">arguments_tuple_:list[tuple[string, string, string]]</font>)
+    - <font color="909090">add_method.Arguments_: list[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType]</font>
+--
+    + GetMethod(<font color="6060BB"></font>)
+    + add_variable(<font color="6060BB"></font>)
+    + add_inner_class(<font color="6060BB"></font>)
+    + is_abstract(<font color="6060BB"></font>)
+    + IsInterface(<font color="6060BB"></font>)
+    + IsInnerClass(<font color="6060BB"></font>)
+    + has_static_fields(<font color="6060BB"></font>)
+    + has_method_fields(<font color="6060BB"></font>)
+    + has_variables_fields(<font color="6060BB"></font>)
+    + getAnonymousInvocation(<font color="6060BB"></font>)
+    + getAnonymousStaticInvocation(<font color="6060BB"></font>)
+    + getGenericTypes(<font color="6060BB"></font>)
+    + get_from_imports(<font color="6060BB"></font>)
+    + get_fqdn_class_name(<font color="6060BB"></font>)
+    + get_base_classes(<font color="6060BB"></font>)
+    + get_static_fields(<font color="6060BB"></font>)
+    + get_method_fields(<font color="6060BB"></font>)
+    + get_variable_fields(<font color="6060BB"></font>)
+    + get_inner_class_name(<font color="6060BB"></font>)
+    + get_filename(<font color="6060BB"></font>)
+    + get_filemodule(<font color="6060BB"></font>)
+    + get_name_space_list(<font color="6060BB"></font>)
+  }
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-detailed.svg]]  {
+    + datastructure: DotNetPreAdapter.Domain.Datastructure
+    + model: SemanticModel
+    + usingDict: dict[string, string]
+    + logger: DotNetPreAdapter.Utils.Logger
+==
+    - SimplifyType(<font color="6060BB"></font>)
+--
+    + SyntaxNode(<font color="6060BB">node:SyntaxNode</font>)
+    - <font color="909090">SyntaxNode.convertedType: ITypeSymbol</font>
+--
+    - GetCurrentClassName(<font color="6060BB"></font>)
+--
+    - CreateClassInterface(<font color="6060BB">node:T</font>)
+    - <font color="909090">CreateClassInterface.parentSubDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">CreateClassInterface.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">CreateClassInterface.tmpBase: ITypeSymbol</font>
+--
+    - getCurrentContext(<font color="6060BB"></font>)
+    - ArgumentsTupleToString(<font color="6060BB">arguments_tuple:list[Tuple[string, string, string]]</font>)
+    - cleanForRegEx(<font color="6060BB"></font>)
+    + VisitNamespaceDeclaration(<font color="6060BB">node:NamespaceDeclarationSyntax</font>)
+    + VisitUsingDirective(<font color="6060BB">node:UsingDirectiveSyntax</font>)
+    + VisitEnumDeclaration(<font color="6060BB">node:EnumDeclarationSyntax</font>)
+    + VisitInterfaceDeclaration(<font color="6060BB">node:InterfaceDeclarationSyntax</font>)
+    + VisitClassDeclaration(<font color="6060BB">node:ClassDeclarationSyntax</font>)
+--
+    + VisitMethodDeclaration(<font color="6060BB">node:MethodDeclarationSyntax</font>)
+    - <font color="909090">VisitMethodDeclaration.arguments_tuple: list[Tuple[string, string, string]]</font>
+    - <font color="909090">VisitMethodDeclaration.parameterSymbol: IParameterSymbol</font>
+    - <font color="909090">VisitMethodDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+--
+    + VisitVariableDeclaration(<font color="6060BB">node:VariableDeclarationSyntax</font>)
+    - <font color="909090">VisitVariableDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">VisitVariableDeclaration.aliasInfo: IAliasSymbol</font>
+    - <font color="909090">VisitVariableDeclaration.type: ITypeSymbol</font>
+    - <font color="909090">VisitVariableDeclaration.method: DotNetPreAdapter.Domain.Datastructure.Method</font>
+--
+  }
+  abstract class DotNetPreAdapter.Infrastructure.CreateYml [[DotNetPreAdapter.Infrastructure.CreateYml-diagram-detailed.svg]]  {
+    + Create(<font color="6060BB">datastructure:DotNetPreAdapter.Domain.Datastructure, logger:DotNetPreAdapter.Utils.Logger</font>)
+    - <font color="909090">Create.subDatastructureYmlNode: YamlSequenceNode</font>
+    - <font color="909090">Create.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
+    - <font color="909090">Create.fromImports: YamlSequenceNode</font>
+    - <font color="909090">Create.innerClasses: YamlSequenceNode</font>
+    - <font color="909090">Create.anonymousCalls: YamlSequenceNode</font>
+    - <font color="909090">Create.baseClasses: YamlSequenceNode</font>
+    - <font color="909090">Create.statics: YamlSequenceNode</font>
+    - <font color="909090">Create.variables: YamlSequenceNode</font>
+    - <font color="909090">Create.methods: YamlSequenceNode</font>
+    - <font color="909090">Create.parameters: YamlSequenceNode</font>
+    - <font color="909090">Create.methodVariables: YamlSequenceNode</font>
+    - <font color="909090">Create.stream: YamlStream</font>
+    - <font color="909090">Create.writer: System.IO.TextWriter</font>
+--
+  }
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed.svg]]  {
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.tree: SyntaxTree</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.root: CompilationUnitSyntax</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.model: SemanticModel</font>
+    - <font color="909090">SearchRecurseCSharpToYAML.visitor: DotNetPreAdapter.Domain.ASTVisitor</font>
+--
+  }
+  abstract class DotNetPreAdapter.Service.RecursiveFileProcessor [[DotNetPreAdapter.Service.RecursiveFileProcessor-diagram-detailed.svg]]  {
+    + SearchPath(<font color="6060BB"></font>)
+    - ProcessDirectory(<font color="6060BB"></font>)
+  }
+  abstract class DotNetPreAdapter.Utils.LoggingType [[DotNetPreAdapter.Utils.LoggingType-diagram-detailed.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed.svg]]  {
+    + loggingType: DotNetPreAdapter.Utils.LoggingType
+==
+    - log(<font color="6060BB"></font>)
+    + LogError(<font color="6060BB"></font>)
+    + LogWarning(<font color="6060BB"></font>)
+    + LogInfo(<font color="6060BB"></font>)
+    + LogDebug(<font color="6060BB"></font>)
+    + LogTrace(<font color="6060BB"></font>)
+  }
+    abstract class Examples.BadDesign.CarExample.DB [[Examples.BadDesign.CarExample.DB-diagram-detailed.svg]]  {
+      - get(<font color="6060BB"></font>)
+      - getCarsWhere(<font color="6060BB"></font>)
+      - set(<font color="6060BB"></font>)
+      - update(<font color="6060BB"></font>)
+      - getUserWhere(<font color="6060BB"></font>)
+      - getCustomerWhere(<font color="6060BB"></font>)
+      - getWarehouseCarWhere(<font color="6060BB"></font>)
+      - getInvoiceWhere(<font color="6060BB"></font>)
+      - getComplaintsWhere(<font color="6060BB"></font>)
+      - getFirstCustomerWhere(<font color="6060BB"></font>)
+      - getUserFromWarehouseCar(<font color="6060BB">item:Examples.BadDesign.CarExample.WarehouseEntities.Car</font>)
+      - getCustomerFromComplaint(<font color="6060BB">complaint:Examples.BadDesign.CarExample.WarehouseEntities.Complaints</font>)
+      - getWarehouseCarFromUser(<font color="6060BB">user:Examples.BadDesign.CarExample.WarehouseEntities.Car</font>)
+      - getInvoiceFromCustomer(<font color="6060BB">c:Examples.BadDesign.CarExample.WarehouseEntities.Customer</font>)
+      - getComplaintsFromWarehouseCar(<font color="6060BB">item:Examples.BadDesign.CarExample.WarehouseEntities.Car</font>)
+      - getCarFromDriver(<font color="6060BB">d:Examples.BadDesign.CarExample.CarParts.Driver</font>)
+      - getDriverFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>)
+      - getWheelsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>)
+      - getDoorsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>)
+      - getSeatsFromCar(<font color="6060BB">c:Examples.BadDesign.CarExample.Car</font>)
+    }
+    abstract class Examples.BadDesign.CarExample.Vehicle [[Examples.BadDesign.CarExample.Vehicle-diagram-detailed.svg]]  {
+      + db: Examples.BadDesign.CarExample.DB
+==
+      - setSpeed(<font color="6060BB"></font>)
+      - getSpeed(<font color="6060BB"></font>)
+    }
+    abstract class Examples.BadDesign.CarExample.Car [[Examples.BadDesign.CarExample.Car-diagram-detailed.svg]]  {
+      + wheels: Examples.BadDesign.CarExample.CarParts.Wheels
+      + vehicle: Examples.BadDesign.CarExample.Vehicle
+      + db: Examples.BadDesign.CarExample.DB
+==
+      - createCar(<font color="6060BB">doors:Examples.BadDesign.CarExample.CarParts.Doors</font>)
+      - <font color="909090">createCar.seats: Examples.BadDesign.CarExample.CarParts.Seats</font>
+--
+    }
+      abstract class Examples.BadDesign.CarExample.CarParts.Seats [[Examples.BadDesign.CarExample.CarParts.Seats-diagram-detailed.svg]]  {
+        + db: Examples.BadDesign.CarExample.DB
+==
+        - getWeight(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Wheels [[Examples.BadDesign.CarExample.CarParts.Wheels-diagram-detailed.svg]]  {
+        + db: Examples.BadDesign.CarExample.DB
+==
+        - getWeight(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Driver [[Examples.BadDesign.CarExample.CarParts.Driver-diagram-detailed.svg]]  {
+        + db: Examples.BadDesign.CarExample.DB
+==
+        - getWeight(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BadDesign.CarExample.CarParts.Doors [[Examples.BadDesign.CarExample.CarParts.Doors-diagram-detailed.svg]]  {
+        + db: Examples.BadDesign.CarExample.DB
+==
+        - getWeight(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.User [[Examples.BadDesign.CarExample.WarehouseEntities.User-diagram-detailed.svg]]  {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Customer [[Examples.BadDesign.CarExample.WarehouseEntities.Customer-diagram-detailed.svg]]  {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Complaints [[Examples.BadDesign.CarExample.WarehouseEntities.Complaints-diagram-detailed.svg]]  {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Invoice [[Examples.BadDesign.CarExample.WarehouseEntities.Invoice-diagram-detailed.svg]]  {
+      }
+      abstract class Examples.BadDesign.CarExample.WarehouseEntities.Car [[Examples.BadDesign.CarExample.WarehouseEntities.Car-diagram-detailed.svg]]  {
+      }
+  abstract class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-detailed.svg]]  {
+    - getOrderedCar(<font color="6060BB">physicalCar:Examples.BetterDesign.Repository.CarExample.Car</font>)
+    - getPhysicalCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car</font>)
+  }
+      abstract class Examples.BetterDesign.Repository.CarExample.DBCar [[Examples.BetterDesign.Repository.CarExample.DBCar-diagram-detailed.svg]]  {
+        - getCarsForDriver(<font color="6060BB">driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, seats:Examples.BetterDesign.Repository.CarExample.CarParts.Seats</font>)
+        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+        - sellCarTo(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - getCar(<font color="6060BB">d:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - getDriver(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getWheels(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getDoors(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getSeats(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.DBWarehouse [[Examples.BetterDesign.Repository.CarExample.DBWarehouse-diagram-detailed.svg]]  {
+        - getCustomer(<font color="6060BB">i:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice</font>)
+        - getCar(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>)
+        - getInvoice(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>)
+        - getComplaints(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>)
+        - getUser(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getCustomer(<font color="6060BB">complaint:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>)
+        - getCar(<font color="6060BB">user:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User</font>)
+        - getComplaints(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getFirstUser(<font color="6060BB"></font>)
+        - getFirstCar(<font color="6060BB"></font>)
+        - getFirstInvoice(<font color="6060BB"></font>)
+        - getFirstComplaints(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.Vehicle [[Examples.BetterDesign.Repository.CarExample.Vehicle-diagram-detailed.svg]]  {
+        + db: Examples.BetterDesign.Repository.CarExample.DBCar
+==
+        - setSpeed(<font color="6060BB"></font>)
+        - getSpeed(<font color="6060BB"></font>)
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-detailed.svg]]  {
+        + wheels: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
+        + seats: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
+        + driver: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+        + doors: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+==
+        - createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+      }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Seats [[Examples.BetterDesign.Repository.CarExample.CarParts.Seats-diagram-detailed.svg]]  {
+          + db: Examples.BetterDesign.Repository.CarExample.DBCar
+==
+          - getWeight(<font color="6060BB"></font>)
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Wheels [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-detailed.svg]]  {
+          + db: Examples.BetterDesign.Repository.CarExample.DBCar
+==
+          - getWeight(<font color="6060BB"></font>)
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Driver [[Examples.BetterDesign.Repository.CarExample.CarParts.Driver-diagram-detailed.svg]]  {
+          + db: Examples.BetterDesign.Repository.CarExample.DBCar
+==
+          - getWeight(<font color="6060BB"></font>)
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Doors [[Examples.BetterDesign.Repository.CarExample.CarParts.Doors-diagram-detailed.svg]]  {
+          + db: Examples.BetterDesign.Repository.CarExample.DBCar
+==
+          - getWeight(<font color="6060BB"></font>)
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User-diagram-detailed.svg]]  {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-detailed.svg]]  {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints-diagram-detailed.svg]]  {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice-diagram-detailed.svg]]  {
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car-diagram-detailed.svg]]  {
+        }
+abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-detailed.svg]]  {
+}
+abstract class MyNamespace.UnusedClass1 [[MyNamespace.UnusedClass1-diagram-detailed.svg]]  {
+  + doNothing(<font color="6060BB"></font>)
+}
+abstract class MyNamespace.UnusedClass1_DOT_InnerClass [[MyNamespace.UnusedClass1.InnerClass-diagram-detailed.svg]]  {
+  + UnusedInnerClass(<font color="6060BB">unusedClass:MyNamespace.UnusedClass</font>)
+}
+  interface MyNamespace.DotNetPreAdapter.IMyTest [[MyNamespace.DotNetPreAdapter.IMyTest-diagram-detailed.svg]]  {
+    - unused(<font color="6060BB"></font>)
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClassBase [[MyNamespace.DotNetPreAdapter.InnerClassBase-diagram-detailed.svg]]  {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-detailed.svg]]  {
+    - unused(<font color="6060BB"></font>)
+  }
+  abstract class MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass [[MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-detailed.svg]]  {
+  }
+  abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-detailed.svg]]  {
+    + logger: DotNetPreAdapter.Utils.Logger
+    + unusedD: DotNetPreAdapter.Domain.Datastructure
+==
+  }
+      abstract class MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass [[MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor.InnerClass-diagram-detailed.svg]]  {
+      }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.UnusedClass  : uses 
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass1  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Service.AnalyzeAST  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method 
+DotNetPreAdapter.Domain.Datastructure +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Static 
+DotNetPreAdapter.Domain.Datastructure +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Variable 
+DotNetPreAdapter.Domain.Datastructure +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure 
+DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+DotNetPreAdapter.Domain.Datastructure -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_Variable  : uses 
+DotNetPreAdapter.Domain.Datastructure .[#6060BB].> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+DotNetPreAdapter.Domain.Datastructure -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType 
+DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_Variable 
+CSharpSyntaxWalker <|-[#red]- DotNetPreAdapter.Domain.ASTVisitor
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- SemanticModel 
+DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> SyntaxNode  : uses 
+DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> ITypeSymbol  : uses 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> T  : uses 
+DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> NamespaceDeclarationSyntax  : uses 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> UsingDirectiveSyntax  : uses 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> EnumDeclarationSyntax  : uses 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> InterfaceDeclarationSyntax  : uses 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> ClassDeclarationSyntax  : uses 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> MethodDeclarationSyntax  : uses 
+DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> IParameterSymbol  : uses 
+DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> VariableDeclarationSyntax  : uses 
+DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> IAliasSymbol  : uses 
+DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_Method  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Infrastructure
+DotNetPreAdapter.Infrastructure.CreateYml .[#6060BB].> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Infrastructure.CreateYml .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Infrastructure.CreateYml -[#909090]-> YamlSequenceNode  : uses 
+DotNetPreAdapter.Infrastructure.CreateYml -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+DotNetPreAdapter.Infrastructure.CreateYml -[#909090]-> YamlStream  : uses 
+DotNetPreAdapter.Infrastructure.CreateYml -[#909090]-> System.IO.TextWriter  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.Datastructure  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Service.RecursiveFileProcessor  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> SyntaxTree  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> CompilationUnitSyntax  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> SemanticModel  : uses 
+DotNetPreAdapter.Service.AnalyzeAST -[#909090]-> DotNetPreAdapter.Domain.ASTVisitor  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+Enum <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IComparable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IFormattable <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+IConvertible <|-[#red]- DotNetPreAdapter.Utils.LoggingType
+DotNetPreAdapter.Utils.Logger *-[#10BB10]- DotNetPreAdapter.Utils.LoggingType 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Car  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Complaints  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.CarExample.Vehicle *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Driver <|-[#red]- Examples.BadDesign.CarExample.Car
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.CarParts.Wheels 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.Vehicle 
+Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.Car .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.CarExample.Car -[#909090]-> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.CarParts
+Examples.BadDesign.CarExample.CarParts.Seats *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Driver *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+Examples.BadDesign.CarExample.CarParts.Doors *-[#10BB10]- Examples.BadDesign.CarExample.DB 
+' Class relations extracted from namespace:
+' Examples.BadDesign.CarExample.WarehouseEntities
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Driver  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Seats  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User  : uses 
+Examples.BetterDesign.Repository.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Seats 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Driver 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Doors 
+Examples.BetterDesign.Repository.CarExample.Car .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.CarParts
+Examples.BetterDesign.Repository.CarExample.CarParts.Seats *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Driver *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+Examples.BetterDesign.Repository.CarExample.CarParts.Doors *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.WarehouseEntities
+' Class relations extracted from namespace:
+' MyNamespace
+MyNamespace.UnusedClass1 +-[#10BBBB]- MyNamespace.UnusedClass1_DOT_InnerClass 
+MyNamespace.UnusedClass1.InnerClass .[#6060BB].> MyNamespace.UnusedClass  : uses 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter
+MyNamespace.DotNetPreAdapter.InnerClassBase <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass
+MyNamespace.DotNetPreAdapter.IMyTest <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass
+MyNamespace.DotNetPreAdapter.InnerClass +-[#10BBBB]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass 
+Enum <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IComparable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IFormattable <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IConvertible <|-[#red]- MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+CSharpSyntaxWalker <|-[#red]- MyNamespace.DotNetPreAdapter.UnusedASTVisitor
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Utils.Logger 
+MyNamespace.DotNetPreAdapter.UnusedASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 
+' Class relations extracted from namespace:
+' MyNamespace.DotNetPreAdapter.DotNetPreAdapter.RecursiveFileProcessor
+@enduml

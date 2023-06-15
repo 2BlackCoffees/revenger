@@ -1,0 +1,22 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.IMyTest **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nDotNetPreAdapter.IMyTest **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.IMyTest **simplified** and **grouped per namespace**:\n   [[DotNetPreAdapter.IMyTest-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
+interface DotNetPreAdapter.IMyTest [[DotNetPreAdapter.IMyTest-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+  + unused(<font color="6060BB"></font>)
+}
+abstract class DotNetPreAdapter.InnerClass [[DotNetPreAdapter.InnerClass-diagram-detailed-grouped-per-namespace.svg]]  {
+  + unused(<font color="6060BB"></font>)
+}
+'Compared namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] { with last element of }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace DotNetPreAdapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.IMyTest <|-[#red]- DotNetPreAdapter.InnerClass
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.WarehouseEntitities.User **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BadDesign.WarehouseEntitities.User **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.WarehouseEntitities.User **detailed** and **grouped per namespace**:\n   [[Examples.BadDesign.WarehouseEntitities.User-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-simplified-grouped-per-namespace.svg]] {
+  class Examples.BadDesign.DB [[Examples.BadDesign.DB-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace Examples.BadDesign [[Examples.BadDesign-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign [[Examples.BadDesign-diagram-simplified-grouped-per-namespace.svg]] {
+namespace Examples.BadDesign.WarehouseEntitities [[Examples.BadDesign.WarehouseEntitities-diagram-simplified-grouped-per-namespace.svg]] {
+    class Examples.BadDesign.WarehouseEntitities.User [[Examples.BadDesign.WarehouseEntitities.User-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+    }
+'Compared namespace Examples.BadDesign.WarehouseEntitities [[Examples.BadDesign.WarehouseEntitities-diagram-simplified-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace WarehouseEntitities
+}
+' Closing namespace BadDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.WarehouseEntitities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.WarehouseEntitities
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.FakeEntitities **simplified** </size>
+note "Your are analyzing:\nExamples.BadDesign.FakeEntitities **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.FakeEntitities **detailed** :\n   [[Examples.BadDesign.FakeEntitities-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  class Examples.BadDesign.DB [[Examples.BadDesign.DB-diagram-simplified.svg]]  {
+  }
+    class Examples.BadDesign.FakeEntitities.Invoice [[Examples.BadDesign.FakeEntitities.Invoice-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BadDesign.FakeEntitities.Item [[Examples.BadDesign.FakeEntitities.Item-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BadDesign.FakeEntitities.Customer [[Examples.BadDesign.FakeEntitities.Customer-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BadDesign.FakeEntitities.User [[Examples.BadDesign.FakeEntitities.User-diagram-simplified.svg]] #yellow {
+    }
+    class Examples.BadDesign.FakeEntitities.Complaints [[Examples.BadDesign.FakeEntitities.Complaints-diagram-simplified.svg]] #yellow {
+    }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.User  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.Customer  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.Item  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.Invoice  : uses 
+Examples.BadDesign.DB .[#6060BB].> Examples.BadDesign.FakeEntitities.Complaints  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.FakeEntitities
+@enduml

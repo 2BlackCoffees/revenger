@@ -1,0 +1,33 @@
+@startuml
+skinparam linetype ortho
+title <size:20>preadapter.domain.ASTVisitor.HandleDeepness **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\npreadapter.domain.ASTVisitor.HandleDeepness **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.ASTVisitor.HandleDeepness **detailed** and **grouped per namespace**:\n   [[preadapter.domain.ASTVisitor.HandleDeepness-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Node [[Node-diagram-simplified-grouped-per-namespace.svg]] #MintCream {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace preadapter [[preadapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] {
+  class preadapter.domain.ASTVisitor_DOT_HandleDeepness [[preadapter.domain.ASTVisitor.HandleDeepness-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+  }
+  class preadapter.domain.ASTVisitor_DOT_ObjectType [[preadapter.domain.ASTVisitor.ObjectType-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace domain
+}
+' Closing namespace preadapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' preadapter.domain
+preadapter.domain.ASTVisitor.HandleDeepness .[#6060BB].> Node  : uses 
+preadapter.domain.ASTVisitor.HandleDeepness .[#6060BB].> preadapter.domain.ASTVisitor_DOT_ObjectType  : uses 
+preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_ObjectType 
+preadapter.domain.ASTVisitor +-[#10BBBB]- preadapter.domain.ASTVisitor_DOT_HandleDeepness 
+@enduml

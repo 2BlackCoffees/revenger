@@ -1,11 +1,10 @@
 @startuml
+skinparam linetype ortho
 title <size:20>preadapter.domain.ASTVisitorDebug **simplified** </size>
 note "Your are analyzing:\npreadapter.domain.ASTVisitorDebug **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* preadapter.domain.ASTVisitorDebug **detailed** :\n   [[preadapter.domain.ASTVisitorDebug-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class VoidVisitorAdapter_BRQTO_Void_BRQTC [[VoidVisitorAdapter_BRQTO_Void_BRQTC-diagram-simplified.svg]] #MintCream {
 }
 class PrintStream [[PrintStream-diagram-simplified.svg]] #MintCream {
-}
-class HandleDeepness [[HandleDeepness-diagram-simplified.svg]] #MintCream {
 }
 class AnnotationDeclaration [[AnnotationDeclaration-diagram-simplified.svg]] #MintCream {
 }
@@ -189,11 +188,9 @@ class WhileStmt [[WhileStmt-diagram-simplified.svg]] #MintCream {
 }
 class WildcardType [[WildcardType-diagram-simplified.svg]] #MintCream {
 }
-class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-simplified.svg]] #MintCream {
-}
   class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified.svg]] #yellow {
   }
-  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness-diagram-simplified.svg]]  {
+  class preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness [[preadapter.domain.ASTVisitorDebug.HandleDeepness-diagram-simplified.svg]] #yellow {
   }
  ' *************************************** 
  ' *************************************** 
@@ -204,8 +201,7 @@ class String_BRQTO__BRQTC [[String_BRQTO__BRQTC-diagram-simplified.svg]] #MintCr
 ' preadapter.domain
 VoidVisitorAdapter_BRQTO_Void_BRQTC <|-[#red]- preadapter.domain.ASTVisitorDebug
 preadapter.domain.ASTVisitorDebug +-[#10BBBB]- preadapter.domain.ASTVisitorDebug_DOT_HandleDeepness 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> PrintStream  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> HandleDeepness  : uses 
+preadapter.domain.ASTVisitorDebug *-[#10BB10]- PrintStream 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationDeclaration  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> Void  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> AnnotationMemberDeclaration  : uses 
@@ -297,6 +293,5 @@ preadapter.domain.ASTVisitorDebug .[#6060BB].> VariableDeclarator  : uses
 preadapter.domain.ASTVisitorDebug .[#6060BB].> VoidType  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> WhileStmt  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> WildcardType  : uses 
-preadapter.domain.ASTVisitorDebug .[#6060BB].> String_BRQTO__BRQTC  : uses 
 preadapter.domain.ASTVisitorDebug -[#909090]-> CompilationUnit  : uses 
 @enduml

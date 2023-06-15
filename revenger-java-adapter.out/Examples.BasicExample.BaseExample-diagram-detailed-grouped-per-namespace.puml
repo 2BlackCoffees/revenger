@@ -1,0 +1,54 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BasicExample.BaseExample **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BasicExample.BaseExample **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BasicExample.BaseExample **simplified** and **grouped per namespace**:\n   [[Examples.BasicExample.BaseExample-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BasicExample [[Examples.BasicExample-diagram-detailed-grouped-per-namespace.svg]] {
+  class Examples.BasicExample.BaseExample [[Examples.BasicExample.BaseExample-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+    + otherExample(<font color="6060BB"></font>): <font color="BB6060">void</font>
+  }
+  abstract class Examples.BasicExample.AbstractBaseExample [[Examples.BasicExample.AbstractBaseExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+  }
+  class Examples.BasicExample.Useless [[Examples.BasicExample.Useless-diagram-detailed-grouped-per-namespace.svg]]  {
+    + useless(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - <font color="909090">useless.testEnum: Examples.BasicExample.SideExample.SideTestEnum</font>
+--
+  }
+  class Examples.BasicExample.BaseExample_DOT_EnumTest [[Examples.BasicExample.BaseExample.EnumTest-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+    + EnumValue1: EnumTypePlaceHolder
+    + EnumValue2: EnumTypePlaceHolder
+==
+  }
+  class Examples.BasicExample.ClassExample [[Examples.BasicExample.ClassExample-diagram-detailed-grouped-per-namespace.svg]]  {
+    + memberVarUseless: Examples.BasicExample.Useless
+    + memberVarEnumTest: Examples.BasicExample.BaseExample.EnumTest
+==
+    + example(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">void</font>
+    - <font color="909090">example.localVarBaseExample: Examples.BasicExample.BaseExample</font>
+--
+    + getExample(<font color="6060BB"></font>): <font color="BB6060">Examples.BasicExample.IExample</font>
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+  }
+'Compared namespace Examples.BasicExample [[Examples.BasicExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BasicExample
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.AbstractBaseExample <|-[#red]- Examples.BasicExample.BaseExample
+Examples.BasicExample.BaseExample +-[#10BBBB]- Examples.BasicExample.BaseExample_DOT_EnumTest 
+Examples.BasicExample.BaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.AbstractBaseExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.BaseExample <|-[#red]- Examples.BasicExample.ClassExample
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.Useless 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.BaseExample.EnumTest 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.ClassExample -[#909090]-> Examples.BasicExample.BaseExample  : uses 
+@enduml

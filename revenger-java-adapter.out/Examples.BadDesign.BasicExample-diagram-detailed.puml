@@ -1,0 +1,72 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BadDesign.BasicExample **detailed** </size>
+note "Your are analyzing:\nExamples.BadDesign.BasicExample **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BadDesign.BasicExample **simplified** :\n   [[Examples.BadDesign.BasicExample-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+    interface Examples.BadDesign.BasicExample.IExample [[Examples.BadDesign.BasicExample.IExample-diagram-detailed.svg]] #yellow {
+      + example(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">void</font>
+    }
+    class Examples.BadDesign.BasicExample.Useless [[Examples.BadDesign.BasicExample.Useless-diagram-detailed.svg]] #yellow {
+      + useless(<font color="6060BB"></font>): <font color="BB6060">void</font>
+      - <font color="909090">useless.testEnum: Examples.BadDesign.BasicExample.SideExample.SideTestEnum</font>
+--
+    }
+    class Examples.BadDesign.BasicExample.ClassExample [[Examples.BadDesign.BasicExample.ClassExample-diagram-detailed.svg]] #yellow {
+      + memberVarUseless: Examples.BadDesign.BasicExample.Useless
+      + memberVarEnumTest: Examples.BadDesign.BasicExample.BaseExample.EnumTest
+==
+      + example(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">void</font>
+      - <font color="909090">example.localVarBaseExample: Examples.BadDesign.BasicExample.BaseExample</font>
+--
+      + getExample(<font color="6060BB"></font>): <font color="BB6060">Examples.BadDesign.BasicExample.IExample</font>
+      + exampleAbstract(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">Examples.BadDesign.BasicExample.Useless</font>
+    }
+    class Examples.BadDesign.BasicExample.BaseExample [[Examples.BadDesign.BasicExample.BaseExample-diagram-detailed.svg]] #yellow {
+      + exampleAbstract(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">Examples.BadDesign.BasicExample.Useless</font>
+      + otherExample(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    }
+    class Examples.BadDesign.BasicExample.BaseExample_DOT_EnumTest [[Examples.BadDesign.BasicExample.BaseExample.EnumTest-diagram-detailed.svg]] #yellow {
+      + EnumValue1: EnumTypePlaceHolder
+      + EnumValue2: EnumTypePlaceHolder
+==
+    }
+    class Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample [[Examples.BadDesign.BasicExample.ClassExample.InnerClassExample-diagram-detailed.svg]] #yellow {
+      + methodClassInnerClassExample(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">void</font>
+    }
+    abstract class Examples.BadDesign.BasicExample.AbstractBaseExample [[Examples.BadDesign.BasicExample.AbstractBaseExample-diagram-detailed.svg]] #yellow {
+      + exampleAbstract(<font color="6060BB">useless1:Examples.BadDesign.BasicExample.Useless, useless2:Examples.BadDesign.BasicExample.Useless</font>): <font color="BB6060">Examples.BadDesign.BasicExample.Useless</font>
+    }
+    class Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample [[Examples.BadDesign.BasicExample.ClassExample.InnerClassExample.classInMethodExample-diagram-detailed.svg]] #yellow {
+    }
+      class Examples.BadDesign.BasicExample.SideExample.SideTestEnum [[Examples.BadDesign.BasicExample.SideExample.SideTestEnum-diagram-detailed.svg]] #yellow {
+        + TestEnumValue1: EnumTypePlaceHolder
+        + TestEnumValue2: EnumTypePlaceHolder
+==
+      }
+      class Examples.BadDesign.BasicExample.SideExample.SideExample [[Examples.BadDesign.BasicExample.SideExample.SideExample-diagram-detailed.svg]] #yellow {
+        + test(<font color="6060BB">testEnum:Examples.BadDesign.BasicExample.SideExample.SideTestEnum</font>): <font color="BB6060">void</font>
+        + testNoParameter(<font color="6060BB"></font>): <font color="BB6060">void</font>
+      }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BadDesign.BasicExample
+Examples.BadDesign.BasicExample.IExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+Examples.BadDesign.BasicExample.Useless -[#909090]-> Examples.BadDesign.BasicExample.SideExample.SideTestEnum  : uses 
+Examples.BadDesign.BasicExample.BaseExample <|-[#red]- Examples.BadDesign.BasicExample.ClassExample
+Examples.BadDesign.BasicExample.ClassExample +-[#10BBBB]- Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample 
+Examples.BadDesign.BasicExample.ClassExample *-[#10BB10]- Examples.BadDesign.BasicExample.Useless 
+Examples.BadDesign.BasicExample.ClassExample *-[#10BB10]- Examples.BadDesign.BasicExample.BaseExample.EnumTest 
+Examples.BadDesign.BasicExample.ClassExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+Examples.BadDesign.BasicExample.ClassExample -[#909090]-> Examples.BadDesign.BasicExample.BaseExample  : uses 
+Examples.BadDesign.BasicExample.ClassExample .[#6060BB].> Examples.BadDesign.BasicExample.IExample  : uses 
+Examples.BadDesign.BasicExample.AbstractBaseExample <|-[#red]- Examples.BadDesign.BasicExample.BaseExample
+Examples.BadDesign.BasicExample.BaseExample +-[#10BBBB]- Examples.BadDesign.BasicExample.BaseExample_DOT_EnumTest 
+Examples.BadDesign.BasicExample.BaseExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample +-[#10BBBB]- Examples.BadDesign.BasicExample.ClassExample_DOT_InnerClassExample_DOT_classInMethodExample 
+Examples.BadDesign.BasicExample.ClassExample.InnerClassExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+Examples.BadDesign.BasicExample.AbstractBaseExample .[#6060BB].> Examples.BadDesign.BasicExample.Useless  : uses 
+' Class relations extracted from namespace:
+' Examples.BadDesign.BasicExample.SideExample
+Examples.BadDesign.BasicExample.SideExample.SideExample .[#6060BB].> Examples.BadDesign.BasicExample.SideExample.SideTestEnum  : uses 
+@enduml

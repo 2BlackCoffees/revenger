@@ -1,0 +1,76 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.CarExample.CarParts.Doors **detailed** and **grouped per namespace**</size>
+note "Your are analyzing:\nExamples.BetterDesign.CarExample.CarParts.Doors **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.CarExample.CarParts.Doors **simplified** and **grouped per namespace**:\n   [[Examples.BetterDesign.CarExample.CarParts.Doors-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+  class Examples.BetterDesign.DBCar [[Examples.BetterDesign.DBCar-diagram-detailed-grouped-per-namespace.svg]]  {
+    + getCarsForDriver(<font color="6060BB">driver:Examples.BetterDesign.CarExample.CarParts.Driver</font>): <font color="BB6060">String</font>
+    + updateCar(<font color="6060BB">car:Examples.BetterDesign.CarExample.Car, seats:Examples.BetterDesign.CarExample.CarParts.Seats</font>): <font color="BB6060">void</font>
+    + updateCar(<font color="6060BB">car:Examples.BetterDesign.CarExample.Car, doors:Examples.BetterDesign.CarExample.CarParts.Doors</font>): <font color="BB6060">void</font>
+    + sellCarTo(<font color="6060BB">car:Examples.BetterDesign.CarExample.Car, driver:Examples.BetterDesign.CarExample.CarParts.Driver</font>): <font color="BB6060">void</font>
+    + getCarFromDriver(<font color="6060BB">d:Examples.BetterDesign.CarExample.CarParts.Driver</font>): <font color="BB6060">Examples.BetterDesign.CarExample.Car</font>
+    + getDriverFromCar(<font color="6060BB">c:Examples.BetterDesign.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.CarExample.CarParts.Driver</font>
+    + getWheelsFromCar(<font color="6060BB">c:Examples.BetterDesign.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.CarExample.CarParts.Wheels</font>
+    + getDoorsFromCar(<font color="6060BB">c:Examples.BetterDesign.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.CarExample.CarParts.Doors</font>
+    + getSeatsFromCar(<font color="6060BB">c:Examples.BetterDesign.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.CarExample.CarParts.Seats</font>
+  }
+'Compared namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.CarExample [[Examples.BetterDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+    class Examples.BetterDesign.CarExample.Car [[Examples.BetterDesign.CarExample.Car-diagram-detailed-grouped-per-namespace.svg]]  {
+      + wheels: Examples.BetterDesign.CarExample.CarParts.Wheels
+      + seats: Examples.BetterDesign.CarExample.CarParts.Seats
+      + driver: Examples.BetterDesign.CarExample.CarParts.Driver
+      + doors: Examples.BetterDesign.CarExample.CarParts.Doors
+==
+      + createCar(<font color="6060BB">doors:Examples.BetterDesign.CarExample.CarParts.Doors</font>): <font color="BB6060">void</font>
+    }
+'Compared namespace Examples.BetterDesign.CarExample [[Examples.BetterDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of     }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarExample
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.CarExample [[Examples.BetterDesign.CarExample-diagram-detailed-grouped-per-namespace.svg]] {
+namespace Examples.BetterDesign.CarExample.CarParts [[Examples.BetterDesign.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]] {
+      class Examples.BetterDesign.CarExample.CarParts.Doors [[Examples.BetterDesign.CarExample.CarParts.Doors-diagram-detailed-grouped-per-namespace.svg]] #yellow {
+        + db: Examples.BetterDesign.DBCar
+==
+        + getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+      }
+'Compared namespace Examples.BetterDesign.CarExample.CarParts [[Examples.BetterDesign.CarExample.CarParts-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace CarParts
+}
+' Closing namespace CarExample
+}
+' Closing namespace BetterDesign
+}
+' Closing namespace Examples
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.Car  : uses 
+Examples.BetterDesign.DBCar .[#6060BB].> Examples.BetterDesign.CarExample.CarParts.Doors  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.CarExample
+Examples.BetterDesign.CarExample.Car *-[#10BB10]- Examples.BetterDesign.CarExample.CarParts.Doors 
+Examples.BetterDesign.CarExample.Car .[#6060BB].> Examples.BetterDesign.CarExample.CarParts.Doors  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.CarExample.CarParts
+Examples.BetterDesign.CarExample.CarParts.Doors *-[#10BB10]- Examples.BetterDesign.DBCar 
+@enduml

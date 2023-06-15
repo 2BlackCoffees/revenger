@@ -1,0 +1,39 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.CarExample.CarParts.Wheels **detailed** </size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.CarParts.Wheels **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.CarExample.CarParts.Wheels **simplified** :\n   [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+      abstract class Examples.BetterDesign.Repository.CarExample.DBCar [[Examples.BetterDesign.Repository.CarExample.DBCar-diagram-detailed.svg]]  {
+        - getCarsForDriver(<font color="6060BB">driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, seats:Examples.BetterDesign.Repository.CarExample.CarParts.Seats</font>)
+        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+        - sellCarTo(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - getCar(<font color="6060BB">d:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
+        - getDriver(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getWheels(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getDoors(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getSeats(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+      }
+      abstract class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-detailed.svg]]  {
+        + wheels: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
+        + seats: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
+        + driver: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
+        + doors: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
+==
+        - createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+      }
+        abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Wheels [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-detailed.svg]] #yellow {
+          + db: Examples.BetterDesign.Repository.CarExample.DBCar
+==
+          - getWeight(<font color="6060BB"></font>)
+        }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.CarExample.CarParts
+Examples.BetterDesign.Repository.CarExample.CarParts.Wheels *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
+@enduml

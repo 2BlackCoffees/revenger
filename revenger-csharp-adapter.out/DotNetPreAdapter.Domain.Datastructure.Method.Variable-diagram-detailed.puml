@@ -1,0 +1,16 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Domain.Datastructure.Method.Variable **detailed** </size>
+note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure.Method.Variable **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Domain.Datastructure.Method.Variable **simplified** :\n   [[DotNetPreAdapter.Domain.Datastructure.Method.Variable-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_Variable [[DotNetPreAdapter.Domain.Datastructure.Method.Variable-diagram-detailed.svg]] #yellow {
+  }
+  abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method [[DotNetPreAdapter.Domain.Datastructure.Method-diagram-detailed.svg]]  {
+    + AddVariable(<font color="6060BB"></font>)
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_Variable 
+@enduml

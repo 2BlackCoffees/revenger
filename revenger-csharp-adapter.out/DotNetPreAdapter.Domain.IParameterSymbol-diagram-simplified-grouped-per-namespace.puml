@@ -1,0 +1,26 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Domain.IParameterSymbol **simplified** and **grouped per namespace**</size>
+note "Your are analyzing:\nDotNetPreAdapter.Domain.IParameterSymbol **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Domain.IParameterSymbol **detailed** and **grouped per namespace**:\n   [[DotNetPreAdapter.Domain.IParameterSymbol-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class DotNetPreAdapter.Domain.IParameterSymbol [[DotNetPreAdapter.Domain.IParameterSymbol-diagram-simplified-grouped-per-namespace.svg]] #yellow {
+}
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-simplified-grouped-per-namespace.svg]] {
+namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-simplified-grouped-per-namespace.svg]] {
+  abstract class DotNetPreAdapter.Domain.ASTVisitor [[DotNetPreAdapter.Domain.ASTVisitor-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+'Compared namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
+' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
+' Closing namespace Domain
+}
+' Closing namespace DotNetPreAdapter
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Domain
+DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> DotNetPreAdapter.Domain.IParameterSymbol  : uses 
+@enduml

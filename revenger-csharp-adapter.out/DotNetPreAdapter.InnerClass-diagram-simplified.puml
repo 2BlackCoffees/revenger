@@ -1,0 +1,35 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.InnerClass **simplified** </size>
+note "Your are analyzing:\nDotNetPreAdapter.InnerClass **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.InnerClass **detailed** :\n   [[DotNetPreAdapter.InnerClass-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+class Enum [[Enum-diagram-simplified.svg]] #MintCream {
+}
+class IComparable [[IComparable-diagram-simplified.svg]] #MintCream {
+}
+class IFormattable [[IFormattable-diagram-simplified.svg]] #MintCream {
+}
+class IConvertible [[IConvertible-diagram-simplified.svg]] #MintCream {
+}
+abstract class DotNetPreAdapter.InnerClassBase [[DotNetPreAdapter.InnerClassBase-diagram-simplified.svg]] #yellow {
+}
+abstract class DotNetPreAdapter.InnerClass [[DotNetPreAdapter.InnerClass-diagram-simplified.svg]] #yellow {
+}
+interface DotNetPreAdapter.IMyTest [[DotNetPreAdapter.IMyTest-diagram-simplified.svg]]  {
+}
+abstract class DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass [[DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-simplified.svg]] #yellow {
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.InnerClassBase <|-[#red]- DotNetPreAdapter.InnerClass
+DotNetPreAdapter.IMyTest <|-[#red]- DotNetPreAdapter.InnerClass
+DotNetPreAdapter.InnerClass +-[#10BBBB]- DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass 
+Enum <|-[#red]- DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IComparable <|-[#red]- DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IFormattable <|-[#red]- DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+IConvertible <|-[#red]- DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass
+@enduml

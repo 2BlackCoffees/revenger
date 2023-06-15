@@ -1,0 +1,32 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BasicExample.IExample **detailed** </size>
+note "Your are analyzing:\nExamples.BasicExample.IExample **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BasicExample.IExample **simplified** :\n   [[Examples.BasicExample.IExample-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+  interface Examples.BasicExample.IExample [[Examples.BasicExample.IExample-diagram-detailed.svg]] #yellow {
+    + example(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">void</font>
+  }
+  class Examples.BasicExample.Useless [[Examples.BasicExample.Useless-diagram-detailed.svg]]  {
+    + useless(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    - <font color="909090">useless.testEnum: Examples.BasicExample.SideExample.SideTestEnum</font>
+--
+  }
+  class Examples.BasicExample.ClassExample [[Examples.BasicExample.ClassExample-diagram-detailed.svg]]  {
+    + memberVarUseless: Examples.BasicExample.Useless
+    + memberVarEnumTest: Examples.BasicExample.BaseExample.EnumTest
+==
+    + example(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">void</font>
+    - <font color="909090">example.localVarBaseExample: Examples.BasicExample.BaseExample</font>
+--
+    + getExample(<font color="6060BB"></font>): <font color="BB6060">Examples.BasicExample.IExample</font>
+    + exampleAbstract(<font color="6060BB">useless1:Examples.BasicExample.Useless, useless2:Examples.BasicExample.Useless</font>): <font color="BB6060">Examples.BasicExample.Useless</font>
+  }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BasicExample
+Examples.BasicExample.IExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.ClassExample *-[#10BB10]- Examples.BasicExample.Useless 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.Useless  : uses 
+Examples.BasicExample.ClassExample .[#6060BB].> Examples.BasicExample.IExample  : uses 
+@enduml

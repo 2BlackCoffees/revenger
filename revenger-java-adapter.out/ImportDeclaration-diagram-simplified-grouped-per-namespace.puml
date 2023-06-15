@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype ortho
 title <size:20>ImportDeclaration **simplified** and **grouped per namespace**</size>
 note "Your are analyzing:\nImportDeclaration **simplified** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* ImportDeclaration **detailed** and **grouped per namespace**:\n   [[ImportDeclaration-diagram-detailed-grouped-per-namespace.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 class ImportDeclaration [[ImportDeclaration-diagram-simplified-grouped-per-namespace.svg]] #yellow {
@@ -6,9 +7,9 @@ class ImportDeclaration [[ImportDeclaration-diagram-simplified-grouped-per-names
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
 namespace preadapter [[preadapter-diagram-simplified-grouped-per-namespace.svg]] {
 namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] {
-  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified-grouped-per-namespace.svg]]  {
-  }
   class preadapter.domain.ASTVisitorDebug [[preadapter.domain.ASTVisitorDebug-diagram-simplified-grouped-per-namespace.svg]]  {
+  }
+  class preadapter.domain.ASTVisitor [[preadapter.domain.ASTVisitor-diagram-simplified-grouped-per-namespace.svg]]  {
   }
 'Compared namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -23,6 +24,6 @@ namespace preadapter.domain [[preadapter.domain-diagram-simplified-grouped-per-n
 ' 
 ' Class relations extracted from namespace:
 ' preadapter.domain
-preadapter.domain.ASTVisitor .[#6060BB].> ImportDeclaration  : uses 
 preadapter.domain.ASTVisitorDebug .[#6060BB].> ImportDeclaration  : uses 
+preadapter.domain.ASTVisitor .[#6060BB].> ImportDeclaration  : uses 
 @enduml

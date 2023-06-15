@@ -1,0 +1,34 @@
+@startuml
+skinparam linetype ortho
+title <size:20>DotNetPreAdapter.Program **simplified** </size>
+note "Your are analyzing:\nDotNetPreAdapter.Program **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Program **detailed** :\n   [[DotNetPreAdapter.Program-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-simplified.svg]] #yellow {
+}
+abstract class DotNetPreAdapter.UnusedClass [[DotNetPreAdapter.UnusedClass-diagram-simplified.svg]]  {
+}
+  abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-simplified.svg]]  {
+  }
+  abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-simplified.svg]]  {
+  }
+abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-simplified.svg]]  {
+}
+abstract class MyNamespace.UnusedClass1 [[MyNamespace.UnusedClass1-diagram-simplified.svg]]  {
+}
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' DotNetPreAdapter
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.UnusedClass  : uses 
+DotNetPreAdapter.Program -[#909090]-> MyNamespace.UnusedClass1  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Utils.Logger  : uses 
+DotNetPreAdapter.Program -[#909090]-> DotNetPreAdapter.Service.AnalyzeAST  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Service
+DotNetPreAdapter.Service.AnalyzeAST .[#6060BB].> DotNetPreAdapter.Utils.Logger  : uses 
+' Class relations extracted from namespace:
+' DotNetPreAdapter.Utils
+' Class relations extracted from namespace:
+' MyNamespace
+@enduml

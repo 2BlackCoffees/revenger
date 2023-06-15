@@ -1,0 +1,17 @@
+@startuml
+skinparam linetype ortho
+title <size:20>Examples.BetterDesign.Repository.WarehouseEntities.User **simplified** </size>
+note "Your are analyzing:\nExamples.BetterDesign.Repository.WarehouseEntities.User **simplified** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository.WarehouseEntities.User **detailed** :\n   [[Examples.BetterDesign.Repository.WarehouseEntities.User-diagram-detailed.svg]]\n* Full diagram **simplified** and **grouped per namespace**:\n   [[full-diagram-simplified-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
+    class Examples.BetterDesign.Repository.DBWarehouse [[Examples.BetterDesign.Repository.DBWarehouse-diagram-simplified.svg]]  {
+    }
+      class Examples.BetterDesign.Repository.WarehouseEntities.User [[Examples.BetterDesign.Repository.WarehouseEntities.User-diagram-simplified.svg]] #yellow {
+      }
+ ' *************************************** 
+ ' *************************************** 
+ ' *************************************** 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository
+Examples.BetterDesign.Repository.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.WarehouseEntities.User  : uses 
+' Class relations extracted from namespace:
+' Examples.BetterDesign.Repository.WarehouseEntities
+@enduml
