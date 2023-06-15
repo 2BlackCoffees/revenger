@@ -41,8 +41,6 @@ namespace DotNetPreAdapter
                 logger = logger_;
             }
 
-
-
             public ICollection<UsingDirectiveSyntax> Usings { get; } = new List<UsingDirectiveSyntax>();
             string SimplifyType(string type)
             {
@@ -197,7 +195,7 @@ namespace DotNetPreAdapter
                     }
                     else
                     {
-                        returnString += $"{element.Item1}:({element.Item3}?Probably).{element.Item2}";
+                        returnString += $"{element.Item1}:{element.Item3}.{element.Item2}";
                     }
                 }
                 return returnString;
@@ -210,21 +208,6 @@ namespace DotNetPreAdapter
                     typeName = $"list[{typeName}]";
                 }
                 return typeName;
-#if DEACTIVATED_ON_PURPOSE
-
-            string notAllowedChars = "[]{}/\\-()";
-            if (notAllowedChars.Any(x => typeName.Contains(x)))
-            {
-                logger.LogDebug($"{dbgSpaces}  cleanForRegEx: typeName {typeName} contains not allowed chars " +
-                    $"{notAllowedChars}", dbgSpaces);
-                foreach (char regexChar in notAllowedChars)
-                {
-                    typeName = typeName.Replace(regexChar.ToString(), $"\\{regexChar}");
-                }
-                logger.LogDebug($"{dbgSpaces}    cleanForRegEx: typeName was transformed to {typeName}", dbgSpaces);
-            }
-            return typeName;
-#endif
             }
 
             public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
@@ -237,11 +220,10 @@ namespace DotNetPreAdapter
 
                 namespaceList.Add(namespaceName);
                 DefaultVisit(node);
-                if (namespaceList.Count > 0) namespaceList.RemoveAt(namespaceList.Count - 1);
+                //if (namespaceList.Count > 0) namespaceList.RemoveAt(namespaceList.Count - 1);
                 logger.LogDebug($"Leaving VisitNamespaceDeclaration", dbgSpaces);
                 dbgSpaces = dbgSpaces.Substring(2);
             }
-
 
             public override void VisitUsingDirective(UsingDirectiveSyntax node)
             {
@@ -369,7 +351,7 @@ namespace DotNetPreAdapter
                                 mostProbableNamespace = "";
                             }
                             arguments_tuple.Add(new Tuple<string, string, string>(
-                                parameterName, cleanForRegEx(parameterType), mostProbableNamespace));
+                                parameterName,cleanForRegEx(parameterType), mostProbableNamespace));
                             logger.LogDebug($"  VisitMethodDeclaration: Added arguments_tuple: " +
                                 $"{ArgumentsTupleToString(arguments_tuple)}", dbgSpaces);
                         }
@@ -448,7 +430,7 @@ namespace DotNetPreAdapter
                                 {
                                     subDataStructure.add_variable(variableName, typeName, mostProbableNamespace, isMember);
                                 }
-                                logger.LogDebug($"{dbgSpaces}  VisitVariableDeclaration: Adding variable type found: {variableName}, type {typeName}, isMember: {isMember}", dbgSpaces);
+                                logger.LogDebug($"{dbgSpaces}  VisitVariableDeclaration: Adding variable type found: {variableName}, mostProbableNamespace: {mostProbableNamespace}, type {typeName}, isMember: {isMember}", dbgSpaces);
                             }
                         }
                     }

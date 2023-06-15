@@ -19,6 +19,7 @@ namespace DotNetPreAdapter
             const string STATICS = "statics";
             const string METHODS = "methods";
             const string VARIABLES = "variables";
+            const string NAMESPACE_FOR_NOT_YET_READFILE = "{Not}Yet?read!File";
 
             public class Method
             {
@@ -290,10 +291,11 @@ namespace DotNetPreAdapter
             {
                 foreach (SubDataStructure subDataStructure in class_to_datastructure.Values)
                 {
-                    CorrectClassScope(subDataStructure, subDataStructure.getAnonymousInvocation(), true);
-                    CorrectClassScope(subDataStructure, subDataStructure.getAnonymousStaticInvocation(), true);
-                    CorrectClassScope(subDataStructure, subDataStructure.get_base_classes(), false);
-                    CorrectClassScope(subDataStructure, subDataStructure.getGenericTypes(), false);
+                    
+                    CorrectClassScope(subDataStructure, subDataStructure.getAnonymousInvocation(), true, subDataStructure.get_name_space_list());
+                    CorrectClassScope(subDataStructure, subDataStructure.getAnonymousStaticInvocation(), true, subDataStructure.get_name_space_list());
+                    CorrectClassScope(subDataStructure, subDataStructure.get_base_classes(), false, subDataStructure.get_name_space_list());
+                    CorrectClassScope(subDataStructure, subDataStructure.getGenericTypes(), false, subDataStructure.get_name_space_list());
                     var variables = subDataStructure.get_variable_fields();
                     for (int index = 0; index < variables.Count; ++index)
                     {
@@ -303,7 +305,8 @@ namespace DotNetPreAdapter
                                 subDataStructure,
                                 variables[index].variableType,
                                 false,
-                                variables[index].mostProbableNamespace);
+                                subDataStructure.get_name_space_list(),
+                                false);
                     }
                     foreach (Method method in subDataStructure.get_method_fields())
                     {
@@ -314,7 +317,8 @@ namespace DotNetPreAdapter
                                     subDataStructure,
                                     method.parameters[index].userType,
                                     false,
-                                    method.parameters[index].mostProbableNamespace);
+                                    subDataStructure.get_name_space_list(),
+                                    false);
 
                         }
                         for (int index = 0; index < method.variables.Count; ++index)
@@ -324,67 +328,109 @@ namespace DotNetPreAdapter
                                     subDataStructure,
                                     method.variables[index].variableType,
                                     false,
-                                    method.variables[index].mostProbableNamespace);
+                                    subDataStructure.get_name_space_list(),
+                                    false);
 
                         }
 
                     }
                 }
             }
-            void CorrectClassScope(SubDataStructure subDataStructure, List<string> classNameList, bool isAnymousCall)
+            void CorrectClassScope(SubDataStructure subDataStructure, List<string> classNameList, bool isAnymousCall, List<string> namespaceList)
             {
                 if (classNameList != null)
                 {
                     for (int index = 0; index < classNameList.Count; ++index)
                     {
-                        classNameList[index] = GetFQDNForUsedClassName(subDataStructure, classNameList[index], isAnymousCall);
+                        classNameList[index] = GetFQDNForUsedClassName(
+                            subDataStructure, 
+                            classNameList[index], 
+                            isAnymousCall,
+                            namespaceList,
+                            false);
                     }
                 }
 
             }
-            string GetFQDNForUsedClassName(SubDataStructure subDataStructure, string classUsage, bool isAnymousCall, string mostProbableNamespace = "")
+            string getFQDNClassNameFromNamespacelist(string className, List<string> namespaceList) {
+                var classnameList = get_classname_list();
+                logger.LogDebug($"getFQDNClassNameFromNamespacelist: Searching class {className}\n in the classnameList \n{String.Join('\n', classnameList)}");
+
+                foreach(var namespaceName in namespaceList) {
+                    var fqdnClassName = $"{namespaceName}.{className}";
+                    if(classnameList.Contains(fqdnClassName)) {
+                        logger.LogDebug($"getFQDNClassNameFromNamespacelist: Found className {className} as {fqdnClassName}");
+                        return fqdnClassName;
+                    } else {
+                        logger.LogDebug($"getFQDNClassNameFromNamespacelist:    fqdnClassName {fqdnClassName} was not found in classnameList");
+                    }
+                }
+                logger.LogDebug($"getFQDNClassNameFromNamespacelist: className {className} was NOT found");
+                return null;
+
+            }
+            string GetFQDNForUsedClassName(SubDataStructure subDataStructure, string classUsage, bool isAnymousCall, List<string> namespaceList, bool useNotReadYetMarker = true)
             {
                 string className = "";
+                if(classUsage.StartsWith(NAMESPACE_FOR_NOT_YET_READFILE, 0)) {
+                    classUsage = classUsage.Substring(NAMESPACE_FOR_NOT_YET_READFILE.Length);
+                }
                 if (!isAnymousCall || Regex.Match(classUsage, @"\(.*\)\s*$", RegexOptions.IgnoreCase).Success)
                 {
                     className = isAnymousCall ? classUsage.Split('(')[0] : classUsage;
                     var classnameList = get_classname_list();
-                    if (!classnameList.Contains(className) ||
-                        (mostProbableNamespace.Length > 0 && !classnameList.Contains($"{mostProbableNamespace}.{className}")))
+                    string fqdnClassName = getFQDNClassNameFromNamespacelist(className, namespaceList);
+                    if(fqdnClassName != null) {
+                        className = fqdnClassName;
+                    }
+                    else if (!classnameList.Contains(className))
                     {
                         try
                         {
-                            var fittingClassNames = classnameList.Where(
-                                    p => Regex.Match(p, $"\\.{className}$").Success
-                                ).ToArray();
-                            if (fittingClassNames.Length == 1)
+                            List<string> fittingClassNames = classnameList
+                                .Where(p => Regex.Match(p, $"\\.{className}$").Success)
+                                .ToList();
+                            List<string> fittingPackageNames = new List<string>();
+                            foreach(var fittingClassName in fittingClassNames) {
+                                fittingPackageNames.Add(fittingClassName.Remove(fittingClassName.LastIndexOf(".")));
+                            }
+                            if (fittingClassNames.Count == 1)
                             {
                                 logger.LogDebug($"GetFQDNForUsedClassName: Found class {className} as {fittingClassNames[0]}");
                                 className = fittingClassNames[0];
                             }
-                            else if (fittingClassNames.Length > 1)
+                            else if (fittingClassNames.Count > 1)
                             {
-
-                                var bestFittingClassNames = classnameList.Where(
-                                    p => Regex.Match(p, $"{mostProbableNamespace}\\.{className}$").Success
-                                    ).ToArray();
-                                if (bestFittingClassNames.Length > 0)
-                                {
-                                    fittingClassNames = bestFittingClassNames;
-                                    logger.LogDebug($"GetFQDNForUsedClassName: Found class {className} with multiple better fitting variants: {String.Join(", ", fittingClassNames)}");
+                                logger.LogWarning($"GetFQDNForUsedClassName: Found class {className} with multiple variants: {String.Join(',', fittingClassNames)}");
+                                List<string> namespacesFromImports = subDataStructure.getUsings()
+                                    .Where(currentImportName => fittingPackageNames.Contains(currentImportName))
+                                    .ToList();
+                                if(namespacesFromImports.Count == 1) {
+                                    logger.LogDebug("GetFQDNForUsedClassName: Found class " + namespacesFromImports.First() + " in the import list: " + String.Join(',', namespacesFromImports));
+                                    className = $"{namespacesFromImports.First()}.{className}";
+                                } else {
+       
+                                    List<string> classNameStartingWithNamespace = namespacesFromImports
+                                        .Where(currentImportName => classnameList.Contains($"{currentImportName}.{className}"))
+                                        .ToList();   
+                                    if(classNameStartingWithNamespace.Count == 1) {
+                                        className = $"{classNameStartingWithNamespace[0]}.{className}";
+                                        logger.LogDebug("GetFQDNForUsedClassName: Only class found in classNameStartingWithNamespace is " + className);
+                                    } else {
+                                        className = NAMESPACE_FOR_NOT_YET_READFILE + className;
+                                    }
                                 }
-                                logger.LogWarning($"GetFQDNForUsedClassName: Found class {className} with multiple variants: {String.Join(", ", fittingClassNames)}");
-                                logger.LogWarning($"GetFQDNForUsedClassName: Will be defaulting to the first one: {className} as {fittingClassNames[0]}");
-                                className = fittingClassNames[0];
                             }
                             else
                             {
+                                className = NAMESPACE_FOR_NOT_YET_READFILE + className;
                                 logger.LogWarning($"GetFQDNForUsedClassName: Class {className} not found in the whole list of classes! Class will be left as is.");
                             }
                         }
                         catch (System.Text.RegularExpressions.RegexParseException e)
                         {
                             logger.LogError($"GetFQDNForUsedClassName: Class {className} could not be regexe parsed (Class will be left as is):\n{e.ToString()}");
+                            className = NAMESPACE_FOR_NOT_YET_READFILE + className;
 
                         }
                     }
@@ -392,6 +438,10 @@ namespace DotNetPreAdapter
                     {
                         logger.LogDebug($"GetFQDNForUsedClassName: OK: Class {className} found in the list of classes! Class will be left as is.");
                     }
+                }
+
+                if(!useNotReadYetMarker && className.StartsWith(NAMESPACE_FOR_NOT_YET_READFILE, 0)) {
+                    className = className.Substring(NAMESPACE_FOR_NOT_YET_READFILE.Length);
                 }
                 return className;
             }
@@ -407,7 +457,7 @@ namespace DotNetPreAdapter
                 if (!class_to_datastructure.ContainsKey(fqdn_class_name))
                 {
                     class_to_datastructure[fqdn_class_name] = sub_datastructure;
-                    string namespace_name = String.Join(".", sub_datastructure.get_name_space_list().ToArray());
+                    string namespace_name = String.Join('.', sub_datastructure.get_name_space_list().ToArray());
                     if (!namespace_to_datastructures.ContainsKey(namespace_name))
                     {
                         namespace_to_datastructures[namespace_name] = new List<SubDataStructure>();
