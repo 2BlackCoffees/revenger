@@ -16,7 +16,7 @@ class YAMLAdapter:
         self.logger = logger
 
     @staticmethod
-    def __check_boolean(value_dict: dict, key: str):
+    def __check_boolean(value_dict: dict, key: str) -> bool:
         if key in value_dict:
             value = value_dict[key]
             if isinstance(value, bool):
@@ -25,8 +25,9 @@ class YAMLAdapter:
             return value.lower() == 'true'
         return False
 
-    def __cleantype(type: str):
+    def __cleantype(type: str) -> str:
         return type.replace("?", "_QSTN_").replace(" extends ", "_XTNDS_")
+
     
     def read(self, datastructure: GenericDatastructure, filename: str, from_dir: str) -> any:
         self.logger.log_info(f"Opening yaml file {filename}")
@@ -68,7 +69,7 @@ class YAMLAdapter:
                 sub_datastructure.add_variable(\
                     variable['variable_name'],
                     YAMLAdapter.__cleantype(variable['variable_type']),
-                    variable['is_member'] == 'True')
+                    YAMLAdapter.__check_boolean(variable, 'is_member'))
             for static in value_dict['statics']:
                 sub_datastructure.add_static(\
                     static['static_name'],
@@ -87,6 +88,7 @@ class YAMLAdapter:
                             method_variable['variable_type']))
                 sub_datastructure.add_method(\
                     method['method_name'], \
-                        parameters, \
-                            method['is_private'] == 'True', method_variables)
+                    parameters, \
+                    YAMLAdapter.__check_boolean(method, 'is_private'), \
+                    method_variables)
             

@@ -75,6 +75,10 @@ class DiagramCreation:
     def get_file_name_from_class_namespace_name(self, detailed: bool, grouped_per_ns: bool, class_name: str, want_svg_file: bool) -> str:
         file_name: str = ''
         class_name = self.datastructure.get_language_dependent().clean_type(class_name)
+        if class_name is None or class_name == '':
+            class_name = "__was__empty__filled__by__revenger__"
+            self.logger.log_error(f"class_name is empty, replaced with {class_name}")
+
         if detailed:
             if grouped_per_ns:
                 file_name = f'{class_name}{DiagramCreation.DETAILED_PER_NS_FILE_NAME_SUFFIX}'
