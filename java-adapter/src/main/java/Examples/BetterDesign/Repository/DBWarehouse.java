@@ -1,15 +1,15 @@
-package Examples.BetterDesign;
-import Examples.BetterDesign.FakeEntitities.Complaints;
-import Examples.BetterDesign.FakeEntitities.Customer;
-import Examples.BetterDesign.FakeEntitities.Invoice;
-import Examples.BetterDesign.FakeEntitities.Item;
-import Examples.BetterDesign.FakeEntitities.User;
+package Examples.BetterDesign.Repository;
+import Examples.BetterDesign.Repository.WarehouseEntities.Car;
+import Examples.BetterDesign.Repository.WarehouseEntities.Complaints;
+import Examples.BetterDesign.Repository.WarehouseEntities.Customer;
+import Examples.BetterDesign.Repository.WarehouseEntities.Invoice;
+import Examples.BetterDesign.Repository.WarehouseEntities.User;
 
-public class DBCustomers {
+public class DBWarehouse {
     Customer getCustomer(Invoice i) {
         return null;
     }
-    Item getItem(Complaints c) {
+    Car getCar(Complaints c) {
         return null;
     }
     Invoice getInvoice(Customer c) {
@@ -18,22 +18,22 @@ public class DBCustomers {
     Complaints getComplaints(Customer c) {
         return null;
     }
-    User getUser(Item item) {
+    User getUser(Car car) {
         return null;
     }
     Customer getCustomer(Complaints complaint) {
         return null;
     }
-    Item getItem(User user) {
+    Car getCar(User user) {
         return null;
     }
-    Complaints getComplaints(Item item) {
+    Complaints getComplaints(Car car) {
         return null;
     }
     User getFirstUser() {
         return null;
     }
-    Item getFirstItem() {
+    Car getFirstCar() {
         return null;
     }
     Invoice getFirstInvoice() {

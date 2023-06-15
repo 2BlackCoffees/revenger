@@ -1,4 +1,4 @@
-package Examples.BadDesign.BasicExample.SideExample;
+package Examples.BasicExample.SideExample;
 
 public enum SideTestEnum {
     TestEnumValue1,

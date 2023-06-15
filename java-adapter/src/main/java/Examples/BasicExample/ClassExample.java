@@ -1,12 +1,10 @@
-package Examples.BadDesign.BasicExample;
+package Examples.BasicExample;
 
-import Examples.BadDesign.DB;
-import Examples.BadDesign.BasicExample.SideExample.SideExample;
-import Examples.BadDesign.BasicExample.SideExample.SideTestEnum;
+import Examples.BasicExample.SideExample.SideExample;
+import Examples.BasicExample.SideExample.SideTestEnum;
 
 
 class Useless {
-    DB db;
     public void useless() {
         System.out.println("Useless");
         SideTestEnum testEnum = SideTestEnum.TestEnumValue1;
@@ -35,7 +33,7 @@ class  BaseExample extends AbstractBaseExample {
     }
 
     public void otherExample() {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'example'");
     }
 

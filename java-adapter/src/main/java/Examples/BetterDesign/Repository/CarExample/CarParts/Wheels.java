@@ -1,6 +1,6 @@
-package Examples.BetterDesign.CarExample.CarParts;
+package Examples.BetterDesign.Repository.CarExample.CarParts;
 
-import Examples.BetterDesign.DBCar;
+import Examples.BetterDesign.Repository.DBCar;
 
 public class Wheels {
     int comfort;

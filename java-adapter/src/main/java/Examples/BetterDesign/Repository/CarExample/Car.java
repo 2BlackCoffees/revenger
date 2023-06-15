@@ -1,10 +1,10 @@
-package Examples.BetterDesign.CarExample;
+package Examples.BetterDesign.Repository.CarExample;
 
-import Examples.BetterDesign.DBCar;
-import Examples.BetterDesign.CarExample.CarParts.Doors;
-import Examples.BetterDesign.CarExample.CarParts.Driver;
-import Examples.BetterDesign.CarExample.CarParts.Seats;
-import Examples.BetterDesign.CarExample.CarParts.Wheels;
+import Examples.BetterDesign.Repository.CarExample.CarParts.Doors;
+import Examples.BetterDesign.Repository.CarExample.CarParts.Driver;
+import Examples.BetterDesign.Repository.CarExample.CarParts.Seats;
+import Examples.BetterDesign.Repository.CarExample.CarParts.Wheels;
+import Examples.BetterDesign.Repository.DBCar;
 
 class Vehicle
 {
