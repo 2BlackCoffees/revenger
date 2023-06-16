@@ -114,7 +114,7 @@ create_svg_files() {
   pushd $out_dir >/dev/null 
   deadletter=DeadLetter
   list_remaining_puml=$(get_list_puml_not_processed $keep_old_svg_and_tmp_files $process_missing_puml_only $start_with_biggest_sizes $deadletter)
-  number_files_in_dead_letter=$(ls $deadletter | wc -l)
+  number_files_in_dead_letter=$(ls $deadletter | wc -l 2>/dev/null)
   number_files_in_dead_letter=$(( number_files_in_dead_letter + 0 ))
   if [[ $number_files_in_dead_letter -gt 0 ]]; then
     warning "Number of files in dead letter: $number_files_in_dead_letter"
