@@ -15,12 +15,12 @@ class IConvertible [[IConvertible-diagram-detailed.svg]] #MintCream {
   abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed.svg]]  {
     + loggingType: DotNetPreAdapter.Utils.LoggingType
 ==
-    - log(<font color="6060BB"></font>)
-    + LogError(<font color="6060BB"></font>)
-    + LogWarning(<font color="6060BB"></font>)
-    + LogInfo(<font color="6060BB"></font>)
-    + LogDebug(<font color="6060BB"></font>)
-    + LogTrace(<font color="6060BB"></font>)
+    - log(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogError(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogWarning(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogInfo(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogDebug(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogTrace(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
  ' *************************************** 
  ' *************************************** 

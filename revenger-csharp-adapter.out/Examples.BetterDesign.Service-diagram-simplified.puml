@@ -13,8 +13,8 @@ note "Your are analyzing:\nExamples.BetterDesign.Service **simplified** \n\n==Fi
  ' *************************************** 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign
-Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample
 ' Class relations extracted from namespace:

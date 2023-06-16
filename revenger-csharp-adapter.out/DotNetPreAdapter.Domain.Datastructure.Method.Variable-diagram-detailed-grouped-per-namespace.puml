@@ -7,7 +7,7 @@ namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-detailed-gro
   abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_Variable [[DotNetPreAdapter.Domain.Datastructure.Method.Variable-diagram-detailed-grouped-per-namespace.svg]] #yellow {
   }
   abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method [[DotNetPreAdapter.Domain.Datastructure.Method-diagram-detailed-grouped-per-namespace.svg]]  {
-    + AddVariable(<font color="6060BB"></font>)
+    + AddVariable(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
 'Compared namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.

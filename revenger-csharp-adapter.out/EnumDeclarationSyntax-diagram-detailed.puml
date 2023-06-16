@@ -10,33 +10,33 @@ class EnumDeclarationSyntax [[EnumDeclarationSyntax-diagram-detailed.svg]] #yell
     + usingDict: dict[string, string]
     + logger: DotNetPreAdapter.Utils.Logger
 ==
-    - SimplifyType(<font color="6060BB"></font>)
+    - SimplifyType(<font color="6060BB"></font>): <font color="BB6060">string</font>
 --
-    + SyntaxNode(<font color="6060BB">node:SyntaxNode</font>)
+    + SyntaxNode(<font color="6060BB">node:SyntaxNode</font>): <font color="BB6060">string</font>
     - <font color="909090">SyntaxNode.convertedType: ITypeSymbol</font>
 --
-    - GetCurrentClassName(<font color="6060BB"></font>)
+    - GetCurrentClassName(<font color="6060BB"></font>): <font color="BB6060">string</font>
 --
-    - CreateClassInterface(<font color="6060BB">node:T</font>)
+    - CreateClassInterface(<font color="6060BB">node:T</font>): <font color="BB6060">Tuple[SubDataStructure, string]</font>
     - <font color="909090">CreateClassInterface.parentSubDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">CreateClassInterface.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">CreateClassInterface.tmpBase: ITypeSymbol</font>
 --
-    - getCurrentContext(<font color="6060BB"></font>)
-    - ArgumentsTupleToString(<font color="6060BB">arguments_tuple:list[Tuple[string, string, string]]</font>)
-    - cleanForRegEx(<font color="6060BB"></font>)
-    + VisitNamespaceDeclaration(<font color="6060BB">node:NamespaceDeclarationSyntax</font>)
-    + VisitUsingDirective(<font color="6060BB">node:UsingDirectiveSyntax</font>)
-    + VisitEnumDeclaration(<font color="6060BB">node:EnumDeclarationSyntax</font>)
-    + VisitInterfaceDeclaration(<font color="6060BB">node:InterfaceDeclarationSyntax</font>)
-    + VisitClassDeclaration(<font color="6060BB">node:ClassDeclarationSyntax</font>)
+    - getCurrentContext(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    - ArgumentsTupleToString(<font color="6060BB">arguments_tuple:list[Tuple[string, string, string]]</font>): <font color="BB6060">string</font>
+    - cleanForRegEx(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    + VisitNamespaceDeclaration(<font color="6060BB">node:NamespaceDeclarationSyntax</font>): <font color="BB6060">void</font>
+    + VisitUsingDirective(<font color="6060BB">node:UsingDirectiveSyntax</font>): <font color="BB6060">void</font>
+    + VisitEnumDeclaration(<font color="6060BB">node:EnumDeclarationSyntax</font>): <font color="BB6060">void</font>
+    + VisitInterfaceDeclaration(<font color="6060BB">node:InterfaceDeclarationSyntax</font>): <font color="BB6060">void</font>
+    + VisitClassDeclaration(<font color="6060BB">node:ClassDeclarationSyntax</font>): <font color="BB6060">void</font>
 --
-    + VisitMethodDeclaration(<font color="6060BB">node:MethodDeclarationSyntax</font>)
+    + VisitMethodDeclaration(<font color="6060BB">node:MethodDeclarationSyntax</font>): <font color="BB6060">void</font>
     - <font color="909090">VisitMethodDeclaration.arguments_tuple: list[Tuple[string, string, string]]</font>
     - <font color="909090">VisitMethodDeclaration.parameterSymbol: IParameterSymbol</font>
     - <font color="909090">VisitMethodDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
 --
-    + VisitVariableDeclaration(<font color="6060BB">node:VariableDeclarationSyntax</font>)
+    + VisitVariableDeclaration(<font color="6060BB">node:VariableDeclarationSyntax</font>): <font color="BB6060">void</font>
     - <font color="909090">VisitVariableDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">VisitVariableDeclaration.aliasInfo: IAliasSymbol</font>
     - <font color="909090">VisitVariableDeclaration.type: ITypeSymbol</font>

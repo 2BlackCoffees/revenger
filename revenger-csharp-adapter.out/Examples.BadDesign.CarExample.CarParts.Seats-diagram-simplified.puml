@@ -14,6 +14,7 @@ note "Your are analyzing:\nExamples.BadDesign.CarExample.CarParts.Seats **simpli
 ' Class relations extracted from namespace:
 ' Examples.BadDesign.CarExample
 Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
 Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.DB 
 Examples.BadDesign.CarExample.Car -[#909090]-> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
 ' Class relations extracted from namespace:

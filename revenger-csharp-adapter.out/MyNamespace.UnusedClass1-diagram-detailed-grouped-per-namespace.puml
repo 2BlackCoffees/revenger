@@ -4,12 +4,12 @@ title <size:20>MyNamespace.UnusedClass1 **detailed** and **grouped per namespace
 note "Your are analyzing:\nMyNamespace.UnusedClass1 **detailed** and **grouped per namespace**\n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.UnusedClass1 **simplified** and **grouped per namespace**:\n   [[MyNamespace.UnusedClass1-diagram-simplified-grouped-per-namespace.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
 abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-detailed-grouped-per-namespace.svg]]  {
-  - removeMe(<font color="6060BB"></font>)
+  - removeMe(<font color="6060BB"></font>): <font color="BB6060">void</font>
   - <font color="909090">removeMe.u1: MyNamespace.UnusedClass</font>
   - <font color="909090">removeMe.u2: DotNetPreAdapter.UnusedClass</font>
   - <font color="909090">removeMe.u3: MyNamespace.UnusedClass1</font>
 --
-  - Main(<font color="6060BB"></font>)
+  - Main(<font color="6060BB"></font>): <font color="BB6060">int</font>
   - <font color="909090">Main.logger: DotNetPreAdapter.Utils.Logger</font>
   - <font color="909090">Main.ast: DotNetPreAdapter.Service.AnalyzeAST</font>
 --
@@ -20,10 +20,10 @@ abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-detai
 }
 namespace MyNamespace [[MyNamespace-diagram-detailed-grouped-per-namespace.svg]] {
 abstract class MyNamespace.UnusedClass1 [[MyNamespace.UnusedClass1-diagram-detailed-grouped-per-namespace.svg]] #yellow {
-  + doNothing(<font color="6060BB"></font>)
+  + doNothing(<font color="6060BB"></font>): <font color="BB6060">void</font>
 }
 abstract class MyNamespace.UnusedClass1_DOT_InnerClass [[MyNamespace.UnusedClass1.InnerClass-diagram-detailed-grouped-per-namespace.svg]] #yellow {
-  + UnusedInnerClass(<font color="6060BB">unusedClass:MyNamespace.UnusedClass</font>)
+  + UnusedInnerClass(<font color="6060BB">unusedClass:MyNamespace.UnusedClass</font>): <font color="BB6060">void</font>
 }
 abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-detailed-grouped-per-namespace.svg]]  {
 }

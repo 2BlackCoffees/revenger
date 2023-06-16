@@ -25,11 +25,11 @@ namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-simplified-group
 namespace Examples.BetterDesign.Repository [[Examples.BetterDesign.Repository-diagram-simplified-grouped-per-namespace.svg]] {
 namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-simplified-grouped-per-namespace.svg]] {
 namespace Examples.BetterDesign.Repository.CarExample.WarehouseEntities [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities-diagram-simplified-grouped-per-namespace.svg]] {
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-simplified-grouped-per-namespace.svg]]  {
+        }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice-diagram-simplified-grouped-per-namespace.svg]]  {
         }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints-diagram-simplified-grouped-per-namespace.svg]]  {
-        }
-        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-simplified-grouped-per-namespace.svg]]  {
         }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User-diagram-simplified-grouped-per-namespace.svg]]  {
         }
@@ -50,10 +50,10 @@ namespace Examples.BetterDesign.Repository.CarExample.WarehouseEntities [[Exampl
  ' *************************************** 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample
-Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
-Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User  : uses 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample.WarehouseEntities

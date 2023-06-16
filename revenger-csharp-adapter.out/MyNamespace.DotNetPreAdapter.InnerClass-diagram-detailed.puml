@@ -13,10 +13,10 @@ class IConvertible [[IConvertible-diagram-detailed.svg]] #MintCream {
   abstract class MyNamespace.DotNetPreAdapter.InnerClassBase [[MyNamespace.DotNetPreAdapter.InnerClassBase-diagram-detailed.svg]] #yellow {
   }
   abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-detailed.svg]] #yellow {
-    - unused(<font color="6060BB"></font>)
+    - unused(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
   interface MyNamespace.DotNetPreAdapter.IMyTest [[MyNamespace.DotNetPreAdapter.IMyTest-diagram-detailed.svg]]  {
-    - unused(<font color="6060BB"></font>)
+    - unused(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
   abstract class MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass [[MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-detailed.svg]] #yellow {
   }

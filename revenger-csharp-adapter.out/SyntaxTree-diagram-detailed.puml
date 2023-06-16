@@ -5,7 +5,7 @@ note "Your are analyzing:\nSyntaxTree **detailed** \n\n==Filter==\nYou can click
 class SyntaxTree [[SyntaxTree-diagram-detailed.svg]] #yellow {
 }
   abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed.svg]]  {
-    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
     - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
     - <font color="909090">SearchRecurseCSharpToYAML.tree: SyntaxTree</font>

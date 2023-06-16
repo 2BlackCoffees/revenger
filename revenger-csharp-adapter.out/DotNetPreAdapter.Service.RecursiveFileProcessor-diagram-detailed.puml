@@ -3,11 +3,11 @@ skinparam linetype ortho
 title <size:20>DotNetPreAdapter.Service.RecursiveFileProcessor **detailed** </size>
 note "Your are analyzing:\nDotNetPreAdapter.Service.RecursiveFileProcessor **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Service.RecursiveFileProcessor **simplified** :\n   [[DotNetPreAdapter.Service.RecursiveFileProcessor-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
   abstract class DotNetPreAdapter.Service.RecursiveFileProcessor [[DotNetPreAdapter.Service.RecursiveFileProcessor-diagram-detailed.svg]] #yellow {
-    + SearchPath(<font color="6060BB"></font>)
-    - ProcessDirectory(<font color="6060BB"></font>)
+    + SearchPath(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    - ProcessDirectory(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
   abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed.svg]]  {
-    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
     - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
     - <font color="909090">SearchRecurseCSharpToYAML.tree: SyntaxTree</font>

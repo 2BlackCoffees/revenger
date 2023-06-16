@@ -21,21 +21,21 @@ namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-detailed-gro
     + namespace_to_namespace_list: dict[string, list[string]]
     + logger: DotNetPreAdapter.Utils.Logger
 ==
-    + ResolveClassNames(<font color="6060BB"></font>)
+    + ResolveClassNames(<font color="6060BB"></font>): <font color="BB6060">void</font>
     - <font color="909090">ResolveClassNames.variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]</font>
     - <font color="909090">ResolveClassNames.variable: DotNetPreAdapter.Domain.Datastructure.Variable</font>
 --
-    - CorrectClassScope(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
-    - getFQDNClassNameFromNamespacelist(<font color="6060BB"></font>)
-    - GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
-    + get_skip_types(<font color="6060BB"></font>)
-    - append_sub_datastructure(<font color="6060BB">sub_datastructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    - CorrectClassScope(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>): <font color="BB6060">void</font>
+    - getFQDNClassNameFromNamespacelist(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    - GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>): <font color="BB6060">string</font>
+    + get_skip_types(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    - append_sub_datastructure(<font color="6060BB">sub_datastructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>): <font color="BB6060">void</font>
 --
-    + append_class(<font color="6060BB"></font>)
+    + append_class(<font color="6060BB"></font>): <font color="BB6060">void</font>
     - <font color="909090">append_class.sub_datastructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
 --
-    + get_classname_list(<font color="6060BB"></font>)
-    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+    + get_classname_list(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    + get_datastructures_from_class_name(<font color="6060BB"></font>): <font color="BB6060">DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
   }
 'Compared namespace DotNetPreAdapter.Domain [[DotNetPreAdapter.Domain-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -48,12 +48,12 @@ namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-detailed-group
   abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed-grouped-per-namespace.svg]]  {
     + loggingType: DotNetPreAdapter.Utils.LoggingType
 ==
-    - log(<font color="6060BB"></font>)
-    + LogError(<font color="6060BB"></font>)
-    + LogWarning(<font color="6060BB"></font>)
-    + LogInfo(<font color="6060BB"></font>)
-    + LogDebug(<font color="6060BB"></font>)
-    + LogTrace(<font color="6060BB"></font>)
+    - log(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogError(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogWarning(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogInfo(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogDebug(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogTrace(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
 'Compared namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -64,12 +64,12 @@ namespace DotNetPreAdapter.Utils [[DotNetPreAdapter.Utils-diagram-detailed-group
 namespace MyNamespace [[MyNamespace-diagram-detailed-grouped-per-namespace.svg]] {
 namespace MyNamespace.DotNetPreAdapter [[MyNamespace.DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
   interface MyNamespace.DotNetPreAdapter.IMyTest [[MyNamespace.DotNetPreAdapter.IMyTest-diagram-detailed-grouped-per-namespace.svg]] #yellow {
-    - unused(<font color="6060BB"></font>)
+    - unused(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
   abstract class MyNamespace.DotNetPreAdapter.InnerClassBase [[MyNamespace.DotNetPreAdapter.InnerClassBase-diagram-detailed-grouped-per-namespace.svg]] #yellow {
   }
   abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-detailed-grouped-per-namespace.svg]] #yellow {
-    - unused(<font color="6060BB"></font>)
+    - unused(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
   abstract class MyNamespace.DotNetPreAdapter.InnerClass_DOT_InnerTestUnusedInInnerClass [[MyNamespace.DotNetPreAdapter.InnerClass.InnerTestUnusedInInnerClass-diagram-detailed-grouped-per-namespace.svg]] #yellow {
   }

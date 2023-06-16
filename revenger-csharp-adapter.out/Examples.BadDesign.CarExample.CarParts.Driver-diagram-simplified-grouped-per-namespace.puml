@@ -38,8 +38,8 @@ namespace Examples.BadDesign.CarExample.CarParts [[Examples.BadDesign.CarExample
  ' *************************************** 
 ' Class relations extracted from namespace:
 ' Examples.BadDesign.CarExample
-Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
 Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
 Examples.BadDesign.CarExample.CarParts.Driver <|-[#red]- Examples.BadDesign.CarExample.Car
 Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.DB 
 ' Class relations extracted from namespace:

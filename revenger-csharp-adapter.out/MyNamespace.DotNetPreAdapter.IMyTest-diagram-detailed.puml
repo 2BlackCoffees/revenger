@@ -3,10 +3,10 @@ skinparam linetype ortho
 title <size:20>MyNamespace.DotNetPreAdapter.IMyTest **detailed** </size>
 note "Your are analyzing:\nMyNamespace.DotNetPreAdapter.IMyTest **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* MyNamespace.DotNetPreAdapter.IMyTest **simplified** :\n   [[MyNamespace.DotNetPreAdapter.IMyTest-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
   interface MyNamespace.DotNetPreAdapter.IMyTest [[MyNamespace.DotNetPreAdapter.IMyTest-diagram-detailed.svg]] #yellow {
-    - unused(<font color="6060BB"></font>)
+    - unused(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
   abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-detailed.svg]]  {
-    - unused(<font color="6060BB"></font>)
+    - unused(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
  ' *************************************** 
  ' *************************************** 

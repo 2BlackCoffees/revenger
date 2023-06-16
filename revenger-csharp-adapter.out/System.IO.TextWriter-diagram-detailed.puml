@@ -5,7 +5,7 @@ note "Your are analyzing:\nSystem.IO.TextWriter **detailed** \n\n==Filter==\nYou
 class System.IO.TextWriter [[System.IO.TextWriter-diagram-detailed.svg]] #yellow {
 }
   abstract class DotNetPreAdapter.Infrastructure.CreateYml [[DotNetPreAdapter.Infrastructure.CreateYml-diagram-detailed.svg]]  {
-    + Create(<font color="6060BB">datastructure:DotNetPreAdapter.Domain.Datastructure, logger:DotNetPreAdapter.Utils.Logger</font>)
+    + Create(<font color="6060BB">datastructure:DotNetPreAdapter.Domain.Datastructure, logger:DotNetPreAdapter.Utils.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">Create.subDatastructureYmlNode: YamlSequenceNode</font>
     - <font color="909090">Create.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">Create.fromImports: YamlSequenceNode</font>

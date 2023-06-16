@@ -5,7 +5,7 @@ note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure.Method.Paramete
   abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType [[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType-diagram-detailed.svg]] #yellow {
   }
   abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method [[DotNetPreAdapter.Domain.Datastructure.Method-diagram-detailed.svg]]  {
-    + AddVariable(<font color="6060BB"></font>)
+    + AddVariable(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
  ' *************************************** 
  ' *************************************** 

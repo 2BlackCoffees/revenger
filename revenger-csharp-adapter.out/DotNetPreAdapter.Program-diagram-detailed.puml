@@ -3,21 +3,21 @@ skinparam linetype ortho
 title <size:20>DotNetPreAdapter.Program **detailed** </size>
 note "Your are analyzing:\nDotNetPreAdapter.Program **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* DotNetPreAdapter.Program **simplified** :\n   [[DotNetPreAdapter.Program-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
 abstract class DotNetPreAdapter.Program [[DotNetPreAdapter.Program-diagram-detailed.svg]] #yellow {
-  - removeMe(<font color="6060BB"></font>)
+  - removeMe(<font color="6060BB"></font>): <font color="BB6060">void</font>
   - <font color="909090">removeMe.u1: MyNamespace.UnusedClass</font>
   - <font color="909090">removeMe.u2: DotNetPreAdapter.UnusedClass</font>
   - <font color="909090">removeMe.u3: MyNamespace.UnusedClass1</font>
 --
-  - Main(<font color="6060BB"></font>)
+  - Main(<font color="6060BB"></font>): <font color="BB6060">int</font>
   - <font color="909090">Main.logger: DotNetPreAdapter.Utils.Logger</font>
   - <font color="909090">Main.ast: DotNetPreAdapter.Service.AnalyzeAST</font>
 --
 }
 abstract class DotNetPreAdapter.UnusedClass [[DotNetPreAdapter.UnusedClass-diagram-detailed.svg]]  {
-  + doNothing(<font color="6060BB"></font>)
+  + doNothing(<font color="6060BB"></font>): <font color="BB6060">void</font>
 }
   abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed.svg]]  {
-    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
     - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
     - <font color="909090">SearchRecurseCSharpToYAML.tree: SyntaxTree</font>
@@ -29,17 +29,17 @@ abstract class DotNetPreAdapter.UnusedClass [[DotNetPreAdapter.UnusedClass-diagr
   abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed.svg]]  {
     + loggingType: DotNetPreAdapter.Utils.LoggingType
 ==
-    - log(<font color="6060BB"></font>)
-    + LogError(<font color="6060BB"></font>)
-    + LogWarning(<font color="6060BB"></font>)
-    + LogInfo(<font color="6060BB"></font>)
-    + LogDebug(<font color="6060BB"></font>)
-    + LogTrace(<font color="6060BB"></font>)
+    - log(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogError(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogWarning(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogInfo(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogDebug(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogTrace(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
 abstract class MyNamespace.UnusedClass [[MyNamespace.UnusedClass-diagram-detailed.svg]]  {
 }
 abstract class MyNamespace.UnusedClass1 [[MyNamespace.UnusedClass1-diagram-detailed.svg]]  {
-  + doNothing(<font color="6060BB"></font>)
+  + doNothing(<font color="6060BB"></font>): <font color="BB6060">void</font>
 }
  ' *************************************** 
  ' *************************************** 

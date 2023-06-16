@@ -22,11 +22,11 @@ note "Your are analyzing:\nExamples.BetterDesign **simplified** \n\n==Filter==\n
         }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car-diagram-simplified.svg]] #yellow {
         }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-simplified.svg]] #yellow {
+        }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice-diagram-simplified.svg]] #yellow {
         }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints-diagram-simplified.svg]] #yellow {
-        }
-        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-simplified.svg]] #yellow {
         }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User-diagram-simplified.svg]] #yellow {
         }
@@ -35,8 +35,8 @@ note "Your are analyzing:\nExamples.BetterDesign **simplified** \n\n==Filter==\n
  ' *************************************** 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign
-Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample
 Examples.BetterDesign.Repository.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
@@ -49,10 +49,11 @@ Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDe
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Seats  : uses 
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
-Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
-Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Wheels  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User  : uses 
 Examples.BetterDesign.Repository.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
 ' Class relations extracted from namespace:

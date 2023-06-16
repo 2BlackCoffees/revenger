@@ -53,8 +53,11 @@ Examples.BadDesign.CarExample.Car *-[#10BB10]- Examples.BadDesign.CarExample.DB
 Examples.BadDesign.CarExample.Car .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
 Examples.BadDesign.CarExample.Car -[#909090]-> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
 Examples.BadDesign.CarExample.Vehicle *-[#10BB10]- Examples.BadDesign.CarExample.DB 
-Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
 Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.Car  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Driver  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Wheels  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Doors  : uses 
+Examples.BadDesign.CarExample.DB .[#6060BB].> Examples.BadDesign.CarExample.CarParts.Seats  : uses 
 ' Class relations extracted from namespace:
 ' Examples.BadDesign.CarExample.CarParts
 Examples.BadDesign.CarExample.CarParts.Driver *-[#10BB10]- Examples.BadDesign.CarExample.DB 

@@ -5,8 +5,8 @@ note "Your are analyzing:\nExamples.BetterDesign.Service **detailed** and **grou
 namespace Examples [[Examples-diagram-detailed-grouped-per-namespace.svg]] {
 namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] {
   abstract class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-detailed-grouped-per-namespace.svg]] #yellow {
-    - getOrderedCar(<font color="6060BB">physicalCar:Examples.BetterDesign.Repository.CarExample.Car</font>)
-    - getPhysicalCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car</font>)
+    - getOrderedCar(<font color="6060BB">physicalCar:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car</font>
+    - getPhysicalCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.Car</font>
   }
 'Compared namespace Examples.BetterDesign [[Examples.BetterDesign-diagram-detailed-grouped-per-namespace.svg]] { with last element of   }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -24,7 +24,7 @@ namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Re
         + driver: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
         + doors: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
 ==
-        - createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+        - createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>): <font color="BB6060">void</font>
       }
 'Compared namespace Examples.BetterDesign.Repository.CarExample [[Examples.BetterDesign.Repository.CarExample-diagram-detailed-grouped-per-namespace.svg]] { with last element of       }
 ' Closing all previous_sub_namespace_list namespace None because file analysis is finished.
@@ -60,8 +60,8 @@ namespace Examples.BetterDesign.Repository.CarExample.WarehouseEntities [[Exampl
  ' *************************************** 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign
-Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample
 ' Class relations extracted from namespace:

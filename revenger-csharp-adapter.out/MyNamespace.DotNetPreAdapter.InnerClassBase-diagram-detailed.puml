@@ -5,7 +5,7 @@ note "Your are analyzing:\nMyNamespace.DotNetPreAdapter.InnerClassBase **detaile
   abstract class MyNamespace.DotNetPreAdapter.InnerClassBase [[MyNamespace.DotNetPreAdapter.InnerClassBase-diagram-detailed.svg]] #yellow {
   }
   abstract class MyNamespace.DotNetPreAdapter.InnerClass [[MyNamespace.DotNetPreAdapter.InnerClass-diagram-detailed.svg]]  {
-    - unused(<font color="6060BB"></font>)
+    - unused(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
  ' *************************************** 
  ' *************************************** 

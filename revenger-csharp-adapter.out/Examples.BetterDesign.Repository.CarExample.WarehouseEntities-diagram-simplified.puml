@@ -24,9 +24,9 @@ note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.Warehouse
 Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
-Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User  : uses 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample.WarehouseEntities

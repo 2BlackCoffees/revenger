@@ -23,6 +23,7 @@ Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDe
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Seats  : uses 
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Wheels  : uses 
 Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
 Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Seats 
 Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Driver 

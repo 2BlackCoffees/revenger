@@ -8,21 +8,21 @@ note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure **detailed** \n
     + namespace_to_namespace_list: dict[string, list[string]]
     + logger: DotNetPreAdapter.Utils.Logger
 ==
-    + ResolveClassNames(<font color="6060BB"></font>)
+    + ResolveClassNames(<font color="6060BB"></font>): <font color="BB6060">void</font>
     - <font color="909090">ResolveClassNames.variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]</font>
     - <font color="909090">ResolveClassNames.variable: DotNetPreAdapter.Domain.Datastructure.Variable</font>
 --
-    - CorrectClassScope(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
-    - getFQDNClassNameFromNamespacelist(<font color="6060BB"></font>)
-    - GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
-    + get_skip_types(<font color="6060BB"></font>)
-    - append_sub_datastructure(<font color="6060BB">sub_datastructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>)
+    - CorrectClassScope(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>): <font color="BB6060">void</font>
+    - getFQDNClassNameFromNamespacelist(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    - GetFQDNForUsedClassName(<font color="6060BB">subDataStructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>): <font color="BB6060">string</font>
+    + get_skip_types(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    - append_sub_datastructure(<font color="6060BB">sub_datastructure:DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>): <font color="BB6060">void</font>
 --
-    + append_class(<font color="6060BB"></font>)
+    + append_class(<font color="6060BB"></font>): <font color="BB6060">void</font>
     - <font color="909090">append_class.sub_datastructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
 --
-    + get_classname_list(<font color="6060BB"></font>)
-    + get_datastructures_from_class_name(<font color="6060BB"></font>)
+    + get_classname_list(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    + get_datastructures_from_class_name(<font color="6060BB"></font>): <font color="BB6060">DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
   }
   abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Variable [[DotNetPreAdapter.Domain.Datastructure.Variable-diagram-detailed.svg]] #yellow {
   }
@@ -32,46 +32,46 @@ note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure **detailed** \n
     + variables: list[DotNetPreAdapter.Domain.Datastructure.Variable]
     + methods: list[DotNetPreAdapter.Domain.Datastructure.Method]
 ==
-    + set_abstract(<font color="6060BB"></font>)
-    + setInterface(<font color="6060BB"></font>)
-    + setInnerClass(<font color="6060BB"></font>)
-    + getUsings(<font color="6060BB"></font>)
-    + addImport(<font color="6060BB"></font>)
-    + getImports(<font color="6060BB"></font>)
-    + addGenericType(<font color="6060BB"></font>)
-    + addAnonymousInvocation(<font color="6060BB"></font>)
-    + addAnonymousStaticInvocation(<font color="6060BB"></font>)
-    + add_base_class(<font color="6060BB"></font>)
-    + add_static(<font color="6060BB"></font>)
+    + set_abstract(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + setInterface(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + setInnerClass(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + getUsings(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    + addImport(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + getImports(<font color="6060BB"></font>): <font color="BB6060">dict[string, string]</font>
+    + addGenericType(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + addAnonymousInvocation(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + addAnonymousStaticInvocation(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + add_base_class(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + add_static(<font color="6060BB"></font>): <font color="BB6060">void</font>
 --
-    + add_method(<font color="6060BB">arguments_tuple_:list[tuple[string, string, string]]</font>)
+    + add_method(<font color="6060BB">arguments_tuple_:list[tuple[string, string, string]]</font>): <font color="BB6060">void</font>
     - <font color="909090">add_method.Arguments_: list[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType]</font>
 --
-    + GetMethod(<font color="6060BB"></font>)
-    + add_variable(<font color="6060BB"></font>)
-    + add_inner_class(<font color="6060BB"></font>)
-    + is_abstract(<font color="6060BB"></font>)
-    + IsInterface(<font color="6060BB"></font>)
-    + IsInnerClass(<font color="6060BB"></font>)
-    + has_static_fields(<font color="6060BB"></font>)
-    + has_method_fields(<font color="6060BB"></font>)
-    + has_variables_fields(<font color="6060BB"></font>)
-    + getAnonymousInvocation(<font color="6060BB"></font>)
-    + getAnonymousStaticInvocation(<font color="6060BB"></font>)
-    + getGenericTypes(<font color="6060BB"></font>)
-    + get_from_imports(<font color="6060BB"></font>)
-    + get_fqdn_class_name(<font color="6060BB"></font>)
-    + get_base_classes(<font color="6060BB"></font>)
-    + get_static_fields(<font color="6060BB"></font>)
-    + get_method_fields(<font color="6060BB"></font>)
-    + get_variable_fields(<font color="6060BB"></font>)
-    + get_inner_class_name(<font color="6060BB"></font>)
-    + get_filename(<font color="6060BB"></font>)
-    + get_filemodule(<font color="6060BB"></font>)
-    + get_name_space_list(<font color="6060BB"></font>)
+    + GetMethod(<font color="6060BB"></font>): <font color="BB6060">DotNetPreAdapter.Domain.Datastructure.Method</font>
+    + add_variable(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + add_inner_class(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + is_abstract(<font color="6060BB"></font>): <font color="BB6060">bool</font>
+    + IsInterface(<font color="6060BB"></font>): <font color="BB6060">bool</font>
+    + IsInnerClass(<font color="6060BB"></font>): <font color="BB6060">bool</font>
+    + has_static_fields(<font color="6060BB"></font>): <font color="BB6060">bool</font>
+    + has_method_fields(<font color="6060BB"></font>): <font color="BB6060">bool</font>
+    + has_variables_fields(<font color="6060BB"></font>): <font color="BB6060">bool</font>
+    + getAnonymousInvocation(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    + getAnonymousStaticInvocation(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    + getGenericTypes(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    + get_from_imports(<font color="6060BB"></font>): <font color="BB6060">dict[string, string]</font>
+    + get_fqdn_class_name(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    + get_base_classes(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    + get_static_fields(<font color="6060BB"></font>): <font color="BB6060">list[DotNetPreAdapter.Domain.Datastructure.Static]</font>
+    + get_method_fields(<font color="6060BB"></font>): <font color="BB6060">list[DotNetPreAdapter.Domain.Datastructure.Method]</font>
+    + get_variable_fields(<font color="6060BB"></font>): <font color="BB6060">list[DotNetPreAdapter.Domain.Datastructure.Variable]</font>
+    + get_inner_class_name(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
+    + get_filename(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    + get_filemodule(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    + get_name_space_list(<font color="6060BB"></font>): <font color="BB6060">list[string]</font>
   }
   abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Method [[DotNetPreAdapter.Domain.Datastructure.Method-diagram-detailed.svg]] #yellow {
-    + AddVariable(<font color="6060BB"></font>)
+    + AddVariable(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
   abstract class DotNetPreAdapter.Domain.Datastructure_DOT_Static [[DotNetPreAdapter.Domain.Datastructure.Static-diagram-detailed.svg]] #yellow {
   }
@@ -85,33 +85,33 @@ note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure **detailed** \n
     + usingDict: dict[string, string]
     + logger: DotNetPreAdapter.Utils.Logger
 ==
-    - SimplifyType(<font color="6060BB"></font>)
+    - SimplifyType(<font color="6060BB"></font>): <font color="BB6060">string</font>
 --
-    + SyntaxNode(<font color="6060BB">node:SyntaxNode</font>)
+    + SyntaxNode(<font color="6060BB">node:SyntaxNode</font>): <font color="BB6060">string</font>
     - <font color="909090">SyntaxNode.convertedType: ITypeSymbol</font>
 --
-    - GetCurrentClassName(<font color="6060BB"></font>)
+    - GetCurrentClassName(<font color="6060BB"></font>): <font color="BB6060">string</font>
 --
-    - CreateClassInterface(<font color="6060BB">node:T</font>)
+    - CreateClassInterface(<font color="6060BB">node:T</font>): <font color="BB6060">Tuple[SubDataStructure, string]</font>
     - <font color="909090">CreateClassInterface.parentSubDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">CreateClassInterface.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">CreateClassInterface.tmpBase: ITypeSymbol</font>
 --
-    - getCurrentContext(<font color="6060BB"></font>)
-    - ArgumentsTupleToString(<font color="6060BB">arguments_tuple:list[Tuple[string, string, string]]</font>)
-    - cleanForRegEx(<font color="6060BB"></font>)
-    + VisitNamespaceDeclaration(<font color="6060BB">node:NamespaceDeclarationSyntax</font>)
-    + VisitUsingDirective(<font color="6060BB">node:UsingDirectiveSyntax</font>)
-    + VisitEnumDeclaration(<font color="6060BB">node:EnumDeclarationSyntax</font>)
-    + VisitInterfaceDeclaration(<font color="6060BB">node:InterfaceDeclarationSyntax</font>)
-    + VisitClassDeclaration(<font color="6060BB">node:ClassDeclarationSyntax</font>)
+    - getCurrentContext(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    - ArgumentsTupleToString(<font color="6060BB">arguments_tuple:list[Tuple[string, string, string]]</font>): <font color="BB6060">string</font>
+    - cleanForRegEx(<font color="6060BB"></font>): <font color="BB6060">string</font>
+    + VisitNamespaceDeclaration(<font color="6060BB">node:NamespaceDeclarationSyntax</font>): <font color="BB6060">void</font>
+    + VisitUsingDirective(<font color="6060BB">node:UsingDirectiveSyntax</font>): <font color="BB6060">void</font>
+    + VisitEnumDeclaration(<font color="6060BB">node:EnumDeclarationSyntax</font>): <font color="BB6060">void</font>
+    + VisitInterfaceDeclaration(<font color="6060BB">node:InterfaceDeclarationSyntax</font>): <font color="BB6060">void</font>
+    + VisitClassDeclaration(<font color="6060BB">node:ClassDeclarationSyntax</font>): <font color="BB6060">void</font>
 --
-    + VisitMethodDeclaration(<font color="6060BB">node:MethodDeclarationSyntax</font>)
+    + VisitMethodDeclaration(<font color="6060BB">node:MethodDeclarationSyntax</font>): <font color="BB6060">void</font>
     - <font color="909090">VisitMethodDeclaration.arguments_tuple: list[Tuple[string, string, string]]</font>
     - <font color="909090">VisitMethodDeclaration.parameterSymbol: IParameterSymbol</font>
     - <font color="909090">VisitMethodDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
 --
-    + VisitVariableDeclaration(<font color="6060BB">node:VariableDeclarationSyntax</font>)
+    + VisitVariableDeclaration(<font color="6060BB">node:VariableDeclarationSyntax</font>): <font color="BB6060">void</font>
     - <font color="909090">VisitVariableDeclaration.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">VisitVariableDeclaration.aliasInfo: IAliasSymbol</font>
     - <font color="909090">VisitVariableDeclaration.type: ITypeSymbol</font>
@@ -119,7 +119,7 @@ note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure **detailed** \n
 --
   }
   abstract class DotNetPreAdapter.Infrastructure.CreateYml [[DotNetPreAdapter.Infrastructure.CreateYml-diagram-detailed.svg]]  {
-    + Create(<font color="6060BB">datastructure:DotNetPreAdapter.Domain.Datastructure, logger:DotNetPreAdapter.Utils.Logger</font>)
+    + Create(<font color="6060BB">datastructure:DotNetPreAdapter.Domain.Datastructure, logger:DotNetPreAdapter.Utils.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">Create.subDatastructureYmlNode: YamlSequenceNode</font>
     - <font color="909090">Create.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">Create.fromImports: YamlSequenceNode</font>
@@ -136,7 +136,7 @@ note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure **detailed** \n
 --
   }
   abstract class DotNetPreAdapter.Service.AnalyzeAST [[DotNetPreAdapter.Service.AnalyzeAST-diagram-detailed.svg]]  {
-    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>)
+    + SearchRecurseCSharpToYAML(<font color="6060BB">logger:DotNetPreAdapter.Utils.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">SearchRecurseCSharpToYAML.datastructure: DotNetPreAdapter.Domain.Datastructure</font>
     - <font color="909090">SearchRecurseCSharpToYAML.recurseFileProcess: DotNetPreAdapter.Service.RecursiveFileProcessor</font>
     - <font color="909090">SearchRecurseCSharpToYAML.tree: SyntaxTree</font>
@@ -148,12 +148,12 @@ note "Your are analyzing:\nDotNetPreAdapter.Domain.Datastructure **detailed** \n
   abstract class DotNetPreAdapter.Utils.Logger [[DotNetPreAdapter.Utils.Logger-diagram-detailed.svg]]  {
     + loggingType: DotNetPreAdapter.Utils.LoggingType
 ==
-    - log(<font color="6060BB"></font>)
-    + LogError(<font color="6060BB"></font>)
-    + LogWarning(<font color="6060BB"></font>)
-    + LogInfo(<font color="6060BB"></font>)
-    + LogDebug(<font color="6060BB"></font>)
-    + LogTrace(<font color="6060BB"></font>)
+    - log(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogError(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogWarning(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogInfo(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogDebug(<font color="6060BB"></font>): <font color="BB6060">void</font>
+    + LogTrace(<font color="6060BB"></font>): <font color="BB6060">void</font>
   }
   abstract class MyNamespace.DotNetPreAdapter.UnusedASTVisitor [[MyNamespace.DotNetPreAdapter.UnusedASTVisitor-diagram-detailed.svg]]  {
     + logger: DotNetPreAdapter.Utils.Logger
@@ -173,6 +173,7 @@ DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger
 DotNetPreAdapter.Domain.Datastructure -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_Variable  : uses 
 DotNetPreAdapter.Domain.Datastructure .[#6060BB].> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
 DotNetPreAdapter.Domain.Datastructure -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+DotNetPreAdapter.Domain.Datastructure.SubDataStructure .[#6060BB].> DotNetPreAdapter.Domain.Datastructure_DOT_Method  : uses 
 DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType 
 DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_Variable 
 DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 

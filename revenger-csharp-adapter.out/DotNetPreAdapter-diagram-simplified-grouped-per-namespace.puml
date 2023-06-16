@@ -175,6 +175,7 @@ DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> IParameterSymbol  : uses
 DotNetPreAdapter.Domain.ASTVisitor .[#6060BB].> VariableDeclarationSyntax  : uses 
 DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> IAliasSymbol  : uses 
 DotNetPreAdapter.Domain.ASTVisitor -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_Method  : uses 
+DotNetPreAdapter.Domain.Datastructure.SubDataStructure .[#6060BB].> DotNetPreAdapter.Domain.Datastructure_DOT_Method  : uses 
 DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType 
 DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_Variable 
 ' Class relations extracted from namespace:

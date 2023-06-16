@@ -8,7 +8,7 @@ class YamlStream [[YamlStream-diagram-detailed-grouped-per-namespace.svg]] #yell
 namespace DotNetPreAdapter [[DotNetPreAdapter-diagram-detailed-grouped-per-namespace.svg]] {
 namespace DotNetPreAdapter.Infrastructure [[DotNetPreAdapter.Infrastructure-diagram-detailed-grouped-per-namespace.svg]] {
   abstract class DotNetPreAdapter.Infrastructure.CreateYml [[DotNetPreAdapter.Infrastructure.CreateYml-diagram-detailed-grouped-per-namespace.svg]]  {
-    + Create(<font color="6060BB">datastructure:DotNetPreAdapter.Domain.Datastructure, logger:DotNetPreAdapter.Utils.Logger</font>)
+    + Create(<font color="6060BB">datastructure:DotNetPreAdapter.Domain.Datastructure, logger:DotNetPreAdapter.Utils.Logger</font>): <font color="BB6060">void</font>
     - <font color="909090">Create.subDatastructureYmlNode: YamlSequenceNode</font>
     - <font color="909090">Create.subDataStructure: DotNetPreAdapter.Domain.Datastructure.SubDataStructure</font>
     - <font color="909090">Create.fromImports: YamlSequenceNode</font>

@@ -3,19 +3,19 @@ skinparam linetype ortho
 title <size:20>Examples.BetterDesign.Repository **detailed** </size>
 note "Your are analyzing:\nExamples.BetterDesign.Repository **detailed** \n\n==Filter==\nYou can click either the namespaces \nor class names for filtering them and their\ndirect dependencies.\n\n==Select other==\n* Examples.BetterDesign.Repository **simplified** :\n   [[Examples.BetterDesign.Repository-diagram-simplified.svg]]\n* Full diagram **detailed** and **grouped per namespace**:\n   [[full-diagram-detailed-grouped-per-namespace.svg]]\n* Home:\n   [[index.html]]" as FloatingNote
   abstract class Examples.BetterDesign.Service [[Examples.BetterDesign.Service-diagram-detailed.svg]]  {
-    - getOrderedCar(<font color="6060BB">physicalCar:Examples.BetterDesign.Repository.CarExample.Car</font>)
-    - getPhysicalCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car</font>)
+    - getOrderedCar(<font color="6060BB">physicalCar:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car</font>
+    - getPhysicalCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.Car</font>
   }
       abstract class Examples.BetterDesign.Repository.CarExample.DBCar [[Examples.BetterDesign.Repository.CarExample.DBCar-diagram-detailed.svg]] #yellow {
-        - getCarsForDriver(<font color="6060BB">driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
-        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, seats:Examples.BetterDesign.Repository.CarExample.CarParts.Seats</font>)
-        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
-        - sellCarTo(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
-        - getCar(<font color="6060BB">d:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>)
-        - getDriver(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
-        - getWheels(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
-        - getDoors(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
-        - getSeats(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>)
+        - getCarsForDriver(<font color="6060BB">driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>): <font color="BB6060">String[]</font>
+        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, seats:Examples.BetterDesign.Repository.CarExample.CarParts.Seats</font>): <font color="BB6060">void</font>
+        - updateCar(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>): <font color="BB6060">void</font>
+        - sellCarTo(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car, driver:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>): <font color="BB6060">void</font>
+        - getCar(<font color="6060BB">d:Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.Car</font>
+        - getDriver(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.CarParts.Driver</font>
+        - getWheels(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.CarParts.Wheels</font>
+        - getDoors(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>
+        - getSeats(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.CarParts.Seats</font>
       }
       abstract class Examples.BetterDesign.Repository.CarExample.Car [[Examples.BetterDesign.Repository.CarExample.Car-diagram-detailed.svg]] #yellow {
         + wheels: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
@@ -23,53 +23,53 @@ note "Your are analyzing:\nExamples.BetterDesign.Repository **detailed** \n\n==F
         + driver: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
         + doors: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
 ==
-        - createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>)
+        - createCar(<font color="6060BB">doors:Examples.BetterDesign.Repository.CarExample.CarParts.Doors</font>): <font color="BB6060">void</font>
       }
       abstract class Examples.BetterDesign.Repository.CarExample.DBWarehouse [[Examples.BetterDesign.Repository.CarExample.DBWarehouse-diagram-detailed.svg]] #yellow {
-        - getCustomer(<font color="6060BB">i:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice</font>)
-        - getCar(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>)
-        - getInvoice(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>)
-        - getComplaints(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>)
-        - getUser(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car</font>)
-        - getCustomer(<font color="6060BB">complaint:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>)
-        - getCar(<font color="6060BB">user:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User</font>)
-        - getComplaints(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car</font>)
-        - getFirstUser(<font color="6060BB"></font>)
-        - getFirstCar(<font color="6060BB"></font>)
-        - getFirstInvoice(<font color="6060BB"></font>)
-        - getFirstComplaints(<font color="6060BB"></font>)
+        - getCustomer(<font color="6060BB">i:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>
+        - getCar(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.Car</font>
+        - getInvoice(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice</font>
+        - getComplaints(<font color="6060BB">c:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>
+        - getUser(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User</font>
+        - getCustomer(<font color="6060BB">complaint:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer</font>
+        - getCar(<font color="6060BB">user:Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.Car</font>
+        - getComplaints(<font color="6060BB">car:Examples.BetterDesign.Repository.CarExample.Car</font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>
+        - getFirstUser(<font color="6060BB"></font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User</font>
+        - getFirstCar(<font color="6060BB"></font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.Car</font>
+        - getFirstInvoice(<font color="6060BB"></font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice</font>
+        - getFirstComplaints(<font color="6060BB"></font>): <font color="BB6060">Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints</font>
       }
       abstract class Examples.BetterDesign.Repository.CarExample.Vehicle [[Examples.BetterDesign.Repository.CarExample.Vehicle-diagram-detailed.svg]] #yellow {
         + db: Examples.BetterDesign.Repository.CarExample.DBCar
 ==
-        - setSpeed(<font color="6060BB"></font>)
-        - getSpeed(<font color="6060BB"></font>)
+        - setSpeed(<font color="6060BB"></font>): <font color="BB6060">void</font>
+        - getSpeed(<font color="6060BB"></font>): <font color="BB6060">int</font>
       }
         abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Driver [[Examples.BetterDesign.Repository.CarExample.CarParts.Driver-diagram-detailed.svg]] #yellow {
           + db: Examples.BetterDesign.Repository.CarExample.DBCar
 ==
-          - getWeight(<font color="6060BB"></font>)
+          - getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
         }
         abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Seats [[Examples.BetterDesign.Repository.CarExample.CarParts.Seats-diagram-detailed.svg]] #yellow {
           + db: Examples.BetterDesign.Repository.CarExample.DBCar
 ==
-          - getWeight(<font color="6060BB"></font>)
+          - getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
         }
         abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Doors [[Examples.BetterDesign.Repository.CarExample.CarParts.Doors-diagram-detailed.svg]] #yellow {
           + db: Examples.BetterDesign.Repository.CarExample.DBCar
 ==
-          - getWeight(<font color="6060BB"></font>)
+          - getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
         }
         abstract class Examples.BetterDesign.Repository.CarExample.CarParts.Wheels [[Examples.BetterDesign.Repository.CarExample.CarParts.Wheels-diagram-detailed.svg]] #yellow {
           + db: Examples.BetterDesign.Repository.CarExample.DBCar
 ==
-          - getWeight(<font color="6060BB"></font>)
+          - getWeight(<font color="6060BB"></font>): <font color="BB6060">int</font>
+        }
+        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-detailed.svg]] #yellow {
         }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice-diagram-detailed.svg]] #yellow {
         }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints-diagram-detailed.svg]] #yellow {
-        }
-        abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer-diagram-detailed.svg]] #yellow {
         }
         abstract class Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User [[Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User-diagram-detailed.svg]] #yellow {
         }
@@ -80,24 +80,25 @@ note "Your are analyzing:\nExamples.BetterDesign.Repository **detailed** \n\n==F
  ' *************************************** 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign
-Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car  : uses 
+Examples.BetterDesign.Service .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Driver  : uses 
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Seats  : uses 
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Wheels  : uses 
 Examples.BetterDesign.Repository.CarExample.Vehicle <|-[#red]- Examples.BetterDesign.Repository.CarExample.Car
 Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
 Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Seats 
 Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Driver 
 Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Doors 
 Examples.BetterDesign.Repository.CarExample.Car .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Doors  : uses 
-Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
-Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints  : uses 
 Examples.BetterDesign.Repository.CarExample.DBWarehouse .[#6060BB].> Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User  : uses 
 Examples.BetterDesign.Repository.CarExample.Vehicle *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.DBCar 
 ' Class relations extracted from namespace:

@@ -39,6 +39,7 @@ DotNetPreAdapter.Domain.Datastructure *-[#10BB10]- DotNetPreAdapter.Utils.Logger
 DotNetPreAdapter.Domain.Datastructure -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_Variable  : uses 
 DotNetPreAdapter.Domain.Datastructure .[#6060BB].> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
 DotNetPreAdapter.Domain.Datastructure -[#909090]-> DotNetPreAdapter.Domain.Datastructure_DOT_SubDataStructure  : uses 
+DotNetPreAdapter.Domain.Datastructure.SubDataStructure .[#6060BB].> DotNetPreAdapter.Domain.Datastructure_DOT_Method  : uses 
 DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_ParameterType 
 DotNetPreAdapter.Domain.Datastructure_DOT_Method +-[#10BBBB]- DotNetPreAdapter.Domain.Datastructure_DOT_Method_DOT_Variable 
 DotNetPreAdapter.Domain.ASTVisitor *-[#10BB10]- DotNetPreAdapter.Domain.Datastructure 

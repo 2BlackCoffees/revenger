@@ -27,7 +27,9 @@
     statics: []
     methods:
     - method_name: doNothing
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     filemodule: MyNamespace
@@ -46,6 +48,8 @@
     methods:
     - method_name: UnusedInnerClass
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: unusedClass
         parameter_type: MyNamespace.UnusedClass
       method_variables: []
@@ -65,7 +69,9 @@
     statics: []
     methods:
     - method_name: unused
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: True
     filemodule: MyNamespace.DotNetPreAdapter
@@ -100,7 +106,9 @@
     statics: []
     methods:
     - method_name: unused
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: True
     filemodule: MyNamespace.DotNetPreAdapter
@@ -171,7 +179,9 @@
     statics: []
     methods:
     - method_name: doNothing
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     filemodule: DotNetPreAdapter
@@ -210,27 +220,39 @@
     statics: []
     methods:
     - method_name: log
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: True
     - method_name: LogError
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: LogWarning
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: LogInfo
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: LogDebug
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: LogTrace
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     filemodule: DotNetPreAdapter.Utils
@@ -248,7 +270,9 @@
     statics: []
     methods:
     - method_name: removeMe
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables:
       - variable_name: u1
         variable_type: MyNamespace.UnusedClass
@@ -258,7 +282,9 @@
         variable_type: MyNamespace.UnusedClass1
       is_private: True
     - method_name: Main
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables:
       - variable_name: logger
         variable_type: DotNetPreAdapter.Utils.Logger
@@ -281,12 +307,16 @@
     methods:
     - method_name: getOrderedCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car
       - parameter_name: physicalCar
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getPhysicalCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       - parameter_name: car
         parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Car
       method_variables: []
@@ -307,12 +337,16 @@
     methods:
     - method_name: getCarsForDriver
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: String[]
       - parameter_name: driver
         parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
       method_variables: []
       is_private: True
     - method_name: updateCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: car
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       - parameter_name: seats
@@ -321,6 +355,8 @@
       is_private: True
     - method_name: updateCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: car
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       - parameter_name: doors
@@ -329,6 +365,8 @@
       is_private: True
     - method_name: sellCarTo
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: car
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       - parameter_name: driver
@@ -337,30 +375,40 @@
       is_private: True
     - method_name: getCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       - parameter_name: d
         parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
       method_variables: []
       is_private: True
     - method_name: getDriver
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Driver
       - parameter_name: c
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getWheels
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Wheels
       - parameter_name: c
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getDoors
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
       - parameter_name: c
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getSeats
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Seats
       - parameter_name: c
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       method_variables: []
@@ -381,66 +429,90 @@
     methods:
     - method_name: getCustomer
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer
       - parameter_name: i
         parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice
       method_variables: []
       is_private: True
     - method_name: getCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       - parameter_name: c
         parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints
       method_variables: []
       is_private: True
     - method_name: getInvoice
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice
       - parameter_name: c
         parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer
       method_variables: []
       is_private: True
     - method_name: getComplaints
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints
       - parameter_name: c
         parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer
       method_variables: []
       is_private: True
     - method_name: getUser
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User
       - parameter_name: car
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getCustomer
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Customer
       - parameter_name: complaint
         parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints
       method_variables: []
       is_private: True
     - method_name: getCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       - parameter_name: user
         parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User
       method_variables: []
       is_private: True
     - method_name: getComplaints
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints
       - parameter_name: car
         parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getFirstUser
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.User
       method_variables: []
       is_private: True
     - method_name: getFirstCar
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getFirstInvoice
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Invoice
       method_variables: []
       is_private: True
     - method_name: getFirstComplaints
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BetterDesign.Repository.CarExample.WarehouseEntities.Complaints
       method_variables: []
       is_private: True
     filemodule: Examples.BetterDesign.Repository.CarExample
@@ -531,11 +603,15 @@
     statics: []
     methods:
     - method_name: setSpeed
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: True
     - method_name: getSpeed
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BetterDesign.Repository.CarExample
@@ -567,6 +643,8 @@
     methods:
     - method_name: createCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: doors
         parameter_type: Examples.BetterDesign.Repository.CarExample.CarParts.Doors
       method_variables: []
@@ -589,7 +667,9 @@
     statics: []
     methods:
     - method_name: getWeight
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BetterDesign.Repository.CarExample.CarParts
@@ -610,7 +690,9 @@
     statics: []
     methods:
     - method_name: getWeight
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BetterDesign.Repository.CarExample.CarParts
@@ -631,7 +713,9 @@
     statics: []
     methods:
     - method_name: getWeight
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BetterDesign.Repository.CarExample.CarParts
@@ -652,7 +736,9 @@
     statics: []
     methods:
     - method_name: getWeight
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BetterDesign.Repository.CarExample.CarParts
@@ -670,101 +756,141 @@
     statics: []
     methods:
     - method_name: get
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: String[]
       method_variables: []
       is_private: True
     - method_name: getCarsWhere
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: String[]
       method_variables: []
       is_private: True
     - method_name: set
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: True
     - method_name: update
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: True
     - method_name: getUserWhere
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.User
       method_variables: []
       is_private: True
     - method_name: getCustomerWhere
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Customer
       method_variables: []
       is_private: True
     - method_name: getWarehouseCarWhere
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Car
       method_variables: []
       is_private: True
     - method_name: getInvoiceWhere
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Invoice
       method_variables: []
       is_private: True
     - method_name: getComplaintsWhere
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Complaints
       method_variables: []
       is_private: True
     - method_name: getFirstCustomerWhere
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Customer
       method_variables: []
       is_private: True
     - method_name: getUserFromWarehouseCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.User
       - parameter_name: item
         parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Car
       method_variables: []
       is_private: True
     - method_name: getCustomerFromComplaint
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Customer
       - parameter_name: complaint
         parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Complaints
       method_variables: []
       is_private: True
     - method_name: getWarehouseCarFromUser
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.Car
       - parameter_name: user
         parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Car
       method_variables: []
       is_private: True
     - method_name: getInvoiceFromCustomer
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Invoice
       - parameter_name: c
         parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Customer
       method_variables: []
       is_private: True
     - method_name: getComplaintsFromWarehouseCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Complaints
       - parameter_name: item
         parameter_type: Examples.BadDesign.CarExample.WarehouseEntities.Car
       method_variables: []
       is_private: True
     - method_name: getCarFromDriver
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.Car
       - parameter_name: d
         parameter_type: Examples.BadDesign.CarExample.CarParts.Driver
       method_variables: []
       is_private: True
     - method_name: getDriverFromCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.CarParts.Driver
       - parameter_name: c
         parameter_type: Examples.BadDesign.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getWheelsFromCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.CarParts.Wheels
       - parameter_name: c
         parameter_type: Examples.BadDesign.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getDoorsFromCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.CarParts.Doors
       - parameter_name: c
         parameter_type: Examples.BadDesign.CarExample.Car
       method_variables: []
       is_private: True
     - method_name: getSeatsFromCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Examples.BadDesign.CarExample.CarParts.Seats
       - parameter_name: c
         parameter_type: Examples.BadDesign.CarExample.Car
       method_variables: []
@@ -857,11 +983,15 @@
     statics: []
     methods:
     - method_name: setSpeed
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: True
     - method_name: getSpeed
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BadDesign.CarExample
@@ -890,6 +1020,8 @@
     methods:
     - method_name: createCar
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: doors
         parameter_type: Examples.BadDesign.CarExample.CarParts.Doors
       method_variables:
@@ -914,7 +1046,9 @@
     statics: []
     methods:
     - method_name: getWeight
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BadDesign.CarExample.CarParts
@@ -935,7 +1069,9 @@
     statics: []
     methods:
     - method_name: getWeight
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BadDesign.CarExample.CarParts
@@ -956,7 +1092,9 @@
     statics: []
     methods:
     - method_name: getWeight
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BadDesign.CarExample.CarParts
@@ -977,7 +1115,9 @@
     statics: []
     methods:
     - method_name: getWeight
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: int
       method_variables: []
       is_private: True
     filemodule: Examples.BadDesign.CarExample.CarParts
@@ -996,6 +1136,8 @@
     methods:
     - method_name: SearchRecurseCSharpToYAML
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: logger
         parameter_type: DotNetPreAdapter.Utils.Logger
       method_variables:
@@ -1027,11 +1169,15 @@
     statics: []
     methods:
     - method_name: SearchPath
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: ProcessDirectory
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: True
     filemodule: DotNetPreAdapter.Service
@@ -1050,6 +1196,8 @@
     methods:
     - method_name: Create
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: datastructure
         parameter_type: DotNetPreAdapter.Domain.Datastructure
       - parameter_name: logger
@@ -1113,7 +1261,9 @@
     statics: []
     methods:
     - method_name: ResolveClassNames
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables:
       - variable_name: variables
         variable_type: list[DotNetPreAdapter.Domain.Datastructure.Variable]
@@ -1122,42 +1272,58 @@
       is_private: False
     - method_name: CorrectClassScope
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: subDataStructure
         parameter_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
       method_variables: []
       is_private: True
     - method_name: getFQDNClassNameFromNamespacelist
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       method_variables: []
       is_private: True
     - method_name: GetFQDNForUsedClassName
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       - parameter_name: subDataStructure
         parameter_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
       method_variables: []
       is_private: True
     - method_name: get_skip_types
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: append_sub_datastructure
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: sub_datastructure
         parameter_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
       method_variables: []
       is_private: True
     - method_name: append_class
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables:
       - variable_name: sub_datastructure
         variable_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
       is_private: False
     - method_name: get_classname_list
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: get_datastructures_from_class_name
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: DotNetPreAdapter.Domain.Datastructure.SubDataStructure
       method_variables: []
       is_private: False
     filemodule: DotNetPreAdapter.Domain
@@ -1177,7 +1343,9 @@
     statics: []
     methods:
     - method_name: AddVariable
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     filemodule: DotNetPreAdapter.Domain
@@ -1263,51 +1431,75 @@
     statics: []
     methods:
     - method_name: set_abstract
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: setInterface
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: setInnerClass
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: getUsings
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: addImport
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: getImports
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: dict[string, string]
       method_variables: []
       is_private: False
     - method_name: addGenericType
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: addAnonymousInvocation
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: addAnonymousStaticInvocation
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: add_base_class
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: add_static
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: add_method
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: arguments_tuple_
         parameter_type: list[tuple[string, string, string]]
       method_variables:
@@ -1315,91 +1507,135 @@
         variable_type: list[DotNetPreAdapter.Domain.Datastructure.Method.ParameterType]
       is_private: False
     - method_name: GetMethod
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: DotNetPreAdapter.Domain.Datastructure.Method
       method_variables: []
       is_private: False
     - method_name: add_variable
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: add_inner_class
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       method_variables: []
       is_private: False
     - method_name: is_abstract
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: bool
       method_variables: []
       is_private: False
     - method_name: IsInterface
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: bool
       method_variables: []
       is_private: False
     - method_name: IsInnerClass
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: bool
       method_variables: []
       is_private: False
     - method_name: has_static_fields
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: bool
       method_variables: []
       is_private: False
     - method_name: has_method_fields
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: bool
       method_variables: []
       is_private: False
     - method_name: has_variables_fields
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: bool
       method_variables: []
       is_private: False
     - method_name: getAnonymousInvocation
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: getAnonymousStaticInvocation
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: getGenericTypes
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: get_from_imports
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: dict[string, string]
       method_variables: []
       is_private: False
     - method_name: get_fqdn_class_name
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       method_variables: []
       is_private: False
     - method_name: get_base_classes
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: get_static_fields
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[DotNetPreAdapter.Domain.Datastructure.Static]
       method_variables: []
       is_private: False
     - method_name: get_method_fields
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[DotNetPreAdapter.Domain.Datastructure.Method]
       method_variables: []
       is_private: False
     - method_name: get_variable_fields
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[DotNetPreAdapter.Domain.Datastructure.Variable]
       method_variables: []
       is_private: False
     - method_name: get_inner_class_name
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     - method_name: get_filename
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       method_variables: []
       is_private: False
     - method_name: get_filemodule
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       method_variables: []
       is_private: False
     - method_name: get_name_space_list
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: list[string]
       method_variables: []
       is_private: False
     filemodule: DotNetPreAdapter.Domain
@@ -1430,11 +1666,15 @@
     statics: []
     methods:
     - method_name: SimplifyType
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       method_variables: []
       is_private: True
     - method_name: SyntaxNode
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       - parameter_name: node
         parameter_type: SyntaxNode
       method_variables:
@@ -1442,11 +1682,15 @@
         variable_type: ITypeSymbol
       is_private: False
     - method_name: GetCurrentClassName
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       method_variables: []
       is_private: True
     - method_name: CreateClassInterface
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: Tuple[SubDataStructure, string]
       - parameter_name: node
         parameter_type: T
       method_variables:
@@ -1458,51 +1702,69 @@
         variable_type: ITypeSymbol
       is_private: True
     - method_name: getCurrentContext
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       method_variables: []
       is_private: True
     - method_name: ArgumentsTupleToString
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       - parameter_name: arguments_tuple
         parameter_type: list[Tuple[string, string, string]]
       method_variables: []
       is_private: True
     - method_name: cleanForRegEx
-      parameters: []
+      parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: string
       method_variables: []
       is_private: True
     - method_name: VisitNamespaceDeclaration
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: node
         parameter_type: NamespaceDeclarationSyntax
       method_variables: []
       is_private: False
     - method_name: VisitUsingDirective
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: node
         parameter_type: UsingDirectiveSyntax
       method_variables: []
       is_private: False
     - method_name: VisitEnumDeclaration
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: node
         parameter_type: EnumDeclarationSyntax
       method_variables: []
       is_private: False
     - method_name: VisitInterfaceDeclaration
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: node
         parameter_type: InterfaceDeclarationSyntax
       method_variables: []
       is_private: False
     - method_name: VisitClassDeclaration
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: node
         parameter_type: ClassDeclarationSyntax
       method_variables: []
       is_private: False
     - method_name: VisitMethodDeclaration
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: node
         parameter_type: MethodDeclarationSyntax
       method_variables:
@@ -1515,6 +1777,8 @@
       is_private: False
     - method_name: VisitVariableDeclaration
       parameters:
+      - parameter_name: '!_return_value_!'
+        parameter_type: void
       - parameter_name: node
         parameter_type: VariableDeclarationSyntax
       method_variables:

@@ -14,6 +14,7 @@ note "Your are analyzing:\nExamples.BetterDesign.Repository.CarExample.CarParts.
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample
 Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.Car  : uses 
+Examples.BetterDesign.Repository.CarExample.DBCar .[#6060BB].> Examples.BetterDesign.Repository.CarExample.CarParts.Wheels  : uses 
 Examples.BetterDesign.Repository.CarExample.Car *-[#10BB10]- Examples.BetterDesign.Repository.CarExample.CarParts.Wheels 
 ' Class relations extracted from namespace:
 ' Examples.BetterDesign.Repository.CarExample.CarParts
