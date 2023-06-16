@@ -6,15 +6,8 @@ import java.util.*;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.*;
 import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.expr.AssignExpr;
-import com.github.javaparser.ast.expr.ClassExpr;
-import com.github.javaparser.ast.expr.MethodCallExpr;
-import com.github.javaparser.ast.expr.MethodReferenceExpr;
-import com.github.javaparser.ast.stmt.WhileStmt;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.type.Type;
-import com.github.javaparser.ast.type.VoidType;
-import com.github.javaparser.ast.type.WildcardType;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import org.javatuples.Triplet;
@@ -28,7 +21,6 @@ import preadapter.Logger;
 public class ASTVisitor extends VoidVisitorAdapter<Void> {
 
     private Logger logger = null;
-    private boolean extended = true;
     Datastructure datastructure;
     String filename;
     List<String> activeMethodList = new ArrayList<>();
