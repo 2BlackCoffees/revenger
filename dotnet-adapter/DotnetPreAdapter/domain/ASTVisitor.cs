@@ -310,6 +310,17 @@ namespace DotNetPreAdapter
 
                 List<Tuple<string, string, string>> arguments_tuple = new List<Tuple<string, string, string>>();
                 string mostProbableNamespace = String.Join(".", namespaceList);
+                logger.LogDebug($"  VisitMethodDeclaration: {methodName} ReturnType {node.ReturnType.ToFullString()} ");
+                string? returnType = SyntaxNode(node.ReturnType);
+                if (returnType != null)
+                {
+                    logger.LogDebug($"    VisitMethodDeclaration: {methodName} ReturnType transformed to {returnType} ");
+                    arguments_tuple.Add(new Tuple<string, string, string>(
+                                    "!_return_value_!", returnType, mostProbableNamespace));
+                } else
+                {
+                    logger.LogWarning($"  VisitMethodDeclaration: {methodName} ReturnType {node.ReturnType.ToFullString()} could not be transformed and will be skipped! ");
+                }
                 if (node.ParameterList != null)
                 {
                     foreach (ParameterSyntax parameter in node.ParameterList.Parameters)
