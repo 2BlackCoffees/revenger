@@ -8,7 +8,7 @@ from pstats import SortKey
 from domain.datastructure import LanguageDependent
 from domain.datastructure import PythonLanguage
 from domain.datastructure import JavaLanguage
-from domain.diagram_creation import DiagramCreation
+from domain.datastructure import CSharpLanguage
 from domain.logger import Logger
 from services.application_service import ApplicationService
 from services.application_service import SourceType
@@ -70,6 +70,8 @@ def main(from_dir: str, out_dir: str) -> None:
 
     if args.from_language and args.from_language.lower() == 'java':
         language = JavaLanguage(logger)
+    elif args.from_language and args.from_language.lower() == 'csharp':
+        language = CSharpLanguage(logger)
     else:
         language = PythonLanguage(logger)
 

@@ -38,6 +38,22 @@ class JavaLanguage(LanguageDependent):
         class_name = re.sub(',', '_COMMA_', class_name)
         return class_name
 
+class CSharpLanguage(LanguageDependent):
+    def __init__(self, logger: Logger):
+        self.logger = logger
+
+    def get_skip_types(self) -> List[str]:
+        return ['string', 'EnumTypePlaceHolder', 'float', 'bool', 'double', 'void', 'Integer', 'Float', 'Boolean', 'void', 
+                'decimal', 'sbyte', 'byte', 'short', 'ushort', 'int', 'uint', 'long', 'ulong', 'char']
+
+    def clean_type(self, class_name: str) -> str:
+        class_name = re.sub('[\[\{\(\<]', '_BRQTO_', class_name)
+        class_name = re.sub('[\>\)\]\}]', '_BRQTC', class_name)
+        class_name = re.sub('\s+extends\s+', '_XTNDS_', class_name)
+        class_name = re.sub('\s+implements\s+', '_MPLMNTS_', class_name)
+        class_name = re.sub('\s+', '_SPC_', class_name)
+        class_name = re.sub(',', '_COMMA_', class_name)
+        return class_name
 
 class Datastructure(GenericDatastructure):
     NOT_EXTRACTED: str = '** Not extracted **'
