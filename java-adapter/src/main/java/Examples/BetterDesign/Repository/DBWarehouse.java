@@ -9,25 +9,25 @@ public class DBWarehouse {
     Customer getCustomer(Invoice i) {
         return null;
     }
-    Car getCar(Complaints c) {
-        return null;
-    }
-    Invoice getInvoice(Customer c) {
-        return null;
-    }
-    Complaints getComplaints(Customer c) {
-        return null;
-    }
-    User getUser(Car car) {
-        return null;
-    }
     Customer getCustomer(Complaints complaint) {
+        return null;
+    }
+    Car getCar(Complaints c) {
         return null;
     }
     Car getCar(User user) {
         return null;
     }
     Complaints getComplaints(Car car) {
+        return null;
+    }
+    Complaints getComplaints(Customer c) {
+        return null;
+    }
+    Invoice getInvoice(Customer c) {
+        return null;
+    }
+    User getUser(Car car) {
         return null;
     }
     User getFirstUser() {
