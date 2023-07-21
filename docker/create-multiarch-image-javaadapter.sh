@@ -6,7 +6,7 @@ docker-buildx create --name javabuilder
 docker-buildx use javabuilder
 docker-buildx inspect javabuilder --bootstrap
 docker-buildx build \
-  	-f Dockerfile.javaadapter \
+    -f Dockerfile.javaadapter \
     --platform linux/arm64,linux/amd64 \
-   	-t 2blackcoffees/revenger_javaadapter:latest . --push
+    -t 2blackcoffees/revenger_javaadapter:latest . --push
 popd
