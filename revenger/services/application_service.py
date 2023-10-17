@@ -17,7 +17,7 @@ from domain.statistics_compute import StatisticsCompute
 from infrastructure.python_adapter import PythonAdapter
 from infrastructure.yaml_adapter import YAMLAdapter
 from infrastructure.statistics_html import StatisticsHtml
-
+from pprint import pformat
 
 class SourceType(Enum):
     PYTHON_SOURCE = 1,
@@ -40,6 +40,7 @@ class ApplicationService:
         if file_list is None or len(file_list) == 0:
             logger.log_error(f"No file type {file_types} could be found in directory {from_dir}!")
         else:
+            logger.log_info(f"Analyzing following YAML files: {pformat(file_list)}")
             for file in file_list:
                 file_name: str = os.path.join(from_dir, file)
                 if source_type == SourceType.PYTHON_SOURCE:

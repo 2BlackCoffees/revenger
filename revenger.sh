@@ -60,6 +60,24 @@ list_file_to_parameters() {
   fi
 
 }
+list_puml_files_not_transformed() {
+    deadletter=Deadletter
+
+    find . -name "*.svg" -size 0 -type f | xargs rm 2>/dev/null
+    list_all_puml=$(mktemp)
+    list_puml_done=$(mktemp)
+    list_remaining_puml_init=$(mktemp)
+
+    find . -type f -name "*.puml" | grep -v $deadletter | perl -npe 's:([\[\]]):\\\\$1:g;s:([<> ]):\\\\$1:g;' | sort > $list_all_puml 2>/dev/null
+    find . -type f -name "*.svg" | grep -v $deadletter | sed 's:\.svg:\.puml:' | sort > $list_puml_done 2>/dev/null
+    echo "Remaining not processed PUML files:"
+    diff $list_puml_done $list_all_puml | grep '>' | sed 's:^[\> ]*::g' > $list_remaining_puml_init
+    cat $list_remaining_puml_init
+    echo "Number of files: $(cat $list_remaining_puml_init | wc -l)"
+    rm $list_all_puml
+    rm $list_puml_done
+    rm $list_remaining_puml_init
+}
 
 get_list_puml_not_processed() {
   keep_old_svg_and_tmp_files=$1
@@ -72,7 +90,7 @@ get_list_puml_not_processed() {
     find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs -I '{}' mv {} $deadletter >/dev/null 2>&1
 
     find . -name "*.svg" -size 0 -type f | perl -npe 's:svg$:puml:' | xargs rm >/dev/null 2>&1
-    find . -name "*.svg" -size 0 -type f | xargs rm 
+    find . -name "*.svg" -size 0 -type f | xargs rm  >/dev/null 2>&1
     list_all_puml=$(mktemp)
     list_puml_done=$(mktemp)
     find . -type f -name "*.puml" | grep -v $deadletter | perl -npe 's:([\[\]]):\\\\$1:g;s:([<> ]):\\\\$1:g;' | sort > $list_all_puml 2>/dev/null
@@ -145,7 +163,7 @@ create_svg_files() {
   last_processed_files_date_time=$(date '+%d/%m/%Y %H:%M:%S')
   need_carriage_return=0
 
-  while [[ $(ps -edf | grep $pid_plant_uml | grep $command_file) ]]; do
+  while [[ $(ps -ef | grep $pid_plant_uml | grep $command_file) ]]; do # ps -d does not work on Cygwin
     unix_epoch=$(date +%s)
     if [[ $((unix_epoch - last_printed_waiting_message_time)) -gt 10 ]]; then
       export latest_file_name_svg=$(ls -t | grep '\.svg'| head -1 | sed 's:svg$:puml:')
@@ -215,6 +233,7 @@ function usage() {
     echo "               [ --force_docker_plantuml ]      The script will prefer a local installed plantuml, force usage of docker image instead"
     echo "               [ --timeout ]                    Defines the timeout in seconds when generating svg files (Default is 900 seconds)"
     echo "               [ --process_svg_only ]           Skip puml generation and process (or continue processing svg generation)"
+    echo "               [ --list_only_missing_svg ]      Only list PUML files that were not translated in SVG"
     echo "               [ --summary_page_only ]          Generate a summary page (This option will short circuit the analysis processing)"
     echo "               [ --summary_page_title <title> ] Specifies a title for the summary"
     echo "               [ --force_python ]               Force a specific version of python"
@@ -282,6 +301,7 @@ force_clean_out_directory=0
 script_dir=$(dirname $0)
 summary_page_title="NoTitleDefined"
 line_type="ortho"
+list_only_missing_svg=0
 while [[ "$1" != "" ]]; do
     case $1 in
         --force_python )
@@ -294,6 +314,9 @@ while [[ "$1" != "" ]]; do
           ;;
         --init )
           force_init=1
+          ;;
+        --list_only_missing_svg )
+          list_only_missing_svg=1
           ;;
         --force_clean_out_directory )
           force_clean_out_directory=1
@@ -344,7 +367,7 @@ while [[ "$1" != "" ]]; do
         -p | --plantweb_dep_install )
           info "Installing plantweb dependency for rendering SVC....."
           warning "WARNING: Data will be sent to Planweb server, use only for non-sensitive code!!!!!"
-          $var_pip install plantweb
+          $python -m pip install plantweb
           svg_dep=insecure
           info "Finished installing plantweb dependency for the script!!"
           ;;   
@@ -406,6 +429,10 @@ while [[ "$1" != "" ]]; do
     shift
 done
 
+if [[ $list_only_missing_svg == 1 ]]; then
+  list_puml_files_not_transformed
+  exit 0
+fi
 $var_pip -h >/dev/null 2>&1 || var_pip=pip
 $var_pip -h >/dev/null 2>&1 || error "Could not find $var_pip, please make sure $python and $var_pip are installed (See https://www.python.org/downloads/)."
 # Following is not platform independant
@@ -444,10 +471,13 @@ if [[ $summary_page_only == 0 ]]; then
                   fi
                   bash -c $plantuml -h > /dev/null 2>&1 
                   if [[ $? != 0 ]]; then
-                      info "$plantuml not found searching trying with the jar file."
-                      if [[ -f plantuml.jar ]];then 
-                        plantuml="java -Djava.awt.headless=true  -Xmx8G -jar plantuml.jar"
-                        bash -c $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
+                      info "$plantuml not found!"
+                      info "Searching if a jar file can be found in $basepath."
+                      if [[ -f $basepath/plantuml.jar ]];then 
+                        plantuml="$basepath/tmp-run-plantuml-jar.sh"
+                        echo "java -Djava.awt.headless=true  -Xmx8G -jar $basepath/plantuml.jar \$@" > $plantuml
+                        chmod 755 $plantuml
+                        $plantuml -h > /dev/null 2>&1 || error "None of the possible local plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
                       else
                         error "Local installed plantuml or plantuml docker are not accessible on your system, either install docker or try to install plantuml with brew or with the option --plantuml_install."
                       fi

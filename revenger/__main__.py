@@ -65,8 +65,7 @@ def main(from_dir: str, out_dir: str) -> None:
 
     logger: Logger = Logger(args.info, args.debug, args.trace)
     if not from_dir.startswith('/'):
-        logger.log_error(f'Source directory ({from_dir}) is invalid, it requires an absolute path! Exiting!')
-        exit(1)
+        logger.log_warn(f'Source directory ({from_dir}) is invalid, it requires an absolute path! This might be due to a Windows inacurate converted path!')
 
     if args.from_language and args.from_language.lower() == 'java':
         language = JavaLanguage(logger)

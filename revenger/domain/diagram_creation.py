@@ -153,6 +153,9 @@ class DiagramCreation:
 
     def __get_namespace_name(self, namespace_list: List[str], index: int, detailed: bool, grouped_per_ns: bool) -> str:
         namespace_name: str = '.'.join([ namespace for namespace in namespace_list[0: index]])
+        if namespace_name is None or namespace_name == '':
+            namespace_name = '__was_empty_namespace_filled_by_revenger__'
+            self.logger.log_error(f"namespace_name is empty, replaced with {namespace_name}")
 
         namespace_filtered_filename: str = self.get_file_name_from_class_namespace_name(detailed, grouped_per_ns, namespace_name, True)
 
