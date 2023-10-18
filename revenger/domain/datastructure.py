@@ -27,7 +27,8 @@ class JavaLanguage(LanguageDependent):
         self.logger = logger
 
     def get_skip_types(self) -> List[str]:
-        return ['int', 'String', 'EnumTypePlaceHolder', 'float', 'boolean', 'double', 'void', 'Integer', 'Float', 'Boolean']
+        return ['int', 'String', 'EnumTypePlaceHolder', 'float', 'boolean', 'double', 'Double', 'void', 
+                'Integer', 'Float', 'Boolean', 'Long', 'long',  'byte', 'Byte', 'short', 'Short', 'char', 'Char']
 
     def clean_type(self, class_name: str) -> str:
         class_name = re.sub('[\[\{\(\<]', '_BRQTO_', class_name)
