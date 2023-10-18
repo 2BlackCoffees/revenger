@@ -405,7 +405,7 @@ while [[ "$1" != "" ]]; do
           shift
           ;;
         --plantuml.line_type )
-          statements="$statements --line_type $2"
+          line_type=$2
           shift
           ;;
         --profiler_output )
@@ -428,6 +428,7 @@ while [[ "$1" != "" ]]; do
     esac
     shift
 done
+statements="$statements --line_type $line_type"
 
 if [[ $list_only_missing_svg == 1 ]]; then
   list_puml_files_not_transformed
