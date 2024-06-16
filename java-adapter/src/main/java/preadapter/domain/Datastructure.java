@@ -383,6 +383,10 @@ public class Datastructure {
                             }
                         }
                     } else {
+                        if(className.contains(".")) {
+                            className = className.replaceAll("\\.", "_DOT_");
+                            logger.logWarning("GetFQDNForUsedClassName: Class " + className + " had dots that were replaced.");
+                        }
                         logger.logWarning("GetFQDNForUsedClassName: Class " + className + " not found in the whole list of classes! Class will be left as is.");
                     }
                 } catch (PatternSyntaxException e) {
